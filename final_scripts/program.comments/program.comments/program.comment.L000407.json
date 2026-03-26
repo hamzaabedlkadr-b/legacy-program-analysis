@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.407.f9ab3bf3fc86",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 407",
+  "embedding_text": "PDCBVC comment line 407 section LINKAGE paragraph EXIT. PREPARAZIONE LINK PD1FS00",
+  "content": {
+    "line": 407,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "PREPARAZIONE LINK PD1FS00",
+    "text_raw": "PREPARAZIONE LINK PD1FS00"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 407,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

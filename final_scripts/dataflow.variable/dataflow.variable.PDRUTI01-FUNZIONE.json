@@ -1,0 +1,58 @@
+{
+  "id": "ee51400c85bf0ceb",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PDRUTI01-FUNZIONE",
+  "embedding_text": "PDCBVC variable PDRUTI01-FUNZIONE. Origin=COPY:PDRUTI01. Defined in: PREP-RIGA. Modified in: PREP-RIGA. Used in: LINK-PD0UTI01. Controls flow: yes. Fanout nodes: none.",
+  "content": {
+    "variable": "PDRUTI01-FUNZIONE",
+    "defined_in": [
+      "PREP-RIGA"
+    ],
+    "modified_in": [
+      "PREP-RIGA"
+    ],
+    "used_in": [
+      "LINK-PD0UTI01"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [],
+    "origin": "COPY:PDRUTI01",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 732,
+          "statement": "MOVE '05'       TO  PDRUTI01-FUNZIONE."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "LINK-PD0UTI01",
+          "line_start": 782,
+          "statement": "IF  PDRUTI01-FUNZIONE = '04' OR '05'"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "LINK-PD0UTI01",
+          "line_start": 782,
+          "statement": "IF  PDRUTI01-FUNZIONE = '04' OR '05'"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDRUTI01",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 1,
+      "control_sites": 1
+    }
+  }
+}

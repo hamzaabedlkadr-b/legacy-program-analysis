@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.213.3e99fc296891",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 213",
+  "embedding_text": "PDCBVC comment line 213 section LINKAGE. PROCEDURE DIVISION *",
+  "content": {
+    "line": 213,
+    "section": "LINKAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "PROCEDURE DIVISION *",
+    "text_raw": "PROCEDURE DIVISION                     *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 213,
+    "section": "LINKAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

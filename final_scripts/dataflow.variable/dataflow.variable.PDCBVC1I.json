@@ -1,0 +1,44 @@
+{
+  "id": "c5982a585466c22a",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PDCBVC1I",
+  "embedding_text": "PDCBVC variable PDCBVC1I. Origin=COPY:PDCBVCM. Defined in: BROWSE-FASE1. Modified in: BROWSE-FASE1. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PDCBVC1I",
+    "defined_in": [
+      "BROWSE-FASE1"
+    ],
+    "modified_in": [
+      "BROWSE-FASE1"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 234,
+          "statement": "MOVE LOW-VALUE TO PDCBVC1I."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

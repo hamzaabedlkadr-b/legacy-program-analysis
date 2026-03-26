@@ -1,0 +1,75 @@
+{
+  "id": "b5d060d1662857a0",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1FS00-SESS-FLAG",
+  "embedding_text": "PDCBVC variable PD1FS00-SESS-FLAG. Origin=COPY:PD1FS00. Defined in: none. Modified in: none. Used in: MUOVI-TESTATA-00. Controls flow: yes. Fanout nodes: MUOVI-TESTATA-10.",
+  "content": {
+    "variable": "PD1FS00-SESS-FLAG",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "MUOVI-TESTATA-10"
+    ],
+    "origin": "COPY:PD1FS00",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 564,
+          "statement": "IF    PD1FS00-SESS-FLAG  =  '1'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 567,
+          "statement": "IF    PD1FS00-SESS-FLAG  =  '2'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 570,
+          "statement": "IF    PD1FS00-SESS-FLAG  =  '3'  THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 564,
+          "statement": "IF    PD1FS00-SESS-FLAG  =  '1'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 567,
+          "statement": "IF    PD1FS00-SESS-FLAG  =  '2'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 570,
+          "statement": "IF    PD1FS00-SESS-FLAG  =  '3'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": -1,
+          "statement": "(PD1FS00-SESS-FLAG = '1') OR (PD1FS00-SESS-FLAG = '2')"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COPY:PD1FS00",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 1,
+      "write_sites": 0,
+      "read_sites": 3,
+      "control_sites": 4
+    }
+  }
+}

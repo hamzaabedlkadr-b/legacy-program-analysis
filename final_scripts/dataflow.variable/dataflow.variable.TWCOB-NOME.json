@@ -1,0 +1,42 @@
+{
+  "id": "51aac846b35acfba",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-NOME",
+  "embedding_text": "PDCBVC variable TWCOB-NOME. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: MUOVI-TESTATA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-NOME",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-TESTATA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA",
+          "line_start": 541,
+          "statement": "MOVE TWCOB-NOME         TO MNOMO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

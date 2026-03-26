@@ -1,0 +1,42 @@
+{
+  "id": "program.comment.PDCBVC.393.1bcd052d492d",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 393",
+  "embedding_text": "PDCBVC comment line 393 section LINKAGE paragraph BROWSE-FASE2-VISUAL. CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+  "content": {
+    "line": 393,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE2-VISUAL",
+    "kind": "full_line",
+    "text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+    "text_raw": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 393,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE2-VISUAL",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:BROWSE-FASE2-VISUAL"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "ASKIP-DRK",
+      "KFINE-DATI",
+      "M1MSGO",
+      "M1PF7A",
+      "M1PF8A",
+      "SW-FINE",
+      "TWCOB-FASE",
+      "TWCOB-VARCONT-NPAGINA",
+      "WCTPAG"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "program.comment.PDCBVC.453.201d048a4671",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 453",
+  "embedding_text": "PDCBVC comment line 453 section LINKAGE paragraph INIZ-PARAM-010. IMPOSTA IL TIPO VOCE DA ESTRARRE",
+  "content": {
+    "line": 453,
+    "section": "LINKAGE",
+    "paragraph": "INIZ-PARAM-010",
+    "kind": "full_line",
+    "text": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
+    "text_raw": "IMPOSTA IL TIPO VOCE DA ESTRARRE"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 453,
+    "section": "LINKAGE",
+    "paragraph": "INIZ-PARAM-010",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:INIZ-PARAM-010"
+    ]
+  },
+  "links": {
+    "business_rules": [
+      "business_rule.BR-020.json"
+    ],
+    "variables": [
+      "PD1VOCI-TIPO-VOCE",
+      "TWCOB-VARCONT-NUMFUNZ"
+    ]
+  }
+}

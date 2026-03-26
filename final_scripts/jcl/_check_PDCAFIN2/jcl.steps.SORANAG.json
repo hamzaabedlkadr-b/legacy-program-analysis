@@ -1,0 +1,88 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "SORANAG",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "ICEMAN",
+  "program": "ICEMAN",
+  "proc": null,
+  "parameters": {},
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "SORTLIB",
+      "dsn": "SYS1.SORTLIB",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=SYS1.SORTLIB,DISP=SHR",
+      "source_lines": {
+        "start": 99,
+        "end": 99
+      }
+    },
+    {
+      "ddname": "SORTIN",
+      "dsn": "&&FILESTA",
+      "disp": "(OLD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&FILESTA,DISP=(OLD,DELETE)",
+      "source_lines": {
+        "start": 100,
+        "end": 100
+      }
+    },
+    {
+      "ddname": "SORTOUT",
+      "dsn": "&&ANAGS",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&ANAGS,DISP=(,PASS),UNIT=3390,SPACE=(CYL,(1,1))",
+      "source_lines": {
+        "start": 101,
+        "end": 101
+      }
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "source_lines": {
+        "start": 102,
+        "end": 102
+      }
+    },
+    {
+      "ddname": "SYSIN",
+      "dsn": "&&SKANAG",
+      "disp": "(OLD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&SKANAG,DISP=(OLD,DELETE)",
+      "source_lines": {
+        "start": 103,
+        "end": 103
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 98,
+    "end": 98
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

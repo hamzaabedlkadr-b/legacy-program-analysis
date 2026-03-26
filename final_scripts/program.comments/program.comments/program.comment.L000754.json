@@ -1,0 +1,45 @@
+{
+  "id": "program.comment.PDCBVC.754.9a70dcd0b148",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 754",
+  "embedding_text": "PDCBVC comment line 754 section LINKAGE paragraph READ-TAB-SEMAF. in realt� questi a seguire non servono per la lettura",
+  "content": {
+    "line": 754,
+    "section": "LINKAGE",
+    "paragraph": "READ-TAB-SEMAF",
+    "kind": "full_line",
+    "text": "in realt� questi a seguire non servono per la lettura",
+    "text_raw": "in realt� questi a seguire non servono per la lettura"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 754,
+    "section": "LINKAGE",
+    "paragraph": "READ-TAB-SEMAF",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:READ-TAB-SEMAF"
+    ]
+  },
+  "links": {
+    "business_rules": [
+      "business_rule.BR-018.json"
+    ],
+    "variables": [
+      "PXCSEMAF-AGENT",
+      "PXCSEMAF-AREA",
+      "PXCSEMAF-CALLER",
+      "PXCSEMAF-CALLER-TYPE",
+      "PXCSEMAF-NAME",
+      "PXCSEMAF-OUTCOME",
+      "PXCSEMAF-REQ",
+      "PXCSEMAF-USER-REQ",
+      "TWCOB-OPER-SIGLA",
+      "WABEND-CODE"
+    ]
+  }
+}

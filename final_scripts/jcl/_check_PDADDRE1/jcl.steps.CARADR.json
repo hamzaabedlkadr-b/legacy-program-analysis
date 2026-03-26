@@ -1,0 +1,77 @@
+{
+  "type": "jcl.steps",
+  "job": "PDADDRE1",
+  "step": "CARADR",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDADDRE1",
+  "exec_kind": "program",
+  "target": "PDKADR",
+  "program": "PDKADR",
+  "proc": null,
+  "parameters": {
+    "PARM": "'I'"
+  },
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "SYSPRINT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "source_lines": {
+        "start": 98,
+        "end": 98
+      }
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "source_lines": {
+        "start": 99,
+        "end": 99
+      }
+    },
+    {
+      "ddname": "INPSEQ",
+      "dsn": "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO,DISP=SHR",
+      "source_lines": {
+        "start": 100,
+        "end": 100
+      }
+    },
+    {
+      "ddname": "SYSTSPRT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "source_lines": {
+        "start": 101,
+        "end": 101
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 97,
+    "end": 97
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+}

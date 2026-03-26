@@ -1,0 +1,93 @@
+{
+  "id": "c5ab88225851c48c",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1VOCI-TABVOX-NUMERO",
+  "embedding_text": "PDCBVC variable PD1VOCI-TABVOX-NUMERO. Origin=COPY:PD1VOCI. Defined in: none. Modified in: none. Used in: BROWSE-FASE1, CALCOLA-NPAG, MUOVI-DATI-10. Controls flow: yes. Fanout nodes: MUOVI-DATI-30, XCTL-LIV4.",
+  "content": {
+    "variable": "PD1VOCI-TABVOX-NUMERO",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE1",
+      "CALCOLA-NPAG",
+      "MUOVI-DATI-10"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "MUOVI-DATI-30",
+      "XCTL-LIV4"
+    ],
+    "origin": "COPY:PD1VOCI",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 260,
+          "statement": "IF PD1VOCI-TABVOX-NUMERO  =  0    AND"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 272,
+          "statement": "IF PD1VOCI-TABVOX-NUMERO  =  0    THEN"
+        },
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 397,
+          "statement": "DIVIDE MAX-RIGHE INTO PD1VOCI-TABVOX-NUMERO GIVING NPAGT"
+        },
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": 676,
+          "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 260,
+          "statement": "IF PD1VOCI-TABVOX-NUMERO  =  0    AND"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 272,
+          "statement": "IF PD1VOCI-TABVOX-NUMERO  =  0    THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": 676,
+          "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": -1,
+          "statement": "PD1VOCI-TABVOX-NUMERO = 0 AND TWCOB-XCTL-PGM = 'PDCGVC'"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": -1,
+          "statement": "PD1VOCI-TABVOX-NUMERO = 0"
+        },
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": -1,
+          "statement": "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COPY:PD1VOCI",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 3,
+      "fanout_nodes": 2,
+      "write_sites": 0,
+      "read_sites": 4,
+      "control_sites": 6
+    }
+  }
+}

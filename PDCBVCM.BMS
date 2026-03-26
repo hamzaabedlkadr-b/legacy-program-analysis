@@ -1,0 +1,108 @@
+*********************************************************************   
+*              MAPPA PER BROWSE VOCI CONTABILI                      *   
+* MAPSET :  PDCBVCM                                                 *   
+* MAPPE  :  PDCBVC1                                                 *   
+*********************************************************************   
+PDCBVCM   DFHMSD TYPE=&SYSPARM,MODE=INOUT,CTRL=(FREEKB),               X
+               TIOAPFX=YES,LANG=COBOL                                   
+         SPACE                                                          
+PDCBVC1  DFHMDI SIZE=(24,80),                                          X
+               JUSTIFY=FIRST                                            
+         SPACE                                                          
+X1DUMMY  DFHMDF POS=(1,01),LENGTH=01,ATTRB=(ASKIP,FSET,DRK),           X
+               INITIAL='1'                                              
+*-------------------------------------------------------------------*   
+*        TESTATA  MAPPA BROWSE PER VOCI CONTABILI                   *   
+*-------------------------------------------------------------------*   
+         DFHMDF POS=(1,04),LENGTH=01,ATTRB=(ASKIP),                    X
+               INITIAL='*'                                              
+M1SYS    DFHMDF POS=(1,06),LENGTH=02,ATTRB=(ASKIP),                    X
+               INITIAL='SP'                                             
+         DFHMDF POS=(1,09),LENGTH=01,ATTRB=(ASKIP,FSET,BRT),           X
+               INITIAL='*'                                              
+         DFHMDF POS=(1,16),LENGTH=37,ATTRB=(ASKIP,BRT),                X
+               INITIAL='P R E V I D E N Z A   D E P U T A T I'          
+M1DATA   DFHMDF POS=(1,72),LENGTH=08,ATTRB=(ASKIP)                      
+         DFHMDF POS=(2,03),LENGTH=01,ATTRB=(ASKIP),                    X
+               INITIAL='*'                                              
+M0AMB    DFHMDF POS=(2,05),LENGTH=04,ATTRB=(ASKIP),                    X
+               INITIAL='    '                                           
+         DFHMDF POS=(2,10),LENGTH=01,ATTRB=(ASKIP),                    X
+               INITIAL='*'                                              
+         DFHMDF POS=(02,72),LENGTH=8,ATTRB=(ASKIP),                    X
+               INITIAL='pdcbvc'                                         
+*                                                                       
+MMATR    DFHMDF POS=(03,02),LENGTH=07,ATTRB=(ASKIP,FSET,BRT),          X
+               INITIAL=' '                                              
+MCOG     DFHMDF POS=(03,10),LENGTH=30,ATTRB=(ASKIP,FSET,BRT),          X
+               INITIAL=' '                                              
+MNOM     DFHMDF POS=(03,41),LENGTH=29,ATTRB=(ASKIP,FSET,BRT),          X
+               INITIAL=' '                                              
+         DFHMDF POS=(03,71),LENGTH=8,ATTRB=(ASKIP),                    X
+               INITIAL='pdcbvcm'                                        
+*                                                                       
+         DFHMDF POS=(04,37),LENGTH=9,ATTRB=(ASKIP),                    X
+               INITIAL='Sessione:'                                      
+MSESSI   DFHMDF POS=(04,47),LENGTH=7,ATTRB=(ASKIP,FSET,BRT),           X
+               INITIAL='    '                                           
+         DFHMDF POS=(04,56),LENGTH=1,ATTRB=(ASKIP,BRT),                X
+               INITIAL='-'                                              
+MDSESS   DFHMDF POS=(04,58),LENGTH=9,ATTRB=(ASKIP,FSET,BRT),           X
+               INITIAL=' '                                              
+*                                                                       
+         DFHMDF POS=(05,01),LENGTH=04,ATTRB=(ASKIP,BRT),               X
+               INITIAL='Pag.'                                           
+MNPAG    DFHMDF POS=(05,06),LENGTH=06,ATTRB=(ASKIP,FSET,BRT),          X
+               INITIAL='   '                                            
+MDESC    DFHMDF POS=(05,15),LENGTH=48,ATTRB=(ASKIP,BRT),               X
+               INITIAL='   '                                            
+         DFHMDF POS=(06,01),LENGTH=02,ATTRB=(ASKIP,BRT),               X
+               INITIAL='PR'                                             
+         DFHMDF POS=(06,05),LENGTH=04,ATTRB=(ASKIP,BRT),               X
+               INITIAL='VOCE'                                           
+         DFHMDF POS=(06,10),LENGTH=28,ATTRB=(ASKIP,BRT),               X
+               INITIAL='DESCRIZIONE VOCE'                               
+***      DFHMDF POS=(06,40),LENGTH=07,ATTRB=(ASKIP,BRT),            X   
+***            INITIAL='SES.VAR'                                        
+         DFHMDF POS=(06,48),LENGTH=08,ATTRB=(ASKIP,BRT),               X
+               INITIAL='IMPIANTO'                                       
+         DFHMDF POS=(06,57),LENGTH=07,ATTRB=(ASKIP,BRT),               X
+               INITIAL='CESSAZ.'                                        
+         DFHMDF POS=(06,65),LENGTH=11,ATTRB=(ASKIP,BRT),               X
+               INITIAL='IMPOR. RATA'                                    
+         DFHMDF POS=(06,77),LENGTH=03,ATTRB=(ASKIP,BRT),               X
+               INITIAL='PRV'                                            
+         SPACE                                                          
+*---------------------------------------------------------              
+MRIGA    DFHMDF POS=(07,01),LENGTH=79,ATTRB=(ASKIP,FSET),              X
+               OCCURS=15                                                
+*---------------------------------------------------------              
+KSCEL1   DFHMDF POS=(22,10),LENGTH=37,ATTRB=(ASKIP,BRT),               X
+               INITIAL='Specificare il progressivo della voce'          
+KSCEL2   DFHMDF POS=(22,48),LENGTH=11,ATTRB=(ASKIP,BRT),               X
+               INITIAL=' desiderata'                                    
+SCELTA   DFHMDF POS=(22,65),LENGTH=02,ATTRB=(UNPROT,NUM,FSET,BRT),     X
+               INITIAL='__'                                             
+         DFHMDF POS=(22,68),LENGTH=01,ATTRB=(ASKIP)                     
+*---------------------------------------------------------              
+         DFHMDF POS=(23,01),LENGTH=16,ATTRB=(ASKIP),                   X
+               INITIAL='PF1: s. funzione'                               
+         DFHMDF POS=(23,18),LENGTH=12,ATTRB=(ASKIP),                   X
+               INITIAL='PF2: s. nome'                                   
+         DFHMDF POS=(23,31),LENGTH=12,ATTRB=(ASKIP),                   X
+               INITIAL='PF3: s. dati'                                   
+         DFHMDF POS=(23,44),LENGTH=18,ATTRB=(ASKIP),                   X
+               INITIAL='PF4: s. operazione'                             
+         DFHMDF POS=(23,63),LENGTH=15,ATTRB=(ASKIP),                   X
+               INITIAL='PF9: s. sistema'                                
+*---------------------------------------------------------              
+*                                                                       
+M1MSG    DFHMDF POS=(24,01),LENGTH=45,ATTRB=(PROT,BRT)                  
+M1PF7    DFHMDF POS=(24,47),LENGTH=17,ATTRB=(ASKIP),                   X
+               INITIAL='PF7: pag. preced.'                              
+M1PF8    DFHMDF POS=(24,65),LENGTH=15,ATTRB=(ASKIP),                   X
+               INITIAL='PF8: prima pag.'                                
+         EJECT                                                          
+*-----------------------------------------------------------            
+         DFHMSD TYPE=FINAL                                              
+         END                                                            

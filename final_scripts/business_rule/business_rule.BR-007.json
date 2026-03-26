@@ -1,0 +1,32 @@
+{
+  "id": "cfb79f7be4ad237a",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-007",
+  "embedding_text": "PDCBVC business rule BR-007 in scope PREP-LINK-PD1FS00. If (PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2') then JUMP -> PREP-LINK-PD1FS00-EXIT. Category=control. Kind=control. Severity=neutral.",
+  "content": {
+    "id": "BR-007",
+    "program": "PDCBVC",
+    "scope": "PREP-LINK-PD1FS00",
+    "category": "control",
+    "kind": "control",
+    "severity": "neutral",
+    "condition": "(PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2')",
+    "action": "JUMP -> PREP-LINK-PD1FS00-EXIT",
+    "flags": [],
+    "evidence": {
+      "from": "PREP-LINK-PD1FS00",
+      "to": "PREP-LINK-PD1FS00-EXIT",
+      "type": "JUMP",
+      "raw_evidence": "GO TO PREP-LINK-PD1FS00-EXIT."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "PREP-LINK-PD1FS00",
+    "category": "control",
+    "kind": "control",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

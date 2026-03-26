@@ -1,0 +1,87 @@
+{
+  "id": "923669a21c3aa4b5",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable N-RIGHE",
+  "embedding_text": "PDCBVC variable N-RIGHE. Origin=WORKING-STORAGE. Defined in: MUOVI-DATI. Modified in: MUOVI-DATI. Used in: MUOVI-DATI. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "N-RIGHE",
+    "defined_in": [
+      "MUOVI-DATI"
+    ],
+    "modified_in": [
+      "MUOVI-DATI"
+    ],
+    "used_in": [
+      "MUOVI-DATI"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 644,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 646,
+          "statement": "ADD  +1  TO  N-RIGHE"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 654,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 656,
+          "statement": "ADD  +1  TO  N-RIGHE"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 666,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 668,
+          "statement": "ADD  +1  TO  N-RIGHE"
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 648,
+          "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 658,
+          "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 669,
+          "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 6,
+      "read_sites": 3,
+      "control_sites": 0
+    }
+  }
+}

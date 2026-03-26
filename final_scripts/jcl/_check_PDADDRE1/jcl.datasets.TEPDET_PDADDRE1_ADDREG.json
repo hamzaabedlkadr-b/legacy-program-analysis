@@ -1,0 +1,24 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDADDRE1",
+  "dsn": "TEPDET.PDADDRE1.ADDREG",
+  "used_by": [
+    {
+      "step": "PDHADR01",
+      "ddname": "FADDIZ",
+      "program": "PDHADR01",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "SORADR",
+      "ddname": "SORTIN",
+      "program": "ICEMAN",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+}

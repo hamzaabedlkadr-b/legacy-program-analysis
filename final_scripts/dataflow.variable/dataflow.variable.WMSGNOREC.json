@@ -1,0 +1,42 @@
+{
+  "id": "c305544395316f9f",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WMSGNOREC",
+  "embedding_text": "PDCBVC variable WMSGNOREC. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: BROWSE-FASE1. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WMSGNOREC",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE1"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 265,
+          "statement": "MOVE WMSGNOREC   TO WKMSG."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

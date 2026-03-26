@@ -1,0 +1,69 @@
+{
+  "id": "ff3f1954184d5115",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TESTATA2",
+  "embedding_text": "PDCBVC variable TESTATA2. Origin=WORKING-STORAGE. Defined in: MUOVI-TESTATA-20. Modified in: MUOVI-TESTATA-20. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TESTATA2",
+    "defined_in": [
+      "MUOVI-TESTATA-20"
+    ],
+    "modified_in": [
+      "MUOVI-TESTATA-20"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 599,
+          "statement": "MOVE  'COMPETENZE E RITENUTE' TO  TESTATA2"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 603,
+          "statement": "MOVE  'COMPETENZE IMPONIBILI' TO  TESTATA2"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 607,
+          "statement": "MOVE  'COMPETENZE NON IMPONIBILI' TO  TESTATA2"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 611,
+          "statement": "MOVE  'RITENUTE PREVIDENZIALI' TO  TESTATA2"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 615,
+          "statement": "MOVE  'RITENUTE VARIE' TO  TESTATA2"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 619,
+          "statement": "MOVE  'VARIAZIONI MENSILI' TO  TESTATA2."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 6,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.790.812300b42d25",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 790",
+  "embedding_text": "PDCBVC comment line 790 section LINKAGE paragraph EXIT. ABBLENCAMENTO DELLA RIGA DELLA MAPPA *",
+  "content": {
+    "line": 790,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA *",
+    "text_raw": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA                 *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 790,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

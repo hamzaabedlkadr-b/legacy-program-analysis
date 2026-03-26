@@ -1,0 +1,38 @@
+{
+  "id": "program.comment.PDCBVC.519.feed247e7ced",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 519",
+  "embedding_text": "PDCBVC comment line 519 section LINKAGE paragraph PREPARA-MAP. IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+  "content": {
+    "line": 519,
+    "section": "LINKAGE",
+    "paragraph": "PREPARA-MAP",
+    "kind": "full_line",
+    "text": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+    "text_raw": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 519,
+    "section": "LINKAGE",
+    "paragraph": "PREPARA-MAP",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:PREPARA-MAP"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "SCELTAL",
+      "SCELTAO",
+      "TWCOB-VARCONT-VOCE-LIV4",
+      "TWCOB-XCTL",
+      "WCTRIG"
+    ]
+  }
+}

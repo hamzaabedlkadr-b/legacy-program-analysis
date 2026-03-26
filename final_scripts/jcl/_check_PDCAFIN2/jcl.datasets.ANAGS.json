@@ -1,0 +1,32 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "&&ANAGS",
+  "used_by": [
+    {
+      "step": "SORANAG",
+      "ddname": "SORTOUT",
+      "program": "ICEMAN",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "PDHM730D",
+      "ddname": "INPCAF",
+      "program": "PDHM730D",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "M730D2",
+      "ddname": "INPCAF",
+      "program": "PDHM730D",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

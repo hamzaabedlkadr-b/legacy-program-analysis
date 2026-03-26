@@ -1,0 +1,553 @@
+{
+  "program": "PDCBVC",
+  "rules": [
+    {
+      "id": "BR-001",
+      "program": "PDCBVC",
+      "scope": "PDCBVC",
+      "category": "error",
+      "kind": "state",
+      "severity": "fatal",
+      "condition": "NOT (TWCOB-FASE = '1' OR TWCOB-FASE = '2')",
+      "action": "JUMP → ABEND00",
+      "flags": [],
+      "evidence": {
+        "from": "PDCBVC",
+        "to": "ABEND00",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO ABEND00."
+      }
+    },
+    {
+      "id": "BR-002",
+      "program": "PDCBVC",
+      "scope": "PDCBVC",
+      "category": "control",
+      "kind": "state",
+      "severity": "neutral",
+      "condition": "TWCOB-FASE = '1'",
+      "action": "JUMP → BROWSE-FASE1",
+      "flags": [],
+      "evidence": {
+        "from": "PDCBVC",
+        "to": "BROWSE-FASE1",
+        "type": "JUMP",
+        "raw_evidence": "GO TO BROWSE-FASE1."
+      }
+    },
+    {
+      "id": "BR-003",
+      "program": "PDCBVC",
+      "scope": "PDCBVC",
+      "category": "control",
+      "kind": "state",
+      "severity": "neutral",
+      "condition": "TWCOB-FASE = '2'",
+      "action": "JUMP → BROWSE-FASE2",
+      "flags": [],
+      "evidence": {
+        "from": "PDCBVC",
+        "to": "BROWSE-FASE2",
+        "type": "JUMP",
+        "raw_evidence": "GO TO BROWSE-FASE2."
+      }
+    },
+    {
+      "id": "BR-004",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE1",
+      "category": "precondition",
+      "kind": "business",
+      "severity": "guard",
+      "condition": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP'",
+      "action": "CALL → READ-TAB-SEMAF",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE1",
+        "to": "READ-TAB-SEMAF",
+        "type": "CALL",
+        "raw_evidence": "PERFORM READ-TAB-SEMAF"
+      }
+    },
+    {
+      "id": "BR-005",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE1",
+      "category": "permission",
+      "kind": "business",
+      "severity": "block",
+      "condition": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1",
+      "action": "JUMP → XCTL-LIV4",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE1",
+        "to": "XCTL-LIV4",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  XCTL-LIV4"
+      }
+    },
+    {
+      "id": "BR-006",
+      "program": "PDCBVC",
+      "scope": "PREP-LINK-PD1FS00",
+      "category": "error",
+      "kind": "business",
+      "severity": "fatal",
+      "condition": "(NOT ((PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2')))",
+      "action": "JUMP → ABEND00",
+      "flags": [
+        "condition_maybe_inverted_notA_or_B"
+      ],
+      "evidence": {
+        "from": "PREP-LINK-PD1FS00",
+        "to": "ABEND00",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO ABEND00."
+      }
+    },
+    {
+      "id": "BR-007",
+      "program": "PDCBVC",
+      "scope": "PREP-LINK-PD1FS00",
+      "category": "control",
+      "kind": "control",
+      "severity": "neutral",
+      "condition": "(PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2')",
+      "action": "JUMP → PREP-LINK-PD1FS00-EXIT",
+      "flags": [],
+      "evidence": {
+        "from": "PREP-LINK-PD1FS00",
+        "to": "PREP-LINK-PD1FS00-EXIT",
+        "type": "JUMP",
+        "raw_evidence": "GO TO PREP-LINK-PD1FS00-EXIT."
+      }
+    },
+    {
+      "id": "BR-008",
+      "program": "PDCBVC",
+      "scope": "LINK-PD1FS00",
+      "category": "error",
+      "kind": "business",
+      "severity": "fatal",
+      "condition": "PD1FS00-RETURN EQUAL 'E'",
+      "action": "JUMP → ABEND00",
+      "flags": [],
+      "evidence": {
+        "from": "LINK-PD1FS00",
+        "to": "ABEND00",
+        "type": "JUMP",
+        "raw_evidence": "GO TO ABEND00."
+      }
+    },
+    {
+      "id": "BR-009",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "control",
+      "kind": "ui",
+      "severity": "neutral",
+      "condition": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))",
+      "action": "JUMP → BROWSE-FASE2-TASTOER",
+      "flags": [
+        "condition_maybe_inverted_notA_or_B"
+      ],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "BROWSE-FASE2-TASTOER",
+        "type": "JUMP",
+        "raw_evidence": "GO TO BROWSE-FASE2-TASTOER."
+      }
+    },
+    {
+      "id": "BR-010",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "control",
+      "kind": "ui",
+      "severity": "neutral",
+      "condition": "EIBAID = DFHENTER",
+      "action": "JUMP → BROWSE-FASE2-ENTER",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "BROWSE-FASE2-ENTER",
+        "type": "JUMP",
+        "raw_evidence": "GO TO BROWSE-FASE2-ENTER."
+      }
+    },
+    {
+      "id": "BR-011",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "permission",
+      "kind": "ui",
+      "severity": "block",
+      "condition": "EIBAID = DFHPF1",
+      "action": "JUMP → XCTL-LIV1",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "XCTL-LIV1",
+        "type": "JUMP",
+        "raw_evidence": "GO TO XCTL-LIV1."
+      }
+    },
+    {
+      "id": "BR-012",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "permission",
+      "kind": "ui",
+      "severity": "block",
+      "condition": "EIBAID = DFHPF2",
+      "action": "JUMP → XCTL-LIV2",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "XCTL-LIV2",
+        "type": "JUMP",
+        "raw_evidence": "GO TO XCTL-LIV2."
+      }
+    },
+    {
+      "id": "BR-013",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "permission",
+      "kind": "ui",
+      "severity": "block",
+      "condition": "EIBAID = DFHPF3",
+      "action": "JUMP → XCTL-LIV3",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "XCTL-LIV3",
+        "type": "JUMP",
+        "raw_evidence": "GO TO XCTL-LIV3."
+      }
+    },
+    {
+      "id": "BR-014",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "permission",
+      "kind": "ui",
+      "severity": "block",
+      "condition": "EIBAID = DFHPF4",
+      "action": "JUMP → XCTL-LIV4",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "XCTL-LIV4",
+        "type": "JUMP",
+        "raw_evidence": "GO TO XCTL-LIV4."
+      }
+    },
+    {
+      "id": "BR-015",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "permission",
+      "kind": "ui",
+      "severity": "block",
+      "condition": "EIBAID = DFHPF9",
+      "action": "JUMP → XCTL-LIV0",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "XCTL-LIV0",
+        "type": "JUMP",
+        "raw_evidence": "GO TO XCTL-LIV0."
+      }
+    },
+    {
+      "id": "BR-016",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "control",
+      "kind": "ui",
+      "severity": "neutral",
+      "condition": "EIBAID = DFHPF7",
+      "action": "JUMP → BROWSE-FASE2-PF7",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "BROWSE-FASE2-PF7",
+        "type": "JUMP",
+        "raw_evidence": "GO TO BROWSE-FASE2-PF7."
+      }
+    },
+    {
+      "id": "BR-017",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2",
+      "category": "control",
+      "kind": "ui",
+      "severity": "neutral",
+      "condition": "EIBAID = DFHPF8",
+      "action": "JUMP → BROWSE-FASE2-PF8",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2",
+        "to": "BROWSE-FASE2-PF8",
+        "type": "JUMP",
+        "raw_evidence": "GO TO BROWSE-FASE2-PF8."
+      }
+    },
+    {
+      "id": "BR-018",
+      "program": "PDCBVC",
+      "scope": "READ-TAB-SEMAF",
+      "category": "error",
+      "kind": "business",
+      "severity": "fatal",
+      "condition": "PXCSEMAF-OUTCOME NOT = SPACE",
+      "action": "CALL → ABEND00",
+      "flags": [],
+      "evidence": {
+        "from": "READ-TAB-SEMAF",
+        "to": "ABEND00",
+        "type": "CALL",
+        "raw_evidence": "PERFORM ABEND00"
+      }
+    },
+    {
+      "id": "BR-019",
+      "program": "PDCBVC",
+      "scope": "INIZ-PARAM",
+      "category": "control",
+      "kind": "business_logic",
+      "severity": "neutral",
+      "condition": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')",
+      "action": "JUMP → INIZ-PARAM-010",
+      "flags": [],
+      "evidence": {
+        "from": "INIZ-PARAM",
+        "to": "INIZ-PARAM-010",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  INIZ-PARAM-010."
+      }
+    },
+    {
+      "id": "BR-020",
+      "program": "PDCBVC",
+      "scope": "INIZ-PARAM-010",
+      "category": "control",
+      "kind": "business_logic",
+      "severity": "neutral",
+      "condition": "(TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '5')",
+      "action": "JUMP → INIZ-PARAM-020",
+      "flags": [],
+      "evidence": {
+        "from": "INIZ-PARAM-010",
+        "to": "INIZ-PARAM-020",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  INIZ-PARAM-020."
+      }
+    },
+    {
+      "id": "BR-021",
+      "program": "PDCBVC",
+      "scope": "LINK-PD1VOCI",
+      "category": "error",
+      "kind": "business",
+      "severity": "fatal",
+      "condition": "PD1VOCI-RETURN EQUAL 'E'",
+      "action": "JUMP → ABEND00",
+      "flags": [],
+      "evidence": {
+        "from": "LINK-PD1VOCI",
+        "to": "ABEND00",
+        "type": "JUMP",
+        "raw_evidence": "GO TO ABEND00."
+      }
+    },
+    {
+      "id": "BR-022",
+      "program": "PDCBVC",
+      "scope": "MUOVI-TESTATA-00",
+      "category": "control",
+      "kind": "control",
+      "severity": "neutral",
+      "condition": "(PD1FS00-SESS-FLAG = '1') OR (PD1FS00-SESS-FLAG = '2')",
+      "action": "JUMP → MUOVI-TESTATA-10",
+      "flags": [],
+      "evidence": {
+        "from": "MUOVI-TESTATA-00",
+        "to": "MUOVI-TESTATA-10",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  MUOVI-TESTATA-10."
+      }
+    },
+    {
+      "id": "BR-023",
+      "program": "PDCBVC",
+      "scope": "MUOVI-TESTATA-10",
+      "category": "control",
+      "kind": "business_logic",
+      "severity": "neutral",
+      "condition": "(TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'D')",
+      "action": "JUMP → MUOVI-TESTATA-20",
+      "flags": [],
+      "evidence": {
+        "from": "MUOVI-TESTATA-10",
+        "to": "MUOVI-TESTATA-20",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  MUOVI-TESTATA-20."
+      }
+    },
+    {
+      "id": "BR-024",
+      "program": "PDCBVC",
+      "scope": "MUOVI-TESTATA-20",
+      "category": "control",
+      "kind": "business_logic",
+      "severity": "neutral",
+      "condition": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '5')",
+      "action": "JUMP → MUOVI-TESTATA-30",
+      "flags": [],
+      "evidence": {
+        "from": "MUOVI-TESTATA-20",
+        "to": "MUOVI-TESTATA-30",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  MUOVI-TESTATA-30."
+      }
+    },
+    {
+      "id": "BR-025",
+      "program": "PDCBVC",
+      "scope": "MUOVI-DATI",
+      "category": "control",
+      "kind": "business_logic",
+      "severity": "neutral",
+      "condition": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')",
+      "action": "JUMP → MUOVI-DATI-10",
+      "flags": [],
+      "evidence": {
+        "from": "MUOVI-DATI",
+        "to": "MUOVI-DATI-10",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  MUOVI-DATI-10."
+      }
+    },
+    {
+      "id": "BR-026",
+      "program": "PDCBVC",
+      "scope": "PREP-RIGA",
+      "category": "control",
+      "kind": "business_logic",
+      "severity": "neutral",
+      "condition": "TWCOB-FUNZIONE = 'I'",
+      "action": "JUMP → PREP-RIGA-010",
+      "flags": [],
+      "evidence": {
+        "from": "PREP-RIGA",
+        "to": "PREP-RIGA-010",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO   PREP-RIGA-010."
+      }
+    },
+    {
+      "id": "BR-027",
+      "program": "PDCBVC",
+      "scope": "LINK-PD0UTI01",
+      "category": "error",
+      "kind": "business",
+      "severity": "fatal",
+      "condition": "PDRUTI01-RETURN EQUAL 'E'",
+      "action": "JUMP → ABEND00",
+      "flags": [],
+      "evidence": {
+        "from": "LINK-PD0UTI01",
+        "to": "ABEND00",
+        "type": "JUMP",
+        "raw_evidence": "GO TO ABEND00."
+      }
+    },
+    {
+      "id": "BR-028",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2-ENTER",
+      "category": "control",
+      "kind": "control",
+      "severity": "neutral",
+      "condition": "(SCELTAI NOT = '__') AND (SCELTAI NOT = SPACES)",
+      "action": "JUMP → BROWSE-FASE2-SEL",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2-ENTER",
+        "to": "BROWSE-FASE2-SEL",
+        "type": "JUMP",
+        "raw_evidence": "THEN GO TO BROWSE-FASE2-SEL."
+      }
+    },
+    {
+      "id": "BR-029",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE2-SEL-10",
+      "category": "control",
+      "kind": "control",
+      "severity": "neutral",
+      "condition": "SCELTAI = WPROGR",
+      "action": "JUMP → BROWSE-FASE2-SEL-20",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE2-SEL-10",
+        "to": "BROWSE-FASE2-SEL-20",
+        "type": "JUMP",
+        "raw_evidence": "GO TO BROWSE-FASE2-SEL-20."
+      }
+    },
+    {
+      "id": "BR-030",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE1",
+      "category": "permission",
+      "kind": "business",
+      "severity": "block",
+      "condition": "PD1VOCI-TABVOX-NUMERO = 0 AND TWCOB-XCTL-PGM = 'PDCGVC'",
+      "action": "JUMP → XCTL-LIV4",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE1",
+        "to": "XCTL-LIV4",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  XCTL-LIV4"
+      }
+    },
+    {
+      "id": "BR-031",
+      "program": "PDCBVC",
+      "scope": "MUOVI-DATI",
+      "category": "control",
+      "kind": "business_logic",
+      "severity": "neutral",
+      "condition": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '1')",
+      "action": "JUMP → MUOVI-DATI-10",
+      "flags": [],
+      "evidence": {
+        "from": "MUOVI-DATI",
+        "to": "MUOVI-DATI-10",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  MUOVI-DATI-10."
+      }
+    },
+    {
+      "id": "BR-032",
+      "program": "PDCBVC",
+      "scope": "BROWSE-FASE1",
+      "category": "permission",
+      "kind": "business",
+      "severity": "block",
+      "condition": "PD1VOCI-TABVOX-NUMERO = 0",
+      "action": "JUMP → XCTL-LIV4",
+      "flags": [],
+      "evidence": {
+        "from": "BROWSE-FASE1",
+        "to": "XCTL-LIV4",
+        "type": "JUMP",
+        "raw_evidence": "GO  TO  XCTL-LIV4"
+      }
+    }
+  ]
+}

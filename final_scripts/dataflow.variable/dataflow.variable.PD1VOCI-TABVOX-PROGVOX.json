@@ -1,0 +1,42 @@
+{
+  "id": "2e9fa7e1f6879463",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1VOCI-TABVOX-PROGVOX",
+  "embedding_text": "PDCBVC variable PD1VOCI-TABVOX-PROGVOX. Origin=COPY:PD1VOCI. Defined in: none. Modified in: none. Used in: PREP-RIGA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PD1VOCI-TABVOX-PROGVOX",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "PREP-RIGA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PD1VOCI",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 737,
+          "statement": "MOVE PD1VOCI-TABVOX-PROGVOX(PD1VOCI-IND) TO  WPROGREC."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PD1VOCI",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

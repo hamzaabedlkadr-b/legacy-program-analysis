@@ -1,0 +1,24 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDADDRE1",
+  "dsn": "TEPDET.CXCB2S.PDKM101",
+  "used_by": [
+    {
+      "step": "PDHADR00",
+      "ddname": "PDKM101",
+      "program": "PDHADR00",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "PDHADR01",
+      "ddname": "PDKM101",
+      "program": "PDHADR01",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+}

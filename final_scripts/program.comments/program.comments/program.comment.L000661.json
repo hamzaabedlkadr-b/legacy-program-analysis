@@ -1,0 +1,46 @@
+{
+  "id": "program.comment.PDCBVC.661.0ec000bf35f8",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 661",
+  "embedding_text": "PDCBVC comment line 661 section LINKAGE paragraph MUOVI-DATI. ------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
+  "content": {
+    "line": 661,
+    "section": "LINKAGE",
+    "paragraph": "MUOVI-DATI",
+    "kind": "full_line",
+    "text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
+    "text_raw": "------- BROWSE DAL  PROGRAMMA  DI  LIVELLO (PDCVC4)"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 661,
+    "section": "LINKAGE",
+    "paragraph": "MUOVI-DATI",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:MUOVI-DATI"
+    ]
+  },
+  "links": {
+    "business_rules": [
+      "business_rule.BR-025.json",
+      "business_rule.BR-031.json"
+    ],
+    "variables": [
+      "MAX-RIGHE",
+      "N-RIGHE",
+      "PD1VOCI-IND",
+      "SW-FINE",
+      "TWCOB-FASE",
+      "TWCOB-VARCONT-NPAGINA",
+      "TWCOB-XCTL-PGM",
+      "WCTPAG",
+      "WCTRIG",
+      "WKOST"
+    ]
+  }
+}

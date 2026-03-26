@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.75.850fdd9c058b",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 75",
+  "embedding_text": "PDCBVC comment line 75 section WORKING-STORAGE. 03 LUNG PIC S9(4) COMP VALUE +32000.",
+  "content": {
+    "line": 75,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "03 LUNG PIC S9(4) COMP VALUE +32000.",
+    "text_raw": "03   LUNG               PIC S9(4) COMP VALUE +32000."
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 75,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:WORKING-STORAGE"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

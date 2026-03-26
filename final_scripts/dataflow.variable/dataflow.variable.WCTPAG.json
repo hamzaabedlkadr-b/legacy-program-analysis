@@ -1,0 +1,236 @@
+{
+  "id": "f0beef01d1f06107",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WCTPAG",
+  "embedding_text": "PDCBVC variable WCTPAG. Origin=WORKING-STORAGE. Defined in: BROWSE-FASE2. Modified in: BROWSE-FASE2, BROWSE-FASE2-PF8, MUOVI-DATI. Used in: BROWSE-FASE1, BROWSE-FASE2-ENTER, BROWSE-FASE2-PF7, BROWSE-FASE2-PF8, BROWSE-FASE2-VISUAL, MUOVI-DATI, MUOVI-DATI-30. Controls flow: yes. Fanout nodes: BROWSE-FASE2-ENTER, BROWSE-FASE2-TASTOER, BROWSE-FASE2-VISUAL, XCTL-LIV4.",
+  "content": {
+    "variable": "WCTPAG",
+    "defined_in": [
+      "BROWSE-FASE2"
+    ],
+    "modified_in": [
+      "BROWSE-FASE2",
+      "BROWSE-FASE2-PF8",
+      "MUOVI-DATI"
+    ],
+    "used_in": [
+      "BROWSE-FASE1",
+      "BROWSE-FASE2-ENTER",
+      "BROWSE-FASE2-PF7",
+      "BROWSE-FASE2-PF8",
+      "BROWSE-FASE2-VISUAL",
+      "MUOVI-DATI",
+      "MUOVI-DATI-30"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "BROWSE-FASE2-ENTER",
+      "BROWSE-FASE2-TASTOER",
+      "BROWSE-FASE2-VISUAL",
+      "XCTL-LIV4"
+    ],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 297,
+          "statement": "MOVE     TWCOB-VARCONT-NPAGINA  TO  WCTPAG."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF8",
+          "line_start": 339,
+          "statement": "MOVE  ZERO  TO  WCTPAG."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 641,
+          "statement": "MOVE TWCOB-VARCONT-NPAGINA  TO  WCTPAG"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 647,
+          "statement": "ADD  +1  TO   WCTPAG"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 653,
+          "statement": "MOVE TWCOB-VARCONT-NPAGINA  TO  WCTPAG"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 657,
+          "statement": "ADD  +1  TO   WCTPAG"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 664,
+          "statement": "MOVE +1  TO   WCTPAG"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 670,
+          "statement": "ADD  +1  TO   WCTPAG"
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 279,
+          "statement": "MOVE     WCTPAG        TO   TWCOB-VARCONT-NPAGINA."
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 280,
+          "statement": "IF   WCTPAG     =      1  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": 325,
+          "statement": "IF  WCTPAG NOT LESS  NPAGT  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF7",
+          "line_start": 331,
+          "statement": "IF    WCTPAG   NOT GREATER  1  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF7",
+          "line_start": 333,
+          "statement": "SUBTRACT   2  FROM  WCTPAG."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF8",
+          "line_start": 337,
+          "statement": "IF    WCTPAG   =   1  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 382,
+          "statement": "MOVE     WCTPAG        TO   TWCOB-VARCONT-NPAGINA."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 383,
+          "statement": "IF     WCTPAG   =    1     THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 643,
+          "statement": "SUBTRACT   1    FROM      WCTPAG"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 644,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 645,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 654,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 655,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 665,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 666,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 671,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        },
+        {
+          "paragraph": "MUOVI-DATI-30",
+          "line_start": 689,
+          "statement": "MOVE  WCTPAG   TO  COM3."
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 280,
+          "statement": "IF   WCTPAG     =      1  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": 325,
+          "statement": "IF  WCTPAG NOT LESS  NPAGT  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF7",
+          "line_start": 331,
+          "statement": "IF    WCTPAG   NOT GREATER  1  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF8",
+          "line_start": 337,
+          "statement": "IF    WCTPAG   =   1  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 383,
+          "statement": "IF     WCTPAG   =    1     THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": -1,
+          "statement": "WCTPAG LESS NPAGT"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": -1,
+          "statement": "(WCTPAG NOT LESS NPAGT)"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF7",
+          "line_start": -1,
+          "statement": "WCTPAG GREATER 1"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF7",
+          "line_start": -1,
+          "statement": "(WCTPAG NOT GREATER 1)"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF8",
+          "line_start": -1,
+          "statement": "NOT (WCTPAG = 1)"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-PF8",
+          "line_start": -1,
+          "statement": "WCTPAG = 1"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 3,
+      "used_in": 7,
+      "fanout_nodes": 4,
+      "write_sites": 8,
+      "read_sites": 17,
+      "control_sites": 11
+    }
+  }
+}

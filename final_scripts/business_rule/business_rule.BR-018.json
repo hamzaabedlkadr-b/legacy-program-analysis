@@ -1,0 +1,32 @@
+{
+  "id": "ee5ef58f0fdeae69",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-018",
+  "embedding_text": "PDCBVC business rule BR-018 in scope READ-TAB-SEMAF. If PXCSEMAF-OUTCOME NOT = SPACE then CALL -> ABEND00. Category=error. Kind=business. Severity=fatal.",
+  "content": {
+    "id": "BR-018",
+    "program": "PDCBVC",
+    "scope": "READ-TAB-SEMAF",
+    "category": "error",
+    "kind": "business",
+    "severity": "fatal",
+    "condition": "PXCSEMAF-OUTCOME NOT = SPACE",
+    "action": "CALL -> ABEND00",
+    "flags": [],
+    "evidence": {
+      "from": "READ-TAB-SEMAF",
+      "to": "ABEND00",
+      "type": "CALL",
+      "raw_evidence": "PERFORM ABEND00"
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "READ-TAB-SEMAF",
+    "category": "error",
+    "kind": "business",
+    "severity": "fatal",
+    "flags_count": 0
+  }
+}

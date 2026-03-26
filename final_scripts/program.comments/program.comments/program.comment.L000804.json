@@ -1,0 +1,35 @@
+{
+  "id": "program.comment.PDCBVC.804.9aba692686c0",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 804",
+  "embedding_text": "PDCBVC comment line 804 section LINKAGE paragraph ADDRESS-TWA. ** EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
+  "content": {
+    "line": 804,
+    "section": "LINKAGE",
+    "paragraph": "ADDRESS-TWA",
+    "kind": "full_line",
+    "text": "** EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
+    "text_raw": "**  EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC."
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 804,
+    "section": "LINKAGE",
+    "paragraph": "ADDRESS-TWA",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:ADDRESS-TWA"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "PDRTWA2",
+      "TWA"
+    ]
+  }
+}

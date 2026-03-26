@@ -1,0 +1,32 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDADDRE1",
+  "dsn": "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO",
+  "used_by": [
+    {
+      "step": "DELADR",
+      "ddname": "INPSEQ",
+      "program": "PDKADR",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "SORADR",
+      "ddname": "SORTOUT",
+      "program": "ICEMAN",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "CARADR",
+      "ddname": "INPSEQ",
+      "program": "PDKADR",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+}

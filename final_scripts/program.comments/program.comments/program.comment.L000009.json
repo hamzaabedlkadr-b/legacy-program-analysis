@@ -1,0 +1,30 @@
+{
+  "id": "program.comment.PDCBVC.9.dc4d4aff1476",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 9",
+  "embedding_text": "PDCBVC comment line 9. IDENTIFICATION DIVISION *",
+  "content": {
+    "line": 9,
+    "section": null,
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "IDENTIFICATION DIVISION *",
+    "text_raw": "IDENTIFICATION DIVISION                                *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 9,
+    "section": null,
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

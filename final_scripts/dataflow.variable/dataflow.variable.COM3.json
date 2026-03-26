@@ -1,0 +1,52 @@
+{
+  "id": "61aba334fa6b76db",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable COM3",
+  "embedding_text": "PDCBVC variable COM3. Origin=WORKING-STORAGE. Defined in: MUOVI-DATI-30. Modified in: MUOVI-DATI-30. Used in: MUOVI-DATI-30. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "COM3",
+    "defined_in": [
+      "MUOVI-DATI-30"
+    ],
+    "modified_in": [
+      "MUOVI-DATI-30"
+    ],
+    "used_in": [
+      "MUOVI-DATI-30"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-DATI-30",
+          "line_start": 689,
+          "statement": "MOVE  WCTPAG   TO  COM3."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-DATI-30",
+          "line_start": 690,
+          "statement": "MOVE  COM3     TO  NPG."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

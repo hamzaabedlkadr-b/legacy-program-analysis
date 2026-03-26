@@ -1,0 +1,42 @@
+{
+  "id": "330237ea01771afb",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable SCELTAO",
+  "embedding_text": "PDCBVC variable SCELTAO. Origin=COPY:PDCBVCM. Defined in: none. Modified in: none. Used in: PREPARA-MAP. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "SCELTAO",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "PREPARA-MAP"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "PREPARA-MAP",
+          "line_start": 529,
+          "statement": "THEN MOVE '01'  TO SCELTAO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

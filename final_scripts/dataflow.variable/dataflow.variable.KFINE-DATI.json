@@ -1,0 +1,48 @@
+{
+  "id": "7d336219bb3ebde5",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable KFINE-DATI",
+  "embedding_text": "PDCBVC variable KFINE-DATI. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: BROWSE-FASE1, BROWSE-FASE2-VISUAL. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "KFINE-DATI",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE1",
+      "BROWSE-FASE2-VISUAL"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 285,
+          "statement": "MOVE  KFINE-DATI    TO  M1MSGO."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 387,
+          "statement": "MOVE  KFINE-DATI    TO  M1MSGO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 2,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 2,
+      "control_sites": 0
+    }
+  }
+}

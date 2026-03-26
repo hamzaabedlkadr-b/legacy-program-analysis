@@ -1,0 +1,59 @@
+{
+  "id": "ed95ac497aa0c474",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1VOCI-FUNZIONE",
+  "embedding_text": "PDCBVC variable PD1VOCI-FUNZIONE. Origin=COPY:PD1VOCI. Defined in: INIZ-PARAM. Modified in: INIZ-PARAM. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PD1VOCI-FUNZIONE",
+    "defined_in": [
+      "INIZ-PARAM"
+    ],
+    "modified_in": [
+      "INIZ-PARAM"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PD1VOCI",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 437,
+          "statement": "MOVE  '11'         TO  PD1VOCI-FUNZIONE"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 441,
+          "statement": "MOVE  '12'         TO  PD1VOCI-FUNZIONE"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 445,
+          "statement": "MOVE  '02'         TO  PD1VOCI-FUNZIONE"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 449,
+          "statement": "MOVE  '11'         TO  PD1VOCI-FUNZIONE."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PD1VOCI",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 4,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

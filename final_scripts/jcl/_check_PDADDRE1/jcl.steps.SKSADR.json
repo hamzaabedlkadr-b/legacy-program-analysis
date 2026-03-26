@@ -1,0 +1,51 @@
+{
+  "type": "jcl.steps",
+  "job": "PDADDRE1",
+  "step": "SKSADR",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDADDRE1",
+  "exec_kind": "program",
+  "target": "PARM2SK",
+  "program": "PARM2SK",
+  "proc": null,
+  "parameters": {
+    "PARM": "' SORT FIELDS=(1,15,CH,A)'"
+  },
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "SKEDA",
+      "dsn": "&&INSADR",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&INSADR,DISP=(,PASS),UNIT=3390,SPACE=(80,1)",
+      "source_lines": {
+        "start": 81,
+        "end": 81
+      }
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DUMMY  Microfocus",
+      "source_lines": {
+        "start": 83,
+        "end": 83
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 78,
+    "end": 79
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+}

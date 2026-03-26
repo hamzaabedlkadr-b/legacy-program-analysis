@@ -1,0 +1,65 @@
+{
+  "type": "jcl.summary",
+  "job": "PDCAFIN2",
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+  "programs": [
+    "ICEMAN",
+    "IDCAMS",
+    "IEBGENER",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHM730B",
+    "PDHM730C",
+    "PDHM730D"
+  ],
+  "procedures": [
+    "PDCAFIN2"
+  ],
+  "jcllib_order": [],
+  "local_procedures": [
+    {
+      "procedure": "PDCAFIN2",
+      "parameters": {},
+      "steps_count": 9,
+      "programs": [
+        "ICEMAN",
+        "IDCAMS",
+        "IEBGENER",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHM730B",
+        "PDHM730C",
+        "PDHM730D"
+      ],
+      "source_lines": {
+        "start": 35,
+        "end": 149
+      }
+    }
+  ],
+  "procedure_invocations": [
+    {
+      "step": "PDCAFIN2",
+      "proc": "PDCAFIN2",
+      "resolved_locally": true,
+      "resolved_proc_programs": [
+        "ICEMAN",
+        "IDCAMS",
+        "IEBGENER",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHM730B",
+        "PDHM730C",
+        "PDHM730D"
+      ],
+      "parameters": {
+        "ANNORIF": "2023",
+        "ANNO": "2024",
+        "TIPO": "67",
+        "MENS": "12"
+      }
+    }
+  ],
+  "steps_count": 10,
+  "datasets_count": 12
+}

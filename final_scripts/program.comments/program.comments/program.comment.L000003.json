@@ -1,0 +1,30 @@
+{
+  "id": "program.comment.PDCBVC.3.9bff8b662a3b",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 3",
+  "embedding_text": "PDCBVC comment line 3. PDCBVC: BROWSE VOCI CONTABILI *",
+  "content": {
+    "line": 3,
+    "section": null,
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "PDCBVC: BROWSE VOCI CONTABILI *",
+    "text_raw": "PDCBVC: BROWSE VOCI CONTABILI                           *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 3,
+    "section": null,
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

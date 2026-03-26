@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.231.0ccc25c39d70",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 231",
+  "embedding_text": "PDCBVC comment line 231 section LINKAGE. INIZIO DEL BROWSE FASE = 1 *",
+  "content": {
+    "line": 231,
+    "section": "LINKAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "INIZIO DEL BROWSE FASE = 1 *",
+    "text_raw": "INIZIO DEL BROWSE    FASE = 1                      *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 231,
+    "section": "LINKAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "0146c98e0244aed0",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable RESTO",
+  "embedding_text": "PDCBVC variable RESTO. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: CALCOLA-NPAG. Controls flow: yes. Fanout nodes: none.",
+  "content": {
+    "variable": "RESTO",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "CALCOLA-NPAG"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 398,
+          "statement": "REMAINDER  RESTO."
+        },
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 401,
+          "statement": "IF  RESTO  GREATER  ZERO  THEN ADD  +1  TO  NPAGT."
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 401,
+          "statement": "IF  RESTO  GREATER  ZERO  THEN ADD  +1  TO  NPAGT."
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 2,
+      "control_sites": 1
+    }
+  }
+}

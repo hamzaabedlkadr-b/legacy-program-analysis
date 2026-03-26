@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.424.9fa6ebcbf814",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 424",
+  "embedding_text": "PDCBVC comment line 424 section LINKAGE paragraph EXIT. PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+  "content": {
+    "line": 424,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+    "text_raw": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 424,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

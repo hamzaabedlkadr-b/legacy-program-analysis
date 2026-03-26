@@ -1,0 +1,42 @@
+{
+  "id": "87c8dcd7d849d03d",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1FS00-LUNGH",
+  "embedding_text": "PDCBVC variable PD1FS00-LUNGH. Origin=COPY:PD1FS00. Defined in: none. Modified in: none. Used in: LINK-PD1FS00. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PD1FS00-LUNGH",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "LINK-PD1FS00"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PD1FS00",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "LINK-PD1FS00",
+          "line_start": 501,
+          "statement": "LENGTH(PD1FS00-LUNGH) END-EXEC."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PD1FS00",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

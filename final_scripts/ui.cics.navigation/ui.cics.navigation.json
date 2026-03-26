@@ -1,0 +1,135 @@
+{
+  "id": "96dff49d6ca22569",
+  "type": "ui.cics.navigation",
+  "program": "PDCBVC",
+  "title": "PDCBVC CICS UI navigation",
+  "embedding_text": "CICS UI navigation for PDCBVC. Keys: DFHENTER -> BROWSE-FASE2-ENTER, DFHPF1 -> XCTL-LIV1, DFHPF2 -> XCTL-LIV2, DFHPF3 -> XCTL-LIV3, DFHPF4 -> XCTL-LIV4, DFHPF7 -> BROWSE-FASE2-PF7, DFHPF8 -> BROWSE-FASE2-PF8, DFHPF9 -> XCTL-LIV0 Maps: PDCBVC1/PDCBVCM (RECEIVE/SEND)",
+  "content": {
+    "actions": [
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))",
+        "key": "OTHER",
+        "other_keys": [
+          "DFHENTER",
+          "DFHPF1",
+          "DFHPF2",
+          "DFHPF3",
+          "DFHPF4",
+          "DFHPF7",
+          "DFHPF8",
+          "DFHPF9"
+        ],
+        "target": "BROWSE-FASE2-TASTOER",
+        "edge_type": "JUMP",
+        "evidence": "GO TO BROWSE-FASE2-TASTOER."
+      },
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "EIBAID = DFHENTER",
+        "key": "DFHENTER",
+        "other_keys": [],
+        "target": "BROWSE-FASE2-ENTER",
+        "edge_type": "JUMP",
+        "evidence": "GO TO BROWSE-FASE2-ENTER."
+      },
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "EIBAID = DFHPF1",
+        "key": "DFHPF1",
+        "other_keys": [],
+        "target": "XCTL-LIV1",
+        "edge_type": "JUMP",
+        "evidence": "GO TO XCTL-LIV1."
+      },
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "EIBAID = DFHPF2",
+        "key": "DFHPF2",
+        "other_keys": [],
+        "target": "XCTL-LIV2",
+        "edge_type": "JUMP",
+        "evidence": "GO TO XCTL-LIV2."
+      },
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "EIBAID = DFHPF3",
+        "key": "DFHPF3",
+        "other_keys": [],
+        "target": "XCTL-LIV3",
+        "edge_type": "JUMP",
+        "evidence": "GO TO XCTL-LIV3."
+      },
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "EIBAID = DFHPF4",
+        "key": "DFHPF4",
+        "other_keys": [],
+        "target": "XCTL-LIV4",
+        "edge_type": "JUMP",
+        "evidence": "GO TO XCTL-LIV4."
+      },
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "EIBAID = DFHPF9",
+        "key": "DFHPF9",
+        "other_keys": [],
+        "target": "XCTL-LIV0",
+        "edge_type": "JUMP",
+        "evidence": "GO TO XCTL-LIV0."
+      },
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "EIBAID = DFHPF7",
+        "key": "DFHPF7",
+        "other_keys": [],
+        "target": "BROWSE-FASE2-PF7",
+        "edge_type": "JUMP",
+        "evidence": "GO TO BROWSE-FASE2-PF7."
+      },
+      {
+        "context": "BROWSE-FASE2",
+        "trigger": "EIBAID = DFHPF8",
+        "key": "DFHPF8",
+        "other_keys": [],
+        "target": "BROWSE-FASE2-PF8",
+        "edge_type": "JUMP",
+        "evidence": "GO TO BROWSE-FASE2-PF8."
+      }
+    ],
+    "maps": [
+      {
+        "map": "PDCBVC1",
+        "mapset": "PDCBVCM",
+        "operations": [
+          "RECEIVE",
+          "SEND"
+        ],
+        "options": [
+          "CURSOR",
+          "DATAONLY",
+          "ERASE"
+        ],
+        "evidence": [
+          "EXEC CICS SEND MAP('PDCBVC1') MAPSET('PDCBVCM') ERASE         CURSOR END-EXEC.",
+          "EXEC CICS SEND MAP('PDCBVC1') MAPSET('PDCBVCM') CURSOR         DATAONLY END-EXEC.",
+          "EXEC CICS RECEIVE MAP('PDCBVC1') MAPSET('PDCBVCM')  END-EXEC."
+        ]
+      }
+    ],
+    "screens": [
+      "PDCBVC1/PDCBVCM"
+    ]
+  },
+  "meta": {
+    "source_files": [
+      "PDCBVC.CBL",
+      "pdc_enriched.json"
+    ],
+    "counts": {
+      "actions": 9,
+      "keys": 8,
+      "maps": 1
+    }
+  }
+}

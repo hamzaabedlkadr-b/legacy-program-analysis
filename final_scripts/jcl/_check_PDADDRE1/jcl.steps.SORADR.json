@@ -1,0 +1,88 @@
+{
+  "type": "jcl.steps",
+  "job": "PDADDRE1",
+  "step": "SORADR",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDADDRE1",
+  "exec_kind": "program",
+  "target": "ICEMAN",
+  "program": "ICEMAN",
+  "proc": null,
+  "parameters": {},
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "SORTLIB",
+      "dsn": "SYS1.SORTLIB",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=SYS1.SORTLIB,DISP=SHR",
+      "source_lines": {
+        "start": 86,
+        "end": 86
+      }
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "source_lines": {
+        "start": 87,
+        "end": 87
+      }
+    },
+    {
+      "ddname": "SORTIN",
+      "dsn": "TEPDET.PDADDRE1.ADDREG",
+      "disp": "OLD",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.PDADDRE1.ADDREG,DISP=OLD",
+      "source_lines": {
+        "start": 88,
+        "end": 88
+      }
+    },
+    {
+      "ddname": "SORTOUT",
+      "dsn": "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO",
+      "disp": "(,CATLG)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO,DISP=(,CATLG), DCB=(LRECL=100,DSORG=PS,RECFM=FB)",
+      "source_lines": {
+        "start": 89,
+        "end": 90
+      }
+    },
+    {
+      "ddname": "SYSIN",
+      "dsn": "&&INSADR",
+      "disp": "(OLD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&INSADR,DISP=(OLD,DELETE)",
+      "source_lines": {
+        "start": 91,
+        "end": 91
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 85,
+    "end": 85
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+}

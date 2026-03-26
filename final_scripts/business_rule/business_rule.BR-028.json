@@ -1,0 +1,32 @@
+{
+  "id": "e271c9705ead804f",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-028",
+  "embedding_text": "PDCBVC business rule BR-028 in scope BROWSE-FASE2-ENTER. If (SCELTAI NOT = '__') then JUMP -> BROWSE-FASE2-SEL. Category=control. Kind=control. Severity=neutral.",
+  "content": {
+    "id": "BR-028",
+    "program": "PDCBVC",
+    "scope": "BROWSE-FASE2-ENTER",
+    "category": "control",
+    "kind": "control",
+    "severity": "neutral",
+    "condition": "(SCELTAI NOT = '__')",
+    "action": "JUMP -> BROWSE-FASE2-SEL",
+    "flags": [],
+    "evidence": {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "BROWSE-FASE2-SEL",
+      "type": "JUMP",
+      "raw_evidence": "THEN GO TO BROWSE-FASE2-SEL."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "BROWSE-FASE2-ENTER",
+    "category": "control",
+    "kind": "control",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

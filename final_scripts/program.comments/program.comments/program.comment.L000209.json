@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.209.ec7be0685742",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 209",
+  "embedding_text": "PDCBVC comment line 209 section LINKAGE. * 03 TWA-BLL PIC S9(8) COMP.",
+  "content": {
+    "line": 209,
+    "section": "LINKAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "* 03 TWA-BLL PIC S9(8) COMP.",
+    "text_raw": "*   03   TWA-BLL           PIC S9(8) COMP."
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 209,
+    "section": "LINKAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

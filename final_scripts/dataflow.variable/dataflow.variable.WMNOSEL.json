@@ -1,0 +1,42 @@
+{
+  "id": "e3b8e8318846ff3a",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WMNOSEL",
+  "embedding_text": "PDCBVC variable WMNOSEL. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: BROWSE-FASE2-NOSEL. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WMNOSEL",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE2-NOSEL"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-NOSEL",
+          "line_start": 350,
+          "statement": "MOVE  WMNOSEL      TO M1MSGO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

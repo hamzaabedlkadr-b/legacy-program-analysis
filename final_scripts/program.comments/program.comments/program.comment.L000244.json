@@ -1,0 +1,60 @@
+{
+  "id": "program.comment.PDCBVC.244.7e1130d770fa",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 244",
+  "embedding_text": "PDCBVC comment line 244 section LINKAGE paragraph BROWSE-FASE1. 1 = Chiuso",
+  "content": {
+    "line": 244,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE1",
+    "kind": "full_line",
+    "text": "1 = Chiuso",
+    "text_raw": "1 = Chiuso"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 244,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE1",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:BROWSE-FASE1"
+    ]
+  },
+  "links": {
+    "business_rules": [
+      "business_rule.BR-004.json",
+      "business_rule.BR-005.json",
+      "business_rule.BR-030.json",
+      "business_rule.BR-032.json"
+    ],
+    "variables": [
+      "ASKIP-DRK",
+      "KFINE-DATI",
+      "M1MSGO",
+      "M1PF7A",
+      "M1PF8A",
+      "NPAGT",
+      "PD1VOCI-TABVOX-NUMERO",
+      "PDCBVC1I",
+      "PXCSEMAF-STATUS",
+      "TWCOB-AREA-MSG",
+      "TWCOB-FASE",
+      "TWCOB-FUNZIONE",
+      "TWCOB-ID-SISTEMA",
+      "TWCOB-VARCONT-NPAGINA",
+      "TWCOB-VARCONT-NUMFUNZ",
+      "TWCOB-XCTL",
+      "TWCOB-XCTL-PGM",
+      "WCTPAG",
+      "WKERR1",
+      "WKERR2",
+      "WKMSG",
+      "WMSGNOREC"
+    ]
+  }
+}

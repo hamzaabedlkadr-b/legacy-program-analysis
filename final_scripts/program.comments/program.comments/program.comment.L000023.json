@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.23.22e17e26461f",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 23",
+  "embedding_text": "PDCBVC comment line 23 section CONFIGURATION. DATA DIVISION *",
+  "content": {
+    "line": 23,
+    "section": "CONFIGURATION",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "DATA DIVISION *",
+    "text_raw": "DATA DIVISION                                          *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 23,
+    "section": "CONFIGURATION",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:CONFIGURATION"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

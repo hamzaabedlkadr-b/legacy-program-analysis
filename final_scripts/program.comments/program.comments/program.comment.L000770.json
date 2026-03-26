@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.770.62bb3d4d28c0",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 770",
+  "embedding_text": "PDCBVC comment line 770 section LINKAGE paragraph EXIT. LINK ALLA ROUTINE CONTROLLO IMPORTO",
+  "content": {
+    "line": 770,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+    "text_raw": "LINK ALLA ROUTINE CONTROLLO IMPORTO"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 770,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

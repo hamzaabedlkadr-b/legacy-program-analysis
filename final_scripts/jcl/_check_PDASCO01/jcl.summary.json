@@ -1,0 +1,25 @@
+{
+  "type": "jcl.summary",
+  "job": "PDASCO01",
+  "source": "final_scripts\\input\\cobol\\jcl\\PDASCO01.JCL",
+  "programs": [],
+  "procedures": [
+    "PDASCO01"
+  ],
+  "jcllib_order": [],
+  "local_procedures": [],
+  "procedure_invocations": [
+    {
+      "step": "PDASCO01",
+      "proc": "PDASCO01",
+      "resolved_locally": false,
+      "resolved_proc_programs": [],
+      "parameters": {
+        "ANNO": "2024",
+        "MESE": "07"
+      }
+    }
+  ],
+  "steps_count": 1,
+  "datasets_count": 0
+}

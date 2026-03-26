@@ -1,0 +1,77 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "M730D2",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "PDHM730D",
+  "program": "PDHM730D",
+  "proc": null,
+  "parameters": {
+    "PARM": "'&ANNORIF,T,AT,TTTTTTT'"
+  },
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "INPCAF",
+      "dsn": "&&ANAGS",
+      "disp": "(OLD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&ANAGS,DISP=(OLD,DELETE)",
+      "source_lines": {
+        "start": 131,
+        "end": 131
+      }
+    },
+    {
+      "ddname": "STAMPA",
+      "dsn": null,
+      "disp": null,
+      "sysout": "(,)",
+      "unit": null,
+      "output": "(*.OUTCPA,*.OUTINF)",
+      "raw": "DD SYSOUT=(,),OUTPUT=(*.OUTCPA,*.OUTINF), DCB=(RECFM=FA,LRECL=151)",
+      "source_lines": {
+        "start": 135,
+        "end": 136
+      }
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "source_lines": {
+        "start": 137,
+        "end": 137
+      }
+    },
+    {
+      "ddname": "SYSUDUMP",
+      "dsn": null,
+      "disp": null,
+      "sysout": "9",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=9",
+      "source_lines": {
+        "start": 138,
+        "end": 138
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 123,
+    "end": 124
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

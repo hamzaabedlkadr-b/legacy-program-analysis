@@ -1,0 +1,32 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+  "used_by": [
+    {
+      "step": "SCRA",
+      "ddname": "VARIAZ",
+      "program": "IEFBR14",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "PDHM730B",
+      "ddname": "SKVAR1",
+      "program": "PDHM730B",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "PDHM730C",
+      "ddname": "SKINPUT",
+      "program": "PDHM730C",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

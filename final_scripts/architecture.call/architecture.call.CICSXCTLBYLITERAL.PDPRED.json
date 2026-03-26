@@ -1,0 +1,24 @@
+{
+  "id": "bbae1a700b2bf39d",
+  "type": "architecture.call",
+  "program": "PDCBVC",
+  "title": "PDCBVC CICSXCTLBYLITERAL -> PDPRED",
+  "embedding_text": "PDCBVC calls PDPRED using CICSXCTLBYLITERAL. Intent: control_transfer (conf=0.9).",
+  "content": {
+    "caller": "PDCBVC",
+    "call_type": "CICSXCTLBYLITERAL",
+    "target": "PDPRED",
+    "heuristic_intent": "control_transfer",
+    "intent_confidence": 0.9,
+    "note": "Intent labels are heuristic; verify against COBOL/CFG for accuracy."
+  },
+  "meta": {
+    "source": "mapa_result",
+    "call_type": "CICSXCTLBYLITERAL",
+    "target": "PDPRED"
+  },
+  "evidence_ref": "04d2093fe6f75344",
+  "evidence": [
+    "CALL,67626423-467c-40c3-b8ee-c9d48857da7e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSXCTLBYLITERAL,PDPRED"
+  ]
+}

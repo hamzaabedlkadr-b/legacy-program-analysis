@@ -1,0 +1,42 @@
+{
+  "id": "d001b74c40acb435",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PDRUTI01-F05-IMPOX11",
+  "embedding_text": "PDCBVC variable PDRUTI01-F05-IMPOX11. Origin=COPY:PDRUTI01. Defined in: none. Modified in: none. Used in: PREP-RIGA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PDRUTI01-F05-IMPOX11",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "PREP-RIGA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDRUTI01",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 736,
+          "statement": "MOVE  PDRUTI01-F05-IMPOX11      TO  IMPORTO-RATA."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDRUTI01",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

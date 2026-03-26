@@ -1,0 +1,3123 @@
+{
+  "type": "program.comments",
+  "program": "PDCBVC",
+  "source": "PDCBVC.CBL",
+  "count": 65,
+  "filtered_out": 104,
+  "rag_doc_count": 65,
+  "metrics": {
+    "total_lines": 912,
+    "total_procedure_paragraphs": 71,
+    "paragraphs_with_comments": 15,
+    "paragraph_coverage_pct": 21.13,
+    "orphan_comments": 20,
+    "comments_per_100_lines": 7.13
+  },
+  "comments": [
+    {
+      "line": 3,
+      "section": null,
+      "paragraph": null,
+      "text": "PDCBVC: BROWSE VOCI CONTABILI *",
+      "text_raw": "PDCBVC: BROWSE VOCI CONTABILI                           *",
+      "kind": "full_line"
+    },
+    {
+      "line": 9,
+      "section": null,
+      "paragraph": null,
+      "text": "IDENTIFICATION DIVISION *",
+      "text_raw": "IDENTIFICATION DIVISION                                *",
+      "kind": "full_line"
+    },
+    {
+      "line": 15,
+      "section": null,
+      "paragraph": null,
+      "text": "ENVIRONMENT DIVISION *",
+      "text_raw": "ENVIRONMENT DIVISION                                   *",
+      "kind": "full_line"
+    },
+    {
+      "line": 23,
+      "section": "CONFIGURATION",
+      "paragraph": null,
+      "text": "DATA DIVISION *",
+      "text_raw": "DATA DIVISION                                          *",
+      "kind": "full_line"
+    },
+    {
+      "line": 28,
+      "section": "CONFIGURATION",
+      "paragraph": null,
+      "text": "WORKING-STORAGE SECTION *",
+      "text_raw": "WORKING-STORAGE SECTION                                *",
+      "kind": "full_line"
+    },
+    {
+      "line": 32,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "COSTANTI *",
+      "text_raw": "COSTANTI                             *",
+      "kind": "full_line"
+    },
+    {
+      "line": 71,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "VARIABILI *",
+      "text_raw": "VARIABILI                            *",
+      "kind": "full_line"
+    },
+    {
+      "line": 75,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "03 LUNG PIC S9(4) COMP VALUE +32000.",
+      "text_raw": "03   LUNG               PIC S9(4) COMP VALUE +32000.",
+      "kind": "full_line"
+    },
+    {
+      "line": 159,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
+      "text_raw": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
+      "kind": "full_line"
+    },
+    {
+      "line": 164,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+      "text_raw": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+      "kind": "full_line"
+    },
+    {
+      "line": 169,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "AREA DI LAVORO PER PREPARAZIONE MAPPA *",
+      "text_raw": "AREA DI LAVORO PER PREPARAZIONE MAPPA        *",
+      "kind": "full_line"
+    },
+    {
+      "line": 170,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "(LUNGHEZZA = 79) *",
+      "text_raw": "(LUNGHEZZA = 79)                   *",
+      "kind": "full_line"
+    },
+    {
+      "line": 190,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "M A P P E *",
+      "text_raw": "M A P P E                          *",
+      "kind": "full_line"
+    },
+    {
+      "line": 197,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "S Q L A R E A",
+      "text_raw": "S Q L  A R E A",
+      "kind": "full_line"
+    },
+    {
+      "line": 204,
+      "section": "WORKING-STORAGE",
+      "paragraph": null,
+      "text": "LINKAGE SECTION *",
+      "text_raw": "LINKAGE SECTION                       *",
+      "kind": "full_line"
+    },
+    {
+      "line": 207,
+      "section": "LINKAGE",
+      "paragraph": null,
+      "text": "01 DFHBLLDS.",
+      "text_raw": "01  DFHBLLDS.",
+      "kind": "full_line"
+    },
+    {
+      "line": 208,
+      "section": "LINKAGE",
+      "paragraph": null,
+      "text": "03 RESERVED-BLL PIC S9(8) COMP.",
+      "text_raw": "03   RESERVED-BLL      PIC S9(8) COMP.",
+      "kind": "full_line"
+    },
+    {
+      "line": 209,
+      "section": "LINKAGE",
+      "paragraph": null,
+      "text": "* 03 TWA-BLL PIC S9(8) COMP.",
+      "text_raw": "*   03   TWA-BLL           PIC S9(8) COMP.",
+      "kind": "full_line"
+    },
+    {
+      "line": 213,
+      "section": "LINKAGE",
+      "paragraph": null,
+      "text": "PROCEDURE DIVISION *",
+      "text_raw": "PROCEDURE DIVISION                     *",
+      "kind": "full_line"
+    },
+    {
+      "line": 231,
+      "section": "LINKAGE",
+      "paragraph": null,
+      "text": "INIZIO DEL BROWSE FASE = 1 *",
+      "text_raw": "INIZIO DEL BROWSE    FASE = 1                      *",
+      "kind": "full_line"
+    },
+    {
+      "line": 236,
+      "section": "LINKAGE",
+      "paragraph": "BROWSE-FASE1",
+      "text": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+      "text_raw": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+      "kind": "full_line"
+    },
+    {
+      "line": 237,
+      "section": "LINKAGE",
+      "paragraph": "BROWSE-FASE1",
+      "text": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+      "text_raw": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+      "kind": "full_line"
+    },
+    {
+      "line": 238,
+      "section": "LINKAGE",
+      "paragraph": "BROWSE-FASE1",
+      "text": "(viene chiuso dall'elaborazione dei Collaboratori)",
+      "text_raw": "(viene chiuso dall'elaborazione dei Collaboratori)",
+      "kind": "full_line"
+    },
+    {
+      "line": 243,
+      "section": "LINKAGE",
+      "paragraph": "BROWSE-FASE1",
+      "text": "Stati semaforo:",
+      "text_raw": "Stati semaforo:",
+      "kind": "full_line"
+    },
+    {
+      "line": 244,
+      "section": "LINKAGE",
+      "paragraph": "BROWSE-FASE1",
+      "text": "1 = Chiuso",
+      "text_raw": "1 = Chiuso",
+      "kind": "full_line"
+    },
+    {
+      "line": 245,
+      "section": "LINKAGE",
+      "paragraph": "BROWSE-FASE1",
+      "text": "2 = Aperto",
+      "text_raw": "2 = Aperto",
+      "kind": "full_line"
+    },
+    {
+      "line": 293,
+      "section": "LINKAGE",
+      "paragraph": "BROWSE-FASE1",
+      "text": "VISUALIZZAZIONE BROWSE *",
+      "text_raw": "VISUALIZZAZIONE BROWSE                               *",
+      "kind": "full_line"
+    },
+    {
+      "line": 393,
+      "section": "LINKAGE",
+      "paragraph": "BROWSE-FASE2-VISUAL",
+      "text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+      "text_raw": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+      "kind": "full_line"
+    },
+    {
+      "line": 407,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "PREPARAZIONE LINK PD1FS00",
+      "text_raw": "PREPARAZIONE LINK PD1FS00",
+      "kind": "full_line"
+    },
+    {
+      "line": 424,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+      "text_raw": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+      "kind": "full_line"
+    },
+    {
+      "line": 433,
+      "section": "LINKAGE",
+      "paragraph": "INIZ-PARAM",
+      "text": "** MOVE '20' TO PD1VOCI-TIPO-GEST.",
+      "text_raw": "**  MOVE   '20'                 TO  PD1VOCI-TIPO-GEST.",
+      "kind": "full_line"
+    },
+    {
+      "line": 453,
+      "section": "LINKAGE",
+      "paragraph": "INIZ-PARAM-010",
+      "text": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
+      "text_raw": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
+      "kind": "full_line"
+    },
+    {
+      "line": 481,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
+      "text_raw": "LINK ALLA ROUTINE VOCI CONTABILI   (PD1VOCI)",
+      "kind": "full_line"
+    },
+    {
+      "line": 497,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00) *",
+      "text_raw": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00)   *",
+      "kind": "full_line"
+    },
+    {
+      "line": 511,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "PREPARAZIONE MAPPA *",
+      "text_raw": "PREPARAZIONE MAPPA                        *",
+      "kind": "full_line"
+    },
+    {
+      "line": 519,
+      "section": "LINKAGE",
+      "paragraph": "PREPARA-MAP",
+      "text": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+      "text_raw": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+      "kind": "full_line"
+    },
+    {
+      "line": 520,
+      "section": "LINKAGE",
+      "paragraph": "PREPARA-MAP",
+      "text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+      "text_raw": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+      "kind": "full_line"
+    },
+    {
+      "line": 521,
+      "section": "LINKAGE",
+      "paragraph": "PREPARA-MAP",
+      "text": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+      "text_raw": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+      "kind": "full_line"
+    },
+    {
+      "line": 522,
+      "section": "LINKAGE",
+      "paragraph": "PREPARA-MAP",
+      "text": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+      "text_raw": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+      "kind": "full_line"
+    },
+    {
+      "line": 523,
+      "section": "LINKAGE",
+      "paragraph": "PREPARA-MAP",
+      "text": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+      "text_raw": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+      "kind": "full_line"
+    },
+    {
+      "line": 537,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "IMPOSTAZIONE TESTATA DELLA MAPPA *",
+      "text_raw": "IMPOSTAZIONE TESTATA DELLA MAPPA                      *",
+      "kind": "full_line"
+    },
+    {
+      "line": 545,
+      "section": "LINKAGE",
+      "paragraph": "MUOVI-TESTATA-00",
+      "text": "** ACCEPT WDATE FROM DATE.",
+      "text_raw": "**  ACCEPT  WDATE           FROM DATE.",
+      "kind": "full_line"
+    },
+    {
+      "line": 629,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "TRASFERIMENTO DATI SULLA MAPPA *",
+      "text_raw": "TRASFERIMENTO DATI SULLA MAPPA                       *",
+      "kind": "full_line"
+    },
+    {
+      "line": 637,
+      "section": "LINKAGE",
+      "paragraph": "MUOVI-DATI",
+      "text": "------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
+      "text_raw": "------- BROWSE CHIAMATO  DA  PDCGVC -  FASE1 E FASE2",
+      "kind": "full_line"
+    },
+    {
+      "line": 642,
+      "section": "LINKAGE",
+      "paragraph": "MUOVI-DATI",
+      "text": "*** MOVE SPACES TO TWCOB-XCTL-PGM",
+      "text_raw": "***     MOVE SPACES                 TO  TWCOB-XCTL-PGM",
+      "kind": "full_line"
+    },
+    {
+      "line": 661,
+      "section": "LINKAGE",
+      "paragraph": "MUOVI-DATI",
+      "text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
+      "text_raw": "------- BROWSE DAL  PROGRAMMA  DI  LIVELLO (PDCVC4)",
+      "kind": "full_line"
+    },
+    {
+      "line": 698,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "PREPARA RIGA MAPPA",
+      "text_raw": "PREPARA RIGA MAPPA",
+      "kind": "full_line"
+    },
+    {
+      "line": 718,
+      "section": "LINKAGE",
+      "paragraph": "PREP-RIGA",
+      "text": "* MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
+      "text_raw": "*   MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
+      "kind": "full_line"
+    },
+    {
+      "line": 719,
+      "section": "LINKAGE",
+      "paragraph": "PREP-RIGA",
+      "text": "* TO SESSIONE-VARIAZ-AA34.",
+      "text_raw": "*                      TO SESSIONE-VARIAZ-AA34.",
+      "kind": "full_line"
+    },
+    {
+      "line": 720,
+      "section": "LINKAGE",
+      "paragraph": "PREP-RIGA",
+      "text": "* MOVE '/' TO SESSIONE-VARIAZ-B1.",
+      "text_raw": "*   MOVE '/'        TO SESSIONE-VARIAZ-B1.",
+      "kind": "full_line"
+    },
+    {
+      "line": 721,
+      "section": "LINKAGE",
+      "paragraph": "PREP-RIGA",
+      "text": "* MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
+      "text_raw": "*   MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
+      "kind": "full_line"
+    },
+    {
+      "line": 722,
+      "section": "LINKAGE",
+      "paragraph": "PREP-RIGA",
+      "text": "* TO SESSIONE-VARIAZ-MM.",
+      "text_raw": "*                      TO SESSIONE-VARIAZ-MM.",
+      "kind": "full_line"
+    },
+    {
+      "line": 746,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
+      "text_raw": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
+      "kind": "full_line"
+    },
+    {
+      "line": 754,
+      "section": "LINKAGE",
+      "paragraph": "READ-TAB-SEMAF",
+      "text": "in realt� questi a seguire non servono per la lettura",
+      "text_raw": "in realt� questi a seguire non servono per la lettura",
+      "kind": "full_line"
+    },
+    {
+      "line": 770,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+      "text_raw": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+      "kind": "full_line"
+    },
+    {
+      "line": 790,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA *",
+      "text_raw": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA                 *",
+      "kind": "full_line"
+    },
+    {
+      "line": 801,
+      "section": "LINKAGE",
+      "paragraph": "ABBL-RIGA-EXIT",
+      "text": "INDIRIZZA TWA *",
+      "text_raw": "INDIRIZZA TWA                           *",
+      "kind": "full_line"
+    },
+    {
+      "line": 804,
+      "section": "LINKAGE",
+      "paragraph": "ADDRESS-TWA",
+      "text": "** EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
+      "text_raw": "**  EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
+      "kind": "full_line"
+    },
+    {
+      "line": 808,
+      "section": "LINKAGE",
+      "paragraph": "ADDRESS-TWA",
+      "text": "INVIO MAPPA PDCBVC1 *",
+      "text_raw": "INVIO MAPPA  PDCBVC1                        *",
+      "kind": "full_line"
+    },
+    {
+      "line": 817,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "INVIO MAPPA PDCBVC1 (DATA ONLY) *",
+      "text_raw": "INVIO MAPPA  PDCBVC1 (DATA ONLY)                *",
+      "kind": "full_line"
+    },
+    {
+      "line": 826,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "LETTURA MAPPA PDCBVC1 *",
+      "text_raw": "LETTURA MAPPA PDCBVC1                       *",
+      "kind": "full_line"
+    },
+    {
+      "line": 834,
+      "section": "LINKAGE",
+      "paragraph": "EXIT",
+      "text": "RESET DELLA TWA *",
+      "text_raw": "RESET  DELLA  TWA                           *",
+      "kind": "full_line"
+    },
+    {
+      "line": 843,
+      "section": "LINKAGE",
+      "paragraph": "XCTL-MAIN",
+      "text": "PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
+      "text_raw": "PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
+      "kind": "full_line"
+    },
+    {
+      "line": 879,
+      "section": "LINKAGE",
+      "paragraph": "XCTL-LIV5",
+      "text": "MOVE 'P' TO TWCOB-FUNZIONE.",
+      "text_raw": "MOVE 'P' TO TWCOB-FUNZIONE.",
+      "kind": "full_line"
+    },
+    {
+      "line": 906,
+      "section": "LINKAGE",
+      "paragraph": "ABEND00",
+      "text": "SALVATAGGIO TWA COMUNE *",
+      "text_raw": "SALVATAGGIO TWA COMUNE                       *",
+      "kind": "full_line"
+    }
+  ],
+  "rag_documents": [
+    {
+      "id": "program.comment.PDCBVC.3.9bff8b662a3b",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 3",
+      "embedding_text": "PDCBVC comment line 3. PDCBVC: BROWSE VOCI CONTABILI *",
+      "content": {
+        "line": 3,
+        "section": null,
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "PDCBVC: BROWSE VOCI CONTABILI *",
+        "text_raw": "PDCBVC: BROWSE VOCI CONTABILI                           *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 3,
+        "section": null,
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.9.dc4d4aff1476",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 9",
+      "embedding_text": "PDCBVC comment line 9. IDENTIFICATION DIVISION *",
+      "content": {
+        "line": 9,
+        "section": null,
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "IDENTIFICATION DIVISION *",
+        "text_raw": "IDENTIFICATION DIVISION                                *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 9,
+        "section": null,
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.15.87faaffaaf2e",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 15",
+      "embedding_text": "PDCBVC comment line 15. ENVIRONMENT DIVISION *",
+      "content": {
+        "line": 15,
+        "section": null,
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "ENVIRONMENT DIVISION *",
+        "text_raw": "ENVIRONMENT DIVISION                                   *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 15,
+        "section": null,
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.23.22e17e26461f",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 23",
+      "embedding_text": "PDCBVC comment line 23 section CONFIGURATION. DATA DIVISION *",
+      "content": {
+        "line": 23,
+        "section": "CONFIGURATION",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "DATA DIVISION *",
+        "text_raw": "DATA DIVISION                                          *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 23,
+        "section": "CONFIGURATION",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:CONFIGURATION"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.28.99e38b790a36",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 28",
+      "embedding_text": "PDCBVC comment line 28 section CONFIGURATION. WORKING-STORAGE SECTION *",
+      "content": {
+        "line": 28,
+        "section": "CONFIGURATION",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "WORKING-STORAGE SECTION *",
+        "text_raw": "WORKING-STORAGE SECTION                                *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 28,
+        "section": "CONFIGURATION",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:CONFIGURATION"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.32.23ef11c64b11",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 32",
+      "embedding_text": "PDCBVC comment line 32 section WORKING-STORAGE. COSTANTI *",
+      "content": {
+        "line": 32,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "COSTANTI *",
+        "text_raw": "COSTANTI                             *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 32,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.71.0adf31ef03e3",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 71",
+      "embedding_text": "PDCBVC comment line 71 section WORKING-STORAGE. VARIABILI *",
+      "content": {
+        "line": 71,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "VARIABILI *",
+        "text_raw": "VARIABILI                            *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 71,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.75.850fdd9c058b",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 75",
+      "embedding_text": "PDCBVC comment line 75 section WORKING-STORAGE. 03 LUNG PIC S9(4) COMP VALUE +32000.",
+      "content": {
+        "line": 75,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "03 LUNG PIC S9(4) COMP VALUE +32000.",
+        "text_raw": "03   LUNG               PIC S9(4) COMP VALUE +32000."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 75,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.159.7c9771626d1c",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 159",
+      "embedding_text": "PDCBVC comment line 159 section WORKING-STORAGE. AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
+      "content": {
+        "line": 159,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
+        "text_raw": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 159,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.164.b9a79dc8fb50",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 164",
+      "embedding_text": "PDCBVC comment line 164 section WORKING-STORAGE. AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+      "content": {
+        "line": 164,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+        "text_raw": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 164,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.169.287cf62da8a4",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 169",
+      "embedding_text": "PDCBVC comment line 169 section WORKING-STORAGE. AREA DI LAVORO PER PREPARAZIONE MAPPA *",
+      "content": {
+        "line": 169,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "AREA DI LAVORO PER PREPARAZIONE MAPPA *",
+        "text_raw": "AREA DI LAVORO PER PREPARAZIONE MAPPA        *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 169,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.170.390b786b6c62",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 170",
+      "embedding_text": "PDCBVC comment line 170 section WORKING-STORAGE. (LUNGHEZZA = 79) *",
+      "content": {
+        "line": 170,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "(LUNGHEZZA = 79) *",
+        "text_raw": "(LUNGHEZZA = 79)                   *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 170,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.190.6b565f8c0c77",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 190",
+      "embedding_text": "PDCBVC comment line 190 section WORKING-STORAGE. M A P P E *",
+      "content": {
+        "line": 190,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "M A P P E *",
+        "text_raw": "M A P P E                          *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 190,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.197.b90b5669343a",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 197",
+      "embedding_text": "PDCBVC comment line 197 section WORKING-STORAGE. S Q L A R E A",
+      "content": {
+        "line": 197,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "S Q L A R E A",
+        "text_raw": "S Q L  A R E A"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 197,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.204.3833e3927516",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 204",
+      "embedding_text": "PDCBVC comment line 204 section WORKING-STORAGE. LINKAGE SECTION *",
+      "content": {
+        "line": 204,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "LINKAGE SECTION *",
+        "text_raw": "LINKAGE SECTION                       *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 204,
+        "section": "WORKING-STORAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:WORKING-STORAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.207.72bfbef686a6",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 207",
+      "embedding_text": "PDCBVC comment line 207 section LINKAGE. 01 DFHBLLDS.",
+      "content": {
+        "line": 207,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "01 DFHBLLDS.",
+        "text_raw": "01  DFHBLLDS."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 207,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.208.b24a9395c689",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 208",
+      "embedding_text": "PDCBVC comment line 208 section LINKAGE. 03 RESERVED-BLL PIC S9(8) COMP.",
+      "content": {
+        "line": 208,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "03 RESERVED-BLL PIC S9(8) COMP.",
+        "text_raw": "03   RESERVED-BLL      PIC S9(8) COMP."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 208,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.209.ec7be0685742",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 209",
+      "embedding_text": "PDCBVC comment line 209 section LINKAGE. * 03 TWA-BLL PIC S9(8) COMP.",
+      "content": {
+        "line": 209,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "* 03 TWA-BLL PIC S9(8) COMP.",
+        "text_raw": "*   03   TWA-BLL           PIC S9(8) COMP."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 209,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.213.3e99fc296891",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 213",
+      "embedding_text": "PDCBVC comment line 213 section LINKAGE. PROCEDURE DIVISION *",
+      "content": {
+        "line": 213,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "PROCEDURE DIVISION *",
+        "text_raw": "PROCEDURE DIVISION                     *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 213,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.231.0ccc25c39d70",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 231",
+      "embedding_text": "PDCBVC comment line 231 section LINKAGE. INIZIO DEL BROWSE FASE = 1 *",
+      "content": {
+        "line": 231,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "text": "INIZIO DEL BROWSE FASE = 1 *",
+        "text_raw": "INIZIO DEL BROWSE    FASE = 1                      *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 231,
+        "section": "LINKAGE",
+        "paragraph": null,
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.236.277612295e0b",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 236",
+      "embedding_text": "PDCBVC comment line 236 section LINKAGE paragraph BROWSE-FASE1. Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+      "content": {
+        "line": 236,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "text": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+        "text_raw": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 236,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:BROWSE-FASE1"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-004.json",
+          "business_rule.BR-005.json",
+          "business_rule.BR-030.json",
+          "business_rule.BR-032.json"
+        ],
+        "variables": [
+          "ASKIP-DRK",
+          "KFINE-DATI",
+          "M1MSGO",
+          "M1PF7A",
+          "M1PF8A",
+          "NPAGT",
+          "PD1VOCI-TABVOX-NUMERO",
+          "PDCBVC1I",
+          "PXCSEMAF-STATUS",
+          "TWCOB-AREA-MSG",
+          "TWCOB-FASE",
+          "TWCOB-FUNZIONE",
+          "TWCOB-ID-SISTEMA",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-VARCONT-NUMFUNZ",
+          "TWCOB-XCTL",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WKERR1",
+          "WKERR2",
+          "WKMSG",
+          "WMSGNOREC"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.237.197dab93a2d5",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 237",
+      "embedding_text": "PDCBVC comment line 237 section LINKAGE paragraph BROWSE-FASE1. non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+      "content": {
+        "line": 237,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "text": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+        "text_raw": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 237,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:BROWSE-FASE1"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-004.json",
+          "business_rule.BR-005.json",
+          "business_rule.BR-030.json",
+          "business_rule.BR-032.json"
+        ],
+        "variables": [
+          "ASKIP-DRK",
+          "KFINE-DATI",
+          "M1MSGO",
+          "M1PF7A",
+          "M1PF8A",
+          "NPAGT",
+          "PD1VOCI-TABVOX-NUMERO",
+          "PDCBVC1I",
+          "PXCSEMAF-STATUS",
+          "TWCOB-AREA-MSG",
+          "TWCOB-FASE",
+          "TWCOB-FUNZIONE",
+          "TWCOB-ID-SISTEMA",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-VARCONT-NUMFUNZ",
+          "TWCOB-XCTL",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WKERR1",
+          "WKERR2",
+          "WKMSG",
+          "WMSGNOREC"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.238.2a9369f548da",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 238",
+      "embedding_text": "PDCBVC comment line 238 section LINKAGE paragraph BROWSE-FASE1. (viene chiuso dall'elaborazione dei Collaboratori)",
+      "content": {
+        "line": 238,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "text": "(viene chiuso dall'elaborazione dei Collaboratori)",
+        "text_raw": "(viene chiuso dall'elaborazione dei Collaboratori)"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 238,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:BROWSE-FASE1"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-004.json",
+          "business_rule.BR-005.json",
+          "business_rule.BR-030.json",
+          "business_rule.BR-032.json"
+        ],
+        "variables": [
+          "ASKIP-DRK",
+          "KFINE-DATI",
+          "M1MSGO",
+          "M1PF7A",
+          "M1PF8A",
+          "NPAGT",
+          "PD1VOCI-TABVOX-NUMERO",
+          "PDCBVC1I",
+          "PXCSEMAF-STATUS",
+          "TWCOB-AREA-MSG",
+          "TWCOB-FASE",
+          "TWCOB-FUNZIONE",
+          "TWCOB-ID-SISTEMA",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-VARCONT-NUMFUNZ",
+          "TWCOB-XCTL",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WKERR1",
+          "WKERR2",
+          "WKMSG",
+          "WMSGNOREC"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.243.38d3c53c6372",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 243",
+      "embedding_text": "PDCBVC comment line 243 section LINKAGE paragraph BROWSE-FASE1. Stati semaforo:",
+      "content": {
+        "line": 243,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "text": "Stati semaforo:",
+        "text_raw": "Stati semaforo:"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 243,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:BROWSE-FASE1"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-004.json",
+          "business_rule.BR-005.json",
+          "business_rule.BR-030.json",
+          "business_rule.BR-032.json"
+        ],
+        "variables": [
+          "ASKIP-DRK",
+          "KFINE-DATI",
+          "M1MSGO",
+          "M1PF7A",
+          "M1PF8A",
+          "NPAGT",
+          "PD1VOCI-TABVOX-NUMERO",
+          "PDCBVC1I",
+          "PXCSEMAF-STATUS",
+          "TWCOB-AREA-MSG",
+          "TWCOB-FASE",
+          "TWCOB-FUNZIONE",
+          "TWCOB-ID-SISTEMA",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-VARCONT-NUMFUNZ",
+          "TWCOB-XCTL",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WKERR1",
+          "WKERR2",
+          "WKMSG",
+          "WMSGNOREC"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.244.7e1130d770fa",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 244",
+      "embedding_text": "PDCBVC comment line 244 section LINKAGE paragraph BROWSE-FASE1. 1 = Chiuso",
+      "content": {
+        "line": 244,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "text": "1 = Chiuso",
+        "text_raw": "1 = Chiuso"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 244,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:BROWSE-FASE1"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-004.json",
+          "business_rule.BR-005.json",
+          "business_rule.BR-030.json",
+          "business_rule.BR-032.json"
+        ],
+        "variables": [
+          "ASKIP-DRK",
+          "KFINE-DATI",
+          "M1MSGO",
+          "M1PF7A",
+          "M1PF8A",
+          "NPAGT",
+          "PD1VOCI-TABVOX-NUMERO",
+          "PDCBVC1I",
+          "PXCSEMAF-STATUS",
+          "TWCOB-AREA-MSG",
+          "TWCOB-FASE",
+          "TWCOB-FUNZIONE",
+          "TWCOB-ID-SISTEMA",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-VARCONT-NUMFUNZ",
+          "TWCOB-XCTL",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WKERR1",
+          "WKERR2",
+          "WKMSG",
+          "WMSGNOREC"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.245.e2aaf05fcace",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 245",
+      "embedding_text": "PDCBVC comment line 245 section LINKAGE paragraph BROWSE-FASE1. 2 = Aperto",
+      "content": {
+        "line": 245,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "text": "2 = Aperto",
+        "text_raw": "2 = Aperto"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 245,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:BROWSE-FASE1"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-004.json",
+          "business_rule.BR-005.json",
+          "business_rule.BR-030.json",
+          "business_rule.BR-032.json"
+        ],
+        "variables": [
+          "ASKIP-DRK",
+          "KFINE-DATI",
+          "M1MSGO",
+          "M1PF7A",
+          "M1PF8A",
+          "NPAGT",
+          "PD1VOCI-TABVOX-NUMERO",
+          "PDCBVC1I",
+          "PXCSEMAF-STATUS",
+          "TWCOB-AREA-MSG",
+          "TWCOB-FASE",
+          "TWCOB-FUNZIONE",
+          "TWCOB-ID-SISTEMA",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-VARCONT-NUMFUNZ",
+          "TWCOB-XCTL",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WKERR1",
+          "WKERR2",
+          "WKMSG",
+          "WMSGNOREC"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.293.323a81a52e1f",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 293",
+      "embedding_text": "PDCBVC comment line 293 section LINKAGE paragraph BROWSE-FASE1. VISUALIZZAZIONE BROWSE *",
+      "content": {
+        "line": 293,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "text": "VISUALIZZAZIONE BROWSE *",
+        "text_raw": "VISUALIZZAZIONE BROWSE                               *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 293,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE1",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:BROWSE-FASE1"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-004.json",
+          "business_rule.BR-005.json",
+          "business_rule.BR-030.json",
+          "business_rule.BR-032.json"
+        ],
+        "variables": [
+          "ASKIP-DRK",
+          "KFINE-DATI",
+          "M1MSGO",
+          "M1PF7A",
+          "M1PF8A",
+          "NPAGT",
+          "PD1VOCI-TABVOX-NUMERO",
+          "PDCBVC1I",
+          "PXCSEMAF-STATUS",
+          "TWCOB-AREA-MSG",
+          "TWCOB-FASE",
+          "TWCOB-FUNZIONE",
+          "TWCOB-ID-SISTEMA",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-VARCONT-NUMFUNZ",
+          "TWCOB-XCTL",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WKERR1",
+          "WKERR2",
+          "WKMSG",
+          "WMSGNOREC"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.393.1bcd052d492d",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 393",
+      "embedding_text": "PDCBVC comment line 393 section LINKAGE paragraph BROWSE-FASE2-VISUAL. CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+      "content": {
+        "line": 393,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE2-VISUAL",
+        "kind": "full_line",
+        "text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+        "text_raw": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 393,
+        "section": "LINKAGE",
+        "paragraph": "BROWSE-FASE2-VISUAL",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:BROWSE-FASE2-VISUAL"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "ASKIP-DRK",
+          "KFINE-DATI",
+          "M1MSGO",
+          "M1PF7A",
+          "M1PF8A",
+          "SW-FINE",
+          "TWCOB-FASE",
+          "TWCOB-VARCONT-NPAGINA",
+          "WCTPAG"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.407.f9ab3bf3fc86",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 407",
+      "embedding_text": "PDCBVC comment line 407 section LINKAGE paragraph EXIT. PREPARAZIONE LINK PD1FS00",
+      "content": {
+        "line": 407,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "PREPARAZIONE LINK PD1FS00",
+        "text_raw": "PREPARAZIONE LINK PD1FS00"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 407,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.424.9fa6ebcbf814",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 424",
+      "embedding_text": "PDCBVC comment line 424 section LINKAGE paragraph EXIT. PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+      "content": {
+        "line": 424,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+        "text_raw": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 424,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.433.8d6febafd13e",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 433",
+      "embedding_text": "PDCBVC comment line 433 section LINKAGE paragraph INIZ-PARAM. ** MOVE '20' TO PD1VOCI-TIPO-GEST.",
+      "content": {
+        "line": 433,
+        "section": "LINKAGE",
+        "paragraph": "INIZ-PARAM",
+        "kind": "full_line",
+        "text": "** MOVE '20' TO PD1VOCI-TIPO-GEST.",
+        "text_raw": "**  MOVE   '20'                 TO  PD1VOCI-TIPO-GEST."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 433,
+        "section": "LINKAGE",
+        "paragraph": "INIZ-PARAM",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:INIZ-PARAM"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-019.json"
+        ],
+        "variables": [
+          "PD1VOCI-COD-VOCE",
+          "PD1VOCI-CODDIP-MATR",
+          "PD1VOCI-CODDIP-PAD",
+          "PD1VOCI-CODDIP-TIPO",
+          "PD1VOCI-DATI",
+          "PD1VOCI-FUNZIONE",
+          "PD1VOCI-TIPO-ESTRA",
+          "PD1VOCI-TIPO-GEST",
+          "PD1VOCI-TIPO-VARIAZ",
+          "TWCOB-FUNZIONE",
+          "TWCOB-SP-MATR",
+          "TWCOB-SP-PAD",
+          "TWCOB-TIPO-DIP",
+          "TWCOB-VARCONT-NUMFUNZ",
+          "TWCOB-VARCONT-VOCE-LIV4"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.453.201d048a4671",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 453",
+      "embedding_text": "PDCBVC comment line 453 section LINKAGE paragraph INIZ-PARAM-010. IMPOSTA IL TIPO VOCE DA ESTRARRE",
+      "content": {
+        "line": 453,
+        "section": "LINKAGE",
+        "paragraph": "INIZ-PARAM-010",
+        "kind": "full_line",
+        "text": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
+        "text_raw": "IMPOSTA IL TIPO VOCE DA ESTRARRE"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 453,
+        "section": "LINKAGE",
+        "paragraph": "INIZ-PARAM-010",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:INIZ-PARAM-010"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-020.json"
+        ],
+        "variables": [
+          "PD1VOCI-TIPO-VOCE",
+          "TWCOB-VARCONT-NUMFUNZ"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.481.5e22b72b53e3",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 481",
+      "embedding_text": "PDCBVC comment line 481 section LINKAGE paragraph EXIT. LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
+      "content": {
+        "line": 481,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
+        "text_raw": "LINK ALLA ROUTINE VOCI CONTABILI   (PD1VOCI)"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 481,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.497.ac2052531572",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 497",
+      "embedding_text": "PDCBVC comment line 497 section LINKAGE paragraph EXIT. LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00) *",
+      "content": {
+        "line": 497,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00) *",
+        "text_raw": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00)   *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 497,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.511.c34550925c6e",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 511",
+      "embedding_text": "PDCBVC comment line 511 section LINKAGE paragraph EXIT. PREPARAZIONE MAPPA *",
+      "content": {
+        "line": 511,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "PREPARAZIONE MAPPA *",
+        "text_raw": "PREPARAZIONE MAPPA                        *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 511,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.519.feed247e7ced",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 519",
+      "embedding_text": "PDCBVC comment line 519 section LINKAGE paragraph PREPARA-MAP. IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+      "content": {
+        "line": 519,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "text": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+        "text_raw": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 519,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREPARA-MAP"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "SCELTAL",
+          "SCELTAO",
+          "TWCOB-VARCONT-VOCE-LIV4",
+          "TWCOB-XCTL",
+          "WCTRIG"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.520.84f000f89eb9",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 520",
+      "embedding_text": "PDCBVC comment line 520 section LINKAGE paragraph PREPARA-MAP. IMPOSTATO A '01' NEL SEGUENTE CASO:",
+      "content": {
+        "line": 520,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+        "text_raw": "IMPOSTATO A '01' NEL SEGUENTE CASO:"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 520,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREPARA-MAP"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "SCELTAL",
+          "SCELTAO",
+          "TWCOB-VARCONT-VOCE-LIV4",
+          "TWCOB-XCTL",
+          "WCTRIG"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.521.1672fb07d3ad",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 521",
+      "embedding_text": "PDCBVC comment line 521 section LINKAGE paragraph PREPARA-MAP. - SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+      "content": {
+        "line": 521,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "text": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+        "text_raw": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 521,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREPARA-MAP"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "SCELTAL",
+          "SCELTAO",
+          "TWCOB-VARCONT-VOCE-LIV4",
+          "TWCOB-XCTL",
+          "WCTRIG"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.522.b75fc7bd80b9",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 522",
+      "embedding_text": "PDCBVC comment line 522 section LINKAGE paragraph PREPARA-MAP. - ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+      "content": {
+        "line": 522,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "text": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+        "text_raw": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 522,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREPARA-MAP"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "SCELTAL",
+          "SCELTAO",
+          "TWCOB-VARCONT-VOCE-LIV4",
+          "TWCOB-XCTL",
+          "WCTRIG"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.523.490e39349857",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 523",
+      "embedding_text": "PDCBVC comment line 523 section LINKAGE paragraph PREPARA-MAP. - NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+      "content": {
+        "line": 523,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "text": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+        "text_raw": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 523,
+        "section": "LINKAGE",
+        "paragraph": "PREPARA-MAP",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREPARA-MAP"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "SCELTAL",
+          "SCELTAO",
+          "TWCOB-VARCONT-VOCE-LIV4",
+          "TWCOB-XCTL",
+          "WCTRIG"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.537.41bca810c8ee",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 537",
+      "embedding_text": "PDCBVC comment line 537 section LINKAGE paragraph EXIT. IMPOSTAZIONE TESTATA DELLA MAPPA *",
+      "content": {
+        "line": 537,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "IMPOSTAZIONE TESTATA DELLA MAPPA *",
+        "text_raw": "IMPOSTAZIONE TESTATA DELLA MAPPA                      *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 537,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.545.54adca9a8c00",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 545",
+      "embedding_text": "PDCBVC comment line 545 section LINKAGE paragraph MUOVI-TESTATA-00. ** ACCEPT WDATE FROM DATE.",
+      "content": {
+        "line": 545,
+        "section": "LINKAGE",
+        "paragraph": "MUOVI-TESTATA-00",
+        "kind": "full_line",
+        "text": "** ACCEPT WDATE FROM DATE.",
+        "text_raw": "**  ACCEPT  WDATE           FROM DATE."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 545,
+        "section": "LINKAGE",
+        "paragraph": "MUOVI-TESTATA-00",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:MUOVI-TESTATA-00"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-022.json"
+        ],
+        "variables": [
+          "ANNO-SESS",
+          "ANNO-SESS34",
+          "M0AMBO",
+          "M1DATAO",
+          "M1SYSO",
+          "MDSESSO",
+          "MSESSIO",
+          "PD1FS00-SESS-ANNO",
+          "PD1FS00-SESS-FLAG",
+          "PD1FS00-SESS-MESE",
+          "PD1FS00-SESS-TMENS",
+          "SESSIONE",
+          "SESSIONE-ANNO",
+          "SESSIONE-MESE",
+          "SESSIONE-TMENS",
+          "TWCOB-ID-SISTEMA",
+          "TWCOB-NOME-CICS",
+          "WDATA",
+          "WDATA-AA",
+          "WDATA-GG",
+          "WDATA-MM",
+          "WDATE",
+          "WDATE-AA",
+          "WDATE-GG",
+          "WDATE-MM",
+          "WW-DATE"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.629.6be17beb876f",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 629",
+      "embedding_text": "PDCBVC comment line 629 section LINKAGE paragraph EXIT. TRASFERIMENTO DATI SULLA MAPPA *",
+      "content": {
+        "line": 629,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "TRASFERIMENTO DATI SULLA MAPPA *",
+        "text_raw": "TRASFERIMENTO DATI SULLA MAPPA                       *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 629,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.637.6fc79ff66bc5",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 637",
+      "embedding_text": "PDCBVC comment line 637 section LINKAGE paragraph MUOVI-DATI. ------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
+      "content": {
+        "line": 637,
+        "section": "LINKAGE",
+        "paragraph": "MUOVI-DATI",
+        "kind": "full_line",
+        "text": "------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
+        "text_raw": "------- BROWSE CHIAMATO  DA  PDCGVC -  FASE1 E FASE2"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 637,
+        "section": "LINKAGE",
+        "paragraph": "MUOVI-DATI",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:MUOVI-DATI"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-025.json",
+          "business_rule.BR-031.json"
+        ],
+        "variables": [
+          "MAX-RIGHE",
+          "N-RIGHE",
+          "PD1VOCI-IND",
+          "SW-FINE",
+          "TWCOB-FASE",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WCTRIG",
+          "WKOST"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.642.b4edac34ce8b",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 642",
+      "embedding_text": "PDCBVC comment line 642 section LINKAGE paragraph MUOVI-DATI. *** MOVE SPACES TO TWCOB-XCTL-PGM",
+      "content": {
+        "line": 642,
+        "section": "LINKAGE",
+        "paragraph": "MUOVI-DATI",
+        "kind": "full_line",
+        "text": "*** MOVE SPACES TO TWCOB-XCTL-PGM",
+        "text_raw": "***     MOVE SPACES                 TO  TWCOB-XCTL-PGM"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 642,
+        "section": "LINKAGE",
+        "paragraph": "MUOVI-DATI",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:MUOVI-DATI"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-025.json",
+          "business_rule.BR-031.json"
+        ],
+        "variables": [
+          "MAX-RIGHE",
+          "N-RIGHE",
+          "PD1VOCI-IND",
+          "SW-FINE",
+          "TWCOB-FASE",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WCTRIG",
+          "WKOST"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.661.0ec000bf35f8",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 661",
+      "embedding_text": "PDCBVC comment line 661 section LINKAGE paragraph MUOVI-DATI. ------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
+      "content": {
+        "line": 661,
+        "section": "LINKAGE",
+        "paragraph": "MUOVI-DATI",
+        "kind": "full_line",
+        "text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
+        "text_raw": "------- BROWSE DAL  PROGRAMMA  DI  LIVELLO (PDCVC4)"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 661,
+        "section": "LINKAGE",
+        "paragraph": "MUOVI-DATI",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:MUOVI-DATI"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-025.json",
+          "business_rule.BR-031.json"
+        ],
+        "variables": [
+          "MAX-RIGHE",
+          "N-RIGHE",
+          "PD1VOCI-IND",
+          "SW-FINE",
+          "TWCOB-FASE",
+          "TWCOB-VARCONT-NPAGINA",
+          "TWCOB-XCTL-PGM",
+          "WCTPAG",
+          "WCTRIG",
+          "WKOST"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.698.22321b0b17e9",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 698",
+      "embedding_text": "PDCBVC comment line 698 section LINKAGE paragraph EXIT. PREPARA RIGA MAPPA",
+      "content": {
+        "line": 698,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "PREPARA RIGA MAPPA",
+        "text_raw": "PREPARA RIGA MAPPA"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 698,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.718.25bd5d61f333",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 718",
+      "embedding_text": "PDCBVC comment line 718 section LINKAGE paragraph PREP-RIGA. * MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
+      "content": {
+        "line": 718,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "text": "* MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
+        "text_raw": "*   MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 718,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREP-RIGA"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-026.json"
+        ],
+        "variables": [
+          "DATA-CESSAZIONE",
+          "DATA-IMPIANTO",
+          "FUNZ",
+          "IMPORTO-RATA",
+          "PD1VOCI-IND",
+          "PD1VOCI-TABVOX-CODVOX",
+          "PD1VOCI-TABVOX-DESCRIZ",
+          "PD1VOCI-TABVOX-FINE",
+          "PD1VOCI-TABVOX-INIZ",
+          "PD1VOCI-TABVOX-PROGVOX",
+          "PD1VOCI-TABVOX-TIPVAR",
+          "PDRUTI01-F05-IMPOX11",
+          "PDRUTI01-F05-VALORE",
+          "PDRUTI01-FUNZIONE",
+          "RIGA-MAPPA",
+          "TWCOB-FUNZIONE",
+          "VOCE",
+          "WCODVO",
+          "WCTRIG",
+          "WDATA",
+          "WDATA-AA",
+          "WDATA-GG",
+          "WDATA-MM",
+          "WDATE2",
+          "WDATE2-AA34",
+          "WDATE2-GG",
+          "WDATE2-MM",
+          "WDESCVO",
+          "WPROGR",
+          "WPROGREC",
+          "WVOCE"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.719.a1e7f344d8d4",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 719",
+      "embedding_text": "PDCBVC comment line 719 section LINKAGE paragraph PREP-RIGA. * TO SESSIONE-VARIAZ-AA34.",
+      "content": {
+        "line": 719,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "text": "* TO SESSIONE-VARIAZ-AA34.",
+        "text_raw": "*                      TO SESSIONE-VARIAZ-AA34."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 719,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREP-RIGA"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-026.json"
+        ],
+        "variables": [
+          "DATA-CESSAZIONE",
+          "DATA-IMPIANTO",
+          "FUNZ",
+          "IMPORTO-RATA",
+          "PD1VOCI-IND",
+          "PD1VOCI-TABVOX-CODVOX",
+          "PD1VOCI-TABVOX-DESCRIZ",
+          "PD1VOCI-TABVOX-FINE",
+          "PD1VOCI-TABVOX-INIZ",
+          "PD1VOCI-TABVOX-PROGVOX",
+          "PD1VOCI-TABVOX-TIPVAR",
+          "PDRUTI01-F05-IMPOX11",
+          "PDRUTI01-F05-VALORE",
+          "PDRUTI01-FUNZIONE",
+          "RIGA-MAPPA",
+          "TWCOB-FUNZIONE",
+          "VOCE",
+          "WCODVO",
+          "WCTRIG",
+          "WDATA",
+          "WDATA-AA",
+          "WDATA-GG",
+          "WDATA-MM",
+          "WDATE2",
+          "WDATE2-AA34",
+          "WDATE2-GG",
+          "WDATE2-MM",
+          "WDESCVO",
+          "WPROGR",
+          "WPROGREC",
+          "WVOCE"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.720.bfc51374b8a6",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 720",
+      "embedding_text": "PDCBVC comment line 720 section LINKAGE paragraph PREP-RIGA. * MOVE '/' TO SESSIONE-VARIAZ-B1.",
+      "content": {
+        "line": 720,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "text": "* MOVE '/' TO SESSIONE-VARIAZ-B1.",
+        "text_raw": "*   MOVE '/'        TO SESSIONE-VARIAZ-B1."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 720,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREP-RIGA"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-026.json"
+        ],
+        "variables": [
+          "DATA-CESSAZIONE",
+          "DATA-IMPIANTO",
+          "FUNZ",
+          "IMPORTO-RATA",
+          "PD1VOCI-IND",
+          "PD1VOCI-TABVOX-CODVOX",
+          "PD1VOCI-TABVOX-DESCRIZ",
+          "PD1VOCI-TABVOX-FINE",
+          "PD1VOCI-TABVOX-INIZ",
+          "PD1VOCI-TABVOX-PROGVOX",
+          "PD1VOCI-TABVOX-TIPVAR",
+          "PDRUTI01-F05-IMPOX11",
+          "PDRUTI01-F05-VALORE",
+          "PDRUTI01-FUNZIONE",
+          "RIGA-MAPPA",
+          "TWCOB-FUNZIONE",
+          "VOCE",
+          "WCODVO",
+          "WCTRIG",
+          "WDATA",
+          "WDATA-AA",
+          "WDATA-GG",
+          "WDATA-MM",
+          "WDATE2",
+          "WDATE2-AA34",
+          "WDATE2-GG",
+          "WDATE2-MM",
+          "WDESCVO",
+          "WPROGR",
+          "WPROGREC",
+          "WVOCE"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.721.48302f506320",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 721",
+      "embedding_text": "PDCBVC comment line 721 section LINKAGE paragraph PREP-RIGA. * MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
+      "content": {
+        "line": 721,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "text": "* MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
+        "text_raw": "*   MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 721,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREP-RIGA"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-026.json"
+        ],
+        "variables": [
+          "DATA-CESSAZIONE",
+          "DATA-IMPIANTO",
+          "FUNZ",
+          "IMPORTO-RATA",
+          "PD1VOCI-IND",
+          "PD1VOCI-TABVOX-CODVOX",
+          "PD1VOCI-TABVOX-DESCRIZ",
+          "PD1VOCI-TABVOX-FINE",
+          "PD1VOCI-TABVOX-INIZ",
+          "PD1VOCI-TABVOX-PROGVOX",
+          "PD1VOCI-TABVOX-TIPVAR",
+          "PDRUTI01-F05-IMPOX11",
+          "PDRUTI01-F05-VALORE",
+          "PDRUTI01-FUNZIONE",
+          "RIGA-MAPPA",
+          "TWCOB-FUNZIONE",
+          "VOCE",
+          "WCODVO",
+          "WCTRIG",
+          "WDATA",
+          "WDATA-AA",
+          "WDATA-GG",
+          "WDATA-MM",
+          "WDATE2",
+          "WDATE2-AA34",
+          "WDATE2-GG",
+          "WDATE2-MM",
+          "WDESCVO",
+          "WPROGR",
+          "WPROGREC",
+          "WVOCE"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.722.390f1f859948",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 722",
+      "embedding_text": "PDCBVC comment line 722 section LINKAGE paragraph PREP-RIGA. * TO SESSIONE-VARIAZ-MM.",
+      "content": {
+        "line": 722,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "text": "* TO SESSIONE-VARIAZ-MM.",
+        "text_raw": "*                      TO SESSIONE-VARIAZ-MM."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 722,
+        "section": "LINKAGE",
+        "paragraph": "PREP-RIGA",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:PREP-RIGA"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-026.json"
+        ],
+        "variables": [
+          "DATA-CESSAZIONE",
+          "DATA-IMPIANTO",
+          "FUNZ",
+          "IMPORTO-RATA",
+          "PD1VOCI-IND",
+          "PD1VOCI-TABVOX-CODVOX",
+          "PD1VOCI-TABVOX-DESCRIZ",
+          "PD1VOCI-TABVOX-FINE",
+          "PD1VOCI-TABVOX-INIZ",
+          "PD1VOCI-TABVOX-PROGVOX",
+          "PD1VOCI-TABVOX-TIPVAR",
+          "PDRUTI01-F05-IMPOX11",
+          "PDRUTI01-F05-VALORE",
+          "PDRUTI01-FUNZIONE",
+          "RIGA-MAPPA",
+          "TWCOB-FUNZIONE",
+          "VOCE",
+          "WCODVO",
+          "WCTRIG",
+          "WDATA",
+          "WDATA-AA",
+          "WDATA-GG",
+          "WDATA-MM",
+          "WDATE2",
+          "WDATE2-AA34",
+          "WDATE2-GG",
+          "WDATE2-MM",
+          "WDESCVO",
+          "WPROGR",
+          "WPROGREC",
+          "WVOCE"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.746.18418c0b4219",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 746",
+      "embedding_text": "PDCBVC comment line 746 section LINKAGE paragraph EXIT. LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
+      "content": {
+        "line": 746,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
+        "text_raw": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 746,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.754.9a70dcd0b148",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 754",
+      "embedding_text": "PDCBVC comment line 754 section LINKAGE paragraph READ-TAB-SEMAF. in realt� questi a seguire non servono per la lettura",
+      "content": {
+        "line": 754,
+        "section": "LINKAGE",
+        "paragraph": "READ-TAB-SEMAF",
+        "kind": "full_line",
+        "text": "in realt� questi a seguire non servono per la lettura",
+        "text_raw": "in realt� questi a seguire non servono per la lettura"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 754,
+        "section": "LINKAGE",
+        "paragraph": "READ-TAB-SEMAF",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:READ-TAB-SEMAF"
+        ]
+      },
+      "links": {
+        "business_rules": [
+          "business_rule.BR-018.json"
+        ],
+        "variables": [
+          "PXCSEMAF-AGENT",
+          "PXCSEMAF-AREA",
+          "PXCSEMAF-CALLER",
+          "PXCSEMAF-CALLER-TYPE",
+          "PXCSEMAF-NAME",
+          "PXCSEMAF-OUTCOME",
+          "PXCSEMAF-REQ",
+          "PXCSEMAF-USER-REQ",
+          "TWCOB-OPER-SIGLA",
+          "WABEND-CODE"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.770.62bb3d4d28c0",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 770",
+      "embedding_text": "PDCBVC comment line 770 section LINKAGE paragraph EXIT. LINK ALLA ROUTINE CONTROLLO IMPORTO",
+      "content": {
+        "line": 770,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+        "text_raw": "LINK ALLA ROUTINE CONTROLLO IMPORTO"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 770,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.790.812300b42d25",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 790",
+      "embedding_text": "PDCBVC comment line 790 section LINKAGE paragraph EXIT. ABBLENCAMENTO DELLA RIGA DELLA MAPPA *",
+      "content": {
+        "line": 790,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA *",
+        "text_raw": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA                 *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 790,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.801.fe4bb291f6e4",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 801",
+      "embedding_text": "PDCBVC comment line 801 section LINKAGE paragraph ABBL-RIGA-EXIT. INDIRIZZA TWA *",
+      "content": {
+        "line": 801,
+        "section": "LINKAGE",
+        "paragraph": "ABBL-RIGA-EXIT",
+        "kind": "full_line",
+        "text": "INDIRIZZA TWA *",
+        "text_raw": "INDIRIZZA TWA                           *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 801,
+        "section": "LINKAGE",
+        "paragraph": "ABBL-RIGA-EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:ABBL-RIGA-EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.804.9aba692686c0",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 804",
+      "embedding_text": "PDCBVC comment line 804 section LINKAGE paragraph ADDRESS-TWA. ** EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
+      "content": {
+        "line": 804,
+        "section": "LINKAGE",
+        "paragraph": "ADDRESS-TWA",
+        "kind": "full_line",
+        "text": "** EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
+        "text_raw": "**  EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 804,
+        "section": "LINKAGE",
+        "paragraph": "ADDRESS-TWA",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:ADDRESS-TWA"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "PDRTWA2",
+          "TWA"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.808.13309cdbaf61",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 808",
+      "embedding_text": "PDCBVC comment line 808 section LINKAGE paragraph ADDRESS-TWA. INVIO MAPPA PDCBVC1 *",
+      "content": {
+        "line": 808,
+        "section": "LINKAGE",
+        "paragraph": "ADDRESS-TWA",
+        "kind": "full_line",
+        "text": "INVIO MAPPA PDCBVC1 *",
+        "text_raw": "INVIO MAPPA  PDCBVC1                        *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 808,
+        "section": "LINKAGE",
+        "paragraph": "ADDRESS-TWA",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:ADDRESS-TWA"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "PDRTWA2",
+          "TWA"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.817.b3b9cd4ef68e",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 817",
+      "embedding_text": "PDCBVC comment line 817 section LINKAGE paragraph EXIT. INVIO MAPPA PDCBVC1 (DATA ONLY) *",
+      "content": {
+        "line": 817,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "INVIO MAPPA PDCBVC1 (DATA ONLY) *",
+        "text_raw": "INVIO MAPPA  PDCBVC1 (DATA ONLY)                *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 817,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.826.6e1ffe87da90",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 826",
+      "embedding_text": "PDCBVC comment line 826 section LINKAGE paragraph EXIT. LETTURA MAPPA PDCBVC1 *",
+      "content": {
+        "line": 826,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "LETTURA MAPPA PDCBVC1 *",
+        "text_raw": "LETTURA MAPPA PDCBVC1                       *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 826,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.834.3af76342c09a",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 834",
+      "embedding_text": "PDCBVC comment line 834 section LINKAGE paragraph EXIT. RESET DELLA TWA *",
+      "content": {
+        "line": 834,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "text": "RESET DELLA TWA *",
+        "text_raw": "RESET  DELLA  TWA                           *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 834,
+        "section": "LINKAGE",
+        "paragraph": "EXIT",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:EXIT"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.843.c9a5d5a7ae8c",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 843",
+      "embedding_text": "PDCBVC comment line 843 section LINKAGE paragraph XCTL-MAIN. PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
+      "content": {
+        "line": 843,
+        "section": "LINKAGE",
+        "paragraph": "XCTL-MAIN",
+        "kind": "full_line",
+        "text": "PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
+        "text_raw": "PERFORM DELETE-TS THRU DELETE-TS-EXIT."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 843,
+        "section": "LINKAGE",
+        "paragraph": "XCTL-MAIN",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:XCTL-MAIN"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": []
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.879.dd88fef391ca",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 879",
+      "embedding_text": "PDCBVC comment line 879 section LINKAGE paragraph XCTL-LIV5. MOVE 'P' TO TWCOB-FUNZIONE.",
+      "content": {
+        "line": 879,
+        "section": "LINKAGE",
+        "paragraph": "XCTL-LIV5",
+        "kind": "full_line",
+        "text": "MOVE 'P' TO TWCOB-FUNZIONE.",
+        "text_raw": "MOVE 'P' TO TWCOB-FUNZIONE."
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 879,
+        "section": "LINKAGE",
+        "paragraph": "XCTL-LIV5",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:XCTL-LIV5"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "PROG-LIV5",
+          "TWCOB-FASE",
+          "TWCOB-NOME-PGM"
+        ]
+      }
+    },
+    {
+      "id": "program.comment.PDCBVC.906.5fe296c06ec7",
+      "type": "program.comment",
+      "program": "PDCBVC",
+      "title": "PDCBVC comment line 906",
+      "embedding_text": "PDCBVC comment line 906 section LINKAGE paragraph ABEND00. SALVATAGGIO TWA COMUNE *",
+      "content": {
+        "line": 906,
+        "section": "LINKAGE",
+        "paragraph": "ABEND00",
+        "kind": "full_line",
+        "text": "SALVATAGGIO TWA COMUNE *",
+        "text_raw": "SALVATAGGIO TWA COMUNE                       *"
+      },
+      "meta": {
+        "source": "PDCBVC.CBL",
+        "line": 906,
+        "section": "LINKAGE",
+        "paragraph": "ABEND00",
+        "kind": "full_line",
+        "tags": [
+          "program:PDCBVC",
+          "kind:full_line",
+          "section:LINKAGE",
+          "paragraph:ABEND00"
+        ]
+      },
+      "links": {
+        "business_rules": [],
+        "variables": [
+          "PDIABEND",
+          "PDPSQLER"
+        ]
+      }
+    }
+  ]
+}

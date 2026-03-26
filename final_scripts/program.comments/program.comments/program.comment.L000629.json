@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.629.6be17beb876f",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 629",
+  "embedding_text": "PDCBVC comment line 629 section LINKAGE paragraph EXIT. TRASFERIMENTO DATI SULLA MAPPA *",
+  "content": {
+    "line": 629,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "TRASFERIMENTO DATI SULLA MAPPA *",
+    "text_raw": "TRASFERIMENTO DATI SULLA MAPPA                       *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 629,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

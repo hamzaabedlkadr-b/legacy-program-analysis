@@ -1,0 +1,42 @@
+{
+  "id": "34513df6df524ee6",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PDRTWA2",
+  "embedding_text": "PDCBVC variable PDRTWA2. Origin=COPY:PDRTWA2. Defined in: none. Modified in: none. Used in: ADDRESS-TWA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PDRTWA2",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "ADDRESS-TWA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDRTWA2",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "ADDRESS-TWA",
+          "line_start": 805,
+          "statement": "EXEC CICS ADDRESS TWA(ADDRESS OF PDRTWA2) END-EXEC."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDRTWA2",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

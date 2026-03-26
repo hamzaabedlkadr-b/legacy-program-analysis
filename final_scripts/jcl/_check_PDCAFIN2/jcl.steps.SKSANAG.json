@@ -1,0 +1,51 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "SKSANAG",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "PARM2SK",
+  "program": "PARM2SK",
+  "proc": null,
+  "parameters": {
+    "PARM": "' SORT FIELDS=(400,60,CH,A)'"
+  },
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "SKEDA",
+      "dsn": "&&SKANAG",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&SKANAG,DISP=(,PASS),UNIT=3390,SPACE=(80,1)",
+      "source_lines": {
+        "start": 95,
+        "end": 95
+      }
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DUMMY",
+      "source_lines": {
+        "start": 96,
+        "end": 96
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 92,
+    "end": 93
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

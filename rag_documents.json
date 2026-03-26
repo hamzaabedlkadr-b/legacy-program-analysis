@@ -1,0 +1,401 @@
+[
+  {
+    "id": "04d2093fe6f75344",
+    "type": "evidence.mapa_raw",
+    "program": "PDCBVC",
+    "title": "PDCBVC raw MAPA lines",
+    "embedding_text": "Raw MAPA evidence for program PDCBVC.",
+    "content": {
+      "lines": [
+        "FILE,63db1ed1-6569-4af6-a322-c4307d946321,C:\\Users\\Lenovo\\Desktop\\COBOL\\Cics\\Cics\\PDCBVC.CBL,20260120104353381",
+        "COPY,8fdc0dc6-9986-4349-aaf5-5a4ce6ddecce,63db1ed1-6569-4af6-a322-c4307d946321,PDRTIP01",
+        "COPY,30727e90-c3cc-4230-86e9-a5f262a950ca,63db1ed1-6569-4af6-a322-c4307d946321,PDRVC",
+        "COPY,97225717-3d77-4368-806f-a74b85b627ab,63db1ed1-6569-4af6-a322-c4307d946321,PD1VOCI",
+        "COPY,8d2673ca-0d8c-4992-8865-2888189dfc39,63db1ed1-6569-4af6-a322-c4307d946321,PD1FS00",
+        "COPY,985a282f-88eb-4f1f-b8d3-a4231cd54df6,63db1ed1-6569-4af6-a322-c4307d946321,PDRUTI01",
+        "COPY,948032df-4db4-4db5-a367-d7d347831b25,63db1ed1-6569-4af6-a322-c4307d946321,PXCSEMAF",
+        "COPY,f73dd60b-a8ad-4125-8277-517818ad147f,63db1ed1-6569-4af6-a322-c4307d946321,PDCBVCM",
+        "COPY,d6c748a9-1021-4b27-96db-7d219b20ed19,63db1ed1-6569-4af6-a322-c4307d946321,DFHBMSCA",
+        "COPY,5b3e51c9-6e12-4e02-8bac-9e7c83c88249,63db1ed1-6569-4af6-a322-c4307d946321,DFHAID",
+        "SQLINCLUDE,e127344a-ed83-4bf4-9e41-6adb2f5c38d4,63db1ed1-6569-4af6-a322-c4307d946321,SQLCA",
+        "SQLINCLUDE,6f68f737-ef30-4ac0-b5c8-be343e28af29,63db1ed1-6569-4af6-a322-c4307d946321,PDWSQLER",
+        "COPY,d7a26ea4-8e77-499b-83d1-0560a7c25879,63db1ed1-6569-4af6-a322-c4307d946321,PDRTWA2",
+        "COPY,f73212f6-362d-4fa3-8263-1212b80b27b0,63db1ed1-6569-4af6-a322-c4307d946321,PDIABEND",
+        "SQLINCLUDE,9b558fb7-4151-4fa4-a3a4-22eb5c3199b8,63db1ed1-6569-4af6-a322-c4307d946321,PDPSQLER",
+        "COPY,c706f977-e772-408e-8af4-24cde44b39b2,63db1ed1-6569-4af6-a322-c4307d946321,PDSAVTW2",
+        "PGM,ede9098e-7d32-44af-b35b-29f21235d088,63db1ed1-6569-4af6-a322-c4307d946321,PDCBVC,392,72,14,2,0,99,97,0,0,2",
+        "CALL,0b788100-92a0-4006-b634-4f009ccb6f8f,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1VOCI",
+        "CALL,9fb965c1-6dc5-422e-ae8b-9d16a772699e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1FS00",
+        "CALL,2921b3aa-3560-4759-bee5-ece3fc99ef03,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CALLBYIDENTIFIER,PXRSEMAF",
+        "CALL,fbeeb085-c88c-45b2-9c2a-18a64483dad0,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD0UTI01",
+        "CALL,67626423-467c-40c3-b8ee-c9d48857da7e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSXCTLBYLITERAL,PDPRED",
+        "DB2TABLE,29d7f91e-492a-4d8d-809d-a54cd17c4e1e,ede9098e-7d32-44af-b35b-29f21235d088,DUAL,selectIntoStatement"
+      ],
+      "note": "Full raw MAPA lines for traceability. Other docs reference this via evidence_ref."
+    },
+    "meta": {
+      "source": "mapa_result"
+    }
+  },
+  {
+    "id": "c676cbb31aaabe92",
+    "type": "program.summary",
+    "program": "PDCBVC",
+    "title": "PDCBVC overview",
+    "embedding_text": "Program PDCBVC. COBOL CICS. LOC=392, paragraphs=14, statements=72. Source=C:\\Users\\Lenovo\\Desktop\\COBOL\\Cics\\Cics\\PDCBVC.CBL. Calls=5. UnresolvedCalls=0. CICSops=0.",
+    "content": "PDCBVC is a COBOL CICS program discovered from MAPA. It contains approximately 392 LOC and 14 paragraphs. Source file: C:\\Users\\Lenovo\\Desktop\\COBOL\\Cics\\Cics\\PDCBVC.CBL.",
+    "meta": {
+      "source": "mapa_result",
+      "file_timestamp": "20260120104353381",
+      "loc": 392,
+      "paragraphs": 14,
+      "statements": 72
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "FILE,63db1ed1-6569-4af6-a322-c4307d946321,C:\\Users\\Lenovo\\Desktop\\COBOL\\Cics\\Cics\\PDCBVC.CBL,20260120104353381",
+      "PGM,ede9098e-7d32-44af-b35b-29f21235d088,63db1ed1-6569-4af6-a322-c4307d946321,PDCBVC,392,72,14,2,0,99,97,0,0,2",
+      "CALL,0b788100-92a0-4006-b634-4f009ccb6f8f,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1VOCI",
+      "CALL,9fb965c1-6dc5-422e-ae8b-9d16a772699e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1FS00",
+      "DB2TABLE,29d7f91e-492a-4d8d-809d-a54cd17c4e1e,ede9098e-7d32-44af-b35b-29f21235d088,DUAL,selectIntoStatement"
+    ]
+  },
+  {
+    "id": "df4ce3b1588751af",
+    "type": "architecture.copybooks",
+    "program": "PDCBVC",
+    "title": "PDCBVC copybooks",
+    "embedding_text": "PDCBVC copybooks. UI/CICS=DFHAID, DFHBMSCA. Business=PD1FS00, PD1VOCI, PDCBVCM, PDRTIP01, PDRVC. Utilities=PDRUTI01, PXCSEMAF. State=PDRTWA2, PDSAVTW2. Errors=PDIABEND.",
+    "content": {
+      "all": [
+        "DFHAID",
+        "DFHBMSCA",
+        "PD1FS00",
+        "PD1VOCI",
+        "PDCBVCM",
+        "PDIABEND",
+        "PDRTIP01",
+        "PDRTWA2",
+        "PDRUTI01",
+        "PDRVC",
+        "PDSAVTW2",
+        "PXCSEMAF"
+      ],
+      "classified": {
+        "business": [
+          "PD1FS00",
+          "PD1VOCI",
+          "PDCBVCM",
+          "PDRTIP01",
+          "PDRVC"
+        ],
+        "utilities": [
+          "PDRUTI01",
+          "PXCSEMAF"
+        ],
+        "ui_cics": [
+          "DFHAID",
+          "DFHBMSCA"
+        ],
+        "state_context": [
+          "PDRTWA2",
+          "PDSAVTW2"
+        ],
+        "error_handling": [
+          "PDIABEND"
+        ]
+      },
+      "classification_note": "Categories are heuristic; treat as hints, not ground truth."
+    },
+    "meta": {
+      "source": "mapa_result",
+      "counts": {
+        "business": 5,
+        "utilities": 2,
+        "ui_cics": 2,
+        "state_context": 2,
+        "error_handling": 1
+      }
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "COPY,8fdc0dc6-9986-4349-aaf5-5a4ce6ddecce,63db1ed1-6569-4af6-a322-c4307d946321,PDRTIP01",
+      "COPY,30727e90-c3cc-4230-86e9-a5f262a950ca,63db1ed1-6569-4af6-a322-c4307d946321,PDRVC",
+      "COPY,97225717-3d77-4368-806f-a74b85b627ab,63db1ed1-6569-4af6-a322-c4307d946321,PD1VOCI",
+      "COPY,8d2673ca-0d8c-4992-8865-2888189dfc39,63db1ed1-6569-4af6-a322-c4307d946321,PD1FS00",
+      "COPY,985a282f-88eb-4f1f-b8d3-a4231cd54df6,63db1ed1-6569-4af6-a322-c4307d946321,PDRUTI01"
+    ]
+  },
+  {
+    "id": "15905b1befe81b63",
+    "type": "architecture.database",
+    "program": "PDCBVC",
+    "title": "PDCBVC database footprint",
+    "embedding_text": "PDCBVC database footprint. SQL includes: PDPSQLER, PDWSQLER, SQLCA. DB2 tables: DUAL. Interpretation: light_db_usage_likely_validation_or_constant_select (conf=0.7).",
+    "content": {
+      "sql_includes": [
+        "PDPSQLER",
+        "PDWSQLER",
+        "SQLCA"
+      ],
+      "db2_tables": [
+        "DUAL"
+      ],
+      "db2_usage": [
+        {
+          "table": "DUAL",
+          "stmt_type": "selectIntoStatement"
+        }
+      ],
+      "interpretation": "light_db_usage_likely_validation_or_constant_select",
+      "interpretation_confidence": 0.7
+    },
+    "meta": {
+      "source": "mapa_result"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "SQLINCLUDE,e127344a-ed83-4bf4-9e41-6adb2f5c38d4,63db1ed1-6569-4af6-a322-c4307d946321,SQLCA",
+      "SQLINCLUDE,6f68f737-ef30-4ac0-b5c8-be343e28af29,63db1ed1-6569-4af6-a322-c4307d946321,PDWSQLER",
+      "SQLINCLUDE,9b558fb7-4151-4fa4-a3a4-22eb5c3199b8,63db1ed1-6569-4af6-a322-c4307d946321,PDPSQLER",
+      "DB2TABLE,29d7f91e-492a-4d8d-809d-a54cd17c4e1e,ede9098e-7d32-44af-b35b-29f21235d088,DUAL,selectIntoStatement"
+    ]
+  },
+  {
+    "id": "40c714c3519294ca",
+    "type": "architecture.sqlinclude",
+    "program": "PDCBVC",
+    "title": "PDCBVC SQLINCLUDE PDPSQLER",
+    "embedding_text": "PDCBVC includes SQL include PDPSQLER (embedded SQL support).",
+    "content": {
+      "include": "PDPSQLER"
+    },
+    "meta": {
+      "source": "mapa_result",
+      "include": "PDPSQLER"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "SQLINCLUDE,9b558fb7-4151-4fa4-a3a4-22eb5c3199b8,63db1ed1-6569-4af6-a322-c4307d946321,PDPSQLER"
+    ]
+  },
+  {
+    "id": "2e7aa0b73d5502ca",
+    "type": "architecture.sqlinclude",
+    "program": "PDCBVC",
+    "title": "PDCBVC SQLINCLUDE PDWSQLER",
+    "embedding_text": "PDCBVC includes SQL include PDWSQLER (embedded SQL support).",
+    "content": {
+      "include": "PDWSQLER"
+    },
+    "meta": {
+      "source": "mapa_result",
+      "include": "PDWSQLER"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "SQLINCLUDE,6f68f737-ef30-4ac0-b5c8-be343e28af29,63db1ed1-6569-4af6-a322-c4307d946321,PDWSQLER"
+    ]
+  },
+  {
+    "id": "a857d454f0aa423e",
+    "type": "architecture.sqlinclude",
+    "program": "PDCBVC",
+    "title": "PDCBVC SQLINCLUDE SQLCA",
+    "embedding_text": "PDCBVC includes SQL include SQLCA (embedded SQL support).",
+    "content": {
+      "include": "SQLCA"
+    },
+    "meta": {
+      "source": "mapa_result",
+      "include": "SQLCA"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "SQLINCLUDE,e127344a-ed83-4bf4-9e41-6adb2f5c38d4,63db1ed1-6569-4af6-a322-c4307d946321,SQLCA"
+    ]
+  },
+  {
+    "id": "77d0bd3f4cf5d799",
+    "type": "architecture.db2_table",
+    "program": "PDCBVC",
+    "title": "PDCBVC DB2TABLE DUAL selectIntoStatement",
+    "embedding_text": "PDCBVC accesses DB2 table DUAL via selectIntoStatement.",
+    "content": {
+      "table": "DUAL",
+      "stmt_type": "selectIntoStatement"
+    },
+    "meta": {
+      "source": "mapa_result",
+      "table": "DUAL",
+      "stmt_type": "selectIntoStatement"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "DB2TABLE,29d7f91e-492a-4d8d-809d-a54cd17c4e1e,ede9098e-7d32-44af-b35b-29f21235d088,DUAL,selectIntoStatement"
+    ]
+  },
+  {
+    "id": "7285f6a13f8385f6",
+    "type": "architecture.calls",
+    "program": "PDCBVC",
+    "title": "PDCBVC call summary",
+    "embedding_text": "PDCBVC calls summary. CICSLINKBYLITERAL: PD0UTI01, PD1FS00, PD1VOCI CALLBYIDENTIFIER: PXRSEMAF CICSXCTLBYLITERAL: PDPRED",
+    "content": {
+      "CICSLINKBYLITERAL": {
+        "targets": [
+          "PD0UTI01",
+          "PD1FS00",
+          "PD1VOCI"
+        ],
+        "heuristic_intent": "sync_service_call",
+        "intent_confidence": 0.7
+      },
+      "CALLBYIDENTIFIER": {
+        "targets": [
+          "PXRSEMAF"
+        ],
+        "heuristic_intent": "concurrency_or_locking",
+        "intent_confidence": 0.55
+      },
+      "CICSXCTLBYLITERAL": {
+        "targets": [
+          "PDPRED"
+        ],
+        "heuristic_intent": "control_transfer",
+        "intent_confidence": 0.9
+      }
+    },
+    "meta": {
+      "source": "mapa_result"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "CALL,0b788100-92a0-4006-b634-4f009ccb6f8f,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1VOCI",
+      "CALL,9fb965c1-6dc5-422e-ae8b-9d16a772699e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1FS00",
+      "CALL,2921b3aa-3560-4759-bee5-ece3fc99ef03,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CALLBYIDENTIFIER,PXRSEMAF",
+      "CALL,fbeeb085-c88c-45b2-9c2a-18a64483dad0,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD0UTI01",
+      "CALL,67626423-467c-40c3-b8ee-c9d48857da7e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSXCTLBYLITERAL,PDPRED"
+    ]
+  },
+  {
+    "id": "42eb9c559b5d1d6b",
+    "type": "architecture.call",
+    "program": "PDCBVC",
+    "title": "PDCBVC CICSLINKBYLITERAL -> PD0UTI01",
+    "embedding_text": "PDCBVC calls PD0UTI01 using CICSLINKBYLITERAL. Intent: sync_service_call (conf=0.7).",
+    "content": {
+      "caller": "PDCBVC",
+      "call_type": "CICSLINKBYLITERAL",
+      "target": "PD0UTI01",
+      "heuristic_intent": "sync_service_call",
+      "intent_confidence": 0.7,
+      "note": "Intent labels are heuristic; verify against COBOL/CFG for accuracy."
+    },
+    "meta": {
+      "source": "mapa_result",
+      "call_type": "CICSLINKBYLITERAL",
+      "target": "PD0UTI01"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "CALL,fbeeb085-c88c-45b2-9c2a-18a64483dad0,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD0UTI01"
+    ]
+  },
+  {
+    "id": "ea64bc41d589a1b7",
+    "type": "architecture.call",
+    "program": "PDCBVC",
+    "title": "PDCBVC CICSLINKBYLITERAL -> PD1FS00",
+    "embedding_text": "PDCBVC calls PD1FS00 using CICSLINKBYLITERAL. Intent: sync_service_call (conf=0.7).",
+    "content": {
+      "caller": "PDCBVC",
+      "call_type": "CICSLINKBYLITERAL",
+      "target": "PD1FS00",
+      "heuristic_intent": "sync_service_call",
+      "intent_confidence": 0.7,
+      "note": "Intent labels are heuristic; verify against COBOL/CFG for accuracy."
+    },
+    "meta": {
+      "source": "mapa_result",
+      "call_type": "CICSLINKBYLITERAL",
+      "target": "PD1FS00"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "CALL,9fb965c1-6dc5-422e-ae8b-9d16a772699e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1FS00"
+    ]
+  },
+  {
+    "id": "a1876f31804a1333",
+    "type": "architecture.call",
+    "program": "PDCBVC",
+    "title": "PDCBVC CICSLINKBYLITERAL -> PD1VOCI",
+    "embedding_text": "PDCBVC calls PD1VOCI using CICSLINKBYLITERAL. Intent: sync_service_call (conf=0.7).",
+    "content": {
+      "caller": "PDCBVC",
+      "call_type": "CICSLINKBYLITERAL",
+      "target": "PD1VOCI",
+      "heuristic_intent": "sync_service_call",
+      "intent_confidence": 0.7,
+      "note": "Intent labels are heuristic; verify against COBOL/CFG for accuracy."
+    },
+    "meta": {
+      "source": "mapa_result",
+      "call_type": "CICSLINKBYLITERAL",
+      "target": "PD1VOCI"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "CALL,0b788100-92a0-4006-b634-4f009ccb6f8f,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1VOCI"
+    ]
+  },
+  {
+    "id": "bba8dc9d1284c5d2",
+    "type": "architecture.call",
+    "program": "PDCBVC",
+    "title": "PDCBVC CALLBYIDENTIFIER -> PXRSEMAF",
+    "embedding_text": "PDCBVC calls PXRSEMAF using CALLBYIDENTIFIER. Intent: concurrency_or_locking (conf=0.55).",
+    "content": {
+      "caller": "PDCBVC",
+      "call_type": "CALLBYIDENTIFIER",
+      "target": "PXRSEMAF",
+      "heuristic_intent": "concurrency_or_locking",
+      "intent_confidence": 0.55,
+      "note": "Intent labels are heuristic; verify against COBOL/CFG for accuracy."
+    },
+    "meta": {
+      "source": "mapa_result",
+      "call_type": "CALLBYIDENTIFIER",
+      "target": "PXRSEMAF"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "CALL,2921b3aa-3560-4759-bee5-ece3fc99ef03,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CALLBYIDENTIFIER,PXRSEMAF"
+    ]
+  },
+  {
+    "id": "bbae1a700b2bf39d",
+    "type": "architecture.call",
+    "program": "PDCBVC",
+    "title": "PDCBVC CICSXCTLBYLITERAL -> PDPRED",
+    "embedding_text": "PDCBVC calls PDPRED using CICSXCTLBYLITERAL. Intent: control_transfer (conf=0.9).",
+    "content": {
+      "caller": "PDCBVC",
+      "call_type": "CICSXCTLBYLITERAL",
+      "target": "PDPRED",
+      "heuristic_intent": "control_transfer",
+      "intent_confidence": 0.9,
+      "note": "Intent labels are heuristic; verify against COBOL/CFG for accuracy."
+    },
+    "meta": {
+      "source": "mapa_result",
+      "call_type": "CICSXCTLBYLITERAL",
+      "target": "PDPRED"
+    },
+    "evidence_ref": "04d2093fe6f75344",
+    "evidence": [
+      "CALL,67626423-467c-40c3-b8ee-c9d48857da7e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSXCTLBYLITERAL,PDPRED"
+    ]
+  }
+]

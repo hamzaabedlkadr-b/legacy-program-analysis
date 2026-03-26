@@ -1,0 +1,674 @@
+\documentclass[11pt]{article}
+
+% ---------- Packages ----------
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+% ---------- Hyperlink setup ----------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\newcommand{\artifact}[1]{\path{#1}}
+
+% ---------- Title ----------
+\title{COBOL Analysis Pipeline for RAG Artifacts}
+\author{Hamza -- Ermin}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+
+% ==============================
+% PARTS WILL BE ADDED HERE
+% ==============================
+
+
+\section{Brainstorming and Scoping the Approach}
+\label{sec:brainstorm}
+
+The project started with an onboarding phase aimed at understanding the technical environment available on the Camera PC and identifying which data sources and tools could realistically support a COBOL analysis pipeline.
+
+\subsection*{10/12/2025 -- First Visit}
+
+The first meeting was mainly an orientation session in the working environment. The notes for this day only mention ``prima visita'', indicating that the purpose of the visit was to understand the context of the system, the infrastructure, and the development environment used for COBOL programs.
+
+\subsection*{08/01/2026 -- Environment Review}
+
+During the second session we observed how COBOL compilation is performed using Eclipse. The workflow consisted of selecting the COBOL files in the workspace and launching the compilation through the Eclipse interface.
+
+At the same time we reviewed the architecture of the working environment and examined additional examples of COBOL programs, including JCL scripts and CICS programs. We attempted to run online execution but were not able to complete the process because of SQL-related issues.
+
+Because of this limitation, a new session was scheduled for \textbf{14/01/2026} with the expectation that the execution environment would be working correctly by then. In parallel, the database anonymization process was still ongoing.
+
+During this phase we also requested the installation of several tools on the servers that would later be used in the analysis pipeline:
+
+\begin{itemize}
+\item COBOL-REKT
+\item MAPA
+\item VS Code COBOL Control Flow extension
+\item Ollama
+\end{itemize}
+
+\subsection*{14/01/2026 -- Practical Access and First Tests}
+
+The third session focused on gaining practical access to the different components of the system. We learned how to compile COBOL programs using \textbf{Eclipse Enterprise Developer}, accessed the \textbf{CICS 3270 interface} and explored how navigation works within the terminal interface.
+
+We also executed batch jobs through \textbf{JCL} using Enterprise Server and tested JCL programs that interact with SQL. The database effects of these executions were verified using \textbf{DBeaver}.
+
+Access to the virtual machines was performed through \textbf{CyberArk}. On the infrastructure side, \textbf{Ollama} and IBM models were installed on the second server. We also started the first tests with \textbf{MAPA} and \textbf{COBOL-REKT}.
+
+At the same time, a limitation of the working environment was identified: the workspace setup for areas \textbf{R} and \textbf{S} was not yet complete, and therefore the work could only proceed using area \textbf{R}.
+
+\paragraph{Summary}
+
+The onboarding phase focused on understanding the operational environment before building any analysis pipeline. This included learning how COBOL programs are compiled and executed, navigating the CICS interface, running batch jobs with JCL, verifying database effects, accessing the servers, installing required tools (MAPA, COBOL-REKT, VS Code COBOL Control Flow extension, Ollama), and performing the first experiments with the available analysis tools. The full workspace configuration for areas R and S was identified as a pending setup task.
+
+\section{Selecting MAPA Outputs and COBOL Control Flow as the Core Approach}
+\label{sec:mapa}
+
+After the onboarding phase and the initial exploration of the working environment, we evaluated the available tooling and selected the combination of \textbf{MAPA outputs} and the \textbf{COBOL Control Flow extension} as the core foundation of the analysis pipeline.
+
+The reasoning behind this choice was that the two tools provide complementary information about COBOL programs. MAPA extracts structural information about programs, including documentation-like elements such as program summaries, copybook dependencies, external calls, SQL includes, and database tables. This information is useful for understanding the architecture of the system.
+
+However, MAPA alone does not provide a detailed representation of the execution paths within a program. For that reason, the \textbf{COBOL Control Flow extension} was used to generate a \textbf{Control Flow Graph (CFG)}, which captures the transitions between COBOL paragraphs and sections. The CFG provides the execution-path context that is required later for dataflow analysis and rule extraction.
+
+To validate this approach, we began with small and controlled COBOL samples and ran initial experiments using MAPA and COBOL-REKT in order to verify that the environment was functioning correctly and that the tools were able to parse the source files.
+
+Early debugging efforts focused primarily on making the tools run end-to-end in the laboratory environment. This included resolving issues related to tool installation, path configuration, and server access. Another important step was verifying that the outputs generated by MAPA could be consumed by downstream scripts. In particular, we confirmed that MAPA outputs could be converted into structured JSON documents that could later be used by the pipeline.
+
+During these experiments we also confirmed the first integration points between the tools. MAPA produces a textual output file named \texttt{result.txt}, which contains program documentation and dependency information. In the pipeline this file is converted into a structured JSON representation using the script \texttt{script3.py}. The resulting file, \texttt{mapa\_rag\_documents.json} (or \texttt{rag\_documents.json} by default), represents the MAPA-extracted program structure in a format that is suitable for later use in RAG indexing.
+
+In parallel, the COBOL Control Flow extension generates a raw control-flow representation in Graphviz DOT format. This file is stored as \texttt{dott.txt} and contains the edges between COBOL paragraphs and sections. The DOT graph is then converted into a JSON control-flow graph using the script \texttt{dot\_to\_json.py}, producing the file \texttt{pdc.json}, which serves as the initial CFG artifact for the rest of the pipeline.
+
+During this phase we also identified an important normalization issue. Program identifiers could appear either as the \texttt{PROGRAM-ID} defined inside the COBOL source or as the filename used in the repository. To ensure consistent outputs across the pipeline, it became necessary to normalize program identifiers so that all downstream artifacts reference the same program name.
+
+
+\section{Debugging and Fitting the Pipeline to Real Inputs}
+\label{sec:debug}
+
+After validating the initial approach with small COBOL samples, we attempted to run the pipeline on real programs from the repository. This phase revealed several limitations in the initial setup of the analysis pipeline.
+
+First, the MAPA outputs were sometimes incomplete. In several cases, the generated documentation did not include all the expected copybooks or structural details that were required by downstream scripts. Since the pipeline relies on this information to reconstruct architecture artifacts and variable origins, missing entries caused inconsistencies in the generated outputs.
+
+Second, the control-flow graph extraction was also incomplete. The CFG generated by the COBOL Control Flow extension did not always detect all control transfers present in the source code. Some \texttt{GO TO}, \texttt{PERFORM}, or program calls were not correctly represented in the graph, which resulted in missing paths inside the control-flow representation.
+
+Because of these limitations, the pipeline could not initially run autonomously across the full codebase. Each program required manual verification of the MAPA output and the generated CFG in order to confirm that the extracted structure matched the original COBOL logic.
+
+As a result, this phase became an iterative debugging process. For each program, we compared the MAPA output and the generated CFG against the original COBOL source code in order to identify missing elements. Based on these observations, the pipeline scripts were progressively adjusted to tolerate incomplete information and to handle edge cases more robustly.
+
+Another important limitation discovered during this phase was that the VS Code COBOL Control Flow extension required manual execution in order to generate the CFG output. This prevented the pipeline from running automatically across multiple programs.
+
+To address this issue, we implemented a wrapper command around the VS Code extension so that the CFG generation step could be automated. Once this automation was in place, the control-flow graph could be generated programmatically, allowing the pipeline to run end-to-end without manual intervention.
+
+
+\section{Defining the Data Required for RAG}
+\label{sec:ragdata}
+
+During the early stages of the pipeline development it became clear that indexing raw COBOL code alone would not produce reliable results for a Retrieval-Augmented Generation (RAG) system. Retrieval on pure code chunks tends to be noisy, because questions asked by users are rarely about raw syntax. Instead, they usually concern program intent, data usage, variable lineage, or business logic.
+
+For this reason, the pipeline was expanded to generate a richer set of artifacts that provide semantic context in addition to the original source code. The idea was to combine several complementary types of information so that the retriever could rely not only on lexical matches in the code, but also on structural and semantic signals extracted from the program.
+
+\subsection*{Why Raw Code is Not Enough}
+
+COBOL programs are highly procedural and often depend on shared data structures defined in copybooks. Without additional context, a language model would need to infer variable roles, program intent, and execution logic directly from procedural code, which is both difficult and error-prone. 
+
+To address this limitation, we introduced additional artifact types that capture different aspects of program semantics. These artifacts provide anchors that improve both recall and precision during retrieval.
+
+\subsection*{Types of Information Used for RAG}
+
+The following categories of information were identified as the most useful for retrieval and reasoning:
+
+\begin{itemize}
+\item \textbf{Metadata}: structural information about the program such as program name, module type (CICS or batch), source file, copybooks used, and paragraph location.
+\item \textbf{Code chunks}: segments of COBOL code that serve as the ground truth evidence for program logic.
+\item \textbf{Business rules}: conditions and actions extracted from the control-flow graph that represent explicit program logic.
+\item \textbf{Dataflow artifacts}: variable definitions, origins, types, and usage paths across the program.
+\end{itemize}
+
+Each category contributes a different type of signal to the retrieval process.
+
+\subsection*{Selected RAG Inputs}
+
+After evaluating the available files produced by the pipeline, we selected the following artifacts as the main inputs for RAG indexing. Most are generated by \texttt{run\_batch\_pipeline.py} as part of the per-program output tree, while \texttt{scan\_chunk\_rag} output is generated separately and added to the RAG index.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|p{7cm}|}
+\hline
+\textbf{Artifact} & \textbf{Source} & \textbf{Purpose} \\
+\hline
+\texttt{mapa\_rag\_documents.json} & MAPA output & Program summaries, copybook usage, external calls, SQL includes, DB2 tables \\
+\hline
+\texttt{controlflow.cfg.json} & CFG build step & Normalized control-flow used for rule and dataflow extraction (optional for indexing) \\
+\hline
+\texttt{pdc\_dataflow.json} & Dataflow extraction & Full inventory of program variables and their roles \\
+\hline
+\texttt{pdc\_var\_index\_used.json} & Dataflow filtering & Reduced set of variables that actually influence program logic \\
+\hline
+\texttt{pdc\_rules.json} & Rule extraction & Structured representation of business rules derived from CFG \\
+\hline
+\texttt{rag\_documents.json} & Rule transformation & Natural-language rule documents suitable for embedding \\
+\hline
+\texttt{business\_rule.<ID>.json} & Rule details builder & Per-rule details for traceability and deeper retrieval \\
+\hline
+Optional UI artifacts & UI analysis & \texttt{ui.cics.navigation.json} \\
+\hline
+\end{tabular}
+\caption{Main artifacts selected for RAG indexing}
+\end{table}
+
+\subsection*{Structure of a RAG Document}
+
+To ensure compatibility with vector search systems, the artifacts are converted into normalized JSON or JSONL documents. Each document follows a common structure:
+
+\begin{itemize}
+\item \textbf{metadata}: program name, file origin, artifact type (COBOL, CICS, batch, copybook), section or paragraph location, and the source analysis tool.
+\item \textbf{content}: the code chunk, rule description, or variable information.
+\item \textbf{links}: references to related artifacts, such as connections between rules and code, variables and copybooks, or calls and target programs.
+\item \textbf{tags}: keywords including variable names, copybooks, database tables, and called programs.
+\end{itemize}
+
+This structure allows the retriever to filter and rank documents more effectively.
+
+\subsection*{RAG Information Flow}
+
+The final RAG knowledge base therefore combines multiple layers of information:
+
+\begin{center}
+\begin{verbatim}
+           COBOL Source Code
+                   |
+                   v
+          Code Chunk Extraction
+                   |
+                   v
+        +------------------------+
+        |  Metadata              |
+        |  Business Rules        |
+        |  Dataflow Information  |
+        +------------------------+
+                   |
+                   v
+             RAG Documents
+                   |
+                   v
+           Vector Database
+\end{verbatim}
+\end{center}
+
+By combining lexical evidence (code chunks) with semantic artifacts (rules and dataflow), the retriever can answer questions more accurately while reducing hallucinations. This multi-layer representation significantly improves the interpretability of legacy COBOL systems when used with AI-assisted analysis tools.
+
+
+\section{First Expansion: MAPA + CFG Integration}
+\label{sec:integration}
+
+After defining the information required for the RAG system, the next step was to connect the structural information produced by MAPA with the control-flow representation generated by the COBOL Control Flow extension.
+
+The goal of this integration was to combine two complementary sources of information:
+
+\begin{itemize}
+\item MAPA outputs describing the architectural structure of the program.
+\item Control-flow graphs describing the execution paths inside the program.
+\end{itemize}
+
+\subsection*{MAPA Output Conversion}
+
+MAPA produces a textual file named \texttt{result.txt}, which contains program metadata such as copybook usage, external calls, SQL includes, and database tables. 
+
+To make this information usable by the pipeline, the script \texttt{script3.py} was used to convert this output into a structured JSON format. The resulting file, \texttt{mapa\_rag\_documents.json}, represents MAPA-extracted program documentation in a format suitable for further processing and RAG indexing.
+
+During this step, the script was improved to provide more robust parsing of the MAPA output. The improvements included:
+
+\begin{itemize}
+\item Robust CSV-style parsing of the MAPA records.
+\item Explicit extraction of \texttt{COPY} records representing copybook dependencies.
+\item Heuristic classification of copybooks into categories such as \textit{UI/CICS}, \textit{business}, \textit{utilities}, \textit{state/context}, and \textit{error handling}.
+\end{itemize}
+
+These improvements produced the artifact \texttt{architecture.copybooks.json}, which makes copybook usage explicit and easier to query within the RAG system.
+
+\subsection*{Control Flow Graph Processing}
+
+In parallel, the COBOL Control Flow extension generates a raw control-flow graph in Graphviz DOT format. This file, stored as \texttt{dott.txt}, contains the nodes and edges representing transitions between COBOL paragraphs.
+
+The DOT representation is converted into a JSON control-flow graph using the script \texttt{dot\_to\_json.py}, producing the file \texttt{pdc.json}. This file represents the raw structural control-flow graph.
+
+The graph is then enriched using the script \texttt{improvments/enrich\_graph.py}, producing \texttt{pdc\_enriched.json}. During this enrichment phase several improvements were introduced:
+
+\begin{itemize}
+\item Edge typing, distinguishing between \texttt{CALL}, \texttt{JUMP}, \texttt{CALL\_RANGE}, and \texttt{RANGE\_FLOW}.
+\item Extraction of conditional expressions associated with \texttt{GO TO} and \texttt{PERFORM} statements.
+\item Detection and tagging of CICS operations.
+\end{itemize}
+
+These enhancements made the control-flow graph significantly more expressive and reliable for downstream analysis.
+
+\subsection*{Transformation Pipeline}
+
+The integration between MAPA outputs and CFG artifacts can be summarized as follows:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Input} & \textbf{Script} & \textbf{Output} \\
+\hline
+\texttt{result.txt} & \texttt{script3.py} & \texttt{mapa\_rag\_documents.json} \\
+\hline
+\texttt{dott.txt} & \texttt{dot\_to\_json.py} & \texttt{pdc.json} \\
+\hline
+\texttt{pdc.json} & \texttt{improvments/enrich\_graph.py} & \texttt{pdc\_enriched.json} \\
+\hline
+\end{tabular}
+\caption{Transformation steps for MAPA and CFG artifacts}
+\end{table}
+
+\subsection*{Integration Result}
+
+The integration of MAPA outputs with the enriched control-flow graph produced the first concrete architecture artifacts of the pipeline.
+
+In particular, the system was able to identify and classify copybooks used by the program, producing structured artifacts describing these dependencies. At the same time, the enriched CFG provided a detailed representation of execution paths, including control transfers and conditions.
+
+\subsection*{Architecture Context Reconstruction}
+
+The resulting structure can be visualized as follows:
+
+\begin{center}
+\begin{verbatim}
+            MAPA result.txt
+                   |
+                   v
+          mapa_rag_documents.json
+                   |
+                   v
+         architecture.copybooks.json
+
+            dott.txt (CFG)
+                   |
+                   v
+               pdc.json
+                   |
+                   v
+           pdc_enriched.json
+                   |
+                   v
+       Control Flow + Architecture
+\end{verbatim}
+\end{center}
+
+This integration step made it possible to reach copybooks as a first concrete architecture artifact and produced a control-flow representation detailed enough to support later stages of the pipeline, including variable tracing, dataflow extraction, and rule generation for RAG indexing.
+
+
+\section{Further Expansion: Variable Extraction and Dataflow}
+\label{sec:dataflow}
+
+After the control-flow graph and MAPA integration became stable, the next focus of the pipeline was dataflow analysis. This step was motivated by the observation that many questions asked about legacy COBOL systems concern variables: where they are defined, how they are used, and which program logic depends on them.
+
+For this reason, the pipeline was extended to extract variable-level artifacts describing the role of each variable in the program.
+
+\subsection*{Full Variable Inventory}
+
+The first step is generating a complete variable index from the COBOL source code, the enriched control-flow graph, and the available copybooks. This step is performed by the script \texttt{extract\_dataflow.py}, which produces the file:
+
+\begin{center}
+\texttt{pdc\_dataflow.json}
+\end{center}
+
+This artifact contains the full inventory of variables discovered in the program, including definitions, modifications, reads, and potential influence on control flow.
+
+However, not all variables are equally important for program understanding.
+
+\subsection*{Filtering Relevant Variables}
+
+To focus on variables that actually affect program behavior, the pipeline applies a filtering step using the script \texttt{filter\_used\_variables.py}. This produces a reduced index:
+
+\begin{center}
+\texttt{pdc\_var\_index\_used.json}
+\end{center}
+
+This file contains only the variables that are actively used in program logic.
+
+\subsection*{Variable-Level Artifacts}
+
+From the filtered index, two types of artifacts are generated:
+
+\begin{itemize}
+\item \texttt{dataflow.used\_variables.json} -- a summary list of all variables relevant for program logic.
+\item \texttt{dataflow.variable.\textless VAR\textgreater.json} -- detailed artifacts describing each individual variable.
+\end{itemize}
+
+Each per-variable artifact attempts to attach the following information:
+
+\begin{itemize}
+\item \textbf{Origin}: which file or copybook declared the variable.
+\item \textbf{Type}: the data type or structural category of the variable.
+\item \textbf{Usage}: where the variable is read, written, compared, or moved in the program.
+\end{itemize}
+
+When explicit information is not available, the pipeline applies a heuristic approach based on variable naming patterns and the names of the files in which the variables appear. This heuristic helps infer likely types, origins, and usage patterns. Although this method improves coverage, it is still considered experimental and will require further validation.
+
+\subsection*{Impact on RAG Retrieval}
+
+These variable-level artifacts significantly improve the usefulness of the RAG system. They allow the retriever to answer questions such as:
+
+\begin{itemize}
+\item Where is a specific field set or modified?
+\item Which copybook defines a given variable?
+\item Which parts of the program depend on a particular data element?
+\end{itemize}
+
+Without this information, such questions would require manual inspection of large COBOL programs.
+
+\newpage
+
+\section{Generating Artifacts with Dedicated Builder Scripts}
+\label{sec:builders}
+
+After the early experimental phase, running individual scripts manually became impractical. To make the pipeline reproducible and easier to maintain, a structured builder layer was created under the directory \texttt{final\_scripts/}.
+
+In this design, each artifact type is generated by a dedicated script with clearly defined inputs and outputs.
+
+\subsection*{Artifact Categories}
+
+Artifacts were organized into several functional categories:
+
+\begin{itemize}
+\item \textbf{Architecture artifacts}: copybooks, program calls, call details, SQL includes, and DB2 tables.
+\item \textbf{Dataflow artifacts}: lists of used variables and per-variable details.
+\item \textbf{Business rule artifacts}: rule descriptions derived from control-flow conditions.
+\item \textbf{UI/CICS artifacts}: navigation flows reconstructed from COBOL and CFG data.
+\item \textbf{Optional artifacts}: program summaries, extracted comments, and JCL execution metadata.
+\end{itemize}
+
+Each builder consumes one upstream JSON artifact and produces a focused output JSON or a directory of JSON files. This design avoids producing a single very large file and makes indexing easier for the RAG system.
+
+\subsection*{Pipeline Execution Flow}
+
+The main pipeline is orchestrated by the script \texttt{run\_batch\_pipeline.py}. The overall execution flow can be summarized as follows:
+
+\begin{center}
+\begin{verbatim}
+MAPA result.txt
+      |
+      v
+script3.py
+      |
+      v
+mapa_rag_documents.json
+      |
+      v
+CFG generation
+(dott.txt -> pdc.json -> pdc_enriched.json)
+      |
+      v
+Dataflow extraction
+(pdc_dataflow.json -> pdc_var_index_used.json)
+      |
+      v
+Business rule extraction
+(pdc_rules.json -> rag_documents.json)
+      |
+      v
+Builder scripts
+(architecture, variables, rules, UI)
+\end{verbatim}
+\end{center}
+
+More specifically, the pipeline performs the following transformations:
+
+\begin{itemize}
+\item MAPA conversion: \texttt{result.txt} $\rightarrow$ \texttt{mapa\_rag\_documents.json}
+\item CFG generation: \texttt{dott.txt} $\rightarrow$ \texttt{pdc.json} $\rightarrow$ \texttt{pdc\_enriched.json}
+\item Dataflow extraction: \texttt{pdc\_dataflow.json} $\rightarrow$ \texttt{pdc\_var\_index\_used.json}
+\item Rule extraction: \texttt{pdc\_rules.json} $\rightarrow$ \texttt{rag\_documents.json}
+\item Artifact generation: architecture, variables, rules, UI outputs
+\end{itemize}
+
+\subsection*{Output Organization}
+
+All generated files are stored under a single output root directory. The structure typically follows the pattern:
+
+\begin{verbatim}
+programs/<PROGRAM>/
+    inputs/
+        intermediate JSON artifacts
+    artifacts/
+        final RAG-ready artifacts
+\end{verbatim}
+
+This organization allows intermediate results to be inspected while keeping the final artifacts clearly separated.
+
+\subsection*{Benefits of the Builder Layer}
+
+Introducing this builder layer provided several advantages:
+
+\begin{itemize}
+\item The pipeline can run automatically without manual intervention.
+\item Artifact naming and structure remain consistent across programs.
+\item Individual components can be debugged or improved independently.
+\item New artifact types can be added without modifying the entire pipeline.
+\end{itemize}
+
+Overall, this design made the analysis pipeline scalable and suitable for processing multiple COBOL programs while producing structured artifacts for RAG indexing.
+
+
+
+
+\section{Repository Scanning and Code Chunking}
+\label{sec:chunking}
+
+After building the structural and semantic artifacts of the pipeline (MAPA outputs, control-flow graphs, dataflow, and rules), the next step was to address the indexing of the raw source code itself. For this purpose we developed the script \texttt{scan\_chunk\_rag.py}.
+
+The objective of this script is to scan the entire repository and extract code chunks that can be used directly as retrieval evidence in the RAG system.
+These code-chunk artifacts are generated outside \texttt{run\_batch\_pipeline.py} and are added separately to the final RAG index.
+
+\subsection*{Repository Scanning}
+
+The script traverses the repository and detects several relevant file types:
+
+\begin{itemize}
+\item COBOL source files (both batch and CICS programs)
+\item COPYBOOK files
+\item BMS screen definitions
+\item Optional program listings
+\end{itemize}
+
+Each detected file is classified according to its role so that the retriever can later filter results based on context (for example: batch program, CICS program, copybook definition, or screen description).
+
+\subsection*{Code Chunking}
+
+Once the relevant files are identified, the script splits them into consistent chunks of code. Instead of performing arbitrary text splitting, the chunking strategy attempts to follow meaningful COBOL boundaries such as paragraphs, sections, or logical blocks of code.
+
+This approach ensures that each chunk represents a coherent unit of program logic rather than a random fragment of text.
+
+\subsection*{Chunk Metadata}
+
+Each generated chunk is emitted as a RAG document enriched with contextual metadata. This metadata allows the retriever to filter results and identify the origin of each piece of code.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Field} & \textbf{Description} \\
+\hline
+program & Name of the COBOL program associated with the chunk \\
+\hline
+file\_type & Type of source file (COBOL batch, COBOL CICS, copybook, BMS) \\
+\hline
+section & Section of the program where the chunk originates \\
+\hline
+paragraph & Paragraph or logical block within the program \\
+\hline
+source\_path & Original file path in the repository \\
+\hline
+chunk\_content & The actual code content of the chunk \\
+\hline
+\end{tabular}
+\caption{Metadata fields attached to each code chunk}
+\end{table}
+
+\subsection*{Validation of the Chunking Strategy}
+
+The chunking approach was tested on real repository folders to verify several aspects:
+
+\begin{itemize}
+\item that chunk sizes remained reasonable for embedding models,
+\item that metadata fields were consistently populated,
+\item and that chunk boundaries aligned with meaningful COBOL structures rather than arbitrary text splits.
+\end{itemize}
+
+\subsection*{Integration with the Pipeline}
+
+The resulting chunk documents complement the artifacts produced by MAPA, control-flow analysis, and dataflow extraction. While those artifacts provide structured information about the system, the code chunks provide direct lexical evidence from the original source code.
+
+Combining both sources significantly improves retrieval quality when answering questions about legacy COBOL programs.
+
+\subsection*{Result}
+
+The final result is a stable repository scanning and chunking pipeline that produces RAG-ready code documents enriched with metadata, enabling precise retrieval across large COBOL codebases.
+
+
+\section{Heuristic Inference of Variable Properties}
+\label{sec:heuristics}
+
+During the development of the dataflow extraction stage, we observed that explicit metadata about variables is not always available in the source code or in the extracted artifacts. In many cases, the variable type, origin, or semantic role could not be determined directly from the parsed structures.
+
+To improve coverage, we introduced a heuristic layer that attempts to infer variable properties by combining information from the variable name and the name of the file or copybook where the variable appears.
+
+\subsection*{Heuristic Approach}
+
+The heuristic uses simple signals extracted from the repository structure and naming conventions:
+
+\begin{itemize}
+\item \textbf{Variable name patterns}: certain prefixes or naming conventions can suggest the role of a variable (for example identifiers representing flags, counters, or identifiers).
+\item \textbf{File or copybook name}: the location where the variable is declared often indicates its functional domain (for example business data structures, UI-related fields, or utility structures).
+\item \textbf{Context of usage}: whether the variable appears in conditions, assignments, comparisons, or data movement statements.
+\end{itemize}
+
+By combining these signals, the pipeline generates approximate annotations describing:
+
+\begin{itemize}
+\item the likely \textbf{type} or category of the variable,
+\item its probable \textbf{origin} (for example a specific copybook),
+\item and its typical \textbf{usage role} inside the program.
+\end{itemize}
+
+In parallel, we also generate a lightweight comments artifact using \texttt{build\_program\_comments.py}, which outputs \texttt{program.comments.json}. This file collects inline and full-line COBOL comments with paragraph context, providing extra hints that complement the heuristic annotations.
+
+\subsection*{Limitations}
+
+This heuristic layer is considered experimental. While it increases the amount of usable metadata in the pipeline, the inferred information should be interpreted as hints rather than verified facts.
+
+The approach is therefore useful for improving retrieval and exploration during early experimentation, but it may require refinement before being relied upon in a production environment.
+
+\subsection*{Future Validation}
+
+Further validation of this heuristic method will require additional review of the naming conventions and structural patterns used in the codebase. In particular, feedback from domain experts familiar with the system conventions will help determine whether these heuristics should be refined, replaced by rule-based methods, or supported by additional static analysis.
+
+
+\section{Current Status and Final RAG Inputs}
+\label{sec:current_status}
+
+At the current stage, the pipeline runs end-to-end and produces a complete set of artifacts for COBOL program analysis. The generated outputs already provide useful insights into program structure, dataflow, architecture dependencies, and business rules.
+
+However, some components of the pipeline are still experimental and may require further refinement before committing to a full-scale RAG system.
+
+Before scaling the RAG architecture, we would like to clarify several technical points:
+
+\begin{enumerate}
+\item Which improvements should be prioritized first: data quality, schema normalization, chunk sizing, or building an evaluation dataset?
+\item Is the current combination of data sources (metadata, code chunks, business rules, dataflow artifacts, and MAPA outputs) sufficient for a first RAG implementation, or should additional artifact types be added or removed?
+\item Can the current heuristic approach (variable name and file name inference) be used as a temporary solution for identifying variable type, usage, and origin, or should this be avoided until stronger validation is available?
+\end{enumerate}
+
+\subsection*{Location of Generated Artifacts}
+
+All generated artifacts and intermediate outputs are stored in the following repository location:
+
+\begin{center}
+\url{https://drive.google.com/drive/folders/1LFvPAB7TYwdUOnrYVMl9tzOjNsVoN-Zn?usp=drive_link}
+\end{center}
+
+This location contains the full set of JSON outputs produced by the pipeline, including intermediate control-flow representations and the final RAG-ready artifacts.
+
+\subsection*{Final RAG Inputs}
+
+The following artifacts represent the final set of inputs intended for the RAG indexing stage.
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{0.38\linewidth}|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{Artifact} & \textbf{Purpose in RAG Retrieval} \\
+\hline
+\artifact{scan_chunk_rag output} &
+Code chunks with metadata. Provides direct retrieval on raw COBOL, CICS, copybook, and BMS source files. \\
+\hline
+\artifact{rag_documents.json} &
+Business rule documents derived from CFG analysis. Enables answering questions about program logic and decision rules. \\
+\hline
+\artifact{business_rule.<ID>.json} &
+Per-rule details generated from \texttt{pdc\_rules.json}. Useful for traceability and deep dives into specific rules. \\
+\hline
+\artifact{dataflow.used_variables.json} &
+Summary of variables that influence program logic. Useful for quick identification of important data elements. \\
+\hline
+\artifact{dataflow.variable.<VAR>.json} &
+Detailed lineage for each variable, including origin, type, and usage sites in the program. \\
+\hline
+\artifact{controlflow.cfg.json} &
+Normalized control-flow representation used for rule and dataflow extraction (optional for indexing). \\
+\hline
+\artifact{architecture.copybooks.json} &
+Overview of copybooks used by each program. Helps identify shared data structures. \\
+\hline
+\artifact{architecture.calls.json} &
+Map of program calls and dependencies between modules. \\
+\hline
+\artifact{architecture.call.<type>.<target>.json} &
+Detailed description of individual external calls with additional context. \\
+\hline
+\artifact{architecture.sqlinclude.<include>.json} &
+Documentation of embedded SQL includes used by the program. \\
+\hline
+\artifact{architecture.db2_table.<table>.<stmt>.json} &
+DB2 table usage with statement type (SELECT, INSERT, UPDATE, etc.). \\
+\hline
+\artifact{program.summary.json} &
+High-level program description and metrics. Serves as an entry point for program understanding. \\
+\hline
+\artifact{program.comments.json} &
+Extracted developer comments from COBOL source code, capturing informal documentation. \\
+\hline
+\artifact{ui.cics.navigation.json} &
+Reconstruction of CICS UI navigation flows, screens, and transitions. \\
+\hline
+\artifact{jcl.summary.json} / \artifact{jcl.steps.<STEP>.json} / \artifact{jcl.datasets.<DSN>.json} &
+JCL execution metadata (if generated separately). Provides batch job context and dataset usage. \\
+\hline
+\end{tabularx}
+\caption{Final artifacts used as RAG inputs}
+\end{table}
+
+\subsection*{Summary}
+
+The pipeline now produces a structured collection of artifacts describing multiple aspects of COBOL systems, including code structure, control flow, dataflow, architecture dependencies, and business rules.
+
+These artifacts collectively provide both lexical evidence (raw code chunks) and semantic signals (rules, variable lineage, architecture metadata), which are expected to significantly improve retrieval quality in the RAG system.
+
+\end{document}

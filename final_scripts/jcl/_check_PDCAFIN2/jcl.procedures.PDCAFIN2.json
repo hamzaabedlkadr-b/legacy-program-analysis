@@ -1,0 +1,86 @@
+{
+  "type": "jcl.procedures",
+  "job": "PDCAFIN2",
+  "procedure": "PDCAFIN2",
+  "parameters": {},
+  "programs": [
+    "ICEMAN",
+    "IDCAMS",
+    "IEBGENER",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHM730B",
+    "PDHM730C",
+    "PDHM730D"
+  ],
+  "steps": [
+    {
+      "step": "SCARCAF",
+      "exec_kind": "program",
+      "target": "IDCAMS",
+      "program": "IDCAMS",
+      "proc": null
+    },
+    {
+      "step": "SCRA",
+      "exec_kind": "program",
+      "target": "IEFBR14",
+      "program": "IEFBR14",
+      "proc": null
+    },
+    {
+      "step": "PDHM730B",
+      "exec_kind": "program",
+      "target": "PDHM730B",
+      "program": "PDHM730B",
+      "proc": null
+    },
+    {
+      "step": "PDHM730C",
+      "exec_kind": "program",
+      "target": "PDHM730C",
+      "program": "PDHM730C",
+      "proc": null
+    },
+    {
+      "step": "SKSANAG",
+      "exec_kind": "program",
+      "target": "PARM2SK",
+      "program": "PARM2SK",
+      "proc": null
+    },
+    {
+      "step": "SORANAG",
+      "exec_kind": "program",
+      "target": "ICEMAN",
+      "program": "ICEMAN",
+      "proc": null
+    },
+    {
+      "step": "PDHM730D",
+      "exec_kind": "program",
+      "target": "PDHM730D",
+      "program": "PDHM730D",
+      "proc": null
+    },
+    {
+      "step": "M730D2",
+      "exec_kind": "program",
+      "target": "PDHM730D",
+      "program": "PDHM730D",
+      "proc": null
+    },
+    {
+      "step": "COPYVAR",
+      "exec_kind": "program",
+      "target": "IEBGENER",
+      "program": "IEBGENER",
+      "proc": null
+    }
+  ],
+  "source_lines": {
+    "start": 35,
+    "end": 149
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

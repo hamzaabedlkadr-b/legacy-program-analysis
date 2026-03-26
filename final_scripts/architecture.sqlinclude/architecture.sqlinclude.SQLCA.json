@@ -1,0 +1,18 @@
+{
+  "id": "a857d454f0aa423e",
+  "type": "architecture.sqlinclude",
+  "program": "PDCBVC",
+  "title": "PDCBVC SQLINCLUDE SQLCA",
+  "embedding_text": "PDCBVC includes SQL include SQLCA (embedded SQL support).",
+  "content": {
+    "include": "SQLCA"
+  },
+  "meta": {
+    "source": "mapa_result",
+    "include": "SQLCA"
+  },
+  "evidence_ref": "04d2093fe6f75344",
+  "evidence": [
+    "SQLINCLUDE,e127344a-ed83-4bf4-9e41-6adb2f5c38d4,63db1ed1-6569-4af6-a322-c4307d946321,SQLCA"
+  ]
+}

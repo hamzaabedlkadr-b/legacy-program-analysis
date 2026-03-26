@@ -1,0 +1,62 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "SCRA",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "IEFBR14",
+  "program": "IEFBR14",
+  "proc": null,
+  "parameters": {},
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "PDKCAF",
+      "dsn": "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+      "disp": "(MOD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO, SPACE=(TRK,1),DISP=(MOD,DELETE)",
+      "source_lines": {
+        "start": 45,
+        "end": 46
+      }
+    },
+    {
+      "ddname": "VARIAZ",
+      "dsn": "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+      "disp": "(MOD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO, SPACE=(TRK,1),DISP=(MOD,DELETE)",
+      "source_lines": {
+        "start": 47,
+        "end": 48
+      }
+    },
+    {
+      "ddname": "VOCI730",
+      "dsn": "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO",
+      "disp": "(MOD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO, SPACE=(TRK,1),DISP=(MOD,DELETE)",
+      "source_lines": {
+        "start": 49,
+        "end": 50
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 44,
+    "end": 44
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

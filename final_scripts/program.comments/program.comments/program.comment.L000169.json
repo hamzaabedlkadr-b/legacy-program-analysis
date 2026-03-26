@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.169.287cf62da8a4",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 169",
+  "embedding_text": "PDCBVC comment line 169 section WORKING-STORAGE. AREA DI LAVORO PER PREPARAZIONE MAPPA *",
+  "content": {
+    "line": 169,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "AREA DI LAVORO PER PREPARAZIONE MAPPA *",
+    "text_raw": "AREA DI LAVORO PER PREPARAZIONE MAPPA        *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 169,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:WORKING-STORAGE"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

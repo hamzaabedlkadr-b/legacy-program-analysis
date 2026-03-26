@@ -1,0 +1,42 @@
+{
+  "id": "3208eb4fe255fc4d",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable HSQL-DATE",
+  "embedding_text": "PDCBVC variable HSQL-DATE. Origin=UNKNOWN. Defined in: none. Modified in: none. Used in: TOP. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "HSQL-DATE",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "TOP"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "UNKNOWN",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "TOP",
+          "line_start": 218,
+          "statement": "EXEC SQL SELECT SYSDATE INTO :HSQL-DATE FROM DUAL END-EXEC."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "UNKNOWN",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

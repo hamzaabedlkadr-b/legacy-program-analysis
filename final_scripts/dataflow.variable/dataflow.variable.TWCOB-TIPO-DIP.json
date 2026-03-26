@@ -1,0 +1,42 @@
+{
+  "id": "07a9153b520df850",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-TIPO-DIP",
+  "embedding_text": "PDCBVC variable TWCOB-TIPO-DIP. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: INIZ-PARAM. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-TIPO-DIP",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "INIZ-PARAM"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 429,
+          "statement": "MOVE TWCOB-TIPO-DIP         TO  PD1VOCI-CODDIP-TIPO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

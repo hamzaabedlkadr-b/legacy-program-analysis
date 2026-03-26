@@ -1,0 +1,16 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "&&SKVAR2",
+  "used_by": [
+    {
+      "step": "PDHM730B",
+      "ddname": "SKVAR2",
+      "program": "PDHM730B",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

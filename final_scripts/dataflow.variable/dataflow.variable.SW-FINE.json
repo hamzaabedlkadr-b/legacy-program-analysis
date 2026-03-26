@@ -1,0 +1,64 @@
+{
+  "id": "4ea2d5b67d3f8223",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable SW-FINE",
+  "embedding_text": "PDCBVC variable SW-FINE. Origin=WORKING-STORAGE. Defined in: MUOVI-DATI. Modified in: MUOVI-DATI, MUOVI-DATI-10. Used in: BROWSE-FASE2-VISUAL. Controls flow: yes. Fanout nodes: none.",
+  "content": {
+    "variable": "SW-FINE",
+    "defined_in": [
+      "MUOVI-DATI"
+    ],
+    "modified_in": [
+      "MUOVI-DATI",
+      "MUOVI-DATI-10"
+    ],
+    "used_in": [
+      "BROWSE-FASE2-VISUAL"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 634,
+          "statement": "MOVE  '0'       TO  SW-FINE."
+        },
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": 677,
+          "statement": "MOVE  '1'   TO   SW-FINE"
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 386,
+          "statement": "IF     SW-FINE    =    '1'        THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 386,
+          "statement": "IF     SW-FINE    =    '1'        THEN"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 2,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 1,
+      "control_sites": 1
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "220ee36215c6f6df",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-SP-PAD",
+  "embedding_text": "PDCBVC variable TWCOB-SP-PAD. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: INIZ-PARAM. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-SP-PAD",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "INIZ-PARAM"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 431,
+          "statement": "MOVE TWCOB-SP-PAD           TO  PD1VOCI-CODDIP-PAD."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

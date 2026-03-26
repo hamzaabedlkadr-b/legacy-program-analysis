@@ -1,0 +1,44 @@
+{
+  "id": "632b015ffc6b3ac6",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-BRO-STATO",
+  "embedding_text": "PDCBVC variable TWCOB-BRO-STATO. Origin=COMMAREA. Defined in: RESET-TWA. Modified in: RESET-TWA. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-BRO-STATO",
+    "defined_in": [
+      "RESET-TWA"
+    ],
+    "modified_in": [
+      "RESET-TWA"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "RESET-TWA",
+          "line_start": 838,
+          "statement": "MOVE  '0'     TO  TWCOB-BRO-STATO."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

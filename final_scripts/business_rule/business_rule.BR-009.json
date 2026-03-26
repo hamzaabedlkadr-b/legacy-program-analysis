@@ -1,0 +1,34 @@
+{
+  "id": "d2f4e9356d0d36b5",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-009",
+  "embedding_text": "PDCBVC business rule BR-009 in scope BROWSE-FASE2. If (NOT (EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)) then JUMP -> BROWSE-FASE2-TASTOER. Category=control. Kind=ui. Severity=neutral.",
+  "content": {
+    "id": "BR-009",
+    "program": "PDCBVC",
+    "scope": "BROWSE-FASE2",
+    "category": "control",
+    "kind": "ui",
+    "severity": "neutral",
+    "condition": "(NOT (EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8))",
+    "action": "JUMP -> BROWSE-FASE2-TASTOER",
+    "flags": [
+      "condition_maybe_inverted_notA_or_B"
+    ],
+    "evidence": {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-TASTOER",
+      "type": "JUMP",
+      "raw_evidence": "GO TO BROWSE-FASE2-TASTOER."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "BROWSE-FASE2",
+    "category": "control",
+    "kind": "ui",
+    "severity": "neutral",
+    "flags_count": 1
+  }
+}

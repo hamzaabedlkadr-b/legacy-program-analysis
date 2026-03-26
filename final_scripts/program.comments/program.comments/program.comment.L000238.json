@@ -1,0 +1,60 @@
+{
+  "id": "program.comment.PDCBVC.238.2a9369f548da",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 238",
+  "embedding_text": "PDCBVC comment line 238 section LINKAGE paragraph BROWSE-FASE1. (viene chiuso dall'elaborazione dei Collaboratori)",
+  "content": {
+    "line": 238,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE1",
+    "kind": "full_line",
+    "text": "(viene chiuso dall'elaborazione dei Collaboratori)",
+    "text_raw": "(viene chiuso dall'elaborazione dei Collaboratori)"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 238,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE1",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:BROWSE-FASE1"
+    ]
+  },
+  "links": {
+    "business_rules": [
+      "business_rule.BR-004.json",
+      "business_rule.BR-005.json",
+      "business_rule.BR-030.json",
+      "business_rule.BR-032.json"
+    ],
+    "variables": [
+      "ASKIP-DRK",
+      "KFINE-DATI",
+      "M1MSGO",
+      "M1PF7A",
+      "M1PF8A",
+      "NPAGT",
+      "PD1VOCI-TABVOX-NUMERO",
+      "PDCBVC1I",
+      "PXCSEMAF-STATUS",
+      "TWCOB-AREA-MSG",
+      "TWCOB-FASE",
+      "TWCOB-FUNZIONE",
+      "TWCOB-ID-SISTEMA",
+      "TWCOB-VARCONT-NPAGINA",
+      "TWCOB-VARCONT-NUMFUNZ",
+      "TWCOB-XCTL",
+      "TWCOB-XCTL-PGM",
+      "WCTPAG",
+      "WKERR1",
+      "WKERR2",
+      "WKMSG",
+      "WMSGNOREC"
+    ]
+  }
+}

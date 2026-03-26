@@ -1,0 +1,16 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDADDRE1",
+  "dsn": "TEPDET.B.ADRCES.&TIPO",
+  "used_by": [
+    {
+      "step": "PDHADR01",
+      "ddname": "FADRCES",
+      "program": "PDHADR01",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+}

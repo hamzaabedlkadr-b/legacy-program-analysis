@@ -1,0 +1,70 @@
+{
+  "type": "jcl.procedures",
+  "job": "PDADDRE1",
+  "procedure": "PDADDRE1",
+  "parameters": {},
+  "programs": [
+    "ICEMAN",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHADR00",
+    "PDHADR01",
+    "PDKADR"
+  ],
+  "steps": [
+    {
+      "step": "DELADR",
+      "exec_kind": "program",
+      "target": "PDKADR",
+      "program": "PDKADR",
+      "proc": null
+    },
+    {
+      "step": "SCRADDR",
+      "exec_kind": "program",
+      "target": "IEFBR14",
+      "program": "IEFBR14",
+      "proc": null
+    },
+    {
+      "step": "PDHADR00",
+      "exec_kind": "program",
+      "target": "PDHADR00",
+      "program": "PDHADR00",
+      "proc": null
+    },
+    {
+      "step": "PDHADR01",
+      "exec_kind": "program",
+      "target": "PDHADR01",
+      "program": "PDHADR01",
+      "proc": null
+    },
+    {
+      "step": "SKSADR",
+      "exec_kind": "program",
+      "target": "PARM2SK",
+      "program": "PARM2SK",
+      "proc": null
+    },
+    {
+      "step": "SORADR",
+      "exec_kind": "program",
+      "target": "ICEMAN",
+      "program": "ICEMAN",
+      "proc": null
+    },
+    {
+      "step": "CARADR",
+      "exec_kind": "program",
+      "target": "PDKADR",
+      "program": "PDKADR",
+      "proc": null
+    }
+  ],
+  "source_lines": {
+    "start": 6,
+    "end": 103
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+}

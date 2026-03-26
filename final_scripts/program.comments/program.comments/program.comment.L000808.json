@@ -1,0 +1,35 @@
+{
+  "id": "program.comment.PDCBVC.808.13309cdbaf61",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 808",
+  "embedding_text": "PDCBVC comment line 808 section LINKAGE paragraph ADDRESS-TWA. INVIO MAPPA PDCBVC1 *",
+  "content": {
+    "line": 808,
+    "section": "LINKAGE",
+    "paragraph": "ADDRESS-TWA",
+    "kind": "full_line",
+    "text": "INVIO MAPPA PDCBVC1 *",
+    "text_raw": "INVIO MAPPA  PDCBVC1                        *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 808,
+    "section": "LINKAGE",
+    "paragraph": "ADDRESS-TWA",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:ADDRESS-TWA"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "PDRTWA2",
+      "TWA"
+    ]
+  }
+}

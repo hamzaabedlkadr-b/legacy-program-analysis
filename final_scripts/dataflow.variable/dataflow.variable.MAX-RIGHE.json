@@ -1,0 +1,97 @@
+{
+  "id": "378713005feef373",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable MAX-RIGHE",
+  "embedding_text": "PDCBVC variable MAX-RIGHE. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: ABBL-RIGA-10, CALCOLA-NPAG, MUOVI-DATI. Controls flow: yes. Fanout nodes: ABBL-RIGA-10.",
+  "content": {
+    "variable": "MAX-RIGHE",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "ABBL-RIGA-10",
+      "CALCOLA-NPAG",
+      "MUOVI-DATI"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "ABBL-RIGA-10"
+    ],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 397,
+          "statement": "DIVIDE MAX-RIGHE INTO PD1VOCI-TABVOX-NUMERO GIVING NPAGT"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 644,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 645,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 654,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 655,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 665,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 666,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 671,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        },
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": 797,
+          "statement": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": 797,
+          "statement": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+        },
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": -1,
+          "statement": "(WCTRIG NOT GREATER MAX-RIGHE)"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 3,
+      "fanout_nodes": 1,
+      "write_sites": 0,
+      "read_sites": 9,
+      "control_sites": 2
+    }
+  }
+}

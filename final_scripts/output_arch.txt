@@ -1,0 +1,24 @@
+<OUT_ROOT>/
+  _global/
+    mapa_rag_documents.json
+  programs/
+    <PROGRAM>/
+      inputs/
+        pdc_typed.json
+        pdc_enriched.json
+        pdc_dataflow.json
+        pdc_var_index_used.json
+        pdc_rules.json
+        rag_documents.json
+      artifacts/
+        program.summary.json
+        architecture.copybooks.json
+        architecture.calls.json
+        architecture.call/
+        architecture.sqlinclude/
+        architecture.db2_table/
+        controlflow.cfg.json
+        dataflow.used_variables.json
+        dataflow.variable/
+        business_rule/
+        ui.cics.navigation.json

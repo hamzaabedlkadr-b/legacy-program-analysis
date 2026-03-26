@@ -1,0 +1,24 @@
+{
+  "id": "bba8dc9d1284c5d2",
+  "type": "architecture.call",
+  "program": "PDCBVC",
+  "title": "PDCBVC CALLBYIDENTIFIER -> PXRSEMAF",
+  "embedding_text": "PDCBVC calls PXRSEMAF using CALLBYIDENTIFIER. Intent: concurrency_or_locking (conf=0.55).",
+  "content": {
+    "caller": "PDCBVC",
+    "call_type": "CALLBYIDENTIFIER",
+    "target": "PXRSEMAF",
+    "heuristic_intent": "concurrency_or_locking",
+    "intent_confidence": 0.55,
+    "note": "Intent labels are heuristic; verify against COBOL/CFG for accuracy."
+  },
+  "meta": {
+    "source": "mapa_result",
+    "call_type": "CALLBYIDENTIFIER",
+    "target": "PXRSEMAF"
+  },
+  "evidence_ref": "04d2093fe6f75344",
+  "evidence": [
+    "CALL,2921b3aa-3560-4759-bee5-ece3fc99ef03,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CALLBYIDENTIFIER,PXRSEMAF"
+  ]
+}

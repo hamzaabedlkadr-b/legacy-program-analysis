@@ -1,0 +1,30 @@
+{
+  "id": "program.comment.PDCBVC.15.87faaffaaf2e",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 15",
+  "embedding_text": "PDCBVC comment line 15. ENVIRONMENT DIVISION *",
+  "content": {
+    "line": 15,
+    "section": null,
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "ENVIRONMENT DIVISION *",
+    "text_raw": "ENVIRONMENT DIVISION                                   *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 15,
+    "section": null,
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

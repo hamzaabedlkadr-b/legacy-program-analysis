@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.32.23ef11c64b11",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 32",
+  "embedding_text": "PDCBVC comment line 32 section WORKING-STORAGE. COSTANTI *",
+  "content": {
+    "line": 32,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "COSTANTI *",
+    "text_raw": "COSTANTI                             *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 32,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:WORKING-STORAGE"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

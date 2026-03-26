@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.481.5e22b72b53e3",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 481",
+  "embedding_text": "PDCBVC comment line 481 section LINKAGE paragraph EXIT. LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
+  "content": {
+    "line": 481,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
+    "text_raw": "LINK ALLA ROUTINE VOCI CONTABILI   (PD1VOCI)"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 481,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

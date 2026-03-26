@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.197.b90b5669343a",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 197",
+  "embedding_text": "PDCBVC comment line 197 section WORKING-STORAGE. S Q L A R E A",
+  "content": {
+    "line": 197,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "S Q L A R E A",
+    "text_raw": "S Q L  A R E A"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 197,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:WORKING-STORAGE"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

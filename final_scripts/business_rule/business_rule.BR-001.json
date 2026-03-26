@@ -1,0 +1,32 @@
+{
+  "id": "b09fc97fe4f7c9ea",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-001",
+  "embedding_text": "PDCBVC business rule BR-001 in scope PDCBVC. If NOT (TWCOB-FASE = '1' OR TWCOB-FASE = '2') then JUMP -> ABEND00. Category=error. Kind=state. Severity=fatal.",
+  "content": {
+    "id": "BR-001",
+    "program": "PDCBVC",
+    "scope": "PDCBVC",
+    "category": "error",
+    "kind": "state",
+    "severity": "fatal",
+    "condition": "NOT (TWCOB-FASE = '1' OR TWCOB-FASE = '2')",
+    "action": "JUMP -> ABEND00",
+    "flags": [],
+    "evidence": {
+      "from": "PDCBVC",
+      "to": "ABEND00",
+      "type": "JUMP",
+      "raw_evidence": "GO  TO ABEND00."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "PDCBVC",
+    "category": "error",
+    "kind": "state",
+    "severity": "fatal",
+    "flags_count": 0
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "id": "d2a4db4fc3232510",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WCTRIG",
+  "embedding_text": "PDCBVC variable WCTRIG. Origin=WORKING-STORAGE. Defined in: BROWSE-FASE2-SEL. Modified in: ABBL-RIGA, ABBL-RIGA-10, BROWSE-FASE2-SEL, BROWSE-FASE2-SEL-10, MUOVI-DATI, PREP-RIGA-010. Used in: ABBL-RIGA-10, BROWSE-FASE2-SEL-10, MUOVI-DATI-10, PREP-RIGA, PREPARA-MAP. Controls flow: yes. Fanout nodes: ABBL-RIGA-10, BROWSE-FASE2-NOTFND, MUOVI-DATI-30.",
+  "content": {
+    "variable": "WCTRIG",
+    "defined_in": [
+      "BROWSE-FASE2-SEL"
+    ],
+    "modified_in": [
+      "ABBL-RIGA",
+      "ABBL-RIGA-10",
+      "BROWSE-FASE2-SEL",
+      "BROWSE-FASE2-SEL-10",
+      "MUOVI-DATI",
+      "PREP-RIGA-010"
+    ],
+    "used_in": [
+      "ABBL-RIGA-10",
+      "BROWSE-FASE2-SEL-10",
+      "MUOVI-DATI-10",
+      "PREP-RIGA",
+      "PREPARA-MAP"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "ABBL-RIGA-10",
+      "BROWSE-FASE2-NOTFND",
+      "MUOVI-DATI-30"
+    ],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL",
+          "line_start": 355,
+          "statement": "MOVE  1   TO  WCTRIG."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 368,
+          "statement": "ADD   1   TO  WCTRIG."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 633,
+          "statement": "MOVE   1        TO  WCTRIG."
+        },
+        {
+          "paragraph": "PREP-RIGA-010",
+          "line_start": 739,
+          "statement": "MOVE RIGA-MAPPA             TO  MRIGAO(WCTRIG)."
+        },
+        {
+          "paragraph": "PREP-RIGA-010",
+          "line_start": 740,
+          "statement": "ADD   +1  TO     WCTRIG."
+        },
+        {
+          "paragraph": "ABBL-RIGA",
+          "line_start": 793,
+          "statement": "MOVE   1    TO  WCTRIG."
+        },
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": 795,
+          "statement": "MOVE  SPACE  TO   MRIGAO(WCTRIG)."
+        },
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": 796,
+          "statement": "ADD    1     TO  WCTRIG."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 358,
+          "statement": "IF WCTRIG  GREATER  15  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 360,
+          "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA."
+        },
+        {
+          "paragraph": "PREPARA-MAP",
+          "line_start": 525,
+          "statement": "IF WCTRIG NOT GREATER 2  AND"
+        },
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": 679,
+          "statement": "IF  WCTRIG  GREATER      15   THEN"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 702,
+          "statement": "MOVE WCTRIG                 TO  WPROGR."
+        },
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": 797,
+          "statement": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 358,
+          "statement": "IF WCTRIG  GREATER  15  THEN"
+        },
+        {
+          "paragraph": "PREPARA-MAP",
+          "line_start": 525,
+          "statement": "IF WCTRIG NOT GREATER 2  AND"
+        },
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": 679,
+          "statement": "IF  WCTRIG  GREATER      15   THEN"
+        },
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": 797,
+          "statement": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+        },
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": -1,
+          "statement": "(WCTRIG NOT GREATER MAX-RIGHE)"
+        },
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": -1,
+          "statement": "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": -1,
+          "statement": "WCTRIG GREATER 15"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 6,
+      "used_in": 5,
+      "fanout_nodes": 3,
+      "write_sites": 8,
+      "read_sites": 6,
+      "control_sites": 7
+    }
+  }
+}

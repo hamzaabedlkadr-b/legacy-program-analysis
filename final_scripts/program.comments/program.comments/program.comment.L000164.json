@@ -1,0 +1,31 @@
+{
+  "id": "program.comment.PDCBVC.164.b9a79dc8fb50",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 164",
+  "embedding_text": "PDCBVC comment line 164 section WORKING-STORAGE. AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+  "content": {
+    "line": 164,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+    "text_raw": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 164,
+    "section": "WORKING-STORAGE",
+    "paragraph": null,
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:WORKING-STORAGE"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "cdc73f7ea8420efd",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1VOCI-TABVOX-INIZ",
+  "embedding_text": "PDCBVC variable PD1VOCI-TABVOX-INIZ. Origin=COPY:PD1VOCI. Defined in: none. Modified in: none. Used in: PREP-RIGA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PD1VOCI-TABVOX-INIZ",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "PREP-RIGA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PD1VOCI",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 712,
+          "statement": "MOVE PD1VOCI-TABVOX-INIZ(PD1VOCI-IND)    TO  WDATE2."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PD1VOCI",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

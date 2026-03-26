@@ -1,0 +1,190 @@
+{
+  "id": "802d6f1d4a198304",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-VARCONT-NUMFUNZ",
+  "embedding_text": "PDCBVC variable TWCOB-VARCONT-NUMFUNZ. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: BROWSE-FASE1, INIZ-PARAM, INIZ-PARAM-010, MUOVI-TESTATA-20. Controls flow: yes. Fanout nodes: INIZ-PARAM-010, INIZ-PARAM-020, MUOVI-TESTATA-30.",
+  "content": {
+    "variable": "TWCOB-VARCONT-NUMFUNZ",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE1",
+      "INIZ-PARAM",
+      "INIZ-PARAM-010",
+      "MUOVI-TESTATA-20"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "INIZ-PARAM-010",
+      "INIZ-PARAM-020",
+      "MUOVI-TESTATA-30"
+    ],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 266,
+          "statement": "IF TWCOB-VARCONT-NUMFUNZ = '1'"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 436,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '1'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 440,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '6'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": 455,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '2'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": 458,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '3'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": 461,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '4'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": 464,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '5'   THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 598,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '1'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 602,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '2'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 606,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '3'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 610,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '4'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 614,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '5'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 618,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '6'  THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 266,
+          "statement": "IF TWCOB-VARCONT-NUMFUNZ = '1'"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 436,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '1'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 440,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '6'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": 455,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '2'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": 458,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '3'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": 461,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '4'   THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": 464,
+          "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '5'   THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 598,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '1'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 602,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '2'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 606,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '3'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 610,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '4'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 614,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '5'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": 618,
+          "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '6'  THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": -1,
+          "statement": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')"
+        },
+        {
+          "paragraph": "INIZ-PARAM-010",
+          "line_start": -1,
+          "statement": "(TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '5')"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-20",
+          "line_start": -1,
+          "statement": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '5')"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 4,
+      "fanout_nodes": 3,
+      "write_sites": 0,
+      "read_sites": 13,
+      "control_sites": 16
+    }
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "id": "d9a45f64ea1024bd",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable EIBAID",
+  "embedding_text": "PDCBVC variable EIBAID. Origin=CICS_EIB. Defined in: none. Modified in: none. Used in: BROWSE-FASE2. Controls flow: yes. Fanout nodes: BROWSE-FASE2-ENTER, BROWSE-FASE2-PF7, BROWSE-FASE2-PF8, BROWSE-FASE2-TASTOER, XCTL-LIV0, XCTL-LIV1, XCTL-LIV2, XCTL-LIV3, XCTL-LIV4.",
+  "content": {
+    "variable": "EIBAID",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE2"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "BROWSE-FASE2-ENTER",
+      "BROWSE-FASE2-PF7",
+      "BROWSE-FASE2-PF8",
+      "BROWSE-FASE2-TASTOER",
+      "XCTL-LIV0",
+      "XCTL-LIV1",
+      "XCTL-LIV2",
+      "XCTL-LIV3",
+      "XCTL-LIV4"
+    ],
+    "origin": "CICS_EIB",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 298,
+          "statement": "IF  EIBAID = DFHENTER THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 300,
+          "statement": "IF  EIBAID = DFHPF1   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 302,
+          "statement": "IF  EIBAID = DFHPF2   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 304,
+          "statement": "IF  EIBAID = DFHPF3   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 306,
+          "statement": "IF  EIBAID = DFHPF4   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 308,
+          "statement": "IF  EIBAID = DFHPF9   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 310,
+          "statement": "IF  EIBAID = DFHPF7   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 312,
+          "statement": "IF  EIBAID = DFHPF8   THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 298,
+          "statement": "IF  EIBAID = DFHENTER THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 300,
+          "statement": "IF  EIBAID = DFHPF1   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 302,
+          "statement": "IF  EIBAID = DFHPF2   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 304,
+          "statement": "IF  EIBAID = DFHPF3   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 306,
+          "statement": "IF  EIBAID = DFHPF4   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 308,
+          "statement": "IF  EIBAID = DFHPF9   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 310,
+          "statement": "IF  EIBAID = DFHPF7   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 312,
+          "statement": "IF  EIBAID = DFHPF8   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHENTER"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHPF1"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHPF2"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHPF3"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHPF4"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHPF9"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHPF7"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHPF8"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "CICS_EIB",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 9,
+      "write_sites": 0,
+      "read_sites": 8,
+      "control_sites": 17
+    }
+  }
+}

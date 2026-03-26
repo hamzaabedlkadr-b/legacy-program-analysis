@@ -1,0 +1,35 @@
+{
+  "id": "program.comment.PDCBVC.906.5fe296c06ec7",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 906",
+  "embedding_text": "PDCBVC comment line 906 section LINKAGE paragraph ABEND00. SALVATAGGIO TWA COMUNE *",
+  "content": {
+    "line": 906,
+    "section": "LINKAGE",
+    "paragraph": "ABEND00",
+    "kind": "full_line",
+    "text": "SALVATAGGIO TWA COMUNE *",
+    "text_raw": "SALVATAGGIO TWA COMUNE                       *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 906,
+    "section": "LINKAGE",
+    "paragraph": "ABEND00",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:ABEND00"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "PDIABEND",
+      "PDPSQLER"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "d54889c1df5667ed",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable SCELTAL",
+  "embedding_text": "PDCBVC variable SCELTAL. Origin=COPY:PDCBVCM. Defined in: BROWSE-FASE2-NOSEL. Modified in: BROWSE-FASE2-NOSEL, BROWSE-FASE2-NOTFND, PREPARA-MAP. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "SCELTAL",
+    "defined_in": [
+      "BROWSE-FASE2-NOSEL"
+    ],
+    "modified_in": [
+      "BROWSE-FASE2-NOSEL",
+      "BROWSE-FASE2-NOTFND",
+      "PREPARA-MAP"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-NOSEL",
+          "line_start": 349,
+          "statement": "MOVE  -1  TO SCELTAL."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-NOTFND",
+          "line_start": 375,
+          "statement": "MOVE  -1  TO  SCELTAL."
+        },
+        {
+          "paragraph": "PREPARA-MAP",
+          "line_start": 531,
+          "statement": "MOVE  -1         TO  SCELTAL."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 3,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 3,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

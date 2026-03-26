@@ -1,0 +1,59 @@
+{
+  "id": "09b118a3c9c4f546",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WKOST",
+  "embedding_text": "PDCBVC variable WKOST. Origin=WORKING-STORAGE. Defined in: MUOVI-DATI. Modified in: MUOVI-DATI. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WKOST",
+    "defined_in": [
+      "MUOVI-DATI"
+    ],
+    "modified_in": [
+      "MUOVI-DATI"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 645,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 655,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 665,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 671,
+          "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 4,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "ab00a090940bee12",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1FS00-SESS-TMENS",
+  "embedding_text": "PDCBVC variable PD1FS00-SESS-TMENS. Origin=COPY:PD1FS00. Defined in: none. Modified in: none. Used in: MUOVI-TESTATA-00. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PD1FS00-SESS-TMENS",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PD1FS00",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 561,
+          "statement": "MOVE  PD1FS00-SESS-TMENS  TO   SESSIONE-TMENS."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PD1FS00",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

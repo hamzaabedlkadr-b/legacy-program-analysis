@@ -1,0 +1,38 @@
+{
+  "id": "program.comment.PDCBVC.520.84f000f89eb9",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 520",
+  "embedding_text": "PDCBVC comment line 520 section LINKAGE paragraph PREPARA-MAP. IMPOSTATO A '01' NEL SEGUENTE CASO:",
+  "content": {
+    "line": 520,
+    "section": "LINKAGE",
+    "paragraph": "PREPARA-MAP",
+    "kind": "full_line",
+    "text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+    "text_raw": "IMPOSTATO A '01' NEL SEGUENTE CASO:"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 520,
+    "section": "LINKAGE",
+    "paragraph": "PREPARA-MAP",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:PREPARA-MAP"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "SCELTAL",
+      "SCELTAO",
+      "TWCOB-VARCONT-VOCE-LIV4",
+      "TWCOB-XCTL",
+      "WCTRIG"
+    ]
+  }
+}

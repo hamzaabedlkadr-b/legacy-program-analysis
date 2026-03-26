@@ -1,0 +1,42 @@
+{
+  "id": "3de0e405472baafa",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable NPAGINA",
+  "embedding_text": "PDCBVC variable NPAGINA. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: MUOVI-DATI-30. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "NPAGINA",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-DATI-30"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-DATI-30",
+          "line_start": 693,
+          "statement": "MOVE  NPAGINA  TO  MNPAGO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

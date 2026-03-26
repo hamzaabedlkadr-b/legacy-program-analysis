@@ -1,0 +1,74 @@
+{
+  "id": "4f86dc0812859f6f",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-NOME-PGM",
+  "embedding_text": "PDCBVC variable TWCOB-NOME-PGM. Origin=COMMAREA. Defined in: XCTL-LIV1. Modified in: XCTL-LIV0, XCTL-LIV1, XCTL-LIV2, XCTL-LIV3, XCTL-LIV4, XCTL-LIV5. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-NOME-PGM",
+    "defined_in": [
+      "XCTL-LIV1"
+    ],
+    "modified_in": [
+      "XCTL-LIV0",
+      "XCTL-LIV1",
+      "XCTL-LIV2",
+      "XCTL-LIV3",
+      "XCTL-LIV4",
+      "XCTL-LIV5"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "XCTL-LIV1",
+          "line_start": 850,
+          "statement": "MOVE PROG-LIV1  TO  TWCOB-NOME-PGM."
+        },
+        {
+          "paragraph": "XCTL-LIV2",
+          "line_start": 857,
+          "statement": "MOVE PROG-LIV2  TO  TWCOB-NOME-PGM."
+        },
+        {
+          "paragraph": "XCTL-LIV3",
+          "line_start": 865,
+          "statement": "MOVE PROG-LIV3  TO  TWCOB-NOME-PGM."
+        },
+        {
+          "paragraph": "XCTL-LIV4",
+          "line_start": 872,
+          "statement": "MOVE PROG-LIV4  TO  TWCOB-NOME-PGM."
+        },
+        {
+          "paragraph": "XCTL-LIV5",
+          "line_start": 880,
+          "statement": "MOVE PROG-LIV5  TO  TWCOB-NOME-PGM."
+        },
+        {
+          "paragraph": "XCTL-LIV0",
+          "line_start": 887,
+          "statement": "MOVE PROG-LIV0  TO  TWCOB-NOME-PGM."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 6,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 6,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

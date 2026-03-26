@@ -1,0 +1,24 @@
+Programma Principale
+PDCBVC.CBL
+
+Sorgente Mappa e Compilato
+PDCBVCM.BMS PDCBVCM.cpy
+
+Copy 
+PD1VOCI     (Area Comunicazione Routine Voci)
+PD1FS00     (Area Comunicazione Routine Servizio)
+PDRUTI01    (Area Comunicazione Routine UTIlity)
+
+PDRTIP01    (Tracciato Record TIP)
+PDRTWA2     (Tracciato Record TWA, Sessione del programma)
+PDRVC       (Tracciato Record Voci Contabili)
+
+Copy Mancanti
+PXCSEMAF
+DFHBMSCA
+DFHAID
+
+Programmi Mancanti (Routine chiamate)
+PD1VOCI
+PD1FS00
+PD0UTI01

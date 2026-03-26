@@ -1,0 +1,42 @@
+{
+  "id": "e67d34b087d31d0e",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TESTATA",
+  "embedding_text": "PDCBVC variable TESTATA. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: MUOVI-TESTATA-30. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TESTATA",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-TESTATA-30"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-30",
+          "line_start": 623,
+          "statement": "MOVE  TESTATA              TO  MDESCO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

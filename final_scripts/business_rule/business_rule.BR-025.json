@@ -1,0 +1,32 @@
+{
+  "id": "233db18ba0e7b7e5",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-025",
+  "embedding_text": "PDCBVC business rule BR-025 in scope MUOVI-DATI. If (TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2') then JUMP -> MUOVI-DATI-10. Category=control. Kind=business_logic. Severity=neutral.",
+  "content": {
+    "id": "BR-025",
+    "program": "PDCBVC",
+    "scope": "MUOVI-DATI",
+    "category": "control",
+    "kind": "business_logic",
+    "severity": "neutral",
+    "condition": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')",
+    "action": "JUMP -> MUOVI-DATI-10",
+    "flags": [],
+    "evidence": {
+      "from": "MUOVI-DATI",
+      "to": "MUOVI-DATI-10",
+      "type": "JUMP",
+      "raw_evidence": "GO  TO  MUOVI-DATI-10."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "MUOVI-DATI",
+    "category": "control",
+    "kind": "business_logic",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

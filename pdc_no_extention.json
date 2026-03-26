@@ -1,0 +1,649 @@
+{
+  "graph": {
+    "name": "PDCBVC",
+    "rankdir": "LR"
+  },
+  "nodes": [
+    "ABBL-RIGA",
+    "ABBL-RIGA-10",
+    "ABBL-RIGA-EXIT",
+    "ABEND00",
+    "ADDRESS-TWA",
+    "BROWSE-FASE1",
+    "BROWSE-FASE2",
+    "BROWSE-FASE2-ENTER",
+    "BROWSE-FASE2-NOSEL",
+    "BROWSE-FASE2-NOTFND",
+    "BROWSE-FASE2-PF7",
+    "BROWSE-FASE2-PF8",
+    "BROWSE-FASE2-SEL",
+    "BROWSE-FASE2-SEL-10",
+    "BROWSE-FASE2-SEL-20",
+    "BROWSE-FASE2-TASTOER",
+    "BROWSE-FASE2-VISUAL",
+    "CALCOLA-NPAG",
+    "CALCOLA-NPAG-EXIT",
+    "ERRORE-SQL",
+    "FINE-ELABORAZIONE",
+    "INIZ-PARAM",
+    "INIZ-PARAM-010",
+    "INIZ-PARAM-020",
+    "INIZ-PARAM-EXIT",
+    "LINK-PD0UTI01",
+    "LINK-PD0UTI01-EXIT",
+    "LINK-PD1FS00",
+    "LINK-PD1FS00-EXIT",
+    "LINK-PD1VOCI",
+    "LINK-PD1VOCI-EXIT",
+    "MUOVI-DATI",
+    "MUOVI-DATI-05",
+    "MUOVI-DATI-10",
+    "MUOVI-DATI-15",
+    "MUOVI-DATI-20",
+    "MUOVI-DATI-30",
+    "MUOVI-DATI-EXIT",
+    "MUOVI-TESTATA",
+    "MUOVI-TESTATA-00",
+    "MUOVI-TESTATA-10",
+    "MUOVI-TESTATA-20",
+    "MUOVI-TESTATA-30",
+    "MUOVI-TESTATA-EXIT",
+    "PDCBVC",
+    "PREP-LINK-PD1FS00",
+    "PREP-LINK-PD1FS00-EXIT",
+    "PREP-RIGA",
+    "PREP-RIGA-010",
+    "PREP-RIGA-EXIT",
+    "PREPARA-MAP",
+    "PREPARA-MAP-EXIT",
+    "READ-TAB-SEMAF",
+    "RECEIVE-PDCBVC1",
+    "RECEIVE-PDCBVC1-EXIT",
+    "RESET-TWA",
+    "RESET-TWA-EXIT",
+    "RETURN-CICS",
+    "RETURN-MAIN",
+    "SAVE-TWA",
+    "SEND-PDCBVC1",
+    "SEND-PDCBVC1-DO",
+    "SEND-PDCBVC1-DO-EXIT",
+    "SEND-PDCBVC1-EXIT",
+    "XCTL-LIV0",
+    "XCTL-LIV1",
+    "XCTL-LIV2",
+    "XCTL-LIV3",
+    "XCTL-LIV4",
+    "XCTL-LIV5",
+    "XCTL-MAIN"
+  ],
+  "edges": [
+    {
+      "from": "PDCBVC",
+      "to": "ADDRESS-TWA"
+    },
+    {
+      "from": "PDCBVC",
+      "to": "ERRORE-SQL"
+    },
+    {
+      "from": "PDCBVC",
+      "to": "BROWSE-FASE1"
+    },
+    {
+      "from": "PDCBVC",
+      "to": "BROWSE-FASE2"
+    },
+    {
+      "from": "PDCBVC",
+      "to": "ABEND00"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "READ-TAB-SEMAF"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "XCTL-LIV4"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "PREP-LINK-PD1FS00"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "INIZ-PARAM"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "LINK-PD1VOCI"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "CALCOLA-NPAG"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "PREPARA-MAP"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "SEND-PDCBVC1"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "RETURN-MAIN"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "RECEIVE-PDCBVC1"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-ENTER"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV1"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV2"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV3"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV4"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV0"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-PF7"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-PF8"
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-TASTOER"
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "BROWSE-FASE2-SEL"
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "PREP-LINK-PD1FS00"
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "INIZ-PARAM"
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "LINK-PD1VOCI"
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "CALCOLA-NPAG"
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "XCTL-LIV4"
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "BROWSE-FASE2-VISUAL"
+    },
+    {
+      "from": "BROWSE-FASE2-PF7",
+      "to": "BROWSE-FASE2-TASTOER"
+    },
+    {
+      "from": "BROWSE-FASE2-PF7",
+      "to": "BROWSE-FASE2-ENTER"
+    },
+    {
+      "from": "BROWSE-FASE2-PF8",
+      "to": "BROWSE-FASE2-TASTOER"
+    },
+    {
+      "from": "BROWSE-FASE2-PF8",
+      "to": "BROWSE-FASE2-ENTER"
+    },
+    {
+      "from": "BROWSE-FASE2-TASTOER",
+      "to": "SEND-PDCBVC1-DO"
+    },
+    {
+      "from": "BROWSE-FASE2-TASTOER",
+      "to": "RETURN-MAIN"
+    },
+    {
+      "from": "BROWSE-FASE2-NOSEL",
+      "to": "SEND-PDCBVC1-DO"
+    },
+    {
+      "from": "BROWSE-FASE2-NOSEL",
+      "to": "RETURN-MAIN"
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-10",
+      "to": "BROWSE-FASE2-NOTFND"
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-10",
+      "to": "BROWSE-FASE2-SEL-20"
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-10",
+      "to": "BROWSE-FASE2-SEL-10"
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-20",
+      "to": "XCTL-LIV5"
+    },
+    {
+      "from": "BROWSE-FASE2-NOTFND",
+      "to": "SEND-PDCBVC1-DO"
+    },
+    {
+      "from": "BROWSE-FASE2-NOTFND",
+      "to": "RETURN-MAIN"
+    },
+    {
+      "from": "BROWSE-FASE2-VISUAL",
+      "to": "PREPARA-MAP"
+    },
+    {
+      "from": "BROWSE-FASE2-VISUAL",
+      "to": "SEND-PDCBVC1"
+    },
+    {
+      "from": "BROWSE-FASE2-VISUAL",
+      "to": "RETURN-MAIN"
+    },
+    {
+      "from": "CALCOLA-NPAG",
+      "to": "CALCOLA-NPAG-EXIT"
+    },
+    {
+      "from": "PREP-LINK-PD1FS00",
+      "to": "LINK-PD1FS00"
+    },
+    {
+      "from": "PREP-LINK-PD1FS00",
+      "to": "PREP-LINK-PD1FS00-EXIT"
+    },
+    {
+      "from": "PREP-LINK-PD1FS00",
+      "to": "ABEND00"
+    },
+    {
+      "from": "INIZ-PARAM",
+      "to": "INIZ-PARAM-010"
+    },
+    {
+      "from": "INIZ-PARAM-010",
+      "to": "INIZ-PARAM-020"
+    },
+    {
+      "from": "LINK-PD1VOCI",
+      "to": "ABEND00"
+    },
+    {
+      "from": "LINK-PD1FS00",
+      "to": "ABEND00"
+    },
+    {
+      "from": "PREPARA-MAP",
+      "to": "MUOVI-TESTATA"
+    },
+    {
+      "from": "PREPARA-MAP",
+      "to": "ABBL-RIGA"
+    },
+    {
+      "from": "PREPARA-MAP",
+      "to": "MUOVI-DATI"
+    },
+    {
+      "from": "MUOVI-TESTATA-00",
+      "to": "MUOVI-TESTATA-10"
+    },
+    {
+      "from": "MUOVI-TESTATA-10",
+      "to": "MUOVI-TESTATA-20"
+    },
+    {
+      "from": "MUOVI-TESTATA-20",
+      "to": "MUOVI-TESTATA-30"
+    },
+    {
+      "from": "MUOVI-DATI",
+      "to": "ABBL-RIGA"
+    },
+    {
+      "from": "MUOVI-DATI",
+      "to": "MUOVI-DATI-10"
+    },
+    {
+      "from": "MUOVI-DATI-10",
+      "to": "MUOVI-DATI-30"
+    },
+    {
+      "from": "MUOVI-DATI-15",
+      "to": "PREP-RIGA"
+    },
+    {
+      "from": "MUOVI-DATI-20",
+      "to": "MUOVI-DATI-10"
+    },
+    {
+      "from": "PREP-RIGA",
+      "to": "PREP-RIGA-010"
+    },
+    {
+      "from": "PREP-RIGA",
+      "to": "LINK-PD0UTI01"
+    },
+    {
+      "from": "READ-TAB-SEMAF",
+      "to": "ABEND00"
+    },
+    {
+      "from": "LINK-PD0UTI01",
+      "to": "ABEND00"
+    },
+    {
+      "from": "ABBL-RIGA-10",
+      "to": "ABBL-RIGA-10"
+    },
+    {
+      "from": "XCTL-LIV1",
+      "to": "RESET-TWA"
+    },
+    {
+      "from": "XCTL-LIV1",
+      "to": "XCTL-MAIN"
+    },
+    {
+      "from": "XCTL-LIV2",
+      "to": "RESET-TWA"
+    },
+    {
+      "from": "XCTL-LIV2",
+      "to": "XCTL-MAIN"
+    },
+    {
+      "from": "XCTL-LIV3",
+      "to": "RESET-TWA"
+    },
+    {
+      "from": "XCTL-LIV3",
+      "to": "XCTL-MAIN"
+    },
+    {
+      "from": "XCTL-LIV4",
+      "to": "RESET-TWA"
+    },
+    {
+      "from": "XCTL-LIV4",
+      "to": "XCTL-MAIN"
+    },
+    {
+      "from": "XCTL-LIV5",
+      "to": "RESET-TWA"
+    },
+    {
+      "from": "XCTL-LIV5",
+      "to": "XCTL-MAIN"
+    },
+    {
+      "from": "XCTL-LIV0",
+      "to": "RESET-TWA"
+    },
+    {
+      "from": "XCTL-LIV0",
+      "to": "XCTL-MAIN"
+    },
+    {
+      "from": "RETURN-MAIN",
+      "to": "SAVE-TWA"
+    },
+    {
+      "from": "INIZ-PARAM-020",
+      "to": "INIZ-PARAM-EXIT"
+    },
+    {
+      "from": "LINK-PD1VOCI",
+      "to": "LINK-PD1VOCI-EXIT"
+    },
+    {
+      "from": "PREPARA-MAP",
+      "to": "PREPARA-MAP-EXIT"
+    },
+    {
+      "from": "LINK-PD1FS00",
+      "to": "LINK-PD1FS00-EXIT"
+    },
+    {
+      "from": "MUOVI-TESTATA",
+      "to": "MUOVI-TESTATA-00"
+    },
+    {
+      "from": "MUOVI-TESTATA-30",
+      "to": "MUOVI-TESTATA-EXIT"
+    },
+    {
+      "from": "ABBL-RIGA",
+      "to": "ABBL-RIGA-10"
+    },
+    {
+      "from": "ABBL-RIGA-10",
+      "to": "ABBL-RIGA-EXIT"
+    },
+    {
+      "from": "MUOVI-DATI",
+      "to": "MUOVI-DATI-05"
+    },
+    {
+      "from": "MUOVI-DATI-05",
+      "to": "MUOVI-DATI-10"
+    },
+    {
+      "from": "MUOVI-DATI-10",
+      "to": "MUOVI-DATI-15"
+    },
+    {
+      "from": "MUOVI-DATI-15",
+      "to": "MUOVI-DATI-20"
+    },
+    {
+      "from": "MUOVI-DATI-20",
+      "to": "MUOVI-DATI-30"
+    },
+    {
+      "from": "MUOVI-DATI-30",
+      "to": "MUOVI-DATI-EXIT"
+    },
+    {
+      "from": "PREP-RIGA-010",
+      "to": "PREP-RIGA-EXIT"
+    },
+    {
+      "from": "LINK-PD0UTI01",
+      "to": "LINK-PD0UTI01-EXIT"
+    },
+    {
+      "from": "RESET-TWA",
+      "to": "RESET-TWA-EXIT"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "BROWSE-FASE2"
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "BROWSE-FASE2-PF7"
+    },
+    {
+      "from": "BROWSE-FASE2-PF7",
+      "to": "BROWSE-FASE2-PF8"
+    },
+    {
+      "from": "BROWSE-FASE2-TASTOER",
+      "to": "BROWSE-FASE2-NOSEL"
+    },
+    {
+      "from": "BROWSE-FASE2-NOSEL",
+      "to": "BROWSE-FASE2-SEL"
+    },
+    {
+      "from": "BROWSE-FASE2-SEL",
+      "to": "BROWSE-FASE2-SEL-10"
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-20",
+      "to": "BROWSE-FASE2-NOTFND"
+    },
+    {
+      "from": "BROWSE-FASE2-NOTFND",
+      "to": "BROWSE-FASE2-VISUAL"
+    },
+    {
+      "from": "BROWSE-FASE2-VISUAL",
+      "to": "CALCOLA-NPAG"
+    },
+    {
+      "from": "CALCOLA-NPAG-EXIT",
+      "to": "PREP-LINK-PD1FS00"
+    },
+    {
+      "from": "PREP-LINK-PD1FS00-EXIT",
+      "to": "INIZ-PARAM"
+    },
+    {
+      "from": "INIZ-PARAM-EXIT",
+      "to": "LINK-PD1VOCI"
+    },
+    {
+      "from": "LINK-PD1VOCI-EXIT",
+      "to": "LINK-PD1FS00"
+    },
+    {
+      "from": "LINK-PD1FS00-EXIT",
+      "to": "PREPARA-MAP"
+    },
+    {
+      "from": "PREPARA-MAP-EXIT",
+      "to": "MUOVI-TESTATA"
+    },
+    {
+      "from": "MUOVI-TESTATA-EXIT",
+      "to": "MUOVI-DATI"
+    },
+    {
+      "from": "MUOVI-DATI-EXIT",
+      "to": "PREP-RIGA"
+    },
+    {
+      "from": "PREP-RIGA-EXIT",
+      "to": "READ-TAB-SEMAF"
+    },
+    {
+      "from": "READ-TAB-SEMAF",
+      "to": "LINK-PD0UTI01"
+    },
+    {
+      "from": "LINK-PD0UTI01-EXIT",
+      "to": "ABBL-RIGA"
+    },
+    {
+      "from": "ABBL-RIGA-EXIT",
+      "to": "ADDRESS-TWA"
+    },
+    {
+      "from": "ADDRESS-TWA",
+      "to": "SEND-PDCBVC1"
+    },
+    {
+      "from": "SEND-PDCBVC1",
+      "to": "SEND-PDCBVC1-EXIT"
+    },
+    {
+      "from": "SEND-PDCBVC1-EXIT",
+      "to": "SEND-PDCBVC1-DO"
+    },
+    {
+      "from": "SEND-PDCBVC1-DO",
+      "to": "SEND-PDCBVC1-DO-EXIT"
+    },
+    {
+      "from": "SEND-PDCBVC1-DO-EXIT",
+      "to": "RECEIVE-PDCBVC1"
+    },
+    {
+      "from": "RECEIVE-PDCBVC1",
+      "to": "RECEIVE-PDCBVC1-EXIT"
+    },
+    {
+      "from": "RECEIVE-PDCBVC1-EXIT",
+      "to": "RESET-TWA"
+    },
+    {
+      "from": "RESET-TWA-EXIT",
+      "to": "XCTL-MAIN"
+    },
+    {
+      "from": "XCTL-MAIN",
+      "to": "XCTL-LIV1"
+    },
+    {
+      "from": "XCTL-LIV1",
+      "to": "XCTL-LIV2"
+    },
+    {
+      "from": "XCTL-LIV2",
+      "to": "XCTL-LIV3"
+    },
+    {
+      "from": "XCTL-LIV3",
+      "to": "XCTL-LIV4"
+    },
+    {
+      "from": "XCTL-LIV4",
+      "to": "XCTL-LIV5"
+    },
+    {
+      "from": "XCTL-LIV5",
+      "to": "XCTL-LIV0"
+    },
+    {
+      "from": "XCTL-LIV0",
+      "to": "RETURN-MAIN"
+    },
+    {
+      "from": "RETURN-MAIN",
+      "to": "RETURN-CICS"
+    },
+    {
+      "from": "RETURN-CICS",
+      "to": "ABEND00"
+    },
+    {
+      "from": "ABEND00",
+      "to": "SAVE-TWA"
+    },
+    {
+      "from": "SAVE-TWA",
+      "to": "FINE-ELABORAZIONE"
+    }
+  ]
+}

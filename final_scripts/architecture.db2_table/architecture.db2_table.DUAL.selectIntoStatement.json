@@ -1,0 +1,20 @@
+{
+  "id": "77d0bd3f4cf5d799",
+  "type": "architecture.db2_table",
+  "program": "PDCBVC",
+  "title": "PDCBVC DB2TABLE DUAL selectIntoStatement",
+  "embedding_text": "PDCBVC accesses DB2 table DUAL via selectIntoStatement.",
+  "content": {
+    "table": "DUAL",
+    "stmt_type": "selectIntoStatement"
+  },
+  "meta": {
+    "source": "mapa_result",
+    "table": "DUAL",
+    "stmt_type": "selectIntoStatement"
+  },
+  "evidence_ref": "04d2093fe6f75344",
+  "evidence": [
+    "DB2TABLE,29d7f91e-492a-4d8d-809d-a54cd17c4e1e,ede9098e-7d32-44af-b35b-29f21235d088,DUAL,selectIntoStatement"
+  ]
+}

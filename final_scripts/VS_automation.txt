@@ -1,0 +1,253 @@
+Good — since you **already have the two command IDs**, I’ll explain **exactly what to do step-by-step in the simplest possible way**.
+
+Think of it like this:
+
+You want a **script inside VS Code** that does this automatically for every COBOL file:
+
+```
+open file
+→ generate control flow
+→ export JSON
+→ save JSON
+→ move to next file
+```
+
+Instead of you doing it **200 times manually**.
+
+---
+
+# Step 1 — Create a small VS Code extension
+
+We create a **tiny tool inside VS Code** that runs the commands automatically.
+
+### Install the extension generator (only once)
+
+Open **PowerShell** or **VS Code terminal** and run:
+
+```bash
+npm install -g yo generator-code
+```
+
+---
+
+# Step 2 — Generate the extension project
+
+Run:
+
+```bash
+yo code
+```
+
+It will ask questions.
+
+Choose these options:
+
+```
+? What type of extension? → New Extension (TypeScript)
+? Name → cobol-ccf-batch
+? Identifier → cobol-ccf-batch
+? Description → batch export cobol control flow
+? Initialize git → No
+```
+
+Now a **folder will be created**.
+
+Open that folder in VS Code.
+
+---
+
+# Step 3 — Open the main file
+
+Inside the project open:
+
+```
+src/extension.ts
+```
+
+Delete everything inside and paste this:
+
+```ts
+import * as vscode from "vscode";
+import * as path from "path";
+import * as fs from "fs";
+
+export function activate(context: vscode.ExtensionContext) {
+
+    const disposable = vscode.commands.registerCommand("cobol.batchExport", async () => {
+
+        const folder = vscode.workspace.workspaceFolders?.[0];
+        if (!folder) {
+            vscode.window.showErrorMessage("Open your COBOL folder first.");
+            return;
+        }
+
+        const CMD_GENERATE = "PASTE_GENERATE_COMMAND_ID_HERE";
+        const CMD_EXPORT = "PASTE_EXPORT_COMMAND_ID_HERE";
+
+        const files = await vscode.workspace.findFiles("**/*.cbl");
+
+        const outputFolder = path.join(folder.uri.fsPath, "ccf_json");
+
+        if (!fs.existsSync(outputFolder)) {
+            fs.mkdirSync(outputFolder);
+        }
+
+        for (const file of files) {
+
+            const doc = await vscode.workspace.openTextDocument(file);
+            await vscode.window.showTextDocument(doc);
+
+            await vscode.commands.executeCommand(CMD_GENERATE);
+
+            await vscode.commands.executeCommand(CMD_EXPORT);
+
+            const jsonDoc = vscode.window.activeTextEditor?.document;
+
+            if (!jsonDoc) continue;
+
+            const name = path.basename(file.fsPath).replace(".cbl", "");
+
+            const savePath = path.join(outputFolder, name + ".json");
+
+            fs.writeFileSync(savePath, jsonDoc.getText());
+
+        }
+
+        vscode.window.showInformationMessage("Finished exporting control flow JSON for all files");
+
+    });
+
+    context.subscriptions.push(disposable);
+}
+
+export function deactivate() {}
+```
+
+---
+
+# Step 4 — Insert your two commands
+
+Replace these two lines:
+
+```
+PASTE_GENERATE_COMMAND_ID_HERE
+PASTE_EXPORT_COMMAND_ID_HERE
+```
+
+with the **two command IDs you copied**.
+
+Example (not real):
+
+```ts
+const CMD_GENERATE = "broadcom.ccf.generate";
+const CMD_EXPORT = "broadcom.ccf.exportJson";
+```
+
+---
+
+# Step 5 — Run the extension
+
+Press:
+
+```
+F5
+```
+
+VS Code will open **a second window** called:
+
+```
+Extension Development Host
+```
+
+---
+
+# Step 6 — Run the batch command
+
+Inside the new window:
+
+Press:
+
+```
+Ctrl + Shift + P
+```
+
+Type:
+
+```
+cobol batch export
+```
+
+Run it.
+
+---
+
+# Step 7 — What will happen
+
+The extension will:
+
+```
+open file1.cbl
+generate control flow
+export json
+save file1.json
+
+open file2.cbl
+generate control flow
+export json
+save file2.json
+```
+
+Until all **200 files are finished**.
+
+---
+
+# Final result
+
+You will get a folder:
+
+```
+ccf_json/
+```
+
+Example:
+
+```
+ccf_json/
+  PDCBVC.json
+  PD1FS00.json
+  PROGRAM3.json
+  PROGRAM4.json
+```
+
+Each file = **control flow graph JSON**.
+
+---
+
+# Important for your RAG pipeline
+
+These files become your **CFG input**:
+
+```
+controlflow.cfg.json
+```
+
+Then you can run:
+
+```
+extract_dataflow.py
+filter_used_variables.py
+extract_pdc_rules.py
+generate_rag_documents.py
+```
+
+So this step **automates the missing CFG stage** in your pipeline.
+
+---
+
+# If you want — I can show you something **MUCH easier**
+
+Instead of building a VS Code extension, we can write a **20-line Node script** that directly calls the command API.
+
+Much simpler.
+
+If you want, I can show you that **(it takes 2 minutes instead of 30)**.

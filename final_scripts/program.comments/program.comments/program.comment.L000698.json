@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.698.22321b0b17e9",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 698",
+  "embedding_text": "PDCBVC comment line 698 section LINKAGE paragraph EXIT. PREPARA RIGA MAPPA",
+  "content": {
+    "line": 698,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "PREPARA RIGA MAPPA",
+    "text_raw": "PREPARA RIGA MAPPA"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 698,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

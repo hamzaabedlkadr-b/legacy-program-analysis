@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.826.6e1ffe87da90",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 826",
+  "embedding_text": "PDCBVC comment line 826 section LINKAGE paragraph EXIT. LETTURA MAPPA PDCBVC1 *",
+  "content": {
+    "line": 826,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "LETTURA MAPPA PDCBVC1 *",
+    "text_raw": "LETTURA MAPPA PDCBVC1                       *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 826,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

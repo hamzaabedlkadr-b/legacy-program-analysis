@@ -1,0 +1,42 @@
+{
+  "id": "e210c4dbb0066fa7",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable ERRORE-SQL",
+  "embedding_text": "PDCBVC variable ERRORE-SQL. Origin=UNKNOWN. Defined in: none. Modified in: none. Used in: TOP. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "ERRORE-SQL",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "TOP"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "UNKNOWN",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "TOP",
+          "line_start": 217,
+          "statement": "EXEC SQL WHENEVER SQLERROR GO TO ERRORE-SQL END-EXEC"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "UNKNOWN",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

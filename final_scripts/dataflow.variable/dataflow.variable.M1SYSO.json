@@ -1,0 +1,44 @@
+{
+  "id": "6f4eaaa7a5a05744",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable M1SYSO",
+  "embedding_text": "PDCBVC variable M1SYSO. Origin=COPY:PDCBVCM. Defined in: MUOVI-TESTATA-00. Modified in: MUOVI-TESTATA-00. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "M1SYSO",
+    "defined_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "modified_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 556,
+          "statement": "MOVE  TWCOB-ID-SISTEMA  TO  M1SYSO."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

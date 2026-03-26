@@ -1,0 +1,58 @@
+{
+  "id": "338acec4e302949c",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable ASKIP-DRK",
+  "embedding_text": "PDCBVC variable ASKIP-DRK. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: BROWSE-FASE1, BROWSE-FASE2-VISUAL. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "ASKIP-DRK",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE1",
+      "BROWSE-FASE2-VISUAL"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 281,
+          "statement": "MOVE  ASKIP-DRK     TO  M1PF7A"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 282,
+          "statement": "MOVE  ASKIP-DRK     TO  M1PF8A."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 384,
+          "statement": "MOVE  ASKIP-DRK     TO  M1PF8A"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 385,
+          "statement": "MOVE  ASKIP-DRK     TO  M1PF7A."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 2,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 4,
+      "control_sites": 0
+    }
+  }
+}

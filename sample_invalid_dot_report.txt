@@ -1,0 +1,3 @@
+[DEBUG] Files not in dott.txt format:
+  - PDCBVC.json: not in dott.txt format: missing 'digraph ... {' header
+  - PD1CF.json: not in dott.txt format: missing 'digraph ... {' header

@@ -1,0 +1,32 @@
+{
+  "id": "program.comment.PDCBVC.801.fe4bb291f6e4",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 801",
+  "embedding_text": "PDCBVC comment line 801 section LINKAGE paragraph ABBL-RIGA-EXIT. INDIRIZZA TWA *",
+  "content": {
+    "line": 801,
+    "section": "LINKAGE",
+    "paragraph": "ABBL-RIGA-EXIT",
+    "kind": "full_line",
+    "text": "INDIRIZZA TWA *",
+    "text_raw": "INDIRIZZA TWA                           *"
+  },
+  "meta": {
+    "source": "PDCBVC.CBL",
+    "line": 801,
+    "section": "LINKAGE",
+    "paragraph": "ABBL-RIGA-EXIT",
+    "kind": "full_line",
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "section:LINKAGE",
+      "paragraph:ABBL-RIGA-EXIT"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "id": "438f768aa13fff72",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-006",
+  "embedding_text": "PDCBVC business rule BR-006 in scope PREP-LINK-PD1FS00. If (NOT (PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2')) then JUMP -> ABEND00. Category=error. Kind=business. Severity=fatal.",
+  "content": {
+    "id": "BR-006",
+    "program": "PDCBVC",
+    "scope": "PREP-LINK-PD1FS00",
+    "category": "error",
+    "kind": "business",
+    "severity": "fatal",
+    "condition": "(NOT (PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2'))",
+    "action": "JUMP -> ABEND00",
+    "flags": [
+      "condition_maybe_inverted_notA_or_B"
+    ],
+    "evidence": {
+      "from": "PREP-LINK-PD1FS00",
+      "to": "ABEND00",
+      "type": "JUMP",
+      "raw_evidence": "GO  TO ABEND00."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "PREP-LINK-PD1FS00",
+    "category": "error",
+    "kind": "business",
+    "severity": "fatal",
+    "flags_count": 1
+  }
+}

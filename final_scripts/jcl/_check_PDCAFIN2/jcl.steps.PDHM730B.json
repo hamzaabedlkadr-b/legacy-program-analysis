@@ -1,0 +1,155 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "PDHM730B",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "PDHM730B",
+  "program": "PDHM730B",
+  "proc": null,
+  "parameters": {
+    "PARM": "'&ANNORIF,&TIPO,&ANNO.&MENS.0'"
+  },
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "INPCAF",
+      "dsn": "&&CAFSEQ",
+      "disp": "(OLD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&CAFSEQ,DISP=(OLD,DELETE)",
+      "source_lines": {
+        "start": 55,
+        "end": 55
+      }
+    },
+    {
+      "ddname": "OUTCAF",
+      "dsn": "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+      "disp": "(,CATLG,DELETE)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO, VOL=SER=TESP2A,SPACE=(CYL,(8,1),RLSE),UNIT=3390, DCB=(RECFM=FB,LRECL=600,DSORG=PS),DISP=(,CATLG,DELETE)",
+      "source_lines": {
+        "start": 59,
+        "end": 61
+      }
+    },
+    {
+      "ddname": "SKVAR1",
+      "dsn": "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+      "disp": "(,CATLG,DELETE)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO, VOL=SER=TESP2A,UNIT=3390,SPACE=(CYL,(1,1)), DCB=(RECFM=FB,LRECL=80,DSORG=PS),DISP=(,CATLG,DELETE)",
+      "source_lines": {
+        "start": 62,
+        "end": 64
+      }
+    },
+    {
+      "ddname": "SKVAR2",
+      "dsn": "&&SKVAR2",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&SKVAR2,DISP=(,PASS),UNIT=3390,SPACE=(CYL,(1,1)), DCB=(RECFM=FB,LRECL=80,DSORG=PS)",
+      "source_lines": {
+        "start": 65,
+        "end": 66
+      }
+    },
+    {
+      "ddname": "FILESTA",
+      "dsn": "&&FILESTA",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&FILESTA,DISP=(,PASS),UNIT=3390,SPACE=(CYL,(1,1)), DCB=(RECFM=FB,LRECL=660,DSORG=PS)",
+      "source_lines": {
+        "start": 67,
+        "end": 68
+      }
+    },
+    {
+      "ddname": "FILEST2",
+      "dsn": "&&FILEST2",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&FILEST2,DISP=(,PASS),UNIT=3390,SPACE=(CYL,(1,1)), DCB=(RECFM=FB,LRECL=154,DSORG=PS)",
+      "source_lines": {
+        "start": 69,
+        "end": 70
+      }
+    },
+    {
+      "ddname": "STAATT",
+      "dsn": null,
+      "disp": null,
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DUMMY",
+      "source_lines": {
+        "start": 71,
+        "end": 71
+      }
+    },
+    {
+      "ddname": "STACESS",
+      "dsn": null,
+      "disp": null,
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DUMMY",
+      "source_lines": {
+        "start": 72,
+        "end": 72
+      }
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "(,)",
+      "unit": null,
+      "output": "(*.OUTCPA,*.OUTINF)",
+      "raw": "DD SYSOUT=(,),OUTPUT=(*.OUTCPA,*.OUTINF)",
+      "source_lines": {
+        "start": 74,
+        "end": 74
+      }
+    },
+    {
+      "ddname": "SYSUDUMP",
+      "dsn": null,
+      "disp": null,
+      "sysout": "9",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=9",
+      "source_lines": {
+        "start": 75,
+        "end": 75
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 52,
+    "end": 52
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

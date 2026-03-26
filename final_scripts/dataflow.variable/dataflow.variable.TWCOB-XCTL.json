@@ -1,0 +1,52 @@
+{
+  "id": "1db3d23d9fa435e0",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-XCTL",
+  "embedding_text": "PDCBVC variable TWCOB-XCTL. Origin=COMMAREA. Defined in: BROWSE-FASE1. Modified in: BROWSE-FASE1. Used in: PREPARA-MAP. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-XCTL",
+    "defined_in": [
+      "BROWSE-FASE1"
+    ],
+    "modified_in": [
+      "BROWSE-FASE1"
+    ],
+    "used_in": [
+      "PREPARA-MAP"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 289,
+          "statement": "MOVE SPACE  TO  TWCOB-XCTL."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "PREPARA-MAP",
+          "line_start": 526,
+          "statement": "TWCOB-XCTL   = SPACE               AND"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

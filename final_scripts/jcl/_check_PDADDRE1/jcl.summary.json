@@ -1,0 +1,60 @@
+{
+  "type": "jcl.summary",
+  "job": "PDADDRE1",
+  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL",
+  "programs": [
+    "ICEMAN",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHADR00",
+    "PDHADR01",
+    "PDKADR"
+  ],
+  "procedures": [
+    "PDADDRE1"
+  ],
+  "jcllib_order": [],
+  "local_procedures": [
+    {
+      "procedure": "PDADDRE1",
+      "parameters": {},
+      "steps_count": 7,
+      "programs": [
+        "ICEMAN",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHADR00",
+        "PDHADR01",
+        "PDKADR"
+      ],
+      "source_lines": {
+        "start": 6,
+        "end": 103
+      }
+    }
+  ],
+  "procedure_invocations": [
+    {
+      "step": "PDADDRE1",
+      "proc": "PDADDRE1",
+      "resolved_locally": true,
+      "resolved_proc_programs": [
+        "ICEMAN",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHADR00",
+        "PDHADR01",
+        "PDKADR"
+      ],
+      "parameters": {
+        "ANNO": "2019",
+        "SESSLIQ": "202002",
+        "TIPOLIQ": "F",
+        "TIPO": "IP",
+        "CATEG": "T"
+      }
+    }
+  ],
+  "steps_count": 8,
+  "datasets_count": 7
+}
