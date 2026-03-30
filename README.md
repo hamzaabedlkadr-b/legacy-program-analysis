@@ -62,6 +62,25 @@ python scripts\pipeline\run_batch_pipeline.py `
   --out-root artifacts\final\batch_output
 ```
 
+Generate one `pdc.json`-style file per COBOL program without the control-flow extension:
+
+```powershell
+python scripts\pipeline\cbl_folder_to_pdc_no_extension.py `
+  --cobol-dir C:\path\to\cobol `
+  --out-dir C:\path\to\pdc_no_extension_folder
+```
+
+Compare two folders of PDC JSONs and write a structural report:
+
+```powershell
+python scripts\utils\compare_pdc_folders.py `
+  --left C:\path\to\extension_pdc_folder `
+  --right C:\path\to\pdc_no_extension_folder `
+  --left-label extension `
+  --right-label no_extension `
+  --report artifacts\reports\compare_pdc_folders.txt
+```
+
 Compare two folders and write a log of exact matches vs differences:
 
 ```powershell
