@@ -4,7 +4,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional, List, Tuple
 
 
 PROGRAM_ID_RE = re.compile(r"PROGRAM-ID\.\s*([A-Z0-9-]+)\.", re.IGNORECASE)
@@ -143,9 +143,9 @@ def main():
     ap.add_argument("--pdc-json-pattern", default="{stem}.json",
                     help="Filename pattern for pdc.json (use {stem} or {program})")
     ap.add_argument("--mapa-result",
-                    help="MAPA result.txt file (legacy). If omitted, use --mapa-batch-dir and --mapa-cics-dir.")
-    ap.add_argument("--mapa-batch-dir", help="Folder with batch MAPA result.txt files (e.g. PDCBVC_result.txt)")
-    ap.add_argument("--mapa-cics-dir", help="Folder with CICS MAPA result.txt files (e.g. PDCBVC_result.txt)")
+                    help="MAPA result.txt file (legacy). If omitted, use one or both MAPA folders.")
+    ap.add_argument("--mapa-batch-dir", help="Folder with MAPA result.txt files (e.g. PDCBVC_result.txt)")
+    ap.add_argument("--mapa-cics-dir", help="Optional second folder with MAPA result.txt files (e.g. PDCBVC_result.txt)")
     ap.add_argument("--mapa-result-pattern", default="{program}_result.txt",
                     help="Filename pattern inside MAPA dirs (use {program} or {stem})")
     ap.add_argument("--jcl-dir", help="Optional folder containing JCL files to analyze")
@@ -187,7 +187,7 @@ def main():
     if jcl_dir and not jcl_builder.exists():
         raise SystemExit(f"JCL builder not found: {jcl_builder}")
 
-    mapa_sources = []
+    mapa_sources: List[Tuple[str, Path]] = []
     mapa_rag_global = None
     if args.mapa_result:
         mapa_input = Path(args.mapa_result)
@@ -198,12 +198,12 @@ def main():
         mapa_rag_global = global_dir / "mapa_rag_documents.json"
         run_cmd([python, str(script3), "--input", str(mapa_input), "--output", str(mapa_rag_global), "--format", "json"])
     else:
-        if not args.mapa_batch_dir or not args.mapa_cics_dir:
-            raise SystemExit("Provide --mapa-result or both --mapa-batch-dir and --mapa-cics-dir")
-        mapa_sources = [
-            ("batch", Path(args.mapa_batch_dir)),
-            ("cics", Path(args.mapa_cics_dir)),
-        ]
+        if not args.mapa_batch_dir and not args.mapa_cics_dir:
+            raise SystemExit("Provide --mapa-result or at least one MAPA folder via --mapa-batch-dir or --mapa-cics-dir")
+        if args.mapa_batch_dir:
+            mapa_sources.append(("batch", Path(args.mapa_batch_dir)))
+        if args.mapa_cics_dir:
+            mapa_sources.append(("cics", Path(args.mapa_cics_dir)))
         for tag, d in mapa_sources:
             if not d.exists():
                 raise SystemExit(f"MAPA dir not found: {d}")
@@ -338,9 +338,10 @@ def main():
                 mapa_inputs.append((mapa_rag, suffix))
 
             if not mapa_inputs:
+                source_desc = ", ".join(f"{tag}={d}" for tag, d in mapa_sources)
                 msg = (
                     f"{program} ({cobol.name}) missing MAPA result in "
-                    f"batch={mapa_sources[0][1]} and cics={mapa_sources[1][1]} "
+                    f"{source_desc} "
                     f"(pattern={args.mapa_result_pattern})"
                 )
                 print(f"[WARN] {msg}; skipping MAPA-derived artifacts")

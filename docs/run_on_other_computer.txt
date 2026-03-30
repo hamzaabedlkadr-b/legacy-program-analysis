@@ -10,8 +10,7 @@ What to copy on the other computer
 - COBOL source folder
 - COPYBOOK folder
 - PDC JSON folder
-- MAPA batch result folder
-- MAPA CICS result folder
+- MAPA folder with all result files, or separate MAPA folders
 - Optional JCL folder
 
 Option A: first time on the other computer
@@ -32,8 +31,7 @@ python scripts\pipeline\run_batch_pipeline.py `
   --cobol-dir C:\path\to\cobol `
   --copy-dir C:\path\to\copybooks `
   --pdc-json-dir C:\path\to\pdc_json_folder `
-  --mapa-batch-dir C:\path\to\mapa_batch_folder `
-  --mapa-cics-dir C:\path\to\mapa_cics_folder `
+  --mapa-batch-dir C:\path\to\mapa_all_folder `
   --out-root artifacts\final\batch_output
 ```
 
@@ -53,14 +51,14 @@ python scripts\pipeline\run_batch_pipeline.py `
   --cobol-dir C:\path\to\cobol `
   --copy-dir C:\path\to\copybooks `
   --pdc-json-dir C:\path\to\pdc_json_folder `
-  --mapa-batch-dir C:\path\to\mapa_batch_folder `
-  --mapa-cics-dir C:\path\to\mapa_cics_folder `
+  --mapa-batch-dir C:\path\to\mapa_all_folder `
   --out-root artifacts\final\batch_output
 ```
 
 Notes
 - The script does not need manual paths for the internal repo scripts.
 - The important part is giving the correct input folders.
+- You can pass a single MAPA folder with `--mapa-batch-dir`, or use both `--mapa-batch-dir` and `--mapa-cics-dir`.
 - If your PDC filenames do not match the default pattern, also pass `--pdc-json-pattern`.
 - If your MAPA filenames do not match the default pattern, also pass `--mapa-result-pattern`.
 - If you want folder names based on COBOL PROGRAM-ID instead of filename, add `--use-program-id`.

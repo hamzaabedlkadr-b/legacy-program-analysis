@@ -51,6 +51,17 @@ python scripts\pipeline\run_batch_pipeline.py `
   --out-root artifacts\final\batch_output
 ```
 
+Run the batch pipeline when all MAPA result files live in one folder:
+
+```powershell
+python scripts\pipeline\run_batch_pipeline.py `
+  --cobol-dir C:\path\to\cobol `
+  --copy-dir C:\path\to\copybooks `
+  --pdc-json-dir C:\path\to\pdc_json_folder `
+  --mapa-batch-dir C:\path\to\mapa_all_folder `
+  --out-root artifacts\final\batch_output
+```
+
 Compare two folders and write a log of exact matches vs differences:
 
 ```powershell
