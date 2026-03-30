@@ -1,0 +1,66 @@
+Run On Another Computer
+
+Recommended approach
+- Push this whole repo.
+- Clone it on the other computer.
+- Copy your input folders there.
+- Run the batch pipeline from the repo root.
+
+What to copy on the other computer
+- COBOL source folder
+- COPYBOOK folder
+- PDC JSON folder
+- MAPA batch result folder
+- MAPA CICS result folder
+- Optional JCL folder
+
+Option A: first time on the other computer
+
+PowerShell:
+
+```powershell
+git clone https://github.com/hamzaabedlkadr-b/legacy-program-analysis.git
+cd legacy-program-analysis
+```
+
+Then copy your local input folders wherever you want on that machine.
+
+Run the pipeline:
+
+```powershell
+python scripts\pipeline\run_batch_pipeline.py `
+  --cobol-dir C:\path\to\cobol `
+  --copy-dir C:\path\to\copybooks `
+  --pdc-json-dir C:\path\to\pdc_json_folder `
+  --mapa-batch-dir C:\path\to\mapa_batch_folder `
+  --mapa-cics-dir C:\path\to\mapa_cics_folder `
+  --out-root artifacts\final\batch_output
+```
+
+Option B: repo already cloned on the other computer
+
+PowerShell:
+
+```powershell
+cd C:\path\to\legacy-program-analysis
+git pull origin main
+```
+
+Then run:
+
+```powershell
+python scripts\pipeline\run_batch_pipeline.py `
+  --cobol-dir C:\path\to\cobol `
+  --copy-dir C:\path\to\copybooks `
+  --pdc-json-dir C:\path\to\pdc_json_folder `
+  --mapa-batch-dir C:\path\to\mapa_batch_folder `
+  --mapa-cics-dir C:\path\to\mapa_cics_folder `
+  --out-root artifacts\final\batch_output
+```
+
+Notes
+- The script does not need manual paths for the internal repo scripts.
+- The important part is giving the correct input folders.
+- If your PDC filenames do not match the default pattern, also pass `--pdc-json-pattern`.
+- If your MAPA filenames do not match the default pattern, also pass `--mapa-result-pattern`.
+- If you want folder names based on COBOL PROGRAM-ID instead of filename, add `--use-program-id`.
