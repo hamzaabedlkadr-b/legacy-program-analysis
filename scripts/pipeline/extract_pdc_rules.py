@@ -5,6 +5,11 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_INPUT = PROJECT_ROOT / "artifacts" / "intermediate" / "pdc_enriched.json"
+DEFAULT_OUTPUT = PROJECT_ROOT / "artifacts" / "intermediate" / "pdc_rules.json"
+
+
 # ===============================
 # Utilities
 # ===============================
@@ -218,8 +223,8 @@ def main():
     import argparse
 
     ap = argparse.ArgumentParser(description="Extract semantic rules from pdc_enriched.json")
-    ap.add_argument("--input", default="pdc_enriched.json", help="Path to pdc_enriched.json")
-    ap.add_argument("--output", default="pdc_rules.json", help="Output pdc_rules.json path")
+    ap.add_argument("--input", default=str(DEFAULT_INPUT), help="Path to pdc_enriched.json")
+    ap.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Output pdc_rules.json path")
     ap.add_argument("--program", default=None, help="Override program name (optional)")
     args = ap.parse_args()
 

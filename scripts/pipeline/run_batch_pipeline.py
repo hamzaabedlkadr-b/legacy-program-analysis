@@ -8,6 +8,15 @@ from typing import Optional, List
 
 
 PROGRAM_ID_RE = re.compile(r"PROGRAM-ID\.\s*([A-Z0-9-]+)\.", re.IGNORECASE)
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PIPELINE_SCRIPTS_DIR = PROJECT_ROOT / "scripts" / "pipeline"
+FINAL_SCRIPTS_DIR = PROJECT_ROOT / "artifacts" / "final" / "final_scripts"
+DEFAULT_SCRIPT3 = Path("scripts") / "pipeline" / "script3.py"
+
+
+def resolve_from_project(path_value: str) -> Path:
+    path = Path(path_value)
+    return path if path.is_absolute() else PROJECT_ROOT / path
 
 
 def parse_program_id(path: Path) -> Optional[str]:
@@ -99,8 +108,9 @@ def find_mapa_result(
 
 
 def run_cmd(cmd: List[str], cwd: Optional[Path] = None, allow_fail: bool = False) -> None:
+    run_cwd = cwd or PROJECT_ROOT
     print(">>", " ".join(str(c) for c in cmd))
-    res = subprocess.run(cmd, cwd=str(cwd) if cwd else None)
+    res = subprocess.run(cmd, cwd=str(run_cwd))
     if res.returncode != 0:
         if allow_fail:
             print(f"[WARN] Command failed (continuing): {' '.join(str(c) for c in cmd)}")
@@ -125,7 +135,11 @@ def main():
     ap = argparse.ArgumentParser(description="Batch pipeline for COBOL -> RAG artifacts")
     ap.add_argument("--cobol-dir", required=True, help="Folder containing COBOL .CBL files")
     ap.add_argument("--copy-dir", required=True, help="Folder containing COPYBOOK .cpy files")
-    ap.add_argument("--pdc-json-dir", required=True, help="Folder containing pdc.json files (per program)")
+    ap.add_argument(
+        "--pdc-json-dir",
+        required=True,
+        help="Path to a single pdc.json file or a folder containing per-program pdc.json files",
+    )
     ap.add_argument("--pdc-json-pattern", default="{stem}.json",
                     help="Filename pattern for pdc.json (use {stem} or {program})")
     ap.add_argument("--mapa-result",
@@ -135,7 +149,7 @@ def main():
     ap.add_argument("--mapa-result-pattern", default="{program}_result.txt",
                     help="Filename pattern inside MAPA dirs (use {program} or {stem})")
     ap.add_argument("--jcl-dir", help="Optional folder containing JCL files to analyze")
-    ap.add_argument("--script3", default="script3.py", help="Path to script3.py")
+    ap.add_argument("--script3", default=str(DEFAULT_SCRIPT3), help="Path to script3.py")
     ap.add_argument("--out-root", required=True, help="Output root folder")
     ap.add_argument("--use-program-id", action="store_true",
                     help="Use PROGRAM-ID as program name (default uses file stem)")
@@ -164,12 +178,12 @@ def main():
         raise SystemExit(f"JCL path is not a directory: {jcl_dir}")
 
     python = sys.executable
-    script3 = Path(args.script3)
+    script3 = resolve_from_project(args.script3)
     if not script3.exists():
         raise SystemExit(f"script3.py not found: {script3}")
     if not script3.is_file():
         raise SystemExit(f"script3.py path is not a file: {script3}")
-    jcl_builder = Path("final_scripts/jcl/build_jcl_artifacts.py")
+    jcl_builder = FINAL_SCRIPTS_DIR / "jcl" / "build_jcl_artifacts.py"
     if jcl_dir and not jcl_builder.exists():
         raise SystemExit(f"JCL builder not found: {jcl_builder}")
 
@@ -260,7 +274,7 @@ def main():
 
         # pdc_json -> pdc_typed + pdc_enriched
         run_cmd([
-            python, "improvments/enrich_graph.py",
+            python, str(PIPELINE_SCRIPTS_DIR / "enrich_graph.py"),
             "--graph", str(pdc_json),
             "--cobol", str(cobol),
             "--out", str(pdc_enriched),
@@ -269,34 +283,34 @@ def main():
 
         # pdc_enriched -> controlflow.cfg
         run_cmd([
-            python, "final_scripts/controlflow.cfg/build_controlflow_cfg.py",
+            python, str(FINAL_SCRIPTS_DIR / "controlflow.cfg" / "build_controlflow_cfg.py"),
             "--input", str(pdc_enriched),
             "--output", str(controlflow_cfg),
         ])
 
         # pdc_enriched -> pdc_dataflow -> pdc_var_index_used
         run_cmd([
-            python, "extract_dataflow.py",
+            python, str(PIPELINE_SCRIPTS_DIR / "extract_dataflow.py"),
             "--cobol", str(cobol),
             "--cfg", str(controlflow_cfg),
             "--copy-dir", str(copy_dir),
             "--out", str(pdc_dataflow),
         ])
         run_cmd([
-            python, "filter_used_variables.py",
+            python, str(PIPELINE_SCRIPTS_DIR / "filter_used_variables.py"),
             "--in", str(pdc_dataflow),
             "--out", str(pdc_var_used),
         ])
 
         # pdc_rules -> rag_documents (business rules)
         run_cmd([
-            python, "extract_pdc_rules.py",
+            python, str(PIPELINE_SCRIPTS_DIR / "extract_pdc_rules.py"),
             "--input", str(pdc_enriched),
             "--output", str(pdc_rules),
             "--program", program,
         ])
         run_cmd([
-            python, "generate_rag_documents.py",
+            python, str(PIPELINE_SCRIPTS_DIR / "generate_rag_documents.py"),
             "--input", str(pdc_rules),
             "--output", str(rag_rules),
         ])
@@ -335,37 +349,37 @@ def main():
 
         for mapa_rag, suffix in mapa_inputs:
             run_cmd([
-                python, "final_scripts/program_summary/build_program_summary.py",
+                python, str(FINAL_SCRIPTS_DIR / "program_summary" / "build_program_summary.py"),
                 "--input", str(mapa_rag),
                 "--program", program,
                 "--output", str(artifacts_dir / f"program.summary{suffix}.json"),
             ])
             run_cmd([
-                python, "final_scripts/architecture.copybooks/build_architecture_copybooks.py",
+                python, str(FINAL_SCRIPTS_DIR / "architecture.copybooks" / "build_architecture_copybooks.py"),
                 "--input", str(mapa_rag),
                 "--program", program,
                 "--output", str(artifacts_dir / f"architecture.copybooks{suffix}.json"),
             ])
             run_cmd([
-                python, "final_scripts/architecture.calls/build_architecture_calls.py",
+                python, str(FINAL_SCRIPTS_DIR / "architecture.calls" / "build_architecture_calls.py"),
                 "--input", str(mapa_rag),
                 "--program", program,
                 "--output", str(artifacts_dir / f"architecture.calls{suffix}.json"),
             ], allow_fail=True)
             run_cmd([
-                python, "final_scripts/architecture.call/build_architecture_call_details.py",
+                python, str(FINAL_SCRIPTS_DIR / "architecture.call" / "build_architecture_call_details.py"),
                 "--input", str(mapa_rag),
                 "--program", program,
                 "--out-dir", str(artifacts_dir / f"architecture.call{suffix}"),
             ], allow_fail=True)
             run_cmd([
-                python, "final_scripts/architecture.sqlinclude/build_architecture_sqlinclude_details.py",
+                python, str(FINAL_SCRIPTS_DIR / "architecture.sqlinclude" / "build_architecture_sqlinclude_details.py"),
                 "--input", str(mapa_rag),
                 "--program", program,
                 "--out-dir", str(artifacts_dir / f"architecture.sqlinclude{suffix}"),
             ], allow_fail=True)
             run_cmd([
-                python, "final_scripts/architecture.db2_table/build_architecture_db2_table_details.py",
+                python, str(FINAL_SCRIPTS_DIR / "architecture.db2_table" / "build_architecture_db2_table_details.py"),
                 "--input", str(mapa_rag),
                 "--program", program,
                 "--out-dir", str(artifacts_dir / f"architecture.db2_table{suffix}"),
@@ -373,31 +387,31 @@ def main():
 
         # Derived
         run_cmd([
-            python, "final_scripts/dataflow.used_variables/build_dataflow_used_variables.py",
+            python, str(FINAL_SCRIPTS_DIR / "dataflow.used_variables" / "build_dataflow_used_variables.py"),
             "--input", str(pdc_var_used),
             "--output", str(artifacts_dir / "dataflow.used_variables.json"),
         ])
         run_cmd([
-            python, "final_scripts/dataflow.variable/build_dataflow_variable_details.py",
+            python, str(FINAL_SCRIPTS_DIR / "dataflow.variable" / "build_dataflow_variable_details.py"),
             "--input", str(pdc_var_used),
             "--program", program,
             "--out-dir", str(artifacts_dir / "dataflow.variable"),
         ])
         run_cmd([
-            python, "final_scripts/business_rule/build_business_rule_details.py",
+            python, str(FINAL_SCRIPTS_DIR / "business_rule" / "build_business_rule_details.py"),
             "--input", str(pdc_rules),
             "--program", program,
             "--out-dir", str(artifacts_dir / "business_rule"),
         ])
         run_cmd([
-            python, "final_scripts/ui.cics.navigation/build_ui_cics_navigation.py",
+            python, str(FINAL_SCRIPTS_DIR / "ui.cics.navigation" / "build_ui_cics_navigation.py"),
             "--cobol", str(cobol),
             "--enriched", str(pdc_enriched),
             "--program", program,
             "--out", str(artifacts_dir / "ui.cics.navigation.json"),
         ])
         run_cmd([
-            python, "final_scripts/program.comments/build_program_comments.py",
+            python, str(FINAL_SCRIPTS_DIR / "program.comments" / "build_program_comments.py"),
             "--cobol", str(cobol),
             "--program", program,
             "--rules", str(pdc_rules),

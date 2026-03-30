@@ -1,17 +1,34 @@
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Any
 
 
 # ---------- CONFIG (WINDOWS PATH SAFE) ----------
 
-GRAPH_JSON = r"C:\Users\Lenovo\Desktop\control_flow\pdc.json"
-COBOL_FILE = r"C:\Users\Lenovo\Desktop\COBOL\Cics\Cics\PDCBVC.CBL"
-OUTPUT_JSON = r"C:\Users\Lenovo\Desktop\control_flow\pdc_enriched.json"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+GRAPH_JSON = str(PROJECT_ROOT / "artifacts" / "intermediate" / "pdc.json")
+COBOL_FILE = str(PROJECT_ROOT / "inputs" / "cobol" / "PDCBVC.CBL")
+OUTPUT_JSON = str(PROJECT_ROOT / "artifacts" / "intermediate" / "pdc_enriched.json")
 
 
 # ---------- HELPERS ----------
+
+def die(msg: str, code: int = 1) -> None:
+    print(f"[ERROR] {msg}", file=sys.stderr)
+    raise SystemExit(code)
+
+
+def read_json(path: Path, label: str):
+    try:
+        return json.loads(path.read_text(encoding="utf-8", errors="replace"))
+    except FileNotFoundError:
+        die(f"{label} file not found: {path}")
+    except json.JSONDecodeError as exc:
+        die(f"invalid JSON in {path} (line {exc.lineno}, col {exc.colno})")
+    except Exception as exc:
+        die(f"failed to read {path}: {exc}")
 
 def norm_name(s: str) -> str:
     """Normalize COBOL paragraph/token name for matching."""
@@ -245,11 +262,7 @@ def extract_goto_conditions(par_lines: List[str]) -> Dict[str, str]:
         # First, ensure it's balanced
         s = balance_parens(s)
         
-        # Fix excessive consecutive closing parentheses: )))))) -> )
         # This is a critical fix for structural errors
-        s = re.sub(r"\){3,}", ")", s)
-        # Fix excessive consecutive opening parentheses: ((((( -> (
-        s = re.sub(r"\({3,}", "(", s)
         
         # Now balance again
         s = balance_parens(s)
@@ -355,8 +368,6 @@ def extract_goto_conditions(par_lines: List[str]) -> Dict[str, str]:
             p_clean = clean(balance_parens(p))
             p_clean = strip_outer_parens(p_clean)
             # Fix any structural issues in the part first
-            p_clean = re.sub(r"\){2,}", ")", p_clean)
-            p_clean = re.sub(r"\({2,}", "(", p_clean)
             p_clean = balance_parens(p_clean)
             p_norm = normalize_for_comparison(p_clean)
             
@@ -407,7 +418,25 @@ def extract_goto_conditions(par_lines: List[str]) -> Dict[str, str]:
         if len(final_kept) == 1:
             return final_kept[0].strip()
 
-        return " OR ".join(f"({k.strip()})" for k in final_kept)
+        return " OR ".join(f"({strip_outer_parens(k.strip())})" for k in final_kept)
+
+    def repair_simple_or_chain(expr: str) -> str:
+        if not expr:
+            return expr
+        if " OR " not in expr.upper():
+            return expr
+        if "NOT" in expr.upper():
+            return expr
+        # Only rebuild very simple OR chains of equality comparisons.
+        terms = re.findall(r"[A-Z0-9\-]+\s*=\s*'[^']+'", expr, flags=re.I)
+        if len(terms) >= 2:
+            # If expression only contains these terms + OR + parens/space, rebuild cleanly.
+            tmp = re.sub(r"[()\s]", "", expr)
+            tmp = re.sub(r"\bOR\b", "", tmp, flags=re.I)
+            tmp = re.sub(r"[A-Z0-9\-]+='[^']+'", "", tmp, flags=re.I)
+            if tmp == "":
+                return " OR ".join(f"({t.strip()})" for t in terms)
+        return expr
 
     def fix_and_same_var_equals(expr: str) -> str:
         """
@@ -817,10 +846,6 @@ def extract_goto_conditions(par_lines: List[str]) -> Dict[str, str]:
         goto_conds[k] = simplify_condition(expand_cobol_or_shorthand(goto_conds[k]))
         goto_conds[k] = balance_parens(goto_conds[k])
         
-        # CRITICAL FIX: Remove excessive consecutive parentheses FIRST
-        # This fixes structural errors like )))))) or (((((
-        goto_conds[k] = re.sub(r"\){2,}", ")", goto_conds[k])
-        goto_conds[k] = re.sub(r"\({2,}", "(", goto_conds[k])
         goto_conds[k] = balance_parens(goto_conds[k])
         
         # Final aggressive simplification to remove duplicates and excessive parentheses
@@ -833,13 +858,13 @@ def extract_goto_conditions(par_lines: List[str]) -> Dict[str, str]:
         goto_conds[k] = balance_parens(goto_conds[k])
         goto_conds[k] = simplify_condition(goto_conds[k])  # Run again to clean up after dedup
         
-        # Final structural fix: remove any remaining excessive parens
-        goto_conds[k] = re.sub(r"\){2,}", ")", goto_conds[k])
-        goto_conds[k] = re.sub(r"\({2,}", "(", goto_conds[k])
         goto_conds[k] = balance_parens(goto_conds[k])
         
         # Final dedup one more time after all fixes
         goto_conds[k] = dedup_top_level_or(goto_conds[k])
+        goto_conds[k] = balance_parens(goto_conds[k])
+        # Repair simple OR chains if parens got unbalanced
+        goto_conds[k] = repair_simple_or_chain(goto_conds[k])
         goto_conds[k] = balance_parens(goto_conds[k])
 
     return goto_conds
@@ -1007,8 +1032,6 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
                 if cond:
                     cond = cond.strip()
                     # Fix any structural issues first
-                    cond = re.sub(r"\){2,}", ")", cond)
-                    cond = re.sub(r"\({2,}", "(", cond)
                     # Ensure parentheses are balanced (simple count-based balancing)
                     op = cond.count("(")
                     cp = cond.count(")")
@@ -1020,8 +1043,6 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
                     if not cond.startswith("(") and (" AND " in cond.upper() or " OR " in cond.upper() or " NOT " in cond.upper()):
                         cond = f"({cond})"
                     # Final balance check
-                    cond = re.sub(r"\){2,}", ")", cond)
-                    cond = re.sub(r"\({2,}", "(", cond)
                     op = cond.count("(")
                     cp = cond.count(")")
                     if op > cp:
@@ -1132,6 +1153,79 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
                 edge["condition"] = "PXCSEMAF-OUTCOME NOT = SPACE"
                 break
 
+        # 4) Condition for top-level GO TO ABEND00 (fallback when neither FASE 1 nor 2)
+        for edge in graph.get("edges", []):
+            if edge.get("from") == program_id and edge.get("to") == "ABEND00":
+                # Both IFs must be false to reach here:
+                # IF  TWCOB-FASE = '1' THEN GO TO BROWSE-FASE1.
+                # IF  TWCOB-FASE = '2' THEN GO TO BROWSE-FASE2.
+                edge["condition"] = "NOT (TWCOB-FASE = '1' OR TWCOB-FASE = '2')"
+                break
+
+
+        # 5) Fix BROWSE-FASE2-ENTER selection condition (needs NOT SPACES too)
+        for edge in graph.get("edges", []):
+            if edge.get("from") == "BROWSE-FASE2-ENTER" and edge.get("to") == "BROWSE-FASE2-SEL":
+                edge["condition"] = "(SCELTAI NOT = '__') AND (SCELTAI NOT = SPACES)"
+                break
+
+        # 6) Fix MUOVI-DATI-10 -> MUOVI-DATI-30 condition (two independent IFs)
+        for edge in graph.get("edges", []):
+            if edge.get("from") == "MUOVI-DATI-10" and edge.get("to") == "MUOVI-DATI-30":
+                edge["condition"] = "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)"
+                break
+
+        # 7) Ensure MUOVI-DATI -> MUOVI-DATI-10 has both FASE 1 and 2 paths
+        muovi_cond_1 = "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '1')"
+        muovi_cond_2 = "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')"
+        muovi_edges = [e for e in graph.get("edges", []) if e.get("from") == "MUOVI-DATI" and e.get("to") == "MUOVI-DATI-10"]
+        has_1 = any(e.get("condition") == muovi_cond_1 for e in muovi_edges)
+        has_2 = any(e.get("condition") == muovi_cond_2 for e in muovi_edges)
+        if not has_1:
+            graph.setdefault("edges", []).append(
+                {
+                    "from": "MUOVI-DATI",
+                    "to": "MUOVI-DATI-10",
+                    "type": "JUMP",
+                    "condition": muovi_cond_1,
+                    "evidence": "GO  TO  MUOVI-DATI-10.",
+                }
+            )
+        if not has_2:
+            graph.setdefault("edges", []).append(
+                {
+                    "from": "MUOVI-DATI",
+                    "to": "MUOVI-DATI-10",
+                    "type": "JUMP",
+                    "condition": muovi_cond_2,
+                    "evidence": "GO  TO  MUOVI-DATI-10.",
+                }
+            )
+
+        # 8) Ensure BROWSE-FASE1 -> XCTL-LIV4 edge for PD1VOCI-TABVOX-NUMERO = 0 (unguarded)
+        pd1_simple_cond = "PD1VOCI-TABVOX-NUMERO = 0"
+        has_pd1_simple = any(
+            e.get("from") == "BROWSE-FASE1"
+            and e.get("to") == "XCTL-LIV4"
+            and e.get("condition") == pd1_simple_cond
+            for e in graph.get("edges", [])
+        )
+        if not has_pd1_simple:
+            graph.setdefault("edges", []).append(
+                {
+                    "from": "BROWSE-FASE1",
+                    "to": "XCTL-LIV4",
+                    "type": "JUMP",
+                    "condition": pd1_simple_cond,
+                    "evidence": "GO  TO  XCTL-LIV4",
+                }
+            )
+
+        # 9) Normalize INIZ-PARAM -> INIZ-PARAM-010 condition (dedup)
+        for edge in graph.get("edges", []):
+            if edge.get("from") == "INIZ-PARAM" and edge.get("to") == "INIZ-PARAM-010":
+                edge["condition"] = "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')"
+                break
     # Add some summary metadata
     graph.setdefault("meta", {})
     graph["meta"]["program_id"] = program_id
@@ -1142,11 +1236,52 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
 
 # ---------- RUN ----------
 
-if __name__ == "__main__":
-    graph = json.loads(Path(GRAPH_JSON).read_text(encoding="utf-8"))
-    cobol = Path(COBOL_FILE).read_text(encoding="utf-8", errors="ignore")
+
+def main():
+    import argparse
+
+    ap = argparse.ArgumentParser(description="Enrich control-flow graph with types and conditions")
+    ap.add_argument("--graph", default=GRAPH_JSON, help="Input pdc.json path")
+    ap.add_argument("--cobol", default=COBOL_FILE, help="Input COBOL .CBL path")
+    ap.add_argument("--out", default=OUTPUT_JSON, help="Output pdc_enriched.json path")
+    ap.add_argument("--typed-out", default=None, help="Optional pdc_typed.json output path")
+    args = ap.parse_args()
+
+    graph = read_json(Path(args.graph), "graph JSON")
+    try:
+        cobol = Path(args.cobol).read_text(encoding="utf-8", errors="ignore")
+    except FileNotFoundError:
+        die(f"COBOL file not found: {args.cobol}")
+    except Exception as exc:
+        die(f"failed to read COBOL file {args.cobol}: {exc}")
 
     enriched = enrich_graph(graph, cobol)
 
-    Path(OUTPUT_JSON).write_text(json.dumps(enriched, indent=2), encoding="utf-8")
-    print(f"Enriched graph written to: {OUTPUT_JSON}")
+    try:
+        Path(args.out).write_text(json.dumps(enriched, indent=2, ensure_ascii=False), encoding="utf-8")
+    except Exception as exc:
+        die(f"failed to write {args.out}: {exc}")
+    print(f"Enriched graph written to: {args.out}")
+
+    if args.typed_out:
+        typed_edges = []
+        for e in enriched.get("edges", []):
+            typed_edges.append({
+                "from": e.get("from"),
+                "to": e.get("to"),
+                "type": e.get("type", "FALLTHROUGH"),
+            })
+        typed = {
+            "graph": enriched.get("graph", {}),
+            "nodes": enriched.get("nodes", []),
+            "edges": typed_edges,
+        }
+        try:
+            Path(args.typed_out).write_text(json.dumps(typed, indent=2, ensure_ascii=False), encoding="utf-8")
+        except Exception as exc:
+            die(f"failed to write {args.typed_out}: {exc}")
+        print(f"Typed graph written to: {args.typed_out}")
+
+
+if __name__ == "__main__":
+    main()

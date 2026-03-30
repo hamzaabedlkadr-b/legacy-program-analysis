@@ -1,0 +1,35 @@
+`scripts/pipeline/run_batch_pipeline.py` is the main batch entrypoint for the repo.
+
+What it expects:
+- COBOL sources in `inputs/cobol/`
+- copybooks in `inputs/copybooks/`
+- a PDC JSON file or folder via `--pdc-json-dir`
+- MAPA input via `--mapa-result` or `--mapa-batch-dir` plus `--mapa-cics-dir`
+
+What it produces:
+- per-program folders under the `--out-root` directory
+- intermediate files in each program `inputs/` folder
+- final artifacts in each program `artifacts/` folder
+
+Main helper locations:
+- `scripts/pipeline/script3.py`
+- `scripts/pipeline/enrich_graph.py`
+- `scripts/pipeline/extract_dataflow.py`
+- `scripts/pipeline/filter_used_variables.py`
+- `scripts/pipeline/extract_pdc_rules.py`
+- `scripts/pipeline/generate_rag_documents.py`
+- `artifacts/final/final_scripts/...` for the artifact builders
+
+Sample command for this repo layout:
+
+```powershell
+python scripts\pipeline\run_batch_pipeline.py ^
+  --cobol-dir inputs\cobol ^
+  --copy-dir inputs\copybooks ^
+  --pdc-json-dir artifacts\intermediate\pdc.json ^
+  --mapa-result inputs\mapa\result.txt ^
+  --script3 scripts\pipeline\script3.py ^
+  --out-root artifacts\final\batch_output
+```
+
+If you later add one PDC JSON per program, point `--pdc-json-dir` to that folder and optionally use `--pdc-json-pattern "{stem}.json"`.

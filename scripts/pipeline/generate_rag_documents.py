@@ -4,6 +4,11 @@ from pathlib import Path
 from typing import Dict, List
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_INPUT = PROJECT_ROOT / "artifacts" / "intermediate" / "pdc_rules.json"
+DEFAULT_OUTPUT = PROJECT_ROOT / "artifacts" / "intermediate" / "rag_documents.json"
+
+
 # ===============================
 # Utilities
 # ===============================
@@ -123,8 +128,8 @@ def main():
     import argparse
 
     ap = argparse.ArgumentParser(description="Generate rag_documents.json from pdc_rules.json")
-    ap.add_argument("--input", default="pdc_rules.json", help="Path to pdc_rules.json")
-    ap.add_argument("--output", default="rag_documents.json", help="Output rag_documents.json path")
+    ap.add_argument("--input", default=str(DEFAULT_INPUT), help="Path to pdc_rules.json")
+    ap.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Output rag_documents.json path")
     args = ap.parse_args()
 
     rules_path = Path(args.input)

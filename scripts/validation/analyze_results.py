@@ -1,6 +1,12 @@
+import argparse
 import json
 import re
 import sys
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_INPUT = PROJECT_ROOT / "artifacts" / "intermediate" / "pdc_enriched.json"
 
 
 def die(msg: str, code: int = 1) -> None:
@@ -8,9 +14,9 @@ def die(msg: str, code: int = 1) -> None:
     raise SystemExit(code)
 
 
-def load_json(path: str):
+def load_json(path: Path):
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with path.open("r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         die(f"input file not found: {path}")
@@ -21,8 +27,12 @@ def load_json(path: str):
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser(description="Inspect condition quality in an enriched PDC graph")
+    ap.add_argument("--input", default=str(DEFAULT_INPUT), help="Path to pdc_enriched.json")
+    args = ap.parse_args()
+
     # Load the enriched graph
-    data = load_json("pdc_enriched.json")
+    data = load_json(Path(args.input))
 
     edges = data.get("edges")
     if not isinstance(edges, list):
@@ -113,8 +123,10 @@ def main() -> None:
     print("=" * 80)
     print(f"Total conditions analyzed: {total_conditions}")
     print(f"Correct conditions: {correct_conditions} ({success_rate:.1f}%)")
-    print(f"Unbalanced conditions: {len(unbalanced)} ({len(unbalanced)/total_conditions*100:.1f}%)")
-    print(f"Conditions with duplicates: {len(duplicates)} ({len(duplicates)/total_conditions*100:.1f}%)")
+    unbalanced_pct = (len(unbalanced) / total_conditions * 100) if total_conditions > 0 else 0
+    duplicate_pct = (len(duplicates) / total_conditions * 100) if total_conditions > 0 else 0
+    print(f"Unbalanced conditions: {len(unbalanced)} ({unbalanced_pct:.1f}%)")
+    print(f"Conditions with duplicates: {len(duplicates)} ({duplicate_pct:.1f}%)")
 
 
 if __name__ == "__main__":

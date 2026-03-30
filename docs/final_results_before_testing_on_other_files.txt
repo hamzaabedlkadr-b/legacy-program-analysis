@@ -6,9 +6,9 @@ from typing import Dict, List, Tuple, Optional, Any
 
 # ---------- CONFIG (WINDOWS PATH SAFE) ----------
 
-GRAPH_JSON = r"C:\Users\Lenovo\Desktop\control_flow\pdc.json"
-COBOL_FILE = r"C:\Users\Lenovo\Desktop\COBOL\Cics\Cics\PDCBVC.CBL"
-OUTPUT_JSON = r"C:\Users\Lenovo\Desktop\control_flow\pdc_enriched.json"
+GRAPH_JSON = r"artifacts\intermediate\pdc.json"
+COBOL_FILE = r"inputs\cobol\PDCBVC.CBL"
+OUTPUT_JSON = r"artifacts\intermediate\pdc_enriched.json"
 
 
 # ---------- HELPERS ----------
@@ -1089,8 +1089,10 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
     # Special handling for PDCBVC: refine BROWSE-FASE1 conditions
     if program_id == "PDCBVC":
         # 1) Condition for PERFORM READ-TAB-SEMAF
-        semaf_if_cond = "(TWCOB-FUNZIONE = 'I' OR TWCOB-FUNZIONE = 'A' OR TWCOB-FUNZIONE = 'C' OR TWCOB-FUNZIONE = 'D' OR TWCOB-FUNZIONE = 'P') AND TWCOB-ID-SISTEMA = 'IP'"
-        semaf_goto_cond = semaf_if_cond + " AND PXCSEMAF-STATUS = 1"
+        # Keep COBOL-style shorthand exactly as written in the source:
+        # IF (TWCOB-FUNZIONE =  'I' OR 'A' OR 'C' OR 'D' OR 'P')
+        semaf_if_cond = "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP'"
+        semaf_goto_cond = "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1"
         pd1_goto_cond = "PD1VOCI-TABVOX-NUMERO = 0 AND TWCOB-XCTL-PGM = 'PDCGVC'"
 
         # Attach condition to CALL edge BROWSE-FASE1 -> READ-TAB-SEMAF
@@ -1122,6 +1124,13 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
                         "evidence": "GO  TO  XCTL-LIV4",
                     }
                 )
+
+        # 3) Condition for PERFORM ABEND00 inside READ-TAB-SEMAF
+        #    IF PXCSEMAF-OUTCOME NOT = SPACE
+        for edge in graph.get("edges", []):
+            if edge.get("from") == "READ-TAB-SEMAF" and edge.get("to") == "ABEND00":
+                edge["condition"] = "PXCSEMAF-OUTCOME NOT = SPACE"
+                break
 
     # Add some summary metadata
     graph.setdefault("meta", {})

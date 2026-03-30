@@ -10,6 +10,11 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_INPUT = PROJECT_ROOT / "inputs" / "mapa" / "result.txt"
+DEFAULT_OUTPUT = PROJECT_ROOT / "artifacts" / "intermediate" / "mapa_rag_documents.json"
+
+
 # -----------------------------
 # Utilities
 # -----------------------------
@@ -701,8 +706,8 @@ def write_output(docs: List[Dict[str, Any]], out_path: Path, fmt: str) -> None:
 
 def main():
     ap = argparse.ArgumentParser(description="Convert MAPA result.txt to RAG-ready JSON/JSONL documents.")
-    ap.add_argument("--input", "-i", default="result.txt", help="Path to MAPA result.txt")
-    ap.add_argument("--output", "-o", default="rag_documents.json", help="Output file (json or jsonl)")
+    ap.add_argument("--input", "-i", default=str(DEFAULT_INPUT), help="Path to MAPA result.txt")
+    ap.add_argument("--output", "-o", default=str(DEFAULT_OUTPUT), help="Output file (json or jsonl)")
     ap.add_argument("--format", "-f", choices=["json", "jsonl"], default="json", help="Output format")
     ap.add_argument("--example-cap", type=int, default=3, help="Max examples to store per unhandled record type per program")
     args = ap.parse_args()

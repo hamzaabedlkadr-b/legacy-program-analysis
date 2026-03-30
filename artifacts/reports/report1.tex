@@ -246,7 +246,7 @@ In parallel, the COBOL Control Flow extension generates a raw control-flow graph
 
 The DOT representation is converted into a JSON control-flow graph using the script \texttt{dot\_to\_json.py}, producing the file \texttt{pdc.json}. This file represents the raw structural control-flow graph.
 
-The graph is then enriched using the script \texttt{improvments/enrich\_graph.py}, producing \texttt{pdc\_enriched.json}. During this enrichment phase several improvements were introduced:
+The graph is then enriched using the script \texttt{scripts/pipeline/enrich\_graph.py}, producing \texttt{pdc\_enriched.json}. During this enrichment phase several improvements were introduced:
 
 \begin{itemize}
 \item Edge typing, distinguishing between \texttt{CALL}, \texttt{JUMP}, \texttt{CALL\_RANGE}, and \texttt{RANGE\_FLOW}.
@@ -270,7 +270,7 @@ The integration between MAPA outputs and CFG artifacts can be summarized as foll
 \hline
 \texttt{dott.txt} & \texttt{dot\_to\_json.py} & \texttt{pdc.json} \\
 \hline
-\texttt{pdc.json} & \texttt{improvments/enrich\_graph.py} & \texttt{pdc\_enriched.json} \\
+\texttt{pdc.json} & \texttt{scripts/pipeline/enrich\_graph.py} & \texttt{pdc\_enriched.json} \\
 \hline
 \end{tabular}
 \caption{Transformation steps for MAPA and CFG artifacts}

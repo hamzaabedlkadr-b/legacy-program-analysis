@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate a pdc_no_extention.json from a COBOL .CBL file.
+Generate a pdc_no_extension.json from a COBOL .CBL file.
 The output format matches pdc.json:
 {
   "graph": {"name": "...", "rankdir": "LR"},
@@ -67,6 +67,8 @@ COBOL_KEYWORDS = {
 PROGRAM_ID_RE = re.compile(r"PROGRAM-ID\.\s*([A-Z0-9-]+)\.", re.IGNORECASE)
 PROC_DIV_RE = re.compile(r"^\s*PROCEDURE\s+DIVISION\b", re.IGNORECASE)
 PARA_RE = re.compile(r"^\s*([A-Z][A-Z0-9-]{1,30})\.\s*$")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_OUTPUT = PROJECT_ROOT / "artifacts" / "intermediate" / "pdc_no_extension.json"
 
 
 def die(msg: str, code: int = 1) -> None:
@@ -313,9 +315,9 @@ def build_graph(cobol_path: Path, graph_name: Optional[str], rankdir: str) -> Di
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="COBOL -> pdc_no_extention.json")
+    ap = argparse.ArgumentParser(description="COBOL -> pdc_no_extension.json")
     ap.add_argument("--cobol", required=True, help="Path to COBOL .CBL/.COB file")
-    ap.add_argument("--out", default="pdc_no_extention.json", help="Output JSON path")
+    ap.add_argument("--out", default=str(DEFAULT_OUTPUT), help="Output JSON path")
     ap.add_argument("--graph-name", default=None, help="Override graph name")
     ap.add_argument("--rankdir", default="LR", help="Graph rankdir (default: LR)")
     args = ap.parse_args()

@@ -1,6 +1,12 @@
+import argparse
 import json
 import re
 import sys
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_INPUT = PROJECT_ROOT / "artifacts" / "intermediate" / "pdc_enriched.json"
 
 
 def die(msg: str, code: int = 1) -> None:
@@ -8,9 +14,9 @@ def die(msg: str, code: int = 1) -> None:
     raise SystemExit(code)
 
 
-def load_json(path: str):
+def load_json(path: Path):
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with path.open("r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         die(f"input file not found: {path}")
@@ -21,8 +27,12 @@ def load_json(path: str):
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser(description="Check for structural and duplicate condition issues")
+    ap.add_argument("--input", default=str(DEFAULT_INPUT), help="Path to pdc_enriched.json")
+    args = ap.parse_args()
+
     # Load the enriched graph
-    data = load_json("pdc_enriched.json")
+    data = load_json(Path(args.input))
 
     edges_raw = data.get("edges")
     if not isinstance(edges_raw, list):
