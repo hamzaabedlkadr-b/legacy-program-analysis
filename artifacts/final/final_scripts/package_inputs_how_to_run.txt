@@ -74,6 +74,27 @@ After packaging:
   3. Fix naming or folder inputs if a program has no MAPA/control-flow file.
   4. Run the final artifact/RAG generation pipeline against the package folders.
 
+Run all packages through the final pipeline:
+
+  python scripts\pipeline\run_batch_pipeline.py `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts"
+
+This package-root mode expects each program package to contain:
+
+  cobol\          required, one .CBL/.COB source
+  copybooks\      required
+  mapa\           required, one matching .csv/.txt MAPA result
+  controlflow\    required, one matching .json control-flow file
+  jcl\            optional
+
+The output is written under:
+
+  artifacts\final\final_scripts\output\program_artifacts\programs\<PROGRAM>\
+
+Each program gets an inputs\ folder with intermediate files and an artifacts\
+folder with the generated final JSON documents.
+
 Naming assumptions:
 
   MAPA files are matched by names like:

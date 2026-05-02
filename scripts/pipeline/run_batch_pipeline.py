@@ -44,6 +44,9 @@ def find_pdc_json(pdc_dir: Path, program: str, stem: str, pattern: str) -> Optio
     for f in pdc_dir.glob("*.json"):
         if f.stem.upper() in {program.upper(), stem.upper()}:
             return f
+    json_files = collect_files(pdc_dir, ["*.json"])
+    if len(json_files) == 1:
+        return json_files[0]
     return None
 
 
@@ -101,9 +104,12 @@ def find_mapa_result(
         wanted.add(program_id)
     wanted = {w.upper() for w in wanted if w}
     wanted |= {f"{w}_RESULT" for w in wanted}
-    for f in mapa_dir.glob("*.txt"):
+    mapa_files = collect_files(mapa_dir, ["*.txt", "*.csv"])
+    for f in mapa_files:
         if f.stem.upper() in wanted:
             return f
+    if len(mapa_files) == 1:
+        return mapa_files[0]
     return None
 
 
@@ -131,13 +137,95 @@ def collect_files(root: Path, patterns: List[str]) -> List[Path]:
     return files
 
 
+def package_has_files(package_dir: Path) -> bool:
+    cobol_dir = package_dir / "cobol"
+    return cobol_dir.is_dir() and bool(collect_files(cobol_dir, ["*.CBL", "*.cbl", "*.COB", "*.cob"]))
+
+
+def discover_packages(package_root: Path) -> List[Path]:
+    packages: List[Path] = []
+    if package_has_files(package_root):
+        packages.append(package_root)
+    for child in sorted(package_root.iterdir()):
+        if child.is_dir() and package_has_files(child):
+            packages.append(child)
+    return packages
+
+
+def run_package_root(args: argparse.Namespace) -> None:
+    package_root = Path(args.package_root)
+    if not package_root.exists():
+        raise SystemExit(f"Package root not found: {package_root}")
+    if not package_root.is_dir():
+        raise SystemExit(f"Package root is not a directory: {package_root}")
+
+    packages = discover_packages(package_root)
+    if not packages:
+        raise SystemExit(f"No program packages found under: {package_root}")
+
+    out_root = Path(args.out_root)
+    out_root.mkdir(parents=True, exist_ok=True)
+    print(f"[INFO] Program packages discovered: {len(packages)}")
+
+    python = sys.executable
+    script_path = Path(__file__).resolve()
+    processed = 0
+    skipped = 0
+
+    for package_dir in packages:
+        cobol_dir = package_dir / "cobol"
+        copy_dir = package_dir / "copybooks"
+        mapa_dir = package_dir / "mapa"
+        pdc_dir = package_dir / "controlflow"
+        jcl_dir = package_dir / "jcl"
+
+        missing = [
+            str(path)
+            for path in (copy_dir, mapa_dir, pdc_dir)
+            if not path.exists()
+        ]
+        if missing:
+            print(f"[WARN] Skipping {package_dir.name}; missing package folders: {', '.join(missing)}")
+            skipped += 1
+            continue
+
+        cmd = [
+            python, str(script_path),
+            "--cobol-dir", str(cobol_dir),
+            "--copy-dir", str(copy_dir),
+            "--pdc-json-dir", str(pdc_dir),
+            "--mapa-batch-dir", str(mapa_dir),
+            "--mapa-result-pattern", args.mapa_result_pattern,
+            "--script3", args.script3,
+            "--out-root", str(out_root),
+        ]
+        if args.pdc_json_pattern:
+            cmd.extend(["--pdc-json-pattern", args.pdc_json_pattern])
+        if args.use_program_id:
+            cmd.append("--use-program-id")
+        if jcl_dir.exists() and collect_files(jcl_dir, ["*.JCL", "*.jcl"]):
+            cmd.extend(["--jcl-dir", str(jcl_dir)])
+
+        print(f"\n=== Package: {package_dir.name} ===")
+        run_cmd(cmd)
+        processed += 1
+
+    print("\n=== Package Summary ===")
+    print(f"[INFO] Packages discovered: {len(packages)}")
+    print(f"[INFO] Packages processed: {processed}")
+    print(f"[INFO] Packages skipped: {skipped}")
+
+
 def main():
     ap = argparse.ArgumentParser(description="Batch pipeline for COBOL -> RAG artifacts")
-    ap.add_argument("--cobol-dir", required=True, help="Folder containing COBOL .CBL files")
-    ap.add_argument("--copy-dir", required=True, help="Folder containing COPYBOOK .cpy files")
+    ap.add_argument(
+        "--package-root",
+        help="Folder containing per-program packages with cobol/copybooks/mapa/controlflow subfolders",
+    )
+    ap.add_argument("--cobol-dir", help="Folder containing COBOL .CBL files")
+    ap.add_argument("--copy-dir", help="Folder containing COPYBOOK .cpy files")
     ap.add_argument(
         "--pdc-json-dir",
-        required=True,
         help="Path to a single pdc.json file or a folder containing per-program pdc.json files",
     )
     ap.add_argument("--pdc-json-pattern", default="{stem}.json",
@@ -154,6 +242,21 @@ def main():
     ap.add_argument("--use-program-id", action="store_true",
                     help="Use PROGRAM-ID as program name (default uses file stem)")
     args = ap.parse_args()
+
+    if args.package_root:
+        run_package_root(args)
+        return
+
+    missing_required = [
+        name for name, value in (
+            ("--cobol-dir", args.cobol_dir),
+            ("--copy-dir", args.copy_dir),
+            ("--pdc-json-dir", args.pdc_json_dir),
+        )
+        if not value
+    ]
+    if missing_required:
+        raise SystemExit(f"Missing required arguments outside --package-root mode: {', '.join(missing_required)}")
 
     cobol_dir = Path(args.cobol_dir)
     copy_dir = Path(args.copy_dir)
@@ -184,8 +287,11 @@ def main():
     if not script3.is_file():
         raise SystemExit(f"script3.py path is not a file: {script3}")
     jcl_builder = FINAL_SCRIPTS_DIR / "jcl" / "build_jcl_artifacts.py"
+    jcl_validator = FINAL_SCRIPTS_DIR / "jcl" / "build_jcl_validation_report.py"
     if jcl_dir and not jcl_builder.exists():
         raise SystemExit(f"JCL builder not found: {jcl_builder}")
+    if jcl_dir and not jcl_validator.exists():
+        raise SystemExit(f"JCL validator not found: {jcl_validator}")
 
     mapa_sources: List[Tuple[str, Path]] = []
     mapa_rag_global = None
@@ -223,6 +329,11 @@ def main():
                     "--jcl", str(jcl),
                     "--output-dir", str(jcl_global_dir / jcl.stem.upper()),
                 ])
+            run_cmd([
+                python, str(jcl_validator),
+                "--jcl-dir", str(jcl_dir),
+                "--output", str(jcl_global_dir / "jcl.validation.report.json"),
+            ])
 
     # 1) Collect COBOL programs
     cobol_files = collect_files(cobol_dir, ["*.CBL", "*.cbl", "*.COB", "*.cob"])
