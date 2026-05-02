@@ -44,6 +44,11 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="Destination folder for rag_validation_report.json and .md.",
     )
+    parser.add_argument(
+        "--rag-index-dir",
+        type=Path,
+        help="Optional RAG index output folder to validate.",
+    )
     return parser.parse_args()
 
 
@@ -97,10 +102,12 @@ def package_status(package_dir: Path | None) -> dict[str, Any]:
     if not package_dir:
         return {
             "exists": False,
+            "cobol_count": 0,
             "has_mapa": None,
             "has_controlflow": None,
             "copybooks": {"status": "unknown", "present_count": 0, "missing_count": None, "missing": []},
             "manifest_valid": None,
+            "jcl_count": 0,
         }
 
     manifest_path = package_dir / "manifest.json"
@@ -113,9 +120,11 @@ def package_status(package_dir: Path | None) -> dict[str, Any]:
         except Exception:
             manifest_valid = False
 
+    cobol_files = count_files(package_dir / "cobol", ["*.cbl", "*.CBL", "*.cob", "*.COB", "*.cobol", "*.COBOL"]) if (package_dir / "cobol").is_dir() else 0
     copybook_files = count_files(package_dir / "copybooks", ["*.cpy", "*.CPY", "*.copy", "*.COPY", "*.cob", "*.COB"]) if (package_dir / "copybooks").is_dir() else 0
     mapa_files = count_files(package_dir / "mapa", ["*.txt", "*.TXT", "*.csv", "*.CSV"]) if (package_dir / "mapa").is_dir() else 0
     cfg_files = count_files(package_dir / "controlflow", ["*.json", "*.JSON"]) if (package_dir / "controlflow").is_dir() else 0
+    jcl_files = count_files(package_dir / "jcl", ["*.jcl", "*.JCL", "*.txt", "*.TXT"]) if (package_dir / "jcl").is_dir() else 0
 
     missing_copybooks = []
     if manifest:
@@ -129,10 +138,12 @@ def package_status(package_dir: Path | None) -> dict[str, Any]:
 
     return {
         "exists": True,
+        "cobol_count": cobol_files,
         "has_mapa": mapa_files > 0,
         "has_controlflow": cfg_files > 0,
         "mapa_count": mapa_files,
         "controlflow_count": cfg_files,
+        "jcl_count": jcl_files,
         "copybooks": {
             "status": copybook_status,
             "present_count": copybook_files,
@@ -190,11 +201,161 @@ def output_status(output_dir: Path | None) -> dict[str, Any]:
     }
 
 
+def validate_jsonl(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        return {
+            "exists": False,
+            "valid": False,
+            "line_count": 0,
+            "invalid_lines": [],
+            "duplicate_ids": 0,
+            "empty_text": 0,
+            "missing_required_fields": 0,
+            "program_counts": {},
+            "type_counts": {},
+        }
+
+    invalid_lines: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    duplicate_ids = 0
+    empty_text = 0
+    missing_required = 0
+    program_counts: Counter[str] = Counter()
+    type_counts: Counter[str] = Counter()
+    line_count = 0
+    required_fields = {"id", "program", "type", "text", "metadata"}
+
+    with path.open("r", encoding="utf-8") as fh:
+        for line_number, line in enumerate(fh, start=1):
+            if not line.strip():
+                continue
+            line_count += 1
+            try:
+                item = json.loads(line)
+            except Exception as exc:
+                if len(invalid_lines) < 20:
+                    invalid_lines.append({"line": line_number, "error": str(exc)})
+                continue
+
+            if not isinstance(item, dict):
+                if len(invalid_lines) < 20:
+                    invalid_lines.append({"line": line_number, "error": "line is not a JSON object"})
+                continue
+
+            missing = [field for field in required_fields if field not in item]
+            if missing:
+                missing_required += 1
+            doc_id = str(item.get("id") or "")
+            if doc_id:
+                if doc_id in seen_ids:
+                    duplicate_ids += 1
+                seen_ids.add(doc_id)
+            text = item.get("text")
+            if not isinstance(text, str) or not text.strip():
+                empty_text += 1
+            program_counts[str(item.get("program") or "UNKNOWN")] += 1
+            type_counts[str(item.get("type") or "unknown")] += 1
+
+    valid = (
+        not invalid_lines
+        and duplicate_ids == 0
+        and empty_text == 0
+        and missing_required == 0
+        and line_count > 0
+    )
+    return {
+        "exists": True,
+        "valid": valid,
+        "line_count": line_count,
+        "invalid_lines": invalid_lines,
+        "duplicate_ids": duplicate_ids,
+        "empty_text": empty_text,
+        "missing_required_fields": missing_required,
+        "program_counts": dict(sorted(program_counts.items())),
+        "type_counts": dict(sorted(type_counts.items())),
+    }
+
+
+def index_status(rag_index_dir: Path | None) -> dict[str, Any]:
+    if not rag_index_dir:
+        return {"checked": False}
+    files = {
+        "rag_documents_jsonl": rag_index_dir / "rag_documents.jsonl",
+        "rag_documents_json": rag_index_dir / "rag_documents.json",
+        "rag_manifest_json": rag_index_dir / "rag_manifest.json",
+        "program_index_json": rag_index_dir / "program_index.json",
+    }
+    json_files = {
+        name: path.is_file()
+        for name, path in files.items()
+        if name != "rag_documents_jsonl"
+    }
+    manifest: dict[str, Any] = {}
+    manifest_valid = None
+    if files["rag_manifest_json"].is_file():
+        try:
+            manifest = load_json(files["rag_manifest_json"])
+            manifest_valid = True
+        except Exception:
+            manifest_valid = False
+
+    jsonl = validate_jsonl(files["rag_documents_jsonl"])
+    valid = (
+        jsonl["valid"] is True
+        and all(json_files.values())
+        and manifest_valid is not False
+    )
+    notes: list[str] = []
+    if not files["rag_documents_jsonl"].is_file():
+        notes.append("missing rag_documents.jsonl")
+    if not all(json_files.values()):
+        missing = [name for name, exists in json_files.items() if not exists]
+        notes.append("missing index files: " + ", ".join(missing))
+    if manifest_valid is False:
+        notes.append("invalid rag_manifest.json")
+    if jsonl["duplicate_ids"]:
+        notes.append(f"{jsonl['duplicate_ids']} duplicate JSONL ids")
+    if jsonl["empty_text"]:
+        notes.append(f"{jsonl['empty_text']} empty JSONL texts")
+    if jsonl["missing_required_fields"]:
+        notes.append(f"{jsonl['missing_required_fields']} JSONL records missing required fields")
+    if jsonl["invalid_lines"]:
+        notes.append(f"{len(jsonl['invalid_lines'])} invalid JSONL lines")
+    if not notes:
+        notes.append("ready")
+
+    return {
+        "checked": True,
+        "dir": str(rag_index_dir),
+        "valid": valid,
+        "files": {name: str(path) for name, path in files.items()},
+        "file_exists": {
+            "rag_documents_jsonl": files["rag_documents_jsonl"].is_file(),
+            **json_files,
+        },
+        "manifest_valid": manifest_valid,
+        "manifest": manifest,
+        "jsonl": jsonl,
+        "notes": notes,
+    }
+
+
 def program_status(package: dict[str, Any], output: dict[str, Any]) -> tuple[str, list[str]]:
     notes: list[str] = []
     status = "OK"
 
     if package["exists"]:
+        if package["cobol_count"] == 0:
+            notes.append("missing COBOL source")
+            status = "FAIL"
+        elif package["cobol_count"] > 1:
+            notes.append(f"{package['cobol_count']} COBOL sources in package")
+            if status != "FAIL":
+                status = "WARN"
+        if package["manifest_valid"] is False:
+            notes.append("invalid package manifest")
+            if status != "FAIL":
+                status = "WARN"
         if not package["has_mapa"]:
             notes.append("missing MAPA")
             status = "FAIL"
@@ -243,24 +404,31 @@ def yn(value: Any) -> str:
     return "unknown"
 
 
-def build_report(package_root: Path | None, out_root: Path | None) -> dict[str, Any]:
+def build_report(package_root: Path | None, out_root: Path | None, rag_index_dir: Path | None = None) -> dict[str, Any]:
     package_dirs = discover_package_dirs(package_root)
     output_dirs = discover_output_dirs(out_root)
     programs = sorted(set(package_dirs) | set(output_dirs))
 
     rows: list[dict[str, Any]] = []
     status_counts: Counter[str] = Counter()
+    warning_reasons: Counter[str] = Counter()
     for program in programs:
         package = package_status(package_dirs.get(program))
         output = output_status(output_dirs.get(program))
         status, notes = program_status(package, output)
         status_counts[status] += 1
+        for note in notes:
+            if note != "ready":
+                warning_reasons[note] += 1
         rows.append(
             {
                 "program": program,
                 "status": status,
+                "cobol_count": package["cobol_count"],
                 "has_mapa": package["has_mapa"],
                 "has_controlflow": package["has_controlflow"],
+                "jcl_count": package["jcl_count"],
+                "manifest_valid": package["manifest_valid"],
                 "copybooks": package["copybooks"],
                 "json": output["json"],
                 "required_artifacts": output["required_artifacts"],
@@ -277,7 +445,9 @@ def build_report(package_root: Path | None, out_root: Path | None) -> dict[str, 
             "ok": status_counts["OK"],
             "warn": status_counts["WARN"],
             "fail": status_counts["FAIL"],
+            "top_reasons": dict(warning_reasons.most_common(20)),
         },
+        "rag_index": index_status(rag_index_dir),
         "programs": rows,
     }
 
@@ -320,6 +490,22 @@ def detail_cell(row: dict[str, Any]) -> str:
     return ", ".join(f"{name}={count}" for name, count in useful)
 
 
+def index_summary_lines(index: dict[str, Any]) -> list[str]:
+    if not index.get("checked"):
+        return ["- RAG index: not checked"]
+    jsonl = index.get("jsonl") or {}
+    status = "OK" if index.get("valid") else "WARN"
+    manifest = index.get("manifest") or {}
+    return [
+        f"- RAG index: {status}",
+        f"- JSONL docs: {jsonl.get('line_count', 0)}",
+        f"- Indexed programs: {manifest.get('program_count', len(jsonl.get('program_counts', {})))}",
+        f"- Duplicate IDs: {jsonl.get('duplicate_ids', 0)}",
+        f"- Empty text records: {jsonl.get('empty_text', 0)}",
+        f"- Index notes: {'; '.join(index.get('notes', []))}",
+    ]
+
+
 def write_markdown(report: dict[str, Any], path: Path) -> None:
     lines = [
         "# RAG Pipeline Validation",
@@ -328,9 +514,10 @@ def write_markdown(report: dict[str, Any], path: Path) -> None:
         f"- OK: {report['summary']['ok']}",
         f"- WARN: {report['summary']['warn']}",
         f"- FAIL: {report['summary']['fail']}",
+        *index_summary_lines(report.get("rag_index") or {}),
         "",
-        "| Program | Status | MAPA | Controlflow | Copybooks | JSON | Required Artifacts | Detail Counts | Notes |",
-        "|---|---|---|---|---|---|---:|---|---|",
+        "| Program | Status | COBOL | MAPA | Controlflow | Copybooks | JSON | Required Artifacts | Detail Counts | Notes |",
+        "|---|---|---:|---|---|---|---|---:|---|---|",
     ]
     for row in report["programs"]:
         json_status = "unknown"
@@ -340,9 +527,10 @@ def write_markdown(report: dict[str, Any], path: Path) -> None:
             json_status = f"bad ({len(row['json']['invalid_files'])})"
         notes = "; ".join(row["notes"])
         lines.append(
-            "| {program} | {status} | {mapa} | {cfg} | {copybooks} | {json_status} | {artifacts} | {details} | {notes} |".format(
+            "| {program} | {status} | {cobol} | {mapa} | {cfg} | {copybooks} | {json_status} | {artifacts} | {details} | {notes} |".format(
                 program=row["program"],
                 status=row["status"],
+                cobol=row["cobol_count"],
                 mapa=yn(row["has_mapa"]),
                 cfg=yn(row["has_controlflow"]),
                 copybooks=copybook_cell(row),
@@ -360,7 +548,7 @@ def main() -> int:
     if not args.package_root and not args.out_root:
         raise SystemExit("Provide --package-root, --out-root, or both.")
 
-    report = build_report(args.package_root, args.out_root)
+    report = build_report(args.package_root, args.out_root, args.rag_index_dir)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     json_path = args.output_dir / "rag_validation_report.json"
     md_path = args.output_dir / "rag_validation_report.md"

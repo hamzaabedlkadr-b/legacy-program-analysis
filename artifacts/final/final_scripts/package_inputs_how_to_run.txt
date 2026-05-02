@@ -74,6 +74,40 @@ After packaging:
   3. Fix naming or folder inputs if a program has no MAPA/control-flow file.
   4. Run the final artifact/RAG generation pipeline against the package folders.
 
+One-command RAG document factory:
+
+  python scripts\pipeline\run_rag_factory.py `
+    --cbl-dir "C:\path\to\cbl_folder" `
+    --cpy-dir "C:\path\to\copybooks" `
+    --jcl-dir "C:\path\to\jcl_folder" `
+    --mapa-dir "C:\path\to\mapa_results" `
+    --controlflow-dir "C:\path\to\controlflow_json" `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --rag-index-dir "artifacts\final\final_scripts\output\rag_index" `
+    --validation-dir "artifacts\final\final_scripts\output\validation" `
+    --factory-report-dir "artifacts\final\final_scripts\output\factory_report" `
+    --recursive
+
+This runs, in order:
+
+  1. package_program_inputs.py
+  2. run_batch_pipeline.py
+  3. build_rag_index.py
+  4. validate_rag_pipeline.py
+  5. rag_factory_report.json/.md
+
+If packages already exist, omit the input folders and run:
+
+  python scripts\pipeline\run_rag_factory.py `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --rag-index-dir "artifacts\final\final_scripts\output\rag_index" `
+    --validation-dir "artifacts\final\final_scripts\output\validation"
+
+Use --skip-package, --skip-pipeline, --skip-index, or --skip-validation when
+you want to rerun only part of the factory.
+
 Run all packages through the final pipeline:
 
   python scripts\pipeline\run_batch_pipeline.py `
@@ -118,6 +152,7 @@ Validate packages and generated output:
   python scripts\pipeline\validate_rag_pipeline.py `
     --package-root "artifacts\final\final_scripts\input\program_packages" `
     --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --rag-index-dir "artifacts\final\final_scripts\output\rag_index" `
     --output-dir "artifacts\final\final_scripts\output\validation"
 
 The Markdown report is the quick scan. The JSON report is for automation.
