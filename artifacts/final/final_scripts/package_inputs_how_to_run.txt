@@ -1,0 +1,104 @@
+Create per-program input packages
+=================================
+
+Script:
+
+  scripts\pipeline\package_program_inputs.py
+
+Purpose:
+
+  Build one package per COBOL program under:
+
+    artifacts\final\final_scripts\input\program_packages\<PROGRAM>\
+
+  Each package contains:
+
+    cobol\          the source .CBL/.COB file
+    copybooks\      referenced copybooks, or all copybooks if --copy-mode all
+    jcl\            matching JCL files, when provided
+    mapa\           matching MAPA result .csv/.txt files
+    controlflow\    matching control-flow .json files
+    manifest.json   copied files and missing matches
+
+Inputs you provide:
+
+  --cbl-dir           folder with .CBL/.cbl files
+  --cpy-dir           folder with copybooks
+  --jcl-dir           optional folder with .JCL/.jcl files
+  --mapa-dir          folder with MAPA result files, for example *_result.csv
+  --controlflow-dir   folder with control-flow JSON files
+  --out-dir           destination package folder
+
+Recommended command - dry run first:
+
+  python scripts\pipeline\package_program_inputs.py `
+    --cbl-dir "C:\path\to\cbl_folder" `
+    --cpy-dir "C:\path\to\copybooks" `
+    --jcl-dir "C:\path\to\jcl_folder" `
+    --mapa-dir "C:\path\to\mapa_results" `
+    --controlflow-dir "C:\path\to\controlflow_json" `
+    --out-dir "artifacts\final\final_scripts\input\program_packages" `
+    --recursive `
+    --dry-run
+
+Real run:
+
+  python scripts\pipeline\package_program_inputs.py `
+    --cbl-dir "C:\path\to\cbl_folder" `
+    --cpy-dir "C:\path\to\copybooks" `
+    --jcl-dir "C:\path\to\jcl_folder" `
+    --mapa-dir "C:\path\to\mapa_results" `
+    --controlflow-dir "C:\path\to\controlflow_json" `
+    --out-dir "artifacts\final\final_scripts\input\program_packages" `
+    --recursive
+
+If you want every copybook in every program package instead of only directly
+referenced COPY members, add:
+
+  --copy-mode all
+
+Example for the current sample layout:
+
+  python scripts\pipeline\package_program_inputs.py `
+    --cbl-dir "inputs\cobol" `
+    --cpy-dir "inputs\copybooks" `
+    --mapa-dir "inputs\mapa" `
+    --controlflow-dir "artifacts\final\final_scripts\controlflow.cfg" `
+    --out-dir "artifacts\final\final_scripts\input\program_packages_sample" `
+    --recursive
+
+After packaging:
+
+  1. Open package_summary.json.
+  2. Check missing.mapa and missing.controlflow for every program.
+  3. Fix naming or folder inputs if a program has no MAPA/control-flow file.
+  4. Run the final artifact/RAG generation pipeline against the package folders.
+
+Naming assumptions:
+
+  MAPA files are matched by names like:
+
+    <PROGRAM>_result.csv
+    <SOURCE_STEM>_result.csv
+    <PROGRAM>_result.txt
+    <SOURCE_STEM>_result.txt
+
+  Control-flow files are matched by names like:
+
+    <PROGRAM>.json
+    <SOURCE_STEM>.json
+    <PROGRAM>_controlflow.json
+    <SOURCE_STEM>_controlflow.json
+    <PROGRAM>_cfg.json
+    <SOURCE_STEM>_cfg.json
+
+  JCL files are matched by exact file stem first, then by content containing
+  the program/source stem.
+
+Fallback behavior:
+
+  If --mapa-dir contains exactly one .csv/.txt file, the script uses it even
+  when it is named generically, for example result.txt.
+
+  If --controlflow-dir contains exactly one .json file, the script uses it even
+  when it is named generically, for example controlflow.cfg.json.
