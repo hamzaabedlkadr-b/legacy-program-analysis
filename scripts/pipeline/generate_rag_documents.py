@@ -141,7 +141,7 @@ def main():
 
     save_json(output_path, rag_docs)
 
-    print(f"[OK] Generated {len(rag_docs)} RAG documents → {output_path}")
+    print(f"[OK] Generated {len(rag_docs)} RAG documents -> {output_path}")
 
 
 if __name__ == "__main__":

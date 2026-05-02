@@ -95,6 +95,11 @@ The output is written under:
 Each program gets an inputs\ folder with intermediate files and an artifacts\
 folder with the generated final JSON documents.
 
+If a package has exactly one MAPA .csv/.txt file, the pipeline writes canonical
+artifact names such as program.summary.json and architecture.copybooks.json. If
+a package has multiple MAPA files, the MAPA-derived artifact names include a
+suffix so the results do not overwrite each other.
+
 Naming assumptions:
 
   MAPA files are matched by names like:

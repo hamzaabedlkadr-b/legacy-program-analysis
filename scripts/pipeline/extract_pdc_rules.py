@@ -199,7 +199,7 @@ def extract_rules(enriched: Dict, program_name: str) -> Dict:
             "kind": kind,
             "severity": severity,
             "condition": condition_clean,
-            "action": f"{edge.get('type')} → {edge.get('to')}",
+            "action": f"{edge.get('type')} -> {edge.get('to')}",
             "flags": flags,
             "evidence": {
                 "from": edge.get("from"),
@@ -240,7 +240,7 @@ def main():
     rules_doc = extract_rules(enriched, program_name)
     save_json(output_path, rules_doc)
 
-    print(f"[OK] Extracted {len(rules_doc['rules'])} semantic rules → {output_path}")
+    print(f"[OK] Extracted {len(rules_doc['rules'])} semantic rules -> {output_path}")
 
 
 if __name__ == "__main__":

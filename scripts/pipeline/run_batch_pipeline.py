@@ -115,7 +115,7 @@ def find_mapa_result(
 
 def run_cmd(cmd: List[str], cwd: Optional[Path] = None, allow_fail: bool = False) -> None:
     run_cwd = cwd or PROJECT_ROOT
-    print(">>", " ".join(str(c) for c in cmd))
+    print(">>", " ".join(str(c) for c in cmd), flush=True)
     res = subprocess.run(cmd, cwd=str(run_cwd))
     if res.returncode != 0:
         if allow_fail:
@@ -165,7 +165,7 @@ def run_package_root(args: argparse.Namespace) -> None:
 
     out_root = Path(args.out_root)
     out_root.mkdir(parents=True, exist_ok=True)
-    print(f"[INFO] Program packages discovered: {len(packages)}")
+    print(f"[INFO] Program packages discovered: {len(packages)}", flush=True)
 
     python = sys.executable
     script_path = Path(__file__).resolve()
@@ -185,7 +185,13 @@ def run_package_root(args: argparse.Namespace) -> None:
             if not path.exists()
         ]
         if missing:
-            print(f"[WARN] Skipping {package_dir.name}; missing package folders: {', '.join(missing)}")
+            print(f"[WARN] Skipping {package_dir.name}; missing package folders: {', '.join(missing)}", flush=True)
+            skipped += 1
+            continue
+
+        mapa_files = collect_files(mapa_dir, ["*.txt", "*.csv"])
+        if not mapa_files:
+            print(f"[WARN] Skipping {package_dir.name}; no MAPA .txt/.csv files in {mapa_dir}", flush=True)
             skipped += 1
             continue
 
@@ -194,11 +200,13 @@ def run_package_root(args: argparse.Namespace) -> None:
             "--cobol-dir", str(cobol_dir),
             "--copy-dir", str(copy_dir),
             "--pdc-json-dir", str(pdc_dir),
-            "--mapa-batch-dir", str(mapa_dir),
-            "--mapa-result-pattern", args.mapa_result_pattern,
             "--script3", args.script3,
             "--out-root", str(out_root),
         ]
+        if len(mapa_files) == 1:
+            cmd.extend(["--mapa-result", str(mapa_files[0])])
+        else:
+            cmd.extend(["--mapa-batch-dir", str(mapa_dir), "--mapa-result-pattern", args.mapa_result_pattern])
         if args.pdc_json_pattern:
             cmd.extend(["--pdc-json-pattern", args.pdc_json_pattern])
         if args.use_program_id:
@@ -206,14 +214,14 @@ def run_package_root(args: argparse.Namespace) -> None:
         if jcl_dir.exists() and collect_files(jcl_dir, ["*.JCL", "*.jcl"]):
             cmd.extend(["--jcl-dir", str(jcl_dir)])
 
-        print(f"\n=== Package: {package_dir.name} ===")
+        print(f"\n=== Package: {package_dir.name} ===", flush=True)
         run_cmd(cmd)
         processed += 1
 
-    print("\n=== Package Summary ===")
-    print(f"[INFO] Packages discovered: {len(packages)}")
-    print(f"[INFO] Packages processed: {processed}")
-    print(f"[INFO] Packages skipped: {skipped}")
+    print("\n=== Package Summary ===", flush=True)
+    print(f"[INFO] Packages discovered: {len(packages)}", flush=True)
+    print(f"[INFO] Packages processed: {processed}", flush=True)
+    print(f"[INFO] Packages skipped: {skipped}", flush=True)
 
 
 def main():

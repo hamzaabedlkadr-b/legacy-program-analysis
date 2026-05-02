@@ -12,7 +12,7 @@ Improvements over your current script:
 Usage (Windows PowerShell):
   python improve_var_index_v2.py --cobol PDCBVC.CBL --cfg cfg.json --out vars_improved.json
   python improve_var_index_v2.py --cobol PDCBVC.CBL --out vars_improved.json
-  python improve_var_index_v2.py --cobol PDCBVC.CBL --cfg cfg.json --copy-dir .\cpy --out vars_improved.json
+  python improve_var_index_v2.py --cobol PDCBVC.CBL --cfg cfg.json --copy-dir .\\cpy --out vars_improved.json
 """
 
 import argparse

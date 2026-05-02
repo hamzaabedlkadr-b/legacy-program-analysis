@@ -749,17 +749,17 @@ def main():
     write_output(all_docs, out_path, args.format)
 
     progs = ", ".join(sorted(programs.keys()))
-    print(f"✔ Parsed programs: {progs}")
-    print(f"✔ Wrote {len(all_docs)} RAG documents to: {out_path} ({args.format})")
+    print(f"[OK] Parsed programs: {progs}")
+    print(f"[OK] Wrote {len(all_docs)} RAG documents to: {out_path} ({args.format})")
 
     # Explicitly say what's not covered (as requested)
     if global_unhandled:
-        print("\n⚠ Unhandled MAPA record types detected (not modeled yet):")
+        print("\n[WARN] Unhandled MAPA record types detected (not modeled yet):")
         for k, v in global_unhandled.most_common():
             print(f"  - {k}: {v} lines")
         print("  (See output doc: type=analysis.mapa_unhandled and per-program analysis.unhandled_records)\n")
     else:
-        print("\n✔ No unhandled MAPA record types detected.\n")
+        print("\n[OK] No unhandled MAPA record types detected.\n")
 
 
 if __name__ == "__main__":
