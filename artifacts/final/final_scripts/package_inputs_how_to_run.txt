@@ -93,9 +93,10 @@ This runs, in order:
 
   1. package_program_inputs.py
   2. run_batch_pipeline.py
-  3. build_rag_index.py
-  4. validate_rag_pipeline.py
-  5. rag_factory_report.json/.md
+  3. build_global_rag_maps.py
+  4. build_rag_index.py
+  5. validate_rag_pipeline.py
+  6. rag_factory_report.json/.md
 
 If packages already exist, omit the input folders and run:
 
@@ -105,8 +106,8 @@ If packages already exist, omit the input folders and run:
     --rag-index-dir "artifacts\final\final_scripts\output\rag_index" `
     --validation-dir "artifacts\final\final_scripts\output\validation"
 
-Use --skip-package, --skip-pipeline, --skip-index, or --skip-validation when
-you want to rerun only part of the factory.
+Use --skip-package, --skip-pipeline, --skip-global-maps, --skip-index, or
+--skip-validation when you want to rerun only part of the factory.
 
 Run all packages through the final pipeline:
 
@@ -136,8 +137,14 @@ suffix so the results do not overwrite each other.
 
 Build the final vector-DB ingestion bundle:
 
+  python scripts\pipeline\build_global_rag_maps.py `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-dir "artifacts\final\final_scripts\output\program_artifacts\_global\rag_maps"
+
   python scripts\pipeline\build_rag_index.py `
     --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --global-docs-dir "artifacts\final\final_scripts\output\program_artifacts\_global\rag_maps" `
     --out-dir "artifacts\final\final_scripts\output\rag_index"
 
 This writes:
@@ -146,6 +153,14 @@ This writes:
   rag_documents.json      same documents as a JSON array for inspection
   rag_manifest.json/.md   counts by program and document type
   program_index.json      per-program document counts
+
+The global maps add cross-program RAG docs for:
+
+  copybook usage
+  call graph targets and program dependencies
+  DB2 table usage
+  JCL-to-program mapping
+  shared variables and common structures
 
 Validate packages and generated output:
 

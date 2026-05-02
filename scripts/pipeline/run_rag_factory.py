@@ -31,6 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--controlflow-dir", type=Path, help="Folder with control-flow JSON files. Enables packaging stage.")
     parser.add_argument("--package-root", type=Path, default=DEFAULT_PACKAGE_ROOT, help="Per-program package root.")
     parser.add_argument("--out-root", type=Path, default=DEFAULT_OUTPUT_ROOT, help="Per-program pipeline output root.")
+    parser.add_argument("--global-maps-dir", type=Path, help="Global cross-program RAG map output folder.")
     parser.add_argument("--rag-index-dir", type=Path, default=DEFAULT_RAG_INDEX_DIR, help="Final RAG index output folder.")
     parser.add_argument("--validation-dir", type=Path, default=DEFAULT_VALIDATION_DIR, help="Validation report output folder.")
     parser.add_argument("--factory-report-dir", type=Path, default=DEFAULT_FACTORY_REPORT_DIR, help="Factory summary output folder.")
@@ -43,6 +44,7 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument("--skip-package", action="store_true", help="Do not run package_program_inputs.py.")
     parser.add_argument("--skip-pipeline", action="store_true", help="Do not run run_batch_pipeline.py.")
+    parser.add_argument("--skip-global-maps", action="store_true", help="Do not run build_global_rag_maps.py.")
     parser.add_argument("--skip-index", action="store_true", help="Do not run build_rag_index.py.")
     parser.add_argument("--skip-validation", action="store_true", help="Do not run validate_rag_pipeline.py.")
     parser.add_argument(
@@ -88,6 +90,7 @@ def validate_packaging_args(args: argparse.Namespace) -> None:
 def build_stage_commands(args: argparse.Namespace) -> list[tuple[str, list[str]]]:
     python = sys.executable
     commands: list[tuple[str, list[str]]] = []
+    global_maps_dir = args.global_maps_dir or (args.out_root / "_global" / "rag_maps")
 
     if not args.skip_package:
         if packaging_inputs_supplied(args):
@@ -131,24 +134,39 @@ def build_stage_commands(args: argparse.Namespace) -> list[tuple[str, list[str]]
             pipeline_cmd.append("--use-program-id")
         commands.append(("generate program artifacts", pipeline_cmd))
 
-    if not args.skip_index:
+    if not args.skip_global_maps:
         commands.append(
             (
-                "build RAG index",
+                "build global RAG maps",
                 [
                     python,
-                    str(PIPELINE_DIR / "build_rag_index.py"),
+                    str(PIPELINE_DIR / "build_global_rag_maps.py"),
                     "--out-root",
                     str(args.out_root),
+                    "--package-root",
+                    str(args.package_root),
                     "--out-dir",
-                    str(args.rag_index_dir),
-                    "--max-text-chars",
-                    str(args.max_text_chars),
-                    "--overlap-chars",
-                    str(args.overlap_chars),
+                    str(global_maps_dir),
                 ],
             )
         )
+
+    if not args.skip_index:
+        index_cmd = [
+            python,
+            str(PIPELINE_DIR / "build_rag_index.py"),
+            "--out-root",
+            str(args.out_root),
+            "--out-dir",
+            str(args.rag_index_dir),
+            "--max-text-chars",
+            str(args.max_text_chars),
+            "--overlap-chars",
+            str(args.overlap_chars),
+        ]
+        if not args.skip_global_maps or global_maps_dir.exists():
+            index_cmd.extend(["--global-docs-dir", str(global_maps_dir)])
+        commands.append(("build RAG index", index_cmd))
 
     if not args.skip_validation:
         validation_cmd = [
@@ -212,10 +230,13 @@ def write_factory_report(args: argparse.Namespace, stages: list[dict[str, Any]])
     validation_path = args.validation_dir / "rag_validation_report.json"
     rag_manifest_path = args.rag_index_dir / "rag_manifest.json"
     package_summary_path = args.package_root / "package_summary.json"
+    global_maps_dir = args.global_maps_dir or (args.out_root / "_global" / "rag_maps")
+    global_maps_manifest_path = global_maps_dir / "global_maps_manifest.json"
 
     validation = load_optional(validation_path)
     rag_manifest = load_optional(rag_manifest_path)
     package_summary = load_optional(package_summary_path)
+    global_maps_manifest = load_optional(global_maps_manifest_path)
     readiness = factory_readiness(validation if isinstance(validation, dict) else None)
 
     report = {
@@ -224,12 +245,26 @@ def write_factory_report(args: argparse.Namespace, stages: list[dict[str, Any]])
         "paths": {
             "package_root": str(args.package_root),
             "out_root": str(args.out_root),
+            "global_maps_dir": str(global_maps_dir),
             "rag_index_dir": str(args.rag_index_dir),
             "validation_dir": str(args.validation_dir),
             "factory_report_dir": str(args.factory_report_dir),
         },
         "stages": stages,
         "package_summary": package_summary,
+        "global_maps_summary": {
+            "program_count": (global_maps_manifest or {}).get("program_count") if isinstance(global_maps_manifest, dict) else None,
+            "global_document_count": (global_maps_manifest or {}).get("global_document_count") if isinstance(global_maps_manifest, dict) else None,
+            "sections": {
+                key: {
+                    "document_count": value.get("document_count"),
+                    "summary": value.get("summary"),
+                }
+                for key, value in ((global_maps_manifest or {}).get("sections") or {}).items()
+            }
+            if isinstance(global_maps_manifest, dict)
+            else None,
+        },
         "validation_summary": (validation or {}).get("summary") if isinstance(validation, dict) else None,
         "rag_index_summary": {
             "program_count": (rag_manifest or {}).get("program_count") if isinstance(rag_manifest, dict) else None,
@@ -251,6 +286,7 @@ def write_factory_report(args: argparse.Namespace, stages: list[dict[str, Any]])
         f"- Readiness: {report['readiness']}",
         f"- Package root: {args.package_root}",
         f"- Program output: {args.out_root}",
+        f"- Global maps: {global_maps_dir}",
         f"- RAG index: {args.rag_index_dir}",
         f"- Validation: {args.validation_dir}",
         "",
@@ -264,6 +300,14 @@ def write_factory_report(args: argparse.Namespace, stages: list[dict[str, Any]])
                 f"- OK: {validation_summary.get('ok', 0)}",
                 f"- WARN: {validation_summary.get('warn', 0)}",
                 f"- FAIL: {validation_summary.get('fail', 0)}",
+            ]
+        )
+    global_summary = report.get("global_maps_summary") or {}
+    if global_summary:
+        lines.extend(
+            [
+                f"- Global map docs: {global_summary.get('global_document_count')}",
+                f"- Global map sections: {', '.join((global_summary.get('sections') or {}).keys())}",
             ]
         )
     index_summary = report.get("rag_index_summary") or {}
