@@ -552,6 +552,15 @@ def main():
             "--rag-docs-dir", str(artifacts_dir / "program.comments"),
             "--output", str(artifacts_dir / "program.comments.json"),
         ])
+        review_cmd = [
+            python, str(PIPELINE_SCRIPTS_DIR / "build_review_artifacts.py"),
+            "--root", str(artifacts_dir),
+            "--program", program,
+            "--layout", "pipeline",
+        ]
+        if jcl_dir:
+            review_cmd.extend(["--jcl-root", str(global_dir / "jcl")])
+        run_cmd(review_cmd)
 
         processed_programs.append(program)
         print(f"[OK] Finished program: {program} -> {prog_root}")

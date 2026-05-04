@@ -13,7 +13,6 @@
         "kind": "full_line",
         "text": "03   LUNG               PIC S9(4) COMP VALUE +32000.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 75"
       },
       {
@@ -23,7 +22,6 @@
         "kind": "full_line",
         "text": "01  DFHBLLDS.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 207"
       },
       {
@@ -33,7 +31,6 @@
         "kind": "full_line",
         "text": "03   RESERVED-BLL      PIC S9(8) COMP.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 208"
       },
       {
@@ -43,7 +40,6 @@
         "kind": "full_line",
         "text": "*   03   TWA-BLL           PIC S9(8) COMP.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 209"
       },
       {
@@ -53,7 +49,6 @@
         "kind": "full_line",
         "text": "**  MOVE   '20'                 TO  PD1VOCI-TIPO-GEST.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 433"
       },
       {
@@ -63,7 +58,6 @@
         "kind": "full_line",
         "text": "**  ACCEPT  WDATE           FROM DATE.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 545"
       },
       {
@@ -73,7 +67,6 @@
         "kind": "full_line",
         "text": "***     MOVE SPACES                 TO  TWCOB-XCTL-PGM",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 642"
       },
       {
@@ -83,7 +76,6 @@
         "kind": "full_line",
         "text": "*   MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 718"
       },
       {
@@ -93,7 +85,6 @@
         "kind": "full_line",
         "text": "*                      TO SESSIONE-VARIAZ-AA34.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 719"
       },
       {
@@ -103,7 +94,6 @@
         "kind": "full_line",
         "text": "*   MOVE '/'        TO SESSIONE-VARIAZ-B1.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 720"
       },
       {
@@ -113,7 +103,6 @@
         "kind": "full_line",
         "text": "*   MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 721"
       },
       {
@@ -123,7 +112,6 @@
         "kind": "full_line",
         "text": "*                      TO SESSIONE-VARIAZ-MM.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 722"
       },
       {
@@ -133,7 +121,6 @@
         "kind": "full_line",
         "text": "**  EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 804"
       },
       {
@@ -143,7 +130,6 @@
         "kind": "full_line",
         "text": "PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 843"
       },
       {
@@ -153,7 +139,6 @@
         "kind": "full_line",
         "text": "MOVE 'P' TO TWCOB-FUNZIONE.",
         "classification_reason": "Looks like disabled COBOL code or a data declaration.",
-        "evidence": "program.comments.json",
         "citation": "program.comments/program.comments.json | line 879"
       }
     ],
@@ -167,8 +152,8 @@
     },
     "unreachable_paragraphs": [],
     "limitations": [
-      "commented_out_code is direct evidence from program.comments.json.",
-      "cfg_reachability is static and limited to nodes present in controlflow.cfg.json.",
+      "commented_out_code is direct evidence from program.comments.",
+      "cfg_reachability is static and limited to nodes present in controlflow.cfg.",
       "An empty unreachable_paragraphs list is not a runtime proof that every statement executes."
     ]
   },
