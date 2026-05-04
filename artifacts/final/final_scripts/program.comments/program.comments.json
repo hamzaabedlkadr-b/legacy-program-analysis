@@ -1,17 +1,34 @@
 {
   "type": "program.comments",
   "program": "PDCBVC",
-  "source": "PDCBVC.CBL",
+  "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
   "count": 65,
+  "indexable_count": 40,
+  "non_indexable_count": 25,
   "filtered_out": 104,
-  "rag_doc_count": 65,
+  "rag_doc_count": 40,
+  "classification_counts": {
+    "descriptive_header": 27,
+    "section_header": 10,
+    "commented_out_code": 15,
+    "explanatory_comment": 13
+  },
   "metrics": {
     "total_lines": 912,
     "total_procedure_paragraphs": 71,
     "paragraphs_with_comments": 15,
     "paragraph_coverage_pct": 21.13,
+    "paragraphs_with_indexable_comments": 10,
+    "indexable_paragraph_coverage_pct": 14.08,
     "orphan_comments": 20,
-    "comments_per_100_lines": 7.13
+    "comments_per_100_lines": 7.13,
+    "indexable_comments_per_100_lines": 4.39,
+    "classification_counts": {
+      "descriptive_header": 27,
+      "section_header": 10,
+      "commented_out_code": 15,
+      "explanatory_comment": 13
+    }
   },
   "comments": [
     {
@@ -20,7 +37,11 @@
       "paragraph": null,
       "text": "PDCBVC: BROWSE VOCI CONTABILI *",
       "text_raw": "PDCBVC: BROWSE VOCI CONTABILI                           *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "PDCBVC: BROWSE VOCI CONTABILI",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 9,
@@ -28,7 +49,11 @@
       "paragraph": null,
       "text": "IDENTIFICATION DIVISION *",
       "text_raw": "IDENTIFICATION DIVISION                                *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "IDENTIFICATION DIVISION",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 15,
@@ -36,7 +61,11 @@
       "paragraph": null,
       "text": "ENVIRONMENT DIVISION *",
       "text_raw": "ENVIRONMENT DIVISION                                   *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "ENVIRONMENT DIVISION",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 23,
@@ -44,7 +73,11 @@
       "paragraph": null,
       "text": "DATA DIVISION *",
       "text_raw": "DATA DIVISION                                          *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "DATA DIVISION",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 28,
@@ -52,7 +85,11 @@
       "paragraph": null,
       "text": "WORKING-STORAGE SECTION *",
       "text_raw": "WORKING-STORAGE SECTION                                *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "WORKING-STORAGE SECTION",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 32,
@@ -60,7 +97,11 @@
       "paragraph": null,
       "text": "COSTANTI *",
       "text_raw": "COSTANTI                             *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "COSTANTI",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 71,
@@ -68,7 +109,11 @@
       "paragraph": null,
       "text": "VARIABILI *",
       "text_raw": "VARIABILI                            *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "VARIABILI",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 75,
@@ -76,7 +121,11 @@
       "paragraph": null,
       "text": "03 LUNG PIC S9(4) COMP VALUE +32000.",
       "text_raw": "03   LUNG               PIC S9(4) COMP VALUE +32000.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "03 LUNG PIC S9(4) COMP VALUE +32000.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 159,
@@ -84,7 +133,11 @@
       "paragraph": null,
       "text": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
       "text_raw": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 164,
@@ -92,7 +145,11 @@
       "paragraph": null,
       "text": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
       "text_raw": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 169,
@@ -100,7 +157,11 @@
       "paragraph": null,
       "text": "AREA DI LAVORO PER PREPARAZIONE MAPPA *",
       "text_raw": "AREA DI LAVORO PER PREPARAZIONE MAPPA        *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "AREA DI LAVORO PER PREPARAZIONE MAPPA",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 170,
@@ -108,7 +169,11 @@
       "paragraph": null,
       "text": "(LUNGHEZZA = 79) *",
       "text_raw": "(LUNGHEZZA = 79)                   *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "(LUNGHEZZA = 79)",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 190,
@@ -116,7 +181,11 @@
       "paragraph": null,
       "text": "M A P P E *",
       "text_raw": "M A P P E                          *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "M A P P E",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 197,
@@ -124,7 +193,11 @@
       "paragraph": null,
       "text": "S Q L A R E A",
       "text_raw": "S Q L  A R E A",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "S Q L A R E A",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 204,
@@ -132,7 +205,11 @@
       "paragraph": null,
       "text": "LINKAGE SECTION *",
       "text_raw": "LINKAGE SECTION                       *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "LINKAGE SECTION",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 207,
@@ -140,7 +217,11 @@
       "paragraph": null,
       "text": "01 DFHBLLDS.",
       "text_raw": "01  DFHBLLDS.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "01 DFHBLLDS.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 208,
@@ -148,7 +229,11 @@
       "paragraph": null,
       "text": "03 RESERVED-BLL PIC S9(8) COMP.",
       "text_raw": "03   RESERVED-BLL      PIC S9(8) COMP.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "03 RESERVED-BLL PIC S9(8) COMP.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 209,
@@ -156,7 +241,11 @@
       "paragraph": null,
       "text": "* 03 TWA-BLL PIC S9(8) COMP.",
       "text_raw": "*   03   TWA-BLL           PIC S9(8) COMP.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "03 TWA-BLL PIC S9(8) COMP.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 213,
@@ -164,7 +253,11 @@
       "paragraph": null,
       "text": "PROCEDURE DIVISION *",
       "text_raw": "PROCEDURE DIVISION                     *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "PROCEDURE DIVISION",
+      "classification": "section_header",
+      "classification_reason": "Looks like a structural COBOL division, section, or banner header.",
+      "indexable": false
     },
     {
       "line": 231,
@@ -172,7 +265,11 @@
       "paragraph": null,
       "text": "INIZIO DEL BROWSE FASE = 1 *",
       "text_raw": "INIZIO DEL BROWSE    FASE = 1                      *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "INIZIO DEL BROWSE FASE = 1",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 236,
@@ -180,7 +277,11 @@
       "paragraph": "BROWSE-FASE1",
       "text": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
       "text_raw": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 237,
@@ -188,7 +289,11 @@
       "paragraph": "BROWSE-FASE1",
       "text": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
       "text_raw": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 238,
@@ -196,7 +301,11 @@
       "paragraph": "BROWSE-FASE1",
       "text": "(viene chiuso dall'elaborazione dei Collaboratori)",
       "text_raw": "(viene chiuso dall'elaborazione dei Collaboratori)",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "(viene chiuso dall'elaborazione dei Collaboratori)",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 243,
@@ -204,7 +313,11 @@
       "paragraph": "BROWSE-FASE1",
       "text": "Stati semaforo:",
       "text_raw": "Stati semaforo:",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "Stati semaforo:",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 244,
@@ -212,7 +325,11 @@
       "paragraph": "BROWSE-FASE1",
       "text": "1 = Chiuso",
       "text_raw": "1 = Chiuso",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "1 = Chiuso",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 245,
@@ -220,7 +337,11 @@
       "paragraph": "BROWSE-FASE1",
       "text": "2 = Aperto",
       "text_raw": "2 = Aperto",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "2 = Aperto",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 293,
@@ -228,7 +349,11 @@
       "paragraph": "BROWSE-FASE1",
       "text": "VISUALIZZAZIONE BROWSE *",
       "text_raw": "VISUALIZZAZIONE BROWSE                               *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "VISUALIZZAZIONE BROWSE",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 393,
@@ -236,7 +361,11 @@
       "paragraph": "BROWSE-FASE2-VISUAL",
       "text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
       "text_raw": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 407,
@@ -244,7 +373,11 @@
       "paragraph": "EXIT",
       "text": "PREPARAZIONE LINK PD1FS00",
       "text_raw": "PREPARAZIONE LINK PD1FS00",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "PREPARAZIONE LINK PD1FS00",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 424,
@@ -252,7 +385,11 @@
       "paragraph": "EXIT",
       "text": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
       "text_raw": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 433,
@@ -260,7 +397,11 @@
       "paragraph": "INIZ-PARAM",
       "text": "** MOVE '20' TO PD1VOCI-TIPO-GEST.",
       "text_raw": "**  MOVE   '20'                 TO  PD1VOCI-TIPO-GEST.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "MOVE '20' TO PD1VOCI-TIPO-GEST.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 453,
@@ -268,7 +409,11 @@
       "paragraph": "INIZ-PARAM-010",
       "text": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
       "text_raw": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 481,
@@ -276,7 +421,11 @@
       "paragraph": "EXIT",
       "text": "LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
       "text_raw": "LINK ALLA ROUTINE VOCI CONTABILI   (PD1VOCI)",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 497,
@@ -284,7 +433,11 @@
       "paragraph": "EXIT",
       "text": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00) *",
       "text_raw": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00)   *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00)",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 511,
@@ -292,7 +445,11 @@
       "paragraph": "EXIT",
       "text": "PREPARAZIONE MAPPA *",
       "text_raw": "PREPARAZIONE MAPPA                        *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "PREPARAZIONE MAPPA",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 519,
@@ -300,7 +457,11 @@
       "paragraph": "PREPARA-MAP",
       "text": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
       "text_raw": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 520,
@@ -308,7 +469,11 @@
       "paragraph": "PREPARA-MAP",
       "text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
       "text_raw": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 521,
@@ -316,7 +481,11 @@
       "paragraph": "PREPARA-MAP",
       "text": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
       "text_raw": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 522,
@@ -324,7 +493,11 @@
       "paragraph": "PREPARA-MAP",
       "text": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
       "text_raw": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 523,
@@ -332,7 +505,11 @@
       "paragraph": "PREPARA-MAP",
       "text": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
       "text_raw": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 537,
@@ -340,7 +517,11 @@
       "paragraph": "EXIT",
       "text": "IMPOSTAZIONE TESTATA DELLA MAPPA *",
       "text_raw": "IMPOSTAZIONE TESTATA DELLA MAPPA                      *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "IMPOSTAZIONE TESTATA DELLA MAPPA",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 545,
@@ -348,7 +529,11 @@
       "paragraph": "MUOVI-TESTATA-00",
       "text": "** ACCEPT WDATE FROM DATE.",
       "text_raw": "**  ACCEPT  WDATE           FROM DATE.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "ACCEPT WDATE FROM DATE.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 629,
@@ -356,7 +541,11 @@
       "paragraph": "EXIT",
       "text": "TRASFERIMENTO DATI SULLA MAPPA *",
       "text_raw": "TRASFERIMENTO DATI SULLA MAPPA                       *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "TRASFERIMENTO DATI SULLA MAPPA",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 637,
@@ -364,7 +553,11 @@
       "paragraph": "MUOVI-DATI",
       "text": "------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
       "text_raw": "------- BROWSE CHIAMATO  DA  PDCGVC -  FASE1 E FASE2",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 642,
@@ -372,7 +565,11 @@
       "paragraph": "MUOVI-DATI",
       "text": "*** MOVE SPACES TO TWCOB-XCTL-PGM",
       "text_raw": "***     MOVE SPACES                 TO  TWCOB-XCTL-PGM",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "MOVE SPACES TO TWCOB-XCTL-PGM",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 661,
@@ -380,7 +577,11 @@
       "paragraph": "MUOVI-DATI",
       "text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
       "text_raw": "------- BROWSE DAL  PROGRAMMA  DI  LIVELLO (PDCVC4)",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 698,
@@ -388,7 +589,11 @@
       "paragraph": "EXIT",
       "text": "PREPARA RIGA MAPPA",
       "text_raw": "PREPARA RIGA MAPPA",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "PREPARA RIGA MAPPA",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 718,
@@ -396,7 +601,11 @@
       "paragraph": "PREP-RIGA",
       "text": "* MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
       "text_raw": "*   MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 719,
@@ -404,7 +613,11 @@
       "paragraph": "PREP-RIGA",
       "text": "* TO SESSIONE-VARIAZ-AA34.",
       "text_raw": "*                      TO SESSIONE-VARIAZ-AA34.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "TO SESSIONE-VARIAZ-AA34.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 720,
@@ -412,7 +625,11 @@
       "paragraph": "PREP-RIGA",
       "text": "* MOVE '/' TO SESSIONE-VARIAZ-B1.",
       "text_raw": "*   MOVE '/'        TO SESSIONE-VARIAZ-B1.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "MOVE '/' TO SESSIONE-VARIAZ-B1.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 721,
@@ -420,7 +637,11 @@
       "paragraph": "PREP-RIGA",
       "text": "* MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
       "text_raw": "*   MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 722,
@@ -428,7 +649,11 @@
       "paragraph": "PREP-RIGA",
       "text": "* TO SESSIONE-VARIAZ-MM.",
       "text_raw": "*                      TO SESSIONE-VARIAZ-MM.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "TO SESSIONE-VARIAZ-MM.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 746,
@@ -436,7 +661,11 @@
       "paragraph": "EXIT",
       "text": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
       "text_raw": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 754,
@@ -444,7 +673,11 @@
       "paragraph": "READ-TAB-SEMAF",
       "text": "in realt� questi a seguire non servono per la lettura",
       "text_raw": "in realt� questi a seguire non servono per la lettura",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "in realt� questi a seguire non servono per la lettura",
+      "classification": "explanatory_comment",
+      "classification_reason": "Looks like a natural-language explanatory comment.",
+      "indexable": true
     },
     {
       "line": 770,
@@ -452,7 +685,11 @@
       "paragraph": "EXIT",
       "text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
       "text_raw": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 790,
@@ -460,7 +697,11 @@
       "paragraph": "EXIT",
       "text": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA *",
       "text_raw": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA                 *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 801,
@@ -468,7 +709,11 @@
       "paragraph": "ABBL-RIGA-EXIT",
       "text": "INDIRIZZA TWA *",
       "text_raw": "INDIRIZZA TWA                           *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "INDIRIZZA TWA",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 804,
@@ -476,7 +721,11 @@
       "paragraph": "ADDRESS-TWA",
       "text": "** EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
       "text_raw": "**  EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 808,
@@ -484,7 +733,11 @@
       "paragraph": "ADDRESS-TWA",
       "text": "INVIO MAPPA PDCBVC1 *",
       "text_raw": "INVIO MAPPA  PDCBVC1                        *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "INVIO MAPPA PDCBVC1",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 817,
@@ -492,7 +745,11 @@
       "paragraph": "EXIT",
       "text": "INVIO MAPPA PDCBVC1 (DATA ONLY) *",
       "text_raw": "INVIO MAPPA  PDCBVC1 (DATA ONLY)                *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "INVIO MAPPA PDCBVC1 (DATA ONLY)",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 826,
@@ -500,7 +757,11 @@
       "paragraph": "EXIT",
       "text": "LETTURA MAPPA PDCBVC1 *",
       "text_raw": "LETTURA MAPPA PDCBVC1                       *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "LETTURA MAPPA PDCBVC1",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 834,
@@ -508,7 +769,11 @@
       "paragraph": "EXIT",
       "text": "RESET DELLA TWA *",
       "text_raw": "RESET  DELLA  TWA                           *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "RESET DELLA TWA",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     },
     {
       "line": 843,
@@ -516,7 +781,11 @@
       "paragraph": "XCTL-MAIN",
       "text": "PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
       "text_raw": "PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 879,
@@ -524,7 +793,11 @@
       "paragraph": "XCTL-LIV5",
       "text": "MOVE 'P' TO TWCOB-FUNZIONE.",
       "text_raw": "MOVE 'P' TO TWCOB-FUNZIONE.",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "MOVE 'P' TO TWCOB-FUNZIONE.",
+      "classification": "commented_out_code",
+      "classification_reason": "Looks like disabled COBOL code or a data declaration.",
+      "indexable": false
     },
     {
       "line": 906,
@@ -532,7 +805,11 @@
       "paragraph": "ABEND00",
       "text": "SALVATAGGIO TWA COMUNE *",
       "text_raw": "SALVATAGGIO TWA COMUNE                       *",
-      "kind": "full_line"
+      "kind": "full_line",
+      "normalized_text": "SALVATAGGIO TWA COMUNE",
+      "classification": "descriptive_header",
+      "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+      "indexable": true
     }
   ],
   "rag_documents": [
@@ -548,232 +825,25 @@
         "paragraph": null,
         "kind": "full_line",
         "text": "PDCBVC: BROWSE VOCI CONTABILI *",
-        "text_raw": "PDCBVC: BROWSE VOCI CONTABILI                           *"
+        "text_raw": "PDCBVC: BROWSE VOCI CONTABILI                           *",
+        "normalized_text": "PDCBVC: BROWSE VOCI CONTABILI",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 3,
         "section": null,
         "paragraph": null,
         "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.9.dc4d4aff1476",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 9",
-      "embedding_text": "PDCBVC comment line 9. IDENTIFICATION DIVISION *",
-      "content": {
-        "line": 9,
-        "section": null,
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "IDENTIFICATION DIVISION *",
-        "text_raw": "IDENTIFICATION DIVISION                                *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 9,
-        "section": null,
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.15.87faaffaaf2e",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 15",
-      "embedding_text": "PDCBVC comment line 15. ENVIRONMENT DIVISION *",
-      "content": {
-        "line": 15,
-        "section": null,
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "ENVIRONMENT DIVISION *",
-        "text_raw": "ENVIRONMENT DIVISION                                   *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 15,
-        "section": null,
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.23.22e17e26461f",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 23",
-      "embedding_text": "PDCBVC comment line 23 section CONFIGURATION. DATA DIVISION *",
-      "content": {
-        "line": 23,
-        "section": "CONFIGURATION",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "DATA DIVISION *",
-        "text_raw": "DATA DIVISION                                          *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 23,
-        "section": "CONFIGURATION",
-        "paragraph": null,
-        "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
-          "section:CONFIGURATION"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.28.99e38b790a36",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 28",
-      "embedding_text": "PDCBVC comment line 28 section CONFIGURATION. WORKING-STORAGE SECTION *",
-      "content": {
-        "line": 28,
-        "section": "CONFIGURATION",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "WORKING-STORAGE SECTION *",
-        "text_raw": "WORKING-STORAGE SECTION                                *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 28,
-        "section": "CONFIGURATION",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:CONFIGURATION"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.32.23ef11c64b11",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 32",
-      "embedding_text": "PDCBVC comment line 32 section WORKING-STORAGE. COSTANTI *",
-      "content": {
-        "line": 32,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "COSTANTI *",
-        "text_raw": "COSTANTI                             *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 32,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:WORKING-STORAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.71.0adf31ef03e3",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 71",
-      "embedding_text": "PDCBVC comment line 71 section WORKING-STORAGE. VARIABILI *",
-      "content": {
-        "line": 71,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "VARIABILI *",
-        "text_raw": "VARIABILI                            *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 71,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:WORKING-STORAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.75.850fdd9c058b",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 75",
-      "embedding_text": "PDCBVC comment line 75 section WORKING-STORAGE. 03 LUNG PIC S9(4) COMP VALUE +32000.",
-      "content": {
-        "line": 75,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "03 LUNG PIC S9(4) COMP VALUE +32000.",
-        "text_raw": "03   LUNG               PIC S9(4) COMP VALUE +32000."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 75,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:WORKING-STORAGE"
+          "classification:descriptive_header",
+          "indexable:true"
         ]
       },
       "links": {
@@ -793,18 +863,26 @@
         "paragraph": null,
         "kind": "full_line",
         "text": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
-        "text_raw": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI"
+        "text_raw": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
+        "normalized_text": "AREA COMUNICAZIONE ROUTINE CONTROLLI FORMALI",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 159,
         "section": "WORKING-STORAGE",
         "paragraph": null,
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
-          "section:WORKING-STORAGE"
+          "classification:descriptive_header",
+          "section:WORKING-STORAGE",
+          "indexable:true"
         ]
       },
       "links": {
@@ -824,18 +902,26 @@
         "paragraph": null,
         "kind": "full_line",
         "text": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
-        "text_raw": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori"
+        "text_raw": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+        "normalized_text": "AREA DI COMUNICAZIONE PXRSEMAF: Gestione Semafori",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 164,
         "section": "WORKING-STORAGE",
         "paragraph": null,
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
-          "section:WORKING-STORAGE"
+          "classification:explanatory_comment",
+          "section:WORKING-STORAGE",
+          "indexable:true"
         ]
       },
       "links": {
@@ -855,18 +941,26 @@
         "paragraph": null,
         "kind": "full_line",
         "text": "AREA DI LAVORO PER PREPARAZIONE MAPPA *",
-        "text_raw": "AREA DI LAVORO PER PREPARAZIONE MAPPA        *"
+        "text_raw": "AREA DI LAVORO PER PREPARAZIONE MAPPA        *",
+        "normalized_text": "AREA DI LAVORO PER PREPARAZIONE MAPPA",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 169,
         "section": "WORKING-STORAGE",
         "paragraph": null,
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
-          "section:WORKING-STORAGE"
+          "classification:descriptive_header",
+          "section:WORKING-STORAGE",
+          "indexable:true"
         ]
       },
       "links": {
@@ -886,235 +980,26 @@
         "paragraph": null,
         "kind": "full_line",
         "text": "(LUNGHEZZA = 79) *",
-        "text_raw": "(LUNGHEZZA = 79)                   *"
+        "text_raw": "(LUNGHEZZA = 79)                   *",
+        "normalized_text": "(LUNGHEZZA = 79)",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 170,
         "section": "WORKING-STORAGE",
         "paragraph": null,
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
-          "section:WORKING-STORAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.190.6b565f8c0c77",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 190",
-      "embedding_text": "PDCBVC comment line 190 section WORKING-STORAGE. M A P P E *",
-      "content": {
-        "line": 190,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "M A P P E *",
-        "text_raw": "M A P P E                          *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 190,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:WORKING-STORAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.197.b90b5669343a",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 197",
-      "embedding_text": "PDCBVC comment line 197 section WORKING-STORAGE. S Q L A R E A",
-      "content": {
-        "line": 197,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "S Q L A R E A",
-        "text_raw": "S Q L  A R E A"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 197,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:WORKING-STORAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.204.3833e3927516",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 204",
-      "embedding_text": "PDCBVC comment line 204 section WORKING-STORAGE. LINKAGE SECTION *",
-      "content": {
-        "line": 204,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "LINKAGE SECTION *",
-        "text_raw": "LINKAGE SECTION                       *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 204,
-        "section": "WORKING-STORAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:WORKING-STORAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.207.72bfbef686a6",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 207",
-      "embedding_text": "PDCBVC comment line 207 section LINKAGE. 01 DFHBLLDS.",
-      "content": {
-        "line": 207,
-        "section": "LINKAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "01 DFHBLLDS.",
-        "text_raw": "01  DFHBLLDS."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 207,
-        "section": "LINKAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.208.b24a9395c689",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 208",
-      "embedding_text": "PDCBVC comment line 208 section LINKAGE. 03 RESERVED-BLL PIC S9(8) COMP.",
-      "content": {
-        "line": 208,
-        "section": "LINKAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "03 RESERVED-BLL PIC S9(8) COMP.",
-        "text_raw": "03   RESERVED-BLL      PIC S9(8) COMP."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 208,
-        "section": "LINKAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.209.ec7be0685742",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 209",
-      "embedding_text": "PDCBVC comment line 209 section LINKAGE. * 03 TWA-BLL PIC S9(8) COMP.",
-      "content": {
-        "line": 209,
-        "section": "LINKAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "* 03 TWA-BLL PIC S9(8) COMP.",
-        "text_raw": "*   03   TWA-BLL           PIC S9(8) COMP."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 209,
-        "section": "LINKAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.213.3e99fc296891",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 213",
-      "embedding_text": "PDCBVC comment line 213 section LINKAGE. PROCEDURE DIVISION *",
-      "content": {
-        "line": 213,
-        "section": "LINKAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "text": "PROCEDURE DIVISION *",
-        "text_raw": "PROCEDURE DIVISION                     *"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 213,
-        "section": "LINKAGE",
-        "paragraph": null,
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE"
+          "classification:explanatory_comment",
+          "section:WORKING-STORAGE",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1134,18 +1019,26 @@
         "paragraph": null,
         "kind": "full_line",
         "text": "INIZIO DEL BROWSE FASE = 1 *",
-        "text_raw": "INIZIO DEL BROWSE    FASE = 1                      *"
+        "text_raw": "INIZIO DEL BROWSE    FASE = 1                      *",
+        "normalized_text": "INIZIO DEL BROWSE FASE = 1",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 231,
         "section": "LINKAGE",
         "paragraph": null,
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
-          "section:LINKAGE"
+          "classification:descriptive_header",
+          "section:LINKAGE",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1165,19 +1058,27 @@
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
         "text": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
-        "text_raw": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili"
+        "text_raw": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+        "normalized_text": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 236,
         "section": "LINKAGE",
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:BROWSE-FASE1"
+          "paragraph:BROWSE-FASE1",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1225,19 +1126,27 @@
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
         "text": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
-        "text_raw": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso"
+        "text_raw": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+        "normalized_text": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 237,
         "section": "LINKAGE",
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:BROWSE-FASE1"
+          "paragraph:BROWSE-FASE1",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1285,19 +1194,27 @@
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
         "text": "(viene chiuso dall'elaborazione dei Collaboratori)",
-        "text_raw": "(viene chiuso dall'elaborazione dei Collaboratori)"
+        "text_raw": "(viene chiuso dall'elaborazione dei Collaboratori)",
+        "normalized_text": "(viene chiuso dall'elaborazione dei Collaboratori)",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 238,
         "section": "LINKAGE",
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:BROWSE-FASE1"
+          "paragraph:BROWSE-FASE1",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1345,19 +1262,27 @@
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
         "text": "Stati semaforo:",
-        "text_raw": "Stati semaforo:"
+        "text_raw": "Stati semaforo:",
+        "normalized_text": "Stati semaforo:",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 243,
         "section": "LINKAGE",
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:BROWSE-FASE1"
+          "paragraph:BROWSE-FASE1",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1405,19 +1330,27 @@
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
         "text": "1 = Chiuso",
-        "text_raw": "1 = Chiuso"
+        "text_raw": "1 = Chiuso",
+        "normalized_text": "1 = Chiuso",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 244,
         "section": "LINKAGE",
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:BROWSE-FASE1"
+          "paragraph:BROWSE-FASE1",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1465,19 +1398,27 @@
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
         "text": "2 = Aperto",
-        "text_raw": "2 = Aperto"
+        "text_raw": "2 = Aperto",
+        "normalized_text": "2 = Aperto",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 245,
         "section": "LINKAGE",
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:BROWSE-FASE1"
+          "paragraph:BROWSE-FASE1",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1525,19 +1466,27 @@
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
         "text": "VISUALIZZAZIONE BROWSE *",
-        "text_raw": "VISUALIZZAZIONE BROWSE                               *"
+        "text_raw": "VISUALIZZAZIONE BROWSE                               *",
+        "normalized_text": "VISUALIZZAZIONE BROWSE",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 293,
         "section": "LINKAGE",
         "paragraph": "BROWSE-FASE1",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:BROWSE-FASE1"
+          "paragraph:BROWSE-FASE1",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1585,19 +1534,27 @@
         "paragraph": "BROWSE-FASE2-VISUAL",
         "kind": "full_line",
         "text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
-        "text_raw": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE"
+        "text_raw": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+        "normalized_text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 393,
         "section": "LINKAGE",
         "paragraph": "BROWSE-FASE2-VISUAL",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:BROWSE-FASE2-VISUAL"
+          "paragraph:BROWSE-FASE2-VISUAL",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1627,19 +1584,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "PREPARAZIONE LINK PD1FS00",
-        "text_raw": "PREPARAZIONE LINK PD1FS00"
+        "text_raw": "PREPARAZIONE LINK PD1FS00",
+        "normalized_text": "PREPARAZIONE LINK PD1FS00",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 407,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1659,74 +1624,32 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
-        "text_raw": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI"
+        "text_raw": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+        "normalized_text": "PREPARAZIONE DEI PARAMETRI PER PD1VOCI",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 424,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
         "business_rules": [],
         "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.433.8d6febafd13e",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 433",
-      "embedding_text": "PDCBVC comment line 433 section LINKAGE paragraph INIZ-PARAM. ** MOVE '20' TO PD1VOCI-TIPO-GEST.",
-      "content": {
-        "line": 433,
-        "section": "LINKAGE",
-        "paragraph": "INIZ-PARAM",
-        "kind": "full_line",
-        "text": "** MOVE '20' TO PD1VOCI-TIPO-GEST.",
-        "text_raw": "**  MOVE   '20'                 TO  PD1VOCI-TIPO-GEST."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 433,
-        "section": "LINKAGE",
-        "paragraph": "INIZ-PARAM",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:INIZ-PARAM"
-        ]
-      },
-      "links": {
-        "business_rules": [
-          "business_rule.BR-019.json"
-        ],
-        "variables": [
-          "PD1VOCI-COD-VOCE",
-          "PD1VOCI-CODDIP-MATR",
-          "PD1VOCI-CODDIP-PAD",
-          "PD1VOCI-CODDIP-TIPO",
-          "PD1VOCI-DATI",
-          "PD1VOCI-FUNZIONE",
-          "PD1VOCI-TIPO-ESTRA",
-          "PD1VOCI-TIPO-GEST",
-          "PD1VOCI-TIPO-VARIAZ",
-          "TWCOB-FUNZIONE",
-          "TWCOB-SP-MATR",
-          "TWCOB-SP-PAD",
-          "TWCOB-TIPO-DIP",
-          "TWCOB-VARCONT-NUMFUNZ",
-          "TWCOB-VARCONT-VOCE-LIV4"
-        ]
       }
     },
     {
@@ -1741,19 +1664,27 @@
         "paragraph": "INIZ-PARAM-010",
         "kind": "full_line",
         "text": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
-        "text_raw": "IMPOSTA IL TIPO VOCE DA ESTRARRE"
+        "text_raw": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
+        "normalized_text": "IMPOSTA IL TIPO VOCE DA ESTRARRE",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 453,
         "section": "LINKAGE",
         "paragraph": "INIZ-PARAM-010",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:INIZ-PARAM-010"
+          "paragraph:INIZ-PARAM-010",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1778,19 +1709,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
-        "text_raw": "LINK ALLA ROUTINE VOCI CONTABILI   (PD1VOCI)"
+        "text_raw": "LINK ALLA ROUTINE VOCI CONTABILI   (PD1VOCI)",
+        "normalized_text": "LINK ALLA ROUTINE VOCI CONTABILI (PD1VOCI)",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 481,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1810,19 +1749,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00) *",
-        "text_raw": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00)   *"
+        "text_raw": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00)   *",
+        "normalized_text": "LINK ALLA ROUTINE PER FUNZIONI DI SERVIZIO (PD1FS00)",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 497,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1842,19 +1789,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "PREPARAZIONE MAPPA *",
-        "text_raw": "PREPARAZIONE MAPPA                        *"
+        "text_raw": "PREPARAZIONE MAPPA                        *",
+        "normalized_text": "PREPARAZIONE MAPPA",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 511,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1874,19 +1829,27 @@
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
         "text": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
-        "text_raw": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE"
+        "text_raw": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+        "normalized_text": "IL CAMPO SULLA MAPPA PER LA SCELTA (SCELTAO) VIENE",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 519,
         "section": "LINKAGE",
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:PREPARA-MAP"
+          "paragraph:PREPARA-MAP",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1912,19 +1875,27 @@
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
         "text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
-        "text_raw": "IMPOSTATO A '01' NEL SEGUENTE CASO:"
+        "text_raw": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+        "normalized_text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 520,
         "section": "LINKAGE",
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:PREPARA-MAP"
+          "paragraph:PREPARA-MAP",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1950,19 +1921,27 @@
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
         "text": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
-        "text_raw": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)"
+        "text_raw": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+        "normalized_text": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 521,
         "section": "LINKAGE",
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:PREPARA-MAP"
+          "paragraph:PREPARA-MAP",
+          "indexable:true"
         ]
       },
       "links": {
@@ -1988,19 +1967,27 @@
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
         "text": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
-        "text_raw": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)"
+        "text_raw": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+        "normalized_text": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 522,
         "section": "LINKAGE",
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:PREPARA-MAP"
+          "paragraph:PREPARA-MAP",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2026,19 +2013,27 @@
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
         "text": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
-        "text_raw": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)"
+        "text_raw": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+        "normalized_text": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 523,
         "section": "LINKAGE",
         "paragraph": "PREPARA-MAP",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:PREPARA-MAP"
+          "paragraph:PREPARA-MAP",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2064,85 +2059,32 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "IMPOSTAZIONE TESTATA DELLA MAPPA *",
-        "text_raw": "IMPOSTAZIONE TESTATA DELLA MAPPA                      *"
+        "text_raw": "IMPOSTAZIONE TESTATA DELLA MAPPA                      *",
+        "normalized_text": "IMPOSTAZIONE TESTATA DELLA MAPPA",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 537,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
         "business_rules": [],
         "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.545.54adca9a8c00",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 545",
-      "embedding_text": "PDCBVC comment line 545 section LINKAGE paragraph MUOVI-TESTATA-00. ** ACCEPT WDATE FROM DATE.",
-      "content": {
-        "line": 545,
-        "section": "LINKAGE",
-        "paragraph": "MUOVI-TESTATA-00",
-        "kind": "full_line",
-        "text": "** ACCEPT WDATE FROM DATE.",
-        "text_raw": "**  ACCEPT  WDATE           FROM DATE."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 545,
-        "section": "LINKAGE",
-        "paragraph": "MUOVI-TESTATA-00",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:MUOVI-TESTATA-00"
-        ]
-      },
-      "links": {
-        "business_rules": [
-          "business_rule.BR-022.json"
-        ],
-        "variables": [
-          "ANNO-SESS",
-          "ANNO-SESS34",
-          "M0AMBO",
-          "M1DATAO",
-          "M1SYSO",
-          "MDSESSO",
-          "MSESSIO",
-          "PD1FS00-SESS-ANNO",
-          "PD1FS00-SESS-FLAG",
-          "PD1FS00-SESS-MESE",
-          "PD1FS00-SESS-TMENS",
-          "SESSIONE",
-          "SESSIONE-ANNO",
-          "SESSIONE-MESE",
-          "SESSIONE-TMENS",
-          "TWCOB-ID-SISTEMA",
-          "TWCOB-NOME-CICS",
-          "WDATA",
-          "WDATA-AA",
-          "WDATA-GG",
-          "WDATA-MM",
-          "WDATE",
-          "WDATE-AA",
-          "WDATE-GG",
-          "WDATE-MM",
-          "WW-DATE"
-        ]
       }
     },
     {
@@ -2157,19 +2099,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "TRASFERIMENTO DATI SULLA MAPPA *",
-        "text_raw": "TRASFERIMENTO DATI SULLA MAPPA                       *"
+        "text_raw": "TRASFERIMENTO DATI SULLA MAPPA                       *",
+        "normalized_text": "TRASFERIMENTO DATI SULLA MAPPA",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 629,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2189,65 +2139,27 @@
         "paragraph": "MUOVI-DATI",
         "kind": "full_line",
         "text": "------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
-        "text_raw": "------- BROWSE CHIAMATO  DA  PDCGVC -  FASE1 E FASE2"
+        "text_raw": "------- BROWSE CHIAMATO  DA  PDCGVC -  FASE1 E FASE2",
+        "normalized_text": "------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 637,
         "section": "LINKAGE",
         "paragraph": "MUOVI-DATI",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:MUOVI-DATI"
-        ]
-      },
-      "links": {
-        "business_rules": [
-          "business_rule.BR-025.json",
-          "business_rule.BR-031.json"
-        ],
-        "variables": [
-          "MAX-RIGHE",
-          "N-RIGHE",
-          "PD1VOCI-IND",
-          "SW-FINE",
-          "TWCOB-FASE",
-          "TWCOB-VARCONT-NPAGINA",
-          "TWCOB-XCTL-PGM",
-          "WCTPAG",
-          "WCTRIG",
-          "WKOST"
-        ]
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.642.b4edac34ce8b",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 642",
-      "embedding_text": "PDCBVC comment line 642 section LINKAGE paragraph MUOVI-DATI. *** MOVE SPACES TO TWCOB-XCTL-PGM",
-      "content": {
-        "line": 642,
-        "section": "LINKAGE",
-        "paragraph": "MUOVI-DATI",
-        "kind": "full_line",
-        "text": "*** MOVE SPACES TO TWCOB-XCTL-PGM",
-        "text_raw": "***     MOVE SPACES                 TO  TWCOB-XCTL-PGM"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 642,
-        "section": "LINKAGE",
-        "paragraph": "MUOVI-DATI",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:MUOVI-DATI"
+          "paragraph:MUOVI-DATI",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2281,19 +2193,27 @@
         "paragraph": "MUOVI-DATI",
         "kind": "full_line",
         "text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
-        "text_raw": "------- BROWSE DAL  PROGRAMMA  DI  LIVELLO (PDCVC4)"
+        "text_raw": "------- BROWSE DAL  PROGRAMMA  DI  LIVELLO (PDCVC4)",
+        "normalized_text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 661,
         "section": "LINKAGE",
         "paragraph": "MUOVI-DATI",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:MUOVI-DATI"
+          "paragraph:MUOVI-DATI",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2327,354 +2247,32 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "PREPARA RIGA MAPPA",
-        "text_raw": "PREPARA RIGA MAPPA"
+        "text_raw": "PREPARA RIGA MAPPA",
+        "normalized_text": "PREPARA RIGA MAPPA",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 698,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
         "business_rules": [],
         "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.718.25bd5d61f333",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 718",
-      "embedding_text": "PDCBVC comment line 718 section LINKAGE paragraph PREP-RIGA. * MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
-      "content": {
-        "line": 718,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "text": "* MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)",
-        "text_raw": "*   MOVE PD1VOCI-TABVOX-AA34(PD1VOCI-IND)"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 718,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:PREP-RIGA"
-        ]
-      },
-      "links": {
-        "business_rules": [
-          "business_rule.BR-026.json"
-        ],
-        "variables": [
-          "DATA-CESSAZIONE",
-          "DATA-IMPIANTO",
-          "FUNZ",
-          "IMPORTO-RATA",
-          "PD1VOCI-IND",
-          "PD1VOCI-TABVOX-CODVOX",
-          "PD1VOCI-TABVOX-DESCRIZ",
-          "PD1VOCI-TABVOX-FINE",
-          "PD1VOCI-TABVOX-INIZ",
-          "PD1VOCI-TABVOX-PROGVOX",
-          "PD1VOCI-TABVOX-TIPVAR",
-          "PDRUTI01-F05-IMPOX11",
-          "PDRUTI01-F05-VALORE",
-          "PDRUTI01-FUNZIONE",
-          "RIGA-MAPPA",
-          "TWCOB-FUNZIONE",
-          "VOCE",
-          "WCODVO",
-          "WCTRIG",
-          "WDATA",
-          "WDATA-AA",
-          "WDATA-GG",
-          "WDATA-MM",
-          "WDATE2",
-          "WDATE2-AA34",
-          "WDATE2-GG",
-          "WDATE2-MM",
-          "WDESCVO",
-          "WPROGR",
-          "WPROGREC",
-          "WVOCE"
-        ]
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.719.a1e7f344d8d4",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 719",
-      "embedding_text": "PDCBVC comment line 719 section LINKAGE paragraph PREP-RIGA. * TO SESSIONE-VARIAZ-AA34.",
-      "content": {
-        "line": 719,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "text": "* TO SESSIONE-VARIAZ-AA34.",
-        "text_raw": "*                      TO SESSIONE-VARIAZ-AA34."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 719,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:PREP-RIGA"
-        ]
-      },
-      "links": {
-        "business_rules": [
-          "business_rule.BR-026.json"
-        ],
-        "variables": [
-          "DATA-CESSAZIONE",
-          "DATA-IMPIANTO",
-          "FUNZ",
-          "IMPORTO-RATA",
-          "PD1VOCI-IND",
-          "PD1VOCI-TABVOX-CODVOX",
-          "PD1VOCI-TABVOX-DESCRIZ",
-          "PD1VOCI-TABVOX-FINE",
-          "PD1VOCI-TABVOX-INIZ",
-          "PD1VOCI-TABVOX-PROGVOX",
-          "PD1VOCI-TABVOX-TIPVAR",
-          "PDRUTI01-F05-IMPOX11",
-          "PDRUTI01-F05-VALORE",
-          "PDRUTI01-FUNZIONE",
-          "RIGA-MAPPA",
-          "TWCOB-FUNZIONE",
-          "VOCE",
-          "WCODVO",
-          "WCTRIG",
-          "WDATA",
-          "WDATA-AA",
-          "WDATA-GG",
-          "WDATA-MM",
-          "WDATE2",
-          "WDATE2-AA34",
-          "WDATE2-GG",
-          "WDATE2-MM",
-          "WDESCVO",
-          "WPROGR",
-          "WPROGREC",
-          "WVOCE"
-        ]
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.720.bfc51374b8a6",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 720",
-      "embedding_text": "PDCBVC comment line 720 section LINKAGE paragraph PREP-RIGA. * MOVE '/' TO SESSIONE-VARIAZ-B1.",
-      "content": {
-        "line": 720,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "text": "* MOVE '/' TO SESSIONE-VARIAZ-B1.",
-        "text_raw": "*   MOVE '/'        TO SESSIONE-VARIAZ-B1."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 720,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:PREP-RIGA"
-        ]
-      },
-      "links": {
-        "business_rules": [
-          "business_rule.BR-026.json"
-        ],
-        "variables": [
-          "DATA-CESSAZIONE",
-          "DATA-IMPIANTO",
-          "FUNZ",
-          "IMPORTO-RATA",
-          "PD1VOCI-IND",
-          "PD1VOCI-TABVOX-CODVOX",
-          "PD1VOCI-TABVOX-DESCRIZ",
-          "PD1VOCI-TABVOX-FINE",
-          "PD1VOCI-TABVOX-INIZ",
-          "PD1VOCI-TABVOX-PROGVOX",
-          "PD1VOCI-TABVOX-TIPVAR",
-          "PDRUTI01-F05-IMPOX11",
-          "PDRUTI01-F05-VALORE",
-          "PDRUTI01-FUNZIONE",
-          "RIGA-MAPPA",
-          "TWCOB-FUNZIONE",
-          "VOCE",
-          "WCODVO",
-          "WCTRIG",
-          "WDATA",
-          "WDATA-AA",
-          "WDATA-GG",
-          "WDATA-MM",
-          "WDATE2",
-          "WDATE2-AA34",
-          "WDATE2-GG",
-          "WDATE2-MM",
-          "WDESCVO",
-          "WPROGR",
-          "WPROGREC",
-          "WVOCE"
-        ]
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.721.48302f506320",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 721",
-      "embedding_text": "PDCBVC comment line 721 section LINKAGE paragraph PREP-RIGA. * MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
-      "content": {
-        "line": 721,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "text": "* MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)",
-        "text_raw": "*   MOVE PD1VOCI-TABVOX-MESE(PD1VOCI-IND)"
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 721,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:PREP-RIGA"
-        ]
-      },
-      "links": {
-        "business_rules": [
-          "business_rule.BR-026.json"
-        ],
-        "variables": [
-          "DATA-CESSAZIONE",
-          "DATA-IMPIANTO",
-          "FUNZ",
-          "IMPORTO-RATA",
-          "PD1VOCI-IND",
-          "PD1VOCI-TABVOX-CODVOX",
-          "PD1VOCI-TABVOX-DESCRIZ",
-          "PD1VOCI-TABVOX-FINE",
-          "PD1VOCI-TABVOX-INIZ",
-          "PD1VOCI-TABVOX-PROGVOX",
-          "PD1VOCI-TABVOX-TIPVAR",
-          "PDRUTI01-F05-IMPOX11",
-          "PDRUTI01-F05-VALORE",
-          "PDRUTI01-FUNZIONE",
-          "RIGA-MAPPA",
-          "TWCOB-FUNZIONE",
-          "VOCE",
-          "WCODVO",
-          "WCTRIG",
-          "WDATA",
-          "WDATA-AA",
-          "WDATA-GG",
-          "WDATA-MM",
-          "WDATE2",
-          "WDATE2-AA34",
-          "WDATE2-GG",
-          "WDATE2-MM",
-          "WDESCVO",
-          "WPROGR",
-          "WPROGREC",
-          "WVOCE"
-        ]
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.722.390f1f859948",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 722",
-      "embedding_text": "PDCBVC comment line 722 section LINKAGE paragraph PREP-RIGA. * TO SESSIONE-VARIAZ-MM.",
-      "content": {
-        "line": 722,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "text": "* TO SESSIONE-VARIAZ-MM.",
-        "text_raw": "*                      TO SESSIONE-VARIAZ-MM."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 722,
-        "section": "LINKAGE",
-        "paragraph": "PREP-RIGA",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:PREP-RIGA"
-        ]
-      },
-      "links": {
-        "business_rules": [
-          "business_rule.BR-026.json"
-        ],
-        "variables": [
-          "DATA-CESSAZIONE",
-          "DATA-IMPIANTO",
-          "FUNZ",
-          "IMPORTO-RATA",
-          "PD1VOCI-IND",
-          "PD1VOCI-TABVOX-CODVOX",
-          "PD1VOCI-TABVOX-DESCRIZ",
-          "PD1VOCI-TABVOX-FINE",
-          "PD1VOCI-TABVOX-INIZ",
-          "PD1VOCI-TABVOX-PROGVOX",
-          "PD1VOCI-TABVOX-TIPVAR",
-          "PDRUTI01-F05-IMPOX11",
-          "PDRUTI01-F05-VALORE",
-          "PDRUTI01-FUNZIONE",
-          "RIGA-MAPPA",
-          "TWCOB-FUNZIONE",
-          "VOCE",
-          "WCODVO",
-          "WCTRIG",
-          "WDATA",
-          "WDATA-AA",
-          "WDATA-GG",
-          "WDATA-MM",
-          "WDATE2",
-          "WDATE2-AA34",
-          "WDATE2-GG",
-          "WDATE2-MM",
-          "WDESCVO",
-          "WPROGR",
-          "WPROGREC",
-          "WVOCE"
-        ]
       }
     },
     {
@@ -2689,19 +2287,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
-        "text_raw": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO"
+        "text_raw": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
+        "normalized_text": "LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 746,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2721,19 +2327,27 @@
         "paragraph": "READ-TAB-SEMAF",
         "kind": "full_line",
         "text": "in realt� questi a seguire non servono per la lettura",
-        "text_raw": "in realt� questi a seguire non servono per la lettura"
+        "text_raw": "in realt� questi a seguire non servono per la lettura",
+        "normalized_text": "in realt� questi a seguire non servono per la lettura",
+        "classification": "explanatory_comment",
+        "classification_reason": "Looks like a natural-language explanatory comment.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 754,
         "section": "LINKAGE",
         "paragraph": "READ-TAB-SEMAF",
         "kind": "full_line",
+        "classification": "explanatory_comment",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:explanatory_comment",
           "section:LINKAGE",
-          "paragraph:READ-TAB-SEMAF"
+          "paragraph:READ-TAB-SEMAF",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2766,19 +2380,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
-        "text_raw": "LINK ALLA ROUTINE CONTROLLO IMPORTO"
+        "text_raw": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+        "normalized_text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 770,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2798,19 +2420,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA *",
-        "text_raw": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA                 *"
+        "text_raw": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA                 *",
+        "normalized_text": "ABBLENCAMENTO DELLA RIGA DELLA MAPPA",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 790,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2830,59 +2460,32 @@
         "paragraph": "ABBL-RIGA-EXIT",
         "kind": "full_line",
         "text": "INDIRIZZA TWA *",
-        "text_raw": "INDIRIZZA TWA                           *"
+        "text_raw": "INDIRIZZA TWA                           *",
+        "normalized_text": "INDIRIZZA TWA",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 801,
         "section": "LINKAGE",
         "paragraph": "ABBL-RIGA-EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:ABBL-RIGA-EXIT"
+          "paragraph:ABBL-RIGA-EXIT",
+          "indexable:true"
         ]
       },
       "links": {
         "business_rules": [],
         "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.804.9aba692686c0",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 804",
-      "embedding_text": "PDCBVC comment line 804 section LINKAGE paragraph ADDRESS-TWA. ** EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
-      "content": {
-        "line": 804,
-        "section": "LINKAGE",
-        "paragraph": "ADDRESS-TWA",
-        "kind": "full_line",
-        "text": "** EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC.",
-        "text_raw": "**  EXEC CICS ADDRESS TWA(TWA-BLL) END-EXEC."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 804,
-        "section": "LINKAGE",
-        "paragraph": "ADDRESS-TWA",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:ADDRESS-TWA"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": [
-          "PDRTWA2",
-          "TWA"
-        ]
       }
     },
     {
@@ -2897,19 +2500,27 @@
         "paragraph": "ADDRESS-TWA",
         "kind": "full_line",
         "text": "INVIO MAPPA PDCBVC1 *",
-        "text_raw": "INVIO MAPPA  PDCBVC1                        *"
+        "text_raw": "INVIO MAPPA  PDCBVC1                        *",
+        "normalized_text": "INVIO MAPPA PDCBVC1",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 808,
         "section": "LINKAGE",
         "paragraph": "ADDRESS-TWA",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:ADDRESS-TWA"
+          "paragraph:ADDRESS-TWA",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2932,19 +2543,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "INVIO MAPPA PDCBVC1 (DATA ONLY) *",
-        "text_raw": "INVIO MAPPA  PDCBVC1 (DATA ONLY)                *"
+        "text_raw": "INVIO MAPPA  PDCBVC1 (DATA ONLY)                *",
+        "normalized_text": "INVIO MAPPA PDCBVC1 (DATA ONLY)",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 817,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2964,19 +2583,27 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "LETTURA MAPPA PDCBVC1 *",
-        "text_raw": "LETTURA MAPPA PDCBVC1                       *"
+        "text_raw": "LETTURA MAPPA PDCBVC1                       *",
+        "normalized_text": "LETTURA MAPPA PDCBVC1",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 826,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
@@ -2996,92 +2623,32 @@
         "paragraph": "EXIT",
         "kind": "full_line",
         "text": "RESET DELLA TWA *",
-        "text_raw": "RESET  DELLA  TWA                           *"
+        "text_raw": "RESET  DELLA  TWA                           *",
+        "normalized_text": "RESET DELLA TWA",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 834,
         "section": "LINKAGE",
         "paragraph": "EXIT",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:EXIT"
+          "paragraph:EXIT",
+          "indexable:true"
         ]
       },
       "links": {
         "business_rules": [],
         "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.843.c9a5d5a7ae8c",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 843",
-      "embedding_text": "PDCBVC comment line 843 section LINKAGE paragraph XCTL-MAIN. PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
-      "content": {
-        "line": 843,
-        "section": "LINKAGE",
-        "paragraph": "XCTL-MAIN",
-        "kind": "full_line",
-        "text": "PERFORM DELETE-TS THRU DELETE-TS-EXIT.",
-        "text_raw": "PERFORM DELETE-TS THRU DELETE-TS-EXIT."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 843,
-        "section": "LINKAGE",
-        "paragraph": "XCTL-MAIN",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:XCTL-MAIN"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": []
-      }
-    },
-    {
-      "id": "program.comment.PDCBVC.879.dd88fef391ca",
-      "type": "program.comment",
-      "program": "PDCBVC",
-      "title": "PDCBVC comment line 879",
-      "embedding_text": "PDCBVC comment line 879 section LINKAGE paragraph XCTL-LIV5. MOVE 'P' TO TWCOB-FUNZIONE.",
-      "content": {
-        "line": 879,
-        "section": "LINKAGE",
-        "paragraph": "XCTL-LIV5",
-        "kind": "full_line",
-        "text": "MOVE 'P' TO TWCOB-FUNZIONE.",
-        "text_raw": "MOVE 'P' TO TWCOB-FUNZIONE."
-      },
-      "meta": {
-        "source": "PDCBVC.CBL",
-        "line": 879,
-        "section": "LINKAGE",
-        "paragraph": "XCTL-LIV5",
-        "kind": "full_line",
-        "tags": [
-          "program:PDCBVC",
-          "kind:full_line",
-          "section:LINKAGE",
-          "paragraph:XCTL-LIV5"
-        ]
-      },
-      "links": {
-        "business_rules": [],
-        "variables": [
-          "PROG-LIV5",
-          "TWCOB-FASE",
-          "TWCOB-NOME-PGM"
-        ]
       }
     },
     {
@@ -3096,19 +2663,27 @@
         "paragraph": "ABEND00",
         "kind": "full_line",
         "text": "SALVATAGGIO TWA COMUNE *",
-        "text_raw": "SALVATAGGIO TWA COMUNE                       *"
+        "text_raw": "SALVATAGGIO TWA COMUNE                       *",
+        "normalized_text": "SALVATAGGIO TWA COMUNE",
+        "classification": "descriptive_header",
+        "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+        "indexable": true
       },
       "meta": {
-        "source": "PDCBVC.CBL",
+        "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
         "line": 906,
         "section": "LINKAGE",
         "paragraph": "ABEND00",
         "kind": "full_line",
+        "classification": "descriptive_header",
+        "indexable": true,
         "tags": [
           "program:PDCBVC",
           "kind:full_line",
+          "classification:descriptive_header",
           "section:LINKAGE",
-          "paragraph:ABEND00"
+          "paragraph:ABEND00",
+          "indexable:true"
         ]
       },
       "links": {

@@ -1,0 +1,76 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "&&CAFSEQ",
+  "dataset_kind": "temporary",
+  "external_input": false,
+  "produced_by": [
+    {
+      "execution_order": 1,
+      "step": "SCARCAF",
+      "ddname": "OUTPUT",
+      "program": "IDCAMS",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "write",
+      "access_reason": "Output DD name",
+      "dataset_kind": "temporary",
+      "disp": "(,PASS)",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    }
+  ],
+  "consumed_by": [
+    {
+      "execution_order": 3,
+      "step": "PDHM730B",
+      "ddname": "INPCAF",
+      "program": "PDHM730B",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset",
+      "dataset_kind": "temporary",
+      "disp": "(OLD,DELETE)",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    }
+  ],
+  "controlled_by": [],
+  "deleted_by": [],
+  "used_by": [
+    {
+      "execution_order": 1,
+      "step": "SCARCAF",
+      "ddname": "OUTPUT",
+      "program": "IDCAMS",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "write",
+      "access_reason": "Output DD name",
+      "dataset_kind": "temporary",
+      "disp": "(,PASS)",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    },
+    {
+      "execution_order": 3,
+      "step": "PDHM730B",
+      "ddname": "INPCAF",
+      "program": "PDHM730B",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset",
+      "dataset_kind": "temporary",
+      "disp": "(OLD,DELETE)",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    }
+  ],
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

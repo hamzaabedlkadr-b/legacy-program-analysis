@@ -1,0 +1,112 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "SCARCAF",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "IDCAMS",
+  "program": "IDCAMS",
+  "proc": null,
+  "parameters": {},
+  "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [
+    "TEPDET.CXCB2S.PDKCAF"
+  ],
+  "writes": [
+    "&&CAFSEQ"
+  ],
+  "deletes": [],
+  "controls": [
+    "TEPE1A.TSO.PARM(PTVSREPR)"
+  ],
+  "unknowns": [],
+  "dds": [
+    {
+      "ddname": "INPUT",
+      "concatenated": false,
+      "dsn": "TEPDET.CXCB2S.PDKCAF",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.CXCB2S.PDKCAF,DISP=SHR",
+      "annotations": [],
+      "source_lines": {
+        "start": 38,
+        "end": 38
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "Input DD name"
+    },
+    {
+      "ddname": "OUTPUT",
+      "concatenated": false,
+      "dsn": "&&CAFSEQ",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&CAFSEQ,DISP=(,PASS),SPACE=(CYL,(2,1)),UNIT=3390, DCB=(RECFM=FB,LRECL=600,DSORG=PS)",
+      "annotations": [],
+      "source_lines": {
+        "start": 39,
+        "end": 40
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "write",
+      "access_reason": "Output DD name"
+    },
+    {
+      "ddname": "SYSPRINT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "annotations": [],
+      "source_lines": {
+        "start": 41,
+        "end": 41
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "SYSIN",
+      "concatenated": false,
+      "dsn": "TEPE1A.TSO.PARM(PTVSREPR)",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPE1A.TSO.PARM(PTVSREPR),DISP=SHR",
+      "annotations": [],
+      "source_lines": {
+        "start": 42,
+        "end": 42
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "control",
+      "access_reason": "Control DD name"
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 37,
+    "end": 37
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

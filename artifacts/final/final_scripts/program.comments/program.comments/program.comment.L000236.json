@@ -10,19 +10,27 @@
     "paragraph": "BROWSE-FASE1",
     "kind": "full_line",
     "text": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
-    "text_raw": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili"
+    "text_raw": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+    "normalized_text": "Le funzioni di INSERIMENTO E AGGIORNAMENTO sulle voci contabili",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 236,
     "section": "LINKAGE",
     "paragraph": "BROWSE-FASE1",
     "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
+      "classification:explanatory_comment",
       "section:LINKAGE",
-      "paragraph:BROWSE-FASE1"
+      "paragraph:BROWSE-FASE1",
+      "indexable:true"
     ]
   },
   "links": {

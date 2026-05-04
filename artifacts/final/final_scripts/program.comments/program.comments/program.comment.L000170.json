@@ -10,18 +10,26 @@
     "paragraph": null,
     "kind": "full_line",
     "text": "(LUNGHEZZA = 79) *",
-    "text_raw": "(LUNGHEZZA = 79)                   *"
+    "text_raw": "(LUNGHEZZA = 79)                   *",
+    "normalized_text": "(LUNGHEZZA = 79)",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 170,
     "section": "WORKING-STORAGE",
     "paragraph": null,
     "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
-      "section:WORKING-STORAGE"
+      "classification:explanatory_comment",
+      "section:WORKING-STORAGE",
+      "indexable:true"
     ]
   },
   "links": {

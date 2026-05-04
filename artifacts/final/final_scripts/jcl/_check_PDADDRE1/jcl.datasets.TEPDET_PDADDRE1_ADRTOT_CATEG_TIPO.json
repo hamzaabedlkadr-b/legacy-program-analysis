@@ -2,31 +2,105 @@
   "type": "jcl.datasets",
   "job": "PDADDRE1",
   "dsn": "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO",
-  "used_by": [
+  "dataset_kind": "persistent",
+  "external_input": true,
+  "produced_by": [
     {
-      "step": "DELADR",
-      "ddname": "INPSEQ",
-      "program": "PDKADR",
-      "proc": null,
-      "exec_kind": "program",
-      "scope": "procedure_definition"
-    },
-    {
+      "execution_order": 6,
       "step": "SORADR",
       "ddname": "SORTOUT",
       "program": "ICEMAN",
       "proc": null,
       "exec_kind": "program",
-      "scope": "procedure_definition"
+      "scope": "expanded_local_procedure",
+      "access_type": "write",
+      "access_reason": "Output DD name",
+      "dataset_kind": "persistent",
+      "disp": "(,CATLG)",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
+    }
+  ],
+  "consumed_by": [
+    {
+      "execution_order": 1,
+      "step": "DELADR",
+      "ddname": "INPSEQ",
+      "program": "PDKADR",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "Input DD name",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
     },
     {
+      "execution_order": 7,
       "step": "CARADR",
       "ddname": "INPSEQ",
       "program": "PDKADR",
       "proc": null,
       "exec_kind": "program",
-      "scope": "procedure_definition"
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "Input DD name",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
     }
   ],
-  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+  "controlled_by": [],
+  "deleted_by": [],
+  "used_by": [
+    {
+      "execution_order": 1,
+      "step": "DELADR",
+      "ddname": "INPSEQ",
+      "program": "PDKADR",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "Input DD name",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
+    },
+    {
+      "execution_order": 6,
+      "step": "SORADR",
+      "ddname": "SORTOUT",
+      "program": "ICEMAN",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "write",
+      "access_reason": "Output DD name",
+      "dataset_kind": "persistent",
+      "disp": "(,CATLG)",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
+    },
+    {
+      "execution_order": 7,
+      "step": "CARADR",
+      "ddname": "INPSEQ",
+      "program": "PDKADR",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "Input DD name",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
+    }
+  ],
+  "source": "jcl_files\\PDADDRE1.JCL"
 }

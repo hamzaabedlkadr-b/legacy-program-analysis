@@ -1,0 +1,169 @@
+{
+  "type": "jcl.procedures",
+  "job": "PDCAFIN2",
+  "procedure": "PDCAFIN2",
+  "parameters": {},
+  "programs": [
+    "ICEMAN",
+    "IDCAMS",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHM730B",
+    "PDHM730C",
+    "PDHM730D"
+  ],
+  "steps": [
+    {
+      "step": "SCARCAF",
+      "exec_kind": "program",
+      "target": "IDCAMS",
+      "program": "IDCAMS",
+      "proc": null,
+      "reads": [
+        "TEPDET.CXCB2S.PDKCAF"
+      ],
+      "writes": [
+        "&&CAFSEQ"
+      ],
+      "deletes": [],
+      "controls": [
+        "TEPE1A.TSO.PARM(PTVSREPR)"
+      ],
+      "notes": []
+    },
+    {
+      "step": "SCRA",
+      "exec_kind": "program",
+      "target": "IEFBR14",
+      "program": "IEFBR14",
+      "proc": null,
+      "reads": [],
+      "writes": [],
+      "deletes": [
+        "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+        "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "controls": [],
+      "notes": []
+    },
+    {
+      "step": "PDHM730B",
+      "exec_kind": "program",
+      "target": "PDHM730B",
+      "program": "PDHM730B",
+      "proc": null,
+      "reads": [
+        "&&CAFSEQ"
+      ],
+      "writes": [
+        "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+        "&&SKVAR2",
+        "&&FILESTA",
+        "&&FILEST2"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": []
+    },
+    {
+      "step": "PDHM730C",
+      "exec_kind": "program",
+      "target": "PDHM730C",
+      "program": "PDHM730C",
+      "proc": null,
+      "reads": [
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "writes": [
+        "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": []
+    },
+    {
+      "step": "SKSANAG",
+      "exec_kind": "program",
+      "target": "PARM2SK",
+      "program": "PARM2SK",
+      "proc": null,
+      "reads": [],
+      "writes": [
+        "&&SKANAG"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": []
+    },
+    {
+      "step": "SORANAG",
+      "exec_kind": "program",
+      "target": "ICEMAN",
+      "program": "ICEMAN",
+      "proc": null,
+      "reads": [
+        "&&FILESTA"
+      ],
+      "writes": [
+        "&&ANAGS"
+      ],
+      "deletes": [],
+      "controls": [
+        "SYS1.SORTLIB",
+        "&&SKANAG"
+      ],
+      "notes": []
+    },
+    {
+      "step": "PDHM730D",
+      "exec_kind": "program",
+      "target": "PDHM730D",
+      "program": "PDHM730D",
+      "proc": null,
+      "reads": [
+        "&&ANAGS"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": []
+    },
+    {
+      "step": "M730D2",
+      "exec_kind": "program",
+      "target": "PDHM730D",
+      "program": "PDHM730D",
+      "proc": null,
+      "reads": [
+        "&&ANAGS"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": [
+        "* CESSATI ***"
+      ]
+    },
+    {
+      "step": "COPYVAR",
+      "exec_kind": "unknown",
+      "target": null,
+      "program": null,
+      "proc": null,
+      "reads": [],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": [
+        "PGM=IEBGENER"
+      ]
+    }
+  ],
+  "source_lines": {
+    "start": 35,
+    "end": 149
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

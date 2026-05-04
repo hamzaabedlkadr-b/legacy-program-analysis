@@ -1,0 +1,110 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "PDHM730D",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "PDHM730D",
+  "program": "PDHM730D",
+  "proc": null,
+  "parameters": {
+    "PARM": "'&ANNORIF,T,&TIPO,&ANNO&MENS'"
+  },
+  "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [
+    "&&ANAGS"
+  ],
+  "writes": [],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
+  "dds": [
+    {
+      "ddname": "INPCAF",
+      "concatenated": false,
+      "dsn": "&&ANAGS",
+      "disp": "(OLD,PASS)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&ANAGS,DISP=(OLD,PASS)",
+      "annotations": [],
+      "source_lines": {
+        "start": 114,
+        "end": 114
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset"
+    },
+    {
+      "ddname": "STAMPA",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "(,)",
+      "unit": null,
+      "output": "(*.OUTCPA,*.OUTINF)",
+      "raw": "DD SYSOUT=(,),OUTPUT=(*.OUTCPA,*.OUTINF), DCB=(RECFM=FA,LRECL=151)",
+      "annotations": [],
+      "source_lines": {
+        "start": 118,
+        "end": 119
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "SYSOUT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "annotations": [],
+      "source_lines": {
+        "start": 120,
+        "end": 120
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "SYSUDUMP",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "9",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=9",
+      "annotations": [],
+      "source_lines": {
+        "start": 121,
+        "end": 121
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 105,
+    "end": 106
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

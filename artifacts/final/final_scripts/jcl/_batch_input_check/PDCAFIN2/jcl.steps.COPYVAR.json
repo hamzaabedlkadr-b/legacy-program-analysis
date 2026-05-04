@@ -1,0 +1,53 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "COPYVAR",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "unknown",
+  "target": null,
+  "program": null,
+  "proc": null,
+  "parameters": {},
+  "positional": [],
+  "notes": [
+    "PGM=IEBGENER"
+  ],
+  "comment_context": [],
+  "reads": [],
+  "writes": [],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
+  "dds": [
+    {
+      "ddname": "SYSPRINT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD",
+      "annotations": [
+        "SYSOUT=*"
+      ],
+      "source_lines": {
+        "start": 141,
+        "end": 141
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "control",
+      "access_reason": "Non-dataset DD"
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 140,
+    "end": 140
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

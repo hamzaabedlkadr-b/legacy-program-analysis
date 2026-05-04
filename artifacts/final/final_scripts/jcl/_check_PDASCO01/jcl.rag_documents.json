@@ -1,0 +1,75 @@
+[
+  {
+    "id": "JCL-JOB-PDASCO01",
+    "type": "jcl_job",
+    "job": "PDASCO01",
+    "source": "jcl_files\\PDASCO01.JCL",
+    "embedding_text": "JCL job PDASCO01. Purpose: Acquisizione Assenze In Commissione su VSAM TEPDET.CXCB2S.ASSC. Programs: none. Execution steps: 1. Warnings: NON RIESEGUIBILE, Unresolved procedure invocation: PDASCO01. Unresolved procedures: PDASCO01.",
+    "content": {
+      "purpose": "Acquisizione Assenze In Commissione su VSAM TEPDET.CXCB2S.ASSC",
+      "programs": [],
+      "warnings": [
+        "NON RIESEGUIBILE",
+        "Unresolved procedure invocation: PDASCO01"
+      ],
+      "unresolved_procedures": [
+        "PDASCO01"
+      ],
+      "requirements": [
+        "Esecuzione Procedura per aggiornamento archivi (TEPDET.BTRASFE.ASSCOMM.M&ANNO&MESE.CSV)",
+        "Archivi CXCB2P PDKASSC e PDKSIS Chiusi (chiusi da procedura)"
+      ],
+      "products": [
+        "Salva VSAM TEPDET.CXCB2S.ASSC prima degli aggiornamenti",
+        "Carica le Assenze in commissione su TEPDET.CXCB2S.ASSC",
+        "Aggiorna la Data di Caricamento in TEPDET.CXCB2S.CONTROL"
+      ],
+      "rerun_notes": [
+        "NON RIESEGUIBILE",
+        "NON RIESEGUIBILE",
+        "NON RIESEGUIBILE"
+      ]
+    }
+  },
+  {
+    "id": "JCL-STEP-PDASCO01-PDASCO01",
+    "type": "jcl_step",
+    "job": "PDASCO01",
+    "source": "jcl_files\\PDASCO01.JCL",
+    "embedding_text": "JCL job PDASCO01 step PDASCO01 executes PDASCO01. Reads: none. Writes: none. Deletes: none. Controls: none. Notes: MESE DI RIFER.ASSENZE.",
+    "content": {
+      "execution_order": 1,
+      "step": "PDASCO01",
+      "program": null,
+      "proc": "PDASCO01",
+      "reads": [],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": [
+        "MESE DI RIFER.ASSENZE"
+      ],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-WARN-PDASCO01-001",
+    "type": "jcl_warning",
+    "job": "PDASCO01",
+    "source": "jcl_files\\PDASCO01.JCL",
+    "embedding_text": "JCL job PDASCO01 warning: NON RIESEGUIBILE",
+    "content": {
+      "warning": "NON RIESEGUIBILE"
+    }
+  },
+  {
+    "id": "JCL-WARN-PDASCO01-002",
+    "type": "jcl_warning",
+    "job": "PDASCO01",
+    "source": "jcl_files\\PDASCO01.JCL",
+    "embedding_text": "JCL job PDASCO01 warning: Unresolved procedure invocation: PDASCO01",
+    "content": {
+      "warning": "Unresolved procedure invocation: PDASCO01"
+    }
+  }
+]

@@ -10,19 +10,27 @@
     "paragraph": "PREPARA-MAP",
     "kind": "full_line",
     "text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
-    "text_raw": "IMPOSTATO A '01' NEL SEGUENTE CASO:"
+    "text_raw": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+    "normalized_text": "IMPOSTATO A '01' NEL SEGUENTE CASO:",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 520,
     "section": "LINKAGE",
     "paragraph": "PREPARA-MAP",
     "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
+      "classification:descriptive_header",
       "section:LINKAGE",
-      "paragraph:PREPARA-MAP"
+      "paragraph:PREPARA-MAP",
+      "indexable:true"
     ]
   },
   "links": {

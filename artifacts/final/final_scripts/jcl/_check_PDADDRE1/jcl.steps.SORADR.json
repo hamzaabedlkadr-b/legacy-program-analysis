@@ -10,6 +10,20 @@
   "proc": null,
   "parameters": {},
   "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [
+    "TEPDET.PDADDRE1.ADDREG"
+  ],
+  "writes": [
+    "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+  ],
+  "deletes": [],
+  "controls": [
+    "SYS1.SORTLIB",
+    "&&INSADR"
+  ],
+  "unknowns": [],
   "dds": [
     {
       "ddname": "SORTLIB",
@@ -19,10 +33,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=SYS1.SORTLIB,DISP=SHR",
+      "annotations": [],
       "source_lines": {
         "start": 86,
         "end": 86
-      }
+      },
+      "dataset_kind": "system",
+      "is_temporary": false,
+      "access_type": "control",
+      "access_reason": "Control DD name"
     },
     {
       "ddname": "SYSOUT",
@@ -32,10 +51,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=*",
+      "annotations": [],
       "source_lines": {
         "start": 87,
         "end": 87
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     },
     {
       "ddname": "SORTIN",
@@ -45,10 +69,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.PDADDRE1.ADDREG,DISP=OLD",
+      "annotations": [],
       "source_lines": {
         "start": 88,
         "end": 88
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "Input DD name"
     },
     {
       "ddname": "SORTOUT",
@@ -58,10 +87,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO,DISP=(,CATLG), DCB=(LRECL=100,DSORG=PS,RECFM=FB)",
+      "annotations": [],
       "source_lines": {
         "start": 89,
         "end": 90
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "write",
+      "access_reason": "Output DD name"
     },
     {
       "ddname": "SYSIN",
@@ -71,10 +105,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=&&INSADR,DISP=(OLD,DELETE)",
+      "annotations": [],
       "source_lines": {
         "start": 91,
         "end": 91
-      }
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "control",
+      "access_reason": "Control DD name"
     }
   ],
   "resolved_locally": false,
@@ -84,5 +123,5 @@
     "start": 85,
     "end": 85
   },
-  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+  "source": "jcl_files\\PDADDRE1.JCL"
 }

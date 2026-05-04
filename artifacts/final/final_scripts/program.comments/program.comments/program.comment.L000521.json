@@ -10,19 +10,27 @@
     "paragraph": "PREPARA-MAP",
     "kind": "full_line",
     "text": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
-    "text_raw": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)"
+    "text_raw": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+    "normalized_text": "- SI PROVIENE DAL LIVELLO 4 (TWCOB-XCTL = SPACE)",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 521,
     "section": "LINKAGE",
     "paragraph": "PREPARA-MAP",
     "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
+      "classification:explanatory_comment",
       "section:LINKAGE",
-      "paragraph:PREPARA-MAP"
+      "paragraph:PREPARA-MAP",
+      "indexable:true"
     ]
   },
   "links": {

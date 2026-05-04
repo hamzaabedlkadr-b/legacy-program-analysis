@@ -1,9 +1,41 @@
 {
   "type": "jcl.summary",
   "job": "PDASCO01",
-  "source": "final_scripts\\input\\cobol\\jcl\\PDASCO01.JCL",
+  "source": "jcl_files\\PDASCO01.JCL",
+  "purpose": "Acquisizione Assenze In Commissione su VSAM TEPDET.CXCB2S.ASSC",
+  "warnings": [
+    "NON RIESEGUIBILE",
+    "Unresolved procedure invocation: PDASCO01"
+  ],
+  "comment_highlights": [
+    "Acquisizione Assenze In Commissione su VSAM TEPDET.CXCB2S.ASSC",
+    "REQUISITI:",
+    "- Esecuzione Procedura per aggiornamento archivi",
+    "(TEPDET.BTRASFE.ASSCOMM.M&ANNO&MESE.CSV)",
+    "- Archivi CXCB2P PDKASSC e PDKSIS Chiusi (chiusi da procedura)",
+    "PRODOTTI :",
+    "- Salva VSAM TEPDET.CXCB2S.ASSC prima degli aggiornamenti",
+    "- Carica le Assenze in commissione su TEPDET.CXCB2S.ASSC"
+  ],
+  "requirements": [
+    "Esecuzione Procedura per aggiornamento archivi (TEPDET.BTRASFE.ASSCOMM.M&ANNO&MESE.CSV)",
+    "Archivi CXCB2P PDKASSC e PDKSIS Chiusi (chiusi da procedura)"
+  ],
+  "products": [
+    "Salva VSAM TEPDET.CXCB2S.ASSC prima degli aggiornamenti",
+    "Carica le Assenze in commissione su TEPDET.CXCB2S.ASSC",
+    "Aggiorna la Data di Caricamento in TEPDET.CXCB2S.CONTROL"
+  ],
+  "rerun_notes": [
+    "NON RIESEGUIBILE",
+    "NON RIESEGUIBILE",
+    "NON RIESEGUIBILE"
+  ],
   "programs": [],
   "procedures": [
+    "PDASCO01"
+  ],
+  "unresolved_procedures": [
     "PDASCO01"
   ],
   "jcllib_order": [],
@@ -21,5 +53,7 @@
     }
   ],
   "steps_count": 1,
-  "datasets_count": 0
+  "execution_steps_count": 1,
+  "datasets_count": 0,
+  "external_inputs_count": 0
 }

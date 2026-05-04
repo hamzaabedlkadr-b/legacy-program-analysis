@@ -10,19 +10,27 @@
     "paragraph": "ABBL-RIGA-EXIT",
     "kind": "full_line",
     "text": "INDIRIZZA TWA *",
-    "text_raw": "INDIRIZZA TWA                           *"
+    "text_raw": "INDIRIZZA TWA                           *",
+    "normalized_text": "INDIRIZZA TWA",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 801,
     "section": "LINKAGE",
     "paragraph": "ABBL-RIGA-EXIT",
     "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
+      "classification:descriptive_header",
       "section:LINKAGE",
-      "paragraph:ABBL-RIGA-EXIT"
+      "paragraph:ABBL-RIGA-EXIT",
+      "indexable:true"
     ]
   },
   "links": {

@@ -12,6 +12,19 @@
     "PARM": "'&ANNO,&SESSLIQ,&TIPOLIQ'"
   },
   "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [
+    "TEPDET.CXCB2S.PDKM101",
+    "TEPDET.PDADDRE1.PDHADR00"
+  ],
+  "writes": [
+    "TEPDET.PDADDRE1.ADDREG",
+    "TEPDET.B.ADRCES.&TIPO"
+  ],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
   "dds": [
     {
       "ddname": "PDKM101",
@@ -21,10 +34,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.CXCB2S.PDKM101,DISP=SHR",
+      "annotations": [],
       "source_lines": {
         "start": 67,
         "end": 67
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset"
     },
     {
       "ddname": "PDSM101",
@@ -34,10 +52,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.PDADDRE1.PDHADR00,DISP=OLD",
+      "annotations": [],
       "source_lines": {
         "start": 68,
         "end": 68
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset"
     },
     {
       "ddname": "FADDIZ",
@@ -47,10 +70,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.PDADDRE1.ADDREG,DISP=(,CATLG), DCB=(LRECL=100,DSORG=PS,RECFM=FB)",
+      "annotations": [],
       "source_lines": {
         "start": 69,
         "end": 70
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation"
     },
     {
       "ddname": "FADRCES",
@@ -60,10 +88,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.B.ADRCES.&TIPO,DISP=(,CATLG), DCB=(LRECL=100,DSORG=PS,RECFM=FB)",
+      "annotations": [],
       "source_lines": {
         "start": 71,
         "end": 72
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation"
     },
     {
       "ddname": "STAMPA",
@@ -72,11 +105,18 @@
       "sysout": null,
       "unit": null,
       "output": null,
-      "raw": "DD DUMMY   Microfocus",
+      "raw": "DD DUMMY",
+      "annotations": [
+        "Microfocus"
+      ],
       "source_lines": {
         "start": 74,
         "end": 74
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "control",
+      "access_reason": "DUMMY DD"
     },
     {
       "ddname": "SYSOUT",
@@ -86,10 +126,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=*",
+      "annotations": [],
       "source_lines": {
         "start": 75,
         "end": 75
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     },
     {
       "ddname": "SYSUDUMP",
@@ -99,10 +144,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=9",
+      "annotations": [],
       "source_lines": {
         "start": 76,
         "end": 76
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     }
   ],
   "resolved_locally": false,
@@ -112,5 +162,5 @@
     "start": 57,
     "end": 57
   },
-  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+  "source": "jcl_files\\PDADDRE1.JCL"
 }

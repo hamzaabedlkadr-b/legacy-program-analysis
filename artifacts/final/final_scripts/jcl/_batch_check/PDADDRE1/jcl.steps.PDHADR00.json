@@ -1,0 +1,131 @@
+{
+  "type": "jcl.steps",
+  "job": "PDADDRE1",
+  "step": "PDHADR00",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDADDRE1",
+  "exec_kind": "program",
+  "target": "PDHADR00",
+  "program": "PDHADR00",
+  "proc": null,
+  "parameters": {
+    "PARM": "'&ANNO,&TIPOLIQ,&TIPO'"
+  },
+  "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [
+    "TEPDET.CXCB2S.PDKM101"
+  ],
+  "writes": [
+    "TEPDET.PDADDRE1.PDHADR00"
+  ],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
+  "dds": [
+    {
+      "ddname": "PDKM101",
+      "concatenated": false,
+      "dsn": "TEPDET.CXCB2S.PDKM101",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.CXCB2S.PDKM101,DISP=SHR",
+      "annotations": [],
+      "source_lines": {
+        "start": 50,
+        "end": 50
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset"
+    },
+    {
+      "ddname": "PDSM101",
+      "concatenated": false,
+      "dsn": "TEPDET.PDADDRE1.PDHADR00",
+      "disp": "(,CATLG)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.PDADDRE1.PDHADR00,DISP=(,CATLG), DCB=(LRECL=900,DSORG=PS,RECFM=FB)",
+      "annotations": [],
+      "source_lines": {
+        "start": 51,
+        "end": 52
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation"
+    },
+    {
+      "ddname": "STAMPA",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*,DCB=(LRECL=133,RECFM=FA)",
+      "annotations": [],
+      "source_lines": {
+        "start": 53,
+        "end": 53
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "SYSOUT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "annotations": [],
+      "source_lines": {
+        "start": 54,
+        "end": 54
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "SYSUDUMP",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "9",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=9",
+      "annotations": [],
+      "source_lines": {
+        "start": 55,
+        "end": 55
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 46,
+    "end": 46
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\jcl_files\\PDADDRE1.JCL"
+}

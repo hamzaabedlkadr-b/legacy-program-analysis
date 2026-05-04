@@ -12,6 +12,17 @@
     "PARM": "'&ANNO,&TIPOLIQ,&TIPO'"
   },
   "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [
+    "TEPDET.CXCB2S.PDKM101"
+  ],
+  "writes": [
+    "TEPDET.PDADDRE1.PDHADR00"
+  ],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
   "dds": [
     {
       "ddname": "PDKM101",
@@ -21,10 +32,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.CXCB2S.PDKM101,DISP=SHR",
+      "annotations": [],
       "source_lines": {
         "start": 50,
         "end": 50
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset"
     },
     {
       "ddname": "PDSM101",
@@ -34,10 +50,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.PDADDRE1.PDHADR00,DISP=(,CATLG), DCB=(LRECL=900,DSORG=PS,RECFM=FB)",
+      "annotations": [],
       "source_lines": {
         "start": 51,
         "end": 52
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation"
     },
     {
       "ddname": "STAMPA",
@@ -47,10 +68,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=*,DCB=(LRECL=133,RECFM=FA)",
+      "annotations": [],
       "source_lines": {
         "start": 53,
         "end": 53
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     },
     {
       "ddname": "SYSOUT",
@@ -60,10 +86,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=*",
+      "annotations": [],
       "source_lines": {
         "start": 54,
         "end": 54
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     },
     {
       "ddname": "SYSUDUMP",
@@ -73,10 +104,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=9",
+      "annotations": [],
       "source_lines": {
         "start": 55,
         "end": 55
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     }
   ],
   "resolved_locally": false,
@@ -86,5 +122,5 @@
     "start": 46,
     "end": 46
   },
-  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+  "source": "jcl_files\\PDADDRE1.JCL"
 }

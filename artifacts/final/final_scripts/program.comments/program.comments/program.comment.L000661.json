@@ -10,19 +10,27 @@
     "paragraph": "MUOVI-DATI",
     "kind": "full_line",
     "text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
-    "text_raw": "------- BROWSE DAL  PROGRAMMA  DI  LIVELLO (PDCVC4)"
+    "text_raw": "------- BROWSE DAL  PROGRAMMA  DI  LIVELLO (PDCVC4)",
+    "normalized_text": "------- BROWSE DAL PROGRAMMA DI LIVELLO (PDCVC4)",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 661,
     "section": "LINKAGE",
     "paragraph": "MUOVI-DATI",
     "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
+      "classification:descriptive_header",
       "section:LINKAGE",
-      "paragraph:MUOVI-DATI"
+      "paragraph:MUOVI-DATI",
+      "indexable:true"
     ]
   },
   "links": {

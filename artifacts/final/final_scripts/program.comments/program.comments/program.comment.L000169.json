@@ -10,18 +10,26 @@
     "paragraph": null,
     "kind": "full_line",
     "text": "AREA DI LAVORO PER PREPARAZIONE MAPPA *",
-    "text_raw": "AREA DI LAVORO PER PREPARAZIONE MAPPA        *"
+    "text_raw": "AREA DI LAVORO PER PREPARAZIONE MAPPA        *",
+    "normalized_text": "AREA DI LAVORO PER PREPARAZIONE MAPPA",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 169,
     "section": "WORKING-STORAGE",
     "paragraph": null,
     "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
-      "section:WORKING-STORAGE"
+      "classification:descriptive_header",
+      "section:WORKING-STORAGE",
+      "indexable:true"
     ]
   },
   "links": {

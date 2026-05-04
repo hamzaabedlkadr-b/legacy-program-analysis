@@ -10,18 +10,26 @@
     "paragraph": null,
     "kind": "full_line",
     "text": "INIZIO DEL BROWSE FASE = 1 *",
-    "text_raw": "INIZIO DEL BROWSE    FASE = 1                      *"
+    "text_raw": "INIZIO DEL BROWSE    FASE = 1                      *",
+    "normalized_text": "INIZIO DEL BROWSE FASE = 1",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 231,
     "section": "LINKAGE",
     "paragraph": null,
     "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
-      "section:LINKAGE"
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "indexable:true"
     ]
   },
   "links": {

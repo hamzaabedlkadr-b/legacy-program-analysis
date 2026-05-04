@@ -17,54 +17,116 @@
       "exec_kind": "program",
       "target": "PDKADR",
       "program": "PDKADR",
-      "proc": null
+      "proc": null,
+      "reads": [
+        "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": [
+        "ATTENZIONE PARAMETRO"
+      ]
     },
     {
       "step": "SCRADDR",
       "exec_kind": "program",
       "target": "IEFBR14",
       "program": "IEFBR14",
-      "proc": null
+      "proc": null,
+      "reads": [],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": []
     },
     {
       "step": "PDHADR00",
       "exec_kind": "program",
       "target": "PDHADR00",
       "program": "PDHADR00",
-      "proc": null
+      "proc": null,
+      "reads": [
+        "TEPDET.CXCB2S.PDKM101"
+      ],
+      "writes": [
+        "TEPDET.PDADDRE1.PDHADR00"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": []
     },
     {
       "step": "PDHADR01",
       "exec_kind": "program",
       "target": "PDHADR01",
       "program": "PDHADR01",
-      "proc": null
+      "proc": null,
+      "reads": [
+        "TEPDET.CXCB2S.PDKM101",
+        "TEPDET.PDADDRE1.PDHADR00"
+      ],
+      "writes": [
+        "TEPDET.PDADDRE1.ADDREG",
+        "TEPDET.B.ADRCES.&TIPO"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": []
     },
     {
       "step": "SKSADR",
       "exec_kind": "program",
       "target": "PARM2SK",
       "program": "PARM2SK",
-      "proc": null
+      "proc": null,
+      "reads": [],
+      "writes": [
+        "&&INSADR"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": []
     },
     {
       "step": "SORADR",
       "exec_kind": "program",
       "target": "ICEMAN",
       "program": "ICEMAN",
-      "proc": null
+      "proc": null,
+      "reads": [
+        "TEPDET.PDADDRE1.ADDREG"
+      ],
+      "writes": [
+        "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+      ],
+      "deletes": [],
+      "controls": [
+        "SYS1.SORTLIB",
+        "&&INSADR"
+      ],
+      "notes": []
     },
     {
       "step": "CARADR",
       "exec_kind": "program",
       "target": "PDKADR",
       "program": "PDKADR",
-      "proc": null
+      "proc": null,
+      "reads": [
+        "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": [
+        "ATTENZIONE PARAMETRO"
+      ]
     }
   ],
   "source_lines": {
     "start": 6,
     "end": 103
   },
-  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+  "source": "jcl_files\\PDADDRE1.JCL"
 }

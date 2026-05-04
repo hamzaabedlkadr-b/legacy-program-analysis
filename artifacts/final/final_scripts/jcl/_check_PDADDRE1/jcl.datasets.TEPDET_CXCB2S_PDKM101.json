@@ -2,23 +2,74 @@
   "type": "jcl.datasets",
   "job": "PDADDRE1",
   "dsn": "TEPDET.CXCB2S.PDKM101",
-  "used_by": [
+  "dataset_kind": "persistent",
+  "external_input": true,
+  "produced_by": [],
+  "consumed_by": [
     {
+      "execution_order": 3,
       "step": "PDHADR00",
       "ddname": "PDKM101",
       "program": "PDHADR00",
       "proc": null,
       "exec_kind": "program",
-      "scope": "procedure_definition"
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
     },
     {
+      "execution_order": 4,
       "step": "PDHADR01",
       "ddname": "PDKM101",
       "program": "PDHADR01",
       "proc": null,
       "exec_kind": "program",
-      "scope": "procedure_definition"
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
     }
   ],
-  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+  "controlled_by": [],
+  "deleted_by": [],
+  "used_by": [
+    {
+      "execution_order": 3,
+      "step": "PDHADR00",
+      "ddname": "PDKM101",
+      "program": "PDHADR00",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
+    },
+    {
+      "execution_order": 4,
+      "step": "PDHADR01",
+      "ddname": "PDKM101",
+      "program": "PDHADR01",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "read",
+      "access_reason": "DISP references an existing dataset",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
+    }
+  ],
+  "source": "jcl_files\\PDADDRE1.JCL"
 }

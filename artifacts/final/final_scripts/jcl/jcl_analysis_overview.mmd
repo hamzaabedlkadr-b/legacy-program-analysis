@@ -1,0 +1,38 @@
+flowchart LR
+    A["Raw JCL Files<br/>PDADDRE1.JCL<br/>PDASCO01.JCL"]
+    B["build_jcl_artifacts.py<br/>Parse JCL structure and semantics<br/>JOB / EXEC / DD / PROC<br/>local PROC expansion<br/>dataset access typing<br/>purpose and warnings"]
+
+    A --> B
+
+    C["jcl.summary.json<br/>job overview"]
+    D["jcl.steps.*.json<br/>per-step detail"]
+    E["jcl.datasets.*.json<br/>dataset lineage"]
+    F["jcl.flow.json<br/>expanded execution flow"]
+    G["jcl.rag_documents.json<br/>RAG-ready job / step / dataset / warning docs"]
+
+    B --> C
+    B --> D
+    B --> E
+    B --> F
+    F --> G
+
+    H["Batch JCL Folder<br/>all JCL files in one directory"]
+    I["build_jcl_validation_report.py<br/>batch-wide quality checks<br/>unresolved procedures<br/>zero parsed programs<br/>ambiguous unknown DD usage"]
+    J["Procedure Catalog<br/>cross-file PROC lookup"]
+    K["jcl.validation.report.json<br/>flags weak or incomplete files"]
+
+    H --> I
+    I --> J
+    I --> K
+
+    B -. semantic inputs .-> I
+    G -. retrieval artifacts .-> K
+
+    L["COBOL comments<br/>build_program_comments.py<br/>standalone comment artifacts"]
+    M["JCL comments<br/>handled inside build_jcl_artifacts.py<br/>purpose / warnings / requirements / products"]
+
+    L --- M
+
+    N["Key idea<br/>JCL is analyzed as the orchestration layer around COBOL"]
+    G --> N
+    K --> N

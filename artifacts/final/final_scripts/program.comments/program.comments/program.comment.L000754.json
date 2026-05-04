@@ -10,19 +10,27 @@
     "paragraph": "READ-TAB-SEMAF",
     "kind": "full_line",
     "text": "in realt� questi a seguire non servono per la lettura",
-    "text_raw": "in realt� questi a seguire non servono per la lettura"
+    "text_raw": "in realt� questi a seguire non servono per la lettura",
+    "normalized_text": "in realt� questi a seguire non servono per la lettura",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 754,
     "section": "LINKAGE",
     "paragraph": "READ-TAB-SEMAF",
     "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
+      "classification:explanatory_comment",
       "section:LINKAGE",
-      "paragraph:READ-TAB-SEMAF"
+      "paragraph:READ-TAB-SEMAF",
+      "indexable:true"
     ]
   },
   "links": {

@@ -1,0 +1,45 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDADDRE1",
+  "dsn": "TEPDET.B.ADRCES.&TIPO",
+  "dataset_kind": "persistent",
+  "external_input": false,
+  "produced_by": [
+    {
+      "execution_order": 4,
+      "step": "PDHADR01",
+      "ddname": "FADRCES",
+      "program": "PDHADR01",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation",
+      "dataset_kind": "persistent",
+      "disp": "(,CATLG)",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
+    }
+  ],
+  "consumed_by": [],
+  "controlled_by": [],
+  "deleted_by": [],
+  "used_by": [
+    {
+      "execution_order": 4,
+      "step": "PDHADR01",
+      "ddname": "FADRCES",
+      "program": "PDHADR01",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation",
+      "dataset_kind": "persistent",
+      "disp": "(,CATLG)",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1"
+    }
+  ],
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\jcl_files\\PDADDRE1.JCL"
+}

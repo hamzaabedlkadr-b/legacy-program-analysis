@@ -1,0 +1,57 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "PDCAFIN2",
+  "scope": "job",
+  "defined_in_proc": null,
+  "exec_kind": "procedure",
+  "target": "PDCAFIN2",
+  "program": null,
+  "proc": "PDCAFIN2",
+  "parameters": {
+    "ANNORIF": "2023",
+    "ANNO": "2024",
+    "TIPO": "67",
+    "MENS": "12"
+  },
+  "positional": [],
+  "notes": [
+    "ANNO DI RIFERIMENTO REDDITI",
+    "ANNO DI ELABORAZIONE",
+    "DEPUTATI: 5D ; EX+VED: 67",
+    "MESE DELLA LIQUIDAZIONE LASCIARE SEMPRE 12"
+  ],
+  "comment_context": [],
+  "reads": [],
+  "writes": [],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
+  "dds": [],
+  "resolved_locally": true,
+  "resolved_proc_steps": [
+    "SCARCAF",
+    "SCRA",
+    "PDHM730B",
+    "PDHM730C",
+    "SKSANAG",
+    "SORANAG",
+    "PDHM730D",
+    "M730D2",
+    "COPYVAR"
+  ],
+  "resolved_proc_programs": [
+    "ICEMAN",
+    "IDCAMS",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHM730B",
+    "PDHM730C",
+    "PDHM730D"
+  ],
+  "source_lines": {
+    "start": 151,
+    "end": 155
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

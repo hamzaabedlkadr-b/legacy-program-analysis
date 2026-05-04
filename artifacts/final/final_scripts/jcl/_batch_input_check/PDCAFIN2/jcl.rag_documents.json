@@ -1,0 +1,763 @@
+[
+  {
+    "id": "JCL-JOB-PDCAFIN2",
+    "type": "jcl_job",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2. Purpose: ACQUISIZIONI DATI DAL CAF DELLA CAMERA E DAI CAAF ESTERNI. Programs: ICEMAN, IDCAMS, IEFBR14, PARM2SK (+3 more). Execution steps: 9. Warnings: none. Unresolved procedures: none.",
+    "content": {
+      "purpose": "ACQUISIZIONI DATI DAL CAF DELLA CAMERA E DAI CAAF ESTERNI",
+      "programs": [
+        "ICEMAN",
+        "IDCAMS",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHM730B",
+        "PDHM730C",
+        "PDHM730D"
+      ],
+      "warnings": [],
+      "unresolved_procedures": [],
+      "requirements": [],
+      "products": [],
+      "rerun_notes": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-SCARCAF",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step SCARCAF executes IDCAMS. Reads: TEPDET.CXCB2S.PDKCAF. Writes: &&CAFSEQ. Deletes: none. Controls: TEPE1A.TSO.PARM(PTVSREPR). Notes: none.",
+    "content": {
+      "execution_order": 1,
+      "step": "SCARCAF",
+      "program": "IDCAMS",
+      "proc": null,
+      "reads": [
+        "TEPDET.CXCB2S.PDKCAF"
+      ],
+      "writes": [
+        "&&CAFSEQ"
+      ],
+      "deletes": [],
+      "controls": [
+        "TEPE1A.TSO.PARM(PTVSREPR)"
+      ],
+      "notes": [],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-SCRA",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step SCRA executes IEFBR14. Reads: none. Writes: none. Deletes: TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO, TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO, TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO. Controls: none. Notes: none.",
+    "content": {
+      "execution_order": 2,
+      "step": "SCRA",
+      "program": "IEFBR14",
+      "proc": null,
+      "reads": [],
+      "writes": [],
+      "deletes": [
+        "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+        "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "controls": [],
+      "notes": [],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-PDHM730B",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step PDHM730B executes PDHM730B. Reads: &&CAFSEQ. Writes: TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO, TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO, &&SKVAR2, &&FILESTA (+1 more). Deletes: none. Controls: none. Notes: none.",
+    "content": {
+      "execution_order": 3,
+      "step": "PDHM730B",
+      "program": "PDHM730B",
+      "proc": null,
+      "reads": [
+        "&&CAFSEQ"
+      ],
+      "writes": [
+        "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+        "&&SKVAR2",
+        "&&FILESTA",
+        "&&FILEST2"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": [],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-PDHM730C",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step PDHM730C executes PDHM730C. Reads: TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO. Writes: TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO. Deletes: none. Controls: none. Notes: none.",
+    "content": {
+      "execution_order": 4,
+      "step": "PDHM730C",
+      "program": "PDHM730C",
+      "proc": null,
+      "reads": [
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "writes": [
+        "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": [],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-SKSANAG",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step SKSANAG executes PARM2SK. Reads: none. Writes: &&SKANAG. Deletes: none. Controls: none. Notes: none.",
+    "content": {
+      "execution_order": 5,
+      "step": "SKSANAG",
+      "program": "PARM2SK",
+      "proc": null,
+      "reads": [],
+      "writes": [
+        "&&SKANAG"
+      ],
+      "deletes": [],
+      "controls": [],
+      "notes": [],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-SORANAG",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step SORANAG executes ICEMAN. Reads: &&FILESTA. Writes: &&ANAGS. Deletes: none. Controls: SYS1.SORTLIB, &&SKANAG. Notes: none.",
+    "content": {
+      "execution_order": 6,
+      "step": "SORANAG",
+      "program": "ICEMAN",
+      "proc": null,
+      "reads": [
+        "&&FILESTA"
+      ],
+      "writes": [
+        "&&ANAGS"
+      ],
+      "deletes": [],
+      "controls": [
+        "SYS1.SORTLIB",
+        "&&SKANAG"
+      ],
+      "notes": [],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-PDHM730D",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step PDHM730D executes PDHM730D. Reads: &&ANAGS. Writes: none. Deletes: none. Controls: none. Notes: none.",
+    "content": {
+      "execution_order": 7,
+      "step": "PDHM730D",
+      "program": "PDHM730D",
+      "proc": null,
+      "reads": [
+        "&&ANAGS"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": [],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-M730D2",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step M730D2 executes PDHM730D. Reads: &&ANAGS. Writes: none. Deletes: none. Controls: none. Notes: * CESSATI ***.",
+    "content": {
+      "execution_order": 8,
+      "step": "M730D2",
+      "program": "PDHM730D",
+      "proc": null,
+      "reads": [
+        "&&ANAGS"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": [
+        "* CESSATI ***"
+      ],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-STEP-PDCAFIN2-COPYVAR",
+    "type": "jcl_step",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 step COPYVAR executes UNKNOWN. Reads: none. Writes: none. Deletes: none. Controls: none. Notes: PGM=IEBGENER.",
+    "content": {
+      "execution_order": 9,
+      "step": "COPYVAR",
+      "program": null,
+      "proc": null,
+      "reads": [],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "notes": [
+        "PGM=IEBGENER"
+      ],
+      "comment_context": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-ANAGS",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset &&ANAGS (temporary). Produced by: SORANAG. Consumed by: PDHM730D, M730D2. Deleted by: none. External input: no.",
+    "content": {
+      "dsn": "&&ANAGS",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 6,
+          "step": "SORANAG",
+          "ddname": "SORTOUT",
+          "program": "ICEMAN",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "Output DD name",
+          "dataset_kind": "temporary",
+          "disp": "(,PASS)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [
+        {
+          "execution_order": 7,
+          "step": "PDHM730D",
+          "ddname": "INPCAF",
+          "program": "PDHM730D",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "read",
+          "access_reason": "DISP references an existing dataset",
+          "dataset_kind": "temporary",
+          "disp": "(OLD,PASS)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        },
+        {
+          "execution_order": 8,
+          "step": "M730D2",
+          "ddname": "INPCAF",
+          "program": "PDHM730D",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "read",
+          "access_reason": "DISP references an existing dataset",
+          "dataset_kind": "temporary",
+          "disp": "(OLD,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "controlled_by": [],
+      "deleted_by": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-CAFSEQ",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset &&CAFSEQ (temporary). Produced by: SCARCAF. Consumed by: PDHM730B. Deleted by: none. External input: no.",
+    "content": {
+      "dsn": "&&CAFSEQ",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 1,
+          "step": "SCARCAF",
+          "ddname": "OUTPUT",
+          "program": "IDCAMS",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "Output DD name",
+          "dataset_kind": "temporary",
+          "disp": "(,PASS)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "INPCAF",
+          "program": "PDHM730B",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "read",
+          "access_reason": "DISP references an existing dataset",
+          "dataset_kind": "temporary",
+          "disp": "(OLD,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "controlled_by": [],
+      "deleted_by": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-FILEST2",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset &&FILEST2 (temporary). Produced by: PDHM730B. Consumed by: none. Deleted by: none. External input: no.",
+    "content": {
+      "dsn": "&&FILEST2",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "FILEST2",
+          "program": "PDHM730B",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "DISP implies dataset creation",
+          "dataset_kind": "temporary",
+          "disp": "(,PASS)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [],
+      "controlled_by": [],
+      "deleted_by": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-FILESTA",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset &&FILESTA (temporary). Produced by: PDHM730B. Consumed by: SORANAG. Deleted by: none. External input: no.",
+    "content": {
+      "dsn": "&&FILESTA",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "FILESTA",
+          "program": "PDHM730B",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "DISP implies dataset creation",
+          "dataset_kind": "temporary",
+          "disp": "(,PASS)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [
+        {
+          "execution_order": 6,
+          "step": "SORANAG",
+          "ddname": "SORTIN",
+          "program": "ICEMAN",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "read",
+          "access_reason": "Input DD name",
+          "dataset_kind": "temporary",
+          "disp": "(OLD,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "controlled_by": [],
+      "deleted_by": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-SKANAG",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset &&SKANAG (temporary). Produced by: SKSANAG. Consumed by: none. Deleted by: none. External input: no.",
+    "content": {
+      "dsn": "&&SKANAG",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 5,
+          "step": "SKSANAG",
+          "ddname": "SKEDA",
+          "program": "PARM2SK",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "DISP implies dataset creation",
+          "dataset_kind": "temporary",
+          "disp": "(,PASS)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [],
+      "controlled_by": [
+        {
+          "execution_order": 6,
+          "step": "SORANAG",
+          "ddname": "SYSIN",
+          "program": "ICEMAN",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "control",
+          "access_reason": "Control DD name",
+          "dataset_kind": "temporary",
+          "disp": "(OLD,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "deleted_by": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-SKVAR2",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset &&SKVAR2 (temporary). Produced by: PDHM730B. Consumed by: none. Deleted by: none. External input: no.",
+    "content": {
+      "dsn": "&&SKVAR2",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "SKVAR2",
+          "program": "PDHM730B",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "DISP implies dataset creation",
+          "dataset_kind": "temporary",
+          "disp": "(,PASS)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [],
+      "controlled_by": [],
+      "deleted_by": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-SYS1_SORTLIB",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset SYS1.SORTLIB (system). Produced by: none. Consumed by: none. Deleted by: none. External input: yes.",
+    "content": {
+      "dsn": "SYS1.SORTLIB",
+      "dataset_kind": "system",
+      "external_input": true,
+      "produced_by": [],
+      "consumed_by": [],
+      "controlled_by": [
+        {
+          "execution_order": 6,
+          "step": "SORANAG",
+          "ddname": "SORTLIB",
+          "program": "ICEMAN",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "control",
+          "access_reason": "Control DD name",
+          "dataset_kind": "system",
+          "disp": "SHR",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "deleted_by": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-TEPDET_BPDKCAF_PDCAF002_M_MENS_T_TIPO",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO (persistent). Produced by: PDHM730B. Consumed by: none. Deleted by: SCRA. External input: no.",
+    "content": {
+      "dsn": "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "OUTCAF",
+          "program": "PDHM730B",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "DISP implies dataset creation",
+          "dataset_kind": "persistent",
+          "disp": "(,CATLG,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [],
+      "controlled_by": [],
+      "deleted_by": [
+        {
+          "execution_order": 2,
+          "step": "SCRA",
+          "ddname": "PDKCAF",
+          "program": "IEFBR14",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "delete",
+          "access_reason": "IEFBR14 cleanup pattern",
+          "dataset_kind": "persistent",
+          "disp": "(MOD,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ]
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-TEPDET_BVARIAZ_CAF_ANNO_M_MENS_T_TIPO",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO (persistent). Produced by: PDHM730B. Consumed by: PDHM730C. Deleted by: SCRA. External input: no.",
+    "content": {
+      "dsn": "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "SKVAR1",
+          "program": "PDHM730B",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "DISP implies dataset creation",
+          "dataset_kind": "persistent",
+          "disp": "(,CATLG,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [
+        {
+          "execution_order": 4,
+          "step": "PDHM730C",
+          "ddname": "SKINPUT",
+          "program": "PDHM730C",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "read",
+          "access_reason": "DISP references an existing dataset",
+          "dataset_kind": "persistent",
+          "disp": "SHR",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "controlled_by": [],
+      "deleted_by": [
+        {
+          "execution_order": 2,
+          "step": "SCRA",
+          "ddname": "VARIAZ",
+          "program": "IEFBR14",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "delete",
+          "access_reason": "IEFBR14 cleanup pattern",
+          "dataset_kind": "persistent",
+          "disp": "(MOD,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ]
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-TEPDET_BVOCI_CAF_ANNO_M_MENS_T_TIPO",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO (persistent). Produced by: PDHM730C. Consumed by: none. Deleted by: SCRA. External input: no.",
+    "content": {
+      "dsn": "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "produced_by": [
+        {
+          "execution_order": 4,
+          "step": "PDHM730C",
+          "ddname": "FOUTPUT",
+          "program": "PDHM730C",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "write",
+          "access_reason": "DISP implies dataset creation",
+          "dataset_kind": "persistent",
+          "disp": "(,CATLG)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "consumed_by": [],
+      "controlled_by": [],
+      "deleted_by": [
+        {
+          "execution_order": 2,
+          "step": "SCRA",
+          "ddname": "VOCI730",
+          "program": "IEFBR14",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "delete",
+          "access_reason": "IEFBR14 cleanup pattern",
+          "dataset_kind": "persistent",
+          "disp": "(MOD,DELETE)",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ]
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-TEPDET_CXCB2S_PDKCAF",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset TEPDET.CXCB2S.PDKCAF (persistent). Produced by: none. Consumed by: SCARCAF. Deleted by: none. External input: yes.",
+    "content": {
+      "dsn": "TEPDET.CXCB2S.PDKCAF",
+      "dataset_kind": "persistent",
+      "external_input": true,
+      "produced_by": [],
+      "consumed_by": [
+        {
+          "execution_order": 1,
+          "step": "SCARCAF",
+          "ddname": "INPUT",
+          "program": "IDCAMS",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "read",
+          "access_reason": "Input DD name",
+          "dataset_kind": "persistent",
+          "disp": "SHR",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "controlled_by": [],
+      "deleted_by": []
+    }
+  },
+  {
+    "id": "JCL-DSN-PDCAFIN2-TEPE1A_TSO_PARM_PTVSREPR",
+    "type": "jcl_dataset",
+    "job": "PDCAFIN2",
+    "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+    "embedding_text": "JCL job PDCAFIN2 dataset TEPE1A.TSO.PARM(PTVSREPR) (persistent). Produced by: none. Consumed by: none. Deleted by: none. External input: yes.",
+    "content": {
+      "dsn": "TEPE1A.TSO.PARM(PTVSREPR)",
+      "dataset_kind": "persistent",
+      "external_input": true,
+      "produced_by": [],
+      "consumed_by": [],
+      "controlled_by": [
+        {
+          "execution_order": 1,
+          "step": "SCARCAF",
+          "ddname": "SYSIN",
+          "program": "IDCAMS",
+          "proc": null,
+          "exec_kind": "program",
+          "scope": "expanded_local_procedure",
+          "access_type": "control",
+          "access_reason": "Control DD name",
+          "dataset_kind": "persistent",
+          "disp": "SHR",
+          "invoked_by_step": "PDCAFIN2",
+          "invoked_proc": "PDCAFIN2"
+        }
+      ],
+      "deleted_by": []
+    }
+  }
+]

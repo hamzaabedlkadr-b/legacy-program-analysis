@@ -10,19 +10,27 @@
     "paragraph": "BROWSE-FASE1",
     "kind": "full_line",
     "text": "(viene chiuso dall'elaborazione dei Collaboratori)",
-    "text_raw": "(viene chiuso dall'elaborazione dei Collaboratori)"
+    "text_raw": "(viene chiuso dall'elaborazione dei Collaboratori)",
+    "normalized_text": "(viene chiuso dall'elaborazione dei Collaboratori)",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 238,
     "section": "LINKAGE",
     "paragraph": "BROWSE-FASE1",
     "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
+      "classification:explanatory_comment",
       "section:LINKAGE",
-      "paragraph:BROWSE-FASE1"
+      "paragraph:BROWSE-FASE1",
+      "indexable:true"
     ]
   },
   "links": {

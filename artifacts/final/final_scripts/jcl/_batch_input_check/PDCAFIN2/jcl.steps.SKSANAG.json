@@ -1,0 +1,72 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "SKSANAG",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "PARM2SK",
+  "program": "PARM2SK",
+  "proc": null,
+  "parameters": {
+    "PARM": "' SORT FIELDS=(400,60,CH,A)'"
+  },
+  "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [],
+  "writes": [
+    "&&SKANAG"
+  ],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
+  "dds": [
+    {
+      "ddname": "SKEDA",
+      "concatenated": false,
+      "dsn": "&&SKANAG",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&SKANAG,DISP=(,PASS),UNIT=3390,SPACE=(80,1)",
+      "annotations": [],
+      "source_lines": {
+        "start": 95,
+        "end": 95
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation"
+    },
+    {
+      "ddname": "SYSOUT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DUMMY",
+      "annotations": [],
+      "source_lines": {
+        "start": 96,
+        "end": 96
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "control",
+      "access_reason": "DUMMY DD"
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 92,
+    "end": 93
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

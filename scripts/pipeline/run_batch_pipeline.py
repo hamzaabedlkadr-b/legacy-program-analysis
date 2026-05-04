@@ -518,6 +518,19 @@ def main():
             "--out-dir", str(artifacts_dir / "dataflow.variable"),
         ])
         run_cmd([
+            python, str(FINAL_SCRIPTS_DIR / "dataflow.literal_assignments" / "build_dataflow_literal_assignments.py"),
+            "--input", str(pdc_var_used),
+            "--program", program,
+            "--output", str(artifacts_dir / "dataflow.literal_assignments.json"),
+        ])
+        run_cmd([
+            python, str(FINAL_SCRIPTS_DIR / "architecture.call_parameters" / "build_architecture_call_parameters.py"),
+            "--cobol", str(cobol),
+            "--program", program,
+            "--variables", str(pdc_var_used),
+            "--output", str(artifacts_dir / "architecture.call_parameters.json"),
+        ])
+        run_cmd([
             python, str(FINAL_SCRIPTS_DIR / "business_rule" / "build_business_rule_details.py"),
             "--input", str(pdc_rules),
             "--program", program,

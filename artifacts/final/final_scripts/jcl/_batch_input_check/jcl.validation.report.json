@@ -1,0 +1,199 @@
+{
+  "type": "jcl.validation.report",
+  "jcl_dir": "artifacts\\final\\final_scripts\\input\\cobol\\jcl",
+  "summary": {
+    "files_checked": 3,
+    "files_parsed": 3,
+    "parse_errors": 0,
+    "files_with_flags": 1,
+    "files_with_warnings": 1,
+    "files_with_unresolved_procedures": 1,
+    "files_with_batch_resolvable_procedures": 0,
+    "files_with_zero_parsed_programs": 1,
+    "files_with_unknown_dd_usage": 0
+  },
+  "procedure_catalog": [
+    {
+      "procedure": "PDADDRE1",
+      "definitions": [
+        {
+          "source": "artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL",
+          "job": "PDADDRE1",
+          "procedure": "PDADDRE1",
+          "programs": [
+            "ICEMAN",
+            "IEFBR14",
+            "PARM2SK",
+            "PDHADR00",
+            "PDHADR01",
+            "PDKADR"
+          ],
+          "steps_count": 7
+        }
+      ]
+    },
+    {
+      "procedure": "PDCAFIN2",
+      "definitions": [
+        {
+          "source": "artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+          "job": "PDCAFIN2",
+          "procedure": "PDCAFIN2",
+          "programs": [
+            "ICEMAN",
+            "IDCAMS",
+            "IEFBR14",
+            "PARM2SK",
+            "PDHM730B",
+            "PDHM730C",
+            "PDHM730D"
+          ],
+          "steps_count": 9
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "source": "artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL",
+      "job": "PDADDRE1",
+      "purpose": "CALCOLO ADDIZIONALE REGIONALE PER IP/AV",
+      "warnings": [
+        "!!!! VERIFICARE SE PUO' SERIVRE E QUANDO FARLO !!!!",
+        "DELADR: ATTENZIONE PARAMETRO",
+        "CARADR: ATTENZIONE PARAMETRO"
+      ],
+      "programs": [
+        "ICEMAN",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHADR00",
+        "PDHADR01",
+        "PDKADR"
+      ],
+      "procedures": [
+        "PDADDRE1"
+      ],
+      "local_procedures": [
+        {
+          "procedure": "PDADDRE1",
+          "parameters": {},
+          "steps_count": 7,
+          "programs": [
+            "ICEMAN",
+            "IEFBR14",
+            "PARM2SK",
+            "PDHADR00",
+            "PDHADR01",
+            "PDKADR"
+          ],
+          "source_lines": {
+            "start": 6,
+            "end": 103
+          }
+        }
+      ],
+      "symbols": {},
+      "control_statements_count": 0,
+      "execution_steps_count": 7,
+      "datasets_count": 7,
+      "raw_unresolved_procedures": [],
+      "batch_resolvable_procedures": [],
+      "unresolved_procedures": [],
+      "zero_parsed_programs": false,
+      "unknown_dd_usage": [],
+      "flags": [],
+      "status": "ok"
+    },
+    {
+      "source": "artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDASCO01.JCL",
+      "job": "PDASCO01",
+      "purpose": "Acquisizione Assenze In Commissione su VSAM TEPDET.CXCB2S.ASSC",
+      "warnings": [
+        "NON RIESEGUIBILE",
+        "Unresolved procedure invocation: PDASCO01"
+      ],
+      "programs": [],
+      "procedures": [
+        "PDASCO01"
+      ],
+      "local_procedures": [],
+      "symbols": {},
+      "control_statements_count": 0,
+      "execution_steps_count": 1,
+      "datasets_count": 0,
+      "raw_unresolved_procedures": [
+        "PDASCO01"
+      ],
+      "batch_resolvable_procedures": [],
+      "unresolved_procedures": [
+        "PDASCO01"
+      ],
+      "zero_parsed_programs": true,
+      "unknown_dd_usage": [],
+      "flags": [
+        {
+          "kind": "unresolved_procedure",
+          "severity": "warning",
+          "message": "1 procedure reference(s) remain unresolved after batch-wide PROC lookup."
+        },
+        {
+          "kind": "zero_parsed_programs",
+          "severity": "warning",
+          "message": "No executable programs were parsed from this JCL file."
+        }
+      ],
+      "status": "warning"
+    },
+    {
+      "source": "artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+      "job": "PDCAFIN2",
+      "purpose": "ACQUISIZIONI DATI DAL CAF DELLA CAMERA E DAI CAAF ESTERNI",
+      "warnings": [],
+      "programs": [
+        "ICEMAN",
+        "IDCAMS",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHM730B",
+        "PDHM730C",
+        "PDHM730D"
+      ],
+      "procedures": [
+        "PDCAFIN2"
+      ],
+      "local_procedures": [
+        {
+          "procedure": "PDCAFIN2",
+          "parameters": {},
+          "steps_count": 9,
+          "programs": [
+            "ICEMAN",
+            "IDCAMS",
+            "IEFBR14",
+            "PARM2SK",
+            "PDHM730B",
+            "PDHM730C",
+            "PDHM730D"
+          ],
+          "source_lines": {
+            "start": 35,
+            "end": 149
+          }
+        }
+      ],
+      "symbols": {},
+      "control_statements_count": 3,
+      "execution_steps_count": 9,
+      "datasets_count": 12,
+      "raw_unresolved_procedures": [],
+      "batch_resolvable_procedures": [],
+      "unresolved_procedures": [],
+      "zero_parsed_programs": false,
+      "unknown_dd_usage": [],
+      "flags": [],
+      "status": "ok"
+    }
+  ],
+  "parse_errors": []
+}

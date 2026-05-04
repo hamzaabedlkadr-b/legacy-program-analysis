@@ -1,0 +1,45 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "TEPE1A.TSO.PARM(PTVSREPR)",
+  "dataset_kind": "persistent",
+  "external_input": true,
+  "produced_by": [],
+  "consumed_by": [],
+  "controlled_by": [
+    {
+      "execution_order": 1,
+      "step": "SCARCAF",
+      "ddname": "SYSIN",
+      "program": "IDCAMS",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "control",
+      "access_reason": "Control DD name",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    }
+  ],
+  "deleted_by": [],
+  "used_by": [
+    {
+      "execution_order": 1,
+      "step": "SCARCAF",
+      "ddname": "SYSIN",
+      "program": "IDCAMS",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "control",
+      "access_reason": "Control DD name",
+      "dataset_kind": "persistent",
+      "disp": "SHR",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    }
+  ],
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

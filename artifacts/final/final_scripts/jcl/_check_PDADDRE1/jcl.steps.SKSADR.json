@@ -12,6 +12,15 @@
     "PARM": "' SORT FIELDS=(1,15,CH,A)'"
   },
   "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [],
+  "writes": [
+    "&&INSADR"
+  ],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
   "dds": [
     {
       "ddname": "SKEDA",
@@ -21,10 +30,15 @@
       "unit": "3390",
       "output": null,
       "raw": "DD DSN=&&INSADR,DISP=(,PASS),UNIT=3390,SPACE=(80,1)",
+      "annotations": [],
       "source_lines": {
         "start": 81,
         "end": 81
-      }
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation"
     },
     {
       "ddname": "SYSOUT",
@@ -33,11 +47,18 @@
       "sysout": null,
       "unit": null,
       "output": null,
-      "raw": "DD DUMMY  Microfocus",
+      "raw": "DD DUMMY",
+      "annotations": [
+        "Microfocus"
+      ],
       "source_lines": {
         "start": 83,
         "end": 83
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "control",
+      "access_reason": "DUMMY DD"
     }
   ],
   "resolved_locally": false,
@@ -47,5 +68,5 @@
     "start": 78,
     "end": 79
   },
-  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+  "source": "jcl_files\\PDADDRE1.JCL"
 }

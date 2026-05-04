@@ -10,19 +10,27 @@
     "paragraph": "BROWSE-FASE1",
     "kind": "full_line",
     "text": "2 = Aperto",
-    "text_raw": "2 = Aperto"
+    "text_raw": "2 = Aperto",
+    "normalized_text": "2 = Aperto",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
   },
   "meta": {
-    "source": "PDCBVC.CBL",
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
     "line": 245,
     "section": "LINKAGE",
     "paragraph": "BROWSE-FASE1",
     "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
     "tags": [
       "program:PDCBVC",
       "kind:full_line",
+      "classification:explanatory_comment",
       "section:LINKAGE",
-      "paragraph:BROWSE-FASE1"
+      "paragraph:BROWSE-FASE1",
+      "indexable:true"
     ]
   },
   "links": {

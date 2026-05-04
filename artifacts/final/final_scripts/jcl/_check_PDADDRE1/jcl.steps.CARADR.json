@@ -12,6 +12,20 @@
     "PARM": "'I'"
   },
   "positional": [],
+  "notes": [
+    "ATTENZIONE PARAMETRO"
+  ],
+  "comment_context": [
+    "CARICAMENTO TABELLA PDKADR DEI SOLI RECORD PRODOTTI",
+    "DALL'ELABORAZIONE (MODALITA' \"I\"=DELETE/INSERT)"
+  ],
+  "reads": [
+    "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+  ],
+  "writes": [],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
   "dds": [
     {
       "ddname": "SYSPRINT",
@@ -21,10 +35,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=*",
+      "annotations": [],
       "source_lines": {
         "start": 98,
         "end": 98
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     },
     {
       "ddname": "SYSOUT",
@@ -34,10 +53,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=*",
+      "annotations": [],
       "source_lines": {
         "start": 99,
         "end": 99
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     },
     {
       "ddname": "INPSEQ",
@@ -47,10 +71,15 @@
       "unit": null,
       "output": null,
       "raw": "DD DSN=TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO,DISP=SHR",
+      "annotations": [],
       "source_lines": {
         "start": 100,
         "end": 100
-      }
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "Input DD name"
     },
     {
       "ddname": "SYSTSPRT",
@@ -60,10 +89,15 @@
       "unit": null,
       "output": null,
       "raw": "DD SYSOUT=*",
+      "annotations": [],
       "source_lines": {
         "start": 101,
         "end": 101
-      }
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
     }
   ],
   "resolved_locally": false,
@@ -73,5 +107,5 @@
     "start": 97,
     "end": 97
   },
-  "source": "final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL"
+  "source": "jcl_files\\PDADDRE1.JCL"
 }
