@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "type": "jcl.file_io",
+  "program": "PDCBVC",
+  "title": "PDCBVC JCL file I/O evidence",
+  "content": {
+    "matching_jobs_count": 0,
+    "matching_jobs": [],
+    "matching_steps_count": 0,
+    "matching_steps": [],
+    "reads": [],
+    "writes": [],
+    "sysout": [],
+    "has_jcl_linkage": false,
+    "known_jobs": [
+      "PDADDRE1",
+      "PDASCO01",
+      "PDCAFIN2"
+    ],
+    "known_programs_sample": [
+      "ICEMAN",
+      "IDCAMS",
+      "IEBGENER",
+      "IEFBR14",
+      "PARM2SK",
+      "PDHADR00",
+      "PDHADR01",
+      "PDHM730B",
+      "PDHM730C",
+      "PDHM730D",
+      "PDKADR"
+    ],
+    "limitations": [
+      "This artifact maps file I/O through JCL step summaries only.",
+      "CICS online programs often have no JCL dataset production evidence.",
+      "Program-to-JCL linkage depends on parsed EXEC PGM/procedure summaries."
+    ]
+  },
+  "evidence": {
+    "jcl_root": "jcl/**/*.json"
+  }
+}

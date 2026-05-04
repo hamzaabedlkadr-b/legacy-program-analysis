@@ -1,0 +1,988 @@
+{
+  "schema_version": 1,
+  "type": "screen_field_lineage",
+  "program": "PDCBVC",
+  "title": "PDCBVC screen/map field lineage",
+  "content": {
+    "fields_count": 19,
+    "fields": [
+      {
+        "field": "M0AMBO",
+        "family": "M0AMB",
+        "family_members": [
+          "M0AMBO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 544,
+            "statement": "MOVE TWCOB-NOME-CICS TO M0AMBO.",
+            "citation": "dataflow.variable/dataflow.variable.M0AMBO.json | line 544"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "TWCOB-NOME-CICS",
+            "paragraph": "MUOVI-TESTATA-00",
+            "line": 544,
+            "statement": "MOVE TWCOB-NOME-CICS TO M0AMBO.",
+            "relationship": "appears with M0AMBO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.M0AMBO.json | line 544 | TWCOB-NOME-CICS"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.M0AMBO.json"
+      },
+      {
+        "field": "M1DATAO",
+        "family": "M1DATA",
+        "family_members": [
+          "M1DATAO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 554,
+            "statement": "MOVE  WDATA             TO  M1DATAO.",
+            "citation": "dataflow.variable/dataflow.variable.M1DATAO.json | line 554"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "WDATA",
+            "paragraph": "MUOVI-TESTATA-00",
+            "line": 554,
+            "statement": "MOVE  WDATA             TO  M1DATAO.",
+            "relationship": "appears with M1DATAO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.M1DATAO.json | line 554 | WDATA"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.M1DATAO.json"
+      },
+      {
+        "field": "M1MSGL",
+        "family": "M1MSG",
+        "family_members": [
+          "M1MSGL",
+          "M1MSGO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "BROWSE-FASE2-TASTOER"
+        ],
+        "modified_in": [
+          "BROWSE-FASE2-TASTOER"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-TASTOER",
+            "line_start": 343,
+            "statement": "MOVE  -1  TO M1MSGL.",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGL.json | line 343"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [
+          {
+            "target_variable": "M1MSGL",
+            "literal": "-1",
+            "paragraph": "BROWSE-FASE2-TASTOER",
+            "line": 343,
+            "statement": "MOVE  -1  TO M1MSGL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 343 | M1MSGL"
+          },
+          {
+            "target_variable": "M1MSGO",
+            "literal": "Progressivo digitato non presente",
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line": 376,
+            "statement": "MOVE  'Progressivo digitato non presente'  TO M1MSGO.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 376 | M1MSGO"
+          }
+        ],
+        "related_variables": [],
+        "source_artifact": "dataflow.variable/dataflow.variable.M1MSGL.json"
+      },
+      {
+        "field": "M1MSGO",
+        "family": "M1MSG",
+        "family_members": [
+          "M1MSGL",
+          "M1MSGO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "BROWSE-FASE1"
+        ],
+        "modified_in": [
+          "BROWSE-FASE1",
+          "BROWSE-FASE2-NOSEL",
+          "BROWSE-FASE2-NOTFND",
+          "BROWSE-FASE2-TASTOER",
+          "BROWSE-FASE2-VISUAL"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 285,
+            "statement": "MOVE  KFINE-DATI    TO  M1MSGO.",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 285"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-TASTOER",
+            "line_start": 344,
+            "statement": "MOVE  WTASTOER     TO M1MSGO.",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 344"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line_start": 350,
+            "statement": "MOVE  WMNOSEL      TO M1MSGO.",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 350"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line_start": 376,
+            "statement": "MOVE  'Progressivo digitato non presente'  TO M1MSGO.",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 376"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 387,
+            "statement": "MOVE  KFINE-DATI    TO  M1MSGO.",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 387"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [
+          {
+            "target_variable": "M1MSGL",
+            "literal": "-1",
+            "paragraph": "BROWSE-FASE2-TASTOER",
+            "line": 343,
+            "statement": "MOVE  -1  TO M1MSGL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 343 | M1MSGL"
+          },
+          {
+            "target_variable": "M1MSGO",
+            "literal": "Progressivo digitato non presente",
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line": 376,
+            "statement": "MOVE  'Progressivo digitato non presente'  TO M1MSGO.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 376 | M1MSGO"
+          }
+        ],
+        "related_variables": [
+          {
+            "variable": "KFINE-DATI",
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line": 387,
+            "statement": "MOVE  KFINE-DATI    TO  M1MSGO.",
+            "relationship": "appears with M1MSGO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 387 | KFINE-DATI"
+          },
+          {
+            "variable": "WMNOSEL",
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line": 350,
+            "statement": "MOVE  WMNOSEL      TO M1MSGO.",
+            "relationship": "appears with M1MSGO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 350 | WMNOSEL"
+          },
+          {
+            "variable": "WTASTOER",
+            "paragraph": "BROWSE-FASE2-TASTOER",
+            "line": 344,
+            "statement": "MOVE  WTASTOER     TO M1MSGO.",
+            "relationship": "appears with M1MSGO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 344 | WTASTOER"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.M1MSGO.json"
+      },
+      {
+        "field": "M1PF7A",
+        "family": "M1PF7",
+        "family_members": [
+          "M1PF7A"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "BROWSE-FASE1"
+        ],
+        "modified_in": [
+          "BROWSE-FASE1",
+          "BROWSE-FASE2-VISUAL"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 281,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF7A",
+            "citation": "dataflow.variable/dataflow.variable.M1PF7A.json | line 281"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 385,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF7A.",
+            "citation": "dataflow.variable/dataflow.variable.M1PF7A.json | line 385"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "ASKIP-DRK",
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line": 385,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF7A.",
+            "relationship": "appears with M1PF7A in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.M1PF7A.json | line 385 | ASKIP-DRK"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.M1PF7A.json"
+      },
+      {
+        "field": "M1PF8A",
+        "family": "M1PF8",
+        "family_members": [
+          "M1PF8A"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "BROWSE-FASE1"
+        ],
+        "modified_in": [
+          "BROWSE-FASE1",
+          "BROWSE-FASE2-VISUAL"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 282,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF8A.",
+            "citation": "dataflow.variable/dataflow.variable.M1PF8A.json | line 282"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 384,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF8A",
+            "citation": "dataflow.variable/dataflow.variable.M1PF8A.json | line 384"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "ASKIP-DRK",
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line": 384,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF8A",
+            "relationship": "appears with M1PF8A in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.M1PF8A.json | line 384 | ASKIP-DRK"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.M1PF8A.json"
+      },
+      {
+        "field": "M1SYSO",
+        "family": "M1SYS",
+        "family_members": [
+          "M1SYSO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 556,
+            "statement": "MOVE  TWCOB-ID-SISTEMA  TO  M1SYSO.",
+            "citation": "dataflow.variable/dataflow.variable.M1SYSO.json | line 556"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "TWCOB-ID-SISTEMA",
+            "paragraph": "MUOVI-TESTATA-00",
+            "line": 556,
+            "statement": "MOVE  TWCOB-ID-SISTEMA  TO  M1SYSO.",
+            "relationship": "appears with M1SYSO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.M1SYSO.json | line 556 | TWCOB-ID-SISTEMA"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.M1SYSO.json"
+      },
+      {
+        "field": "MCOGO",
+        "family": "MCOG",
+        "family_members": [
+          "MCOGO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 540,
+            "statement": "MOVE TWCOB-COGNOME      TO MCOGO.",
+            "citation": "dataflow.variable/dataflow.variable.MCOGO.json | line 540"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "TWCOB-COGNOME",
+            "paragraph": "MUOVI-TESTATA",
+            "line": 540,
+            "statement": "MOVE TWCOB-COGNOME      TO MCOGO.",
+            "relationship": "appears with MCOGO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.MCOGO.json | line 540 | TWCOB-COGNOME"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.MCOGO.json"
+      },
+      {
+        "field": "MDESCO",
+        "family": "MDESC",
+        "family_members": [
+          "MDESCO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA-30"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA-30"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-30",
+            "line_start": 623,
+            "statement": "MOVE  TESTATA              TO  MDESCO.",
+            "citation": "dataflow.variable/dataflow.variable.MDESCO.json | line 623"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [],
+        "source_artifact": "dataflow.variable/dataflow.variable.MDESCO.json"
+      },
+      {
+        "field": "MDSESSO",
+        "family": "MDSESS",
+        "family_members": [
+          "MDSESSO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 565,
+            "statement": "MOVE  'Aperta'           TO   MDSESSO",
+            "citation": "dataflow.variable/dataflow.variable.MDSESSO.json | line 565"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 568,
+            "statement": "MOVE  'Chiusa'           TO   MDSESSO",
+            "citation": "dataflow.variable/dataflow.variable.MDSESSO.json | line 568"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 571,
+            "statement": "MOVE  'Liquidata'        TO   MDSESSO.",
+            "citation": "dataflow.variable/dataflow.variable.MDSESSO.json | line 571"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [
+          {
+            "target_variable": "MDSESSO",
+            "literal": "Aperta",
+            "paragraph": "MUOVI-TESTATA-00",
+            "line": 565,
+            "statement": "MOVE  'Aperta'           TO   MDSESSO",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 565 | MDSESSO"
+          },
+          {
+            "target_variable": "MDSESSO",
+            "literal": "Chiusa",
+            "paragraph": "MUOVI-TESTATA-00",
+            "line": 568,
+            "statement": "MOVE  'Chiusa'           TO   MDSESSO",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 568 | MDSESSO"
+          },
+          {
+            "target_variable": "MDSESSO",
+            "literal": "Liquidata",
+            "paragraph": "MUOVI-TESTATA-00",
+            "line": 571,
+            "statement": "MOVE  'Liquidata'        TO   MDSESSO.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 571 | MDSESSO"
+          }
+        ],
+        "related_variables": [],
+        "source_artifact": "dataflow.variable/dataflow.variable.MDSESSO.json"
+      },
+      {
+        "field": "MMATRO",
+        "family": "MMATR",
+        "family_members": [
+          "MMATRO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 542,
+            "statement": "MOVE TWCOB-CODICE-DIP   TO MMATRO.",
+            "citation": "dataflow.variable/dataflow.variable.MMATRO.json | line 542"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "TWCOB-CODICE-DIP",
+            "paragraph": "MUOVI-TESTATA",
+            "line": 542,
+            "statement": "MOVE TWCOB-CODICE-DIP   TO MMATRO.",
+            "relationship": "appears with MMATRO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.MMATRO.json | line 542 | TWCOB-CODICE-DIP"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.MMATRO.json"
+      },
+      {
+        "field": "MNOMO",
+        "family": "MNOM",
+        "family_members": [
+          "MNOMO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 541,
+            "statement": "MOVE TWCOB-NOME         TO MNOMO.",
+            "citation": "dataflow.variable/dataflow.variable.MNOMO.json | line 541"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "TWCOB-NOME",
+            "paragraph": "MUOVI-TESTATA",
+            "line": 541,
+            "statement": "MOVE TWCOB-NOME         TO MNOMO.",
+            "relationship": "appears with MNOMO in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.MNOMO.json | line 541 | TWCOB-NOME"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.MNOMO.json"
+      },
+      {
+        "field": "MNPAGO",
+        "family": "MNPAG",
+        "family_members": [
+          "MNPAGO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-DATI-30"
+        ],
+        "modified_in": [
+          "MUOVI-DATI-30"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 693,
+            "statement": "MOVE  NPAGINA  TO  MNPAGO.",
+            "citation": "dataflow.variable/dataflow.variable.MNPAGO.json | line 693"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [],
+        "source_artifact": "dataflow.variable/dataflow.variable.MNPAGO.json"
+      },
+      {
+        "field": "MRIGAO",
+        "family": "MRIGA",
+        "family_members": [
+          "MRIGAO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "PREP-RIGA-010"
+        ],
+        "modified_in": [
+          "ABBL-RIGA-10",
+          "PREP-RIGA-010"
+        ],
+        "used_in": [
+          "BROWSE-FASE2-SEL-10"
+        ],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA-010",
+            "line_start": 739,
+            "statement": "MOVE RIGA-MAPPA             TO  MRIGAO(WCTRIG).",
+            "citation": "dataflow.variable/dataflow.variable.MRIGAO.json | line 739"
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": 795,
+            "statement": "MOVE  SPACE  TO   MRIGAO(WCTRIG).",
+            "citation": "dataflow.variable/dataflow.variable.MRIGAO.json | line 795"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 360,
+            "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA.",
+            "citation": "dataflow.variable/dataflow.variable.MRIGAO.json | line 360"
+          }
+        ],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "RIGA-MAPPA",
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line": 360,
+            "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA.",
+            "relationship": "appears with MRIGAO in read_sites",
+            "citation": "dataflow.variable/dataflow.variable.MRIGAO.json | line 360 | RIGA-MAPPA"
+          },
+          {
+            "variable": "WCTRIG",
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line": 360,
+            "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA.",
+            "relationship": "appears with MRIGAO in read_sites",
+            "citation": "dataflow.variable/dataflow.variable.MRIGAO.json | line 360 | WCTRIG"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.MRIGAO.json"
+      },
+      {
+        "field": "MSESSIO",
+        "family": "MSESSI",
+        "family_members": [
+          "MSESSIO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "modified_in": [
+          "MUOVI-TESTATA-00"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 562,
+            "statement": "MOVE  SESSIONE            TO   MSESSIO.",
+            "citation": "dataflow.variable/dataflow.variable.MSESSIO.json | line 562"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [],
+        "source_artifact": "dataflow.variable/dataflow.variable.MSESSIO.json"
+      },
+      {
+        "field": "PDCBVC1I",
+        "family": "PDCBVC1",
+        "family_members": [
+          "PDCBVC1I"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "BROWSE-FASE1"
+        ],
+        "modified_in": [
+          "BROWSE-FASE1"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 234,
+            "statement": "MOVE LOW-VALUE TO PDCBVC1I.",
+            "citation": "dataflow.variable/dataflow.variable.PDCBVC1I.json | line 234"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [],
+        "related_variables": [
+          {
+            "variable": "LOW-VALUE",
+            "paragraph": "BROWSE-FASE1",
+            "line": 234,
+            "statement": "MOVE LOW-VALUE TO PDCBVC1I.",
+            "relationship": "appears with PDCBVC1I in write_sites",
+            "citation": "dataflow.variable/dataflow.variable.PDCBVC1I.json | line 234 | LOW-VALUE"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.PDCBVC1I.json"
+      },
+      {
+        "field": "SCELTAI",
+        "family": "SCELTA",
+        "family_members": [
+          "SCELTAI",
+          "SCELTAL",
+          "SCELTAO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [],
+        "modified_in": [],
+        "used_in": [
+          "BROWSE-FASE2-ENTER",
+          "BROWSE-FASE2-SEL-10"
+        ],
+        "controls_flow": true,
+        "fanout_nodes": [
+          "BROWSE-FASE2-SEL",
+          "BROWSE-FASE2-SEL-20"
+        ],
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 317,
+            "statement": "IF SCELTAI   NOT  =  '__'   AND",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json | line 317"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 318,
+            "statement": "SCELTAI   NOT  =  SPACES",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json | line 318"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 362,
+            "statement": "IF SCELTAI  =  WPROGR   THEN",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json | line 362"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 317,
+            "statement": "IF SCELTAI   NOT  =  '__'   AND",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json | line 317"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 362,
+            "statement": "IF SCELTAI  =  WPROGR   THEN",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json | line 362"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": -1,
+            "statement": "(SCELTAI NOT = '__') AND (SCELTAI NOT = SPACES)",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": -1,
+            "statement": "SCELTAI = WPROGR",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json"
+          }
+        ],
+        "literal_assignments": [
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line": 349,
+            "statement": "MOVE  -1  TO SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 349 | SCELTAL"
+          },
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line": 375,
+            "statement": "MOVE  -1  TO  SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 375 | SCELTAL"
+          },
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "PREPARA-MAP",
+            "line": 531,
+            "statement": "MOVE  -1         TO  SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 531 | SCELTAL"
+          }
+        ],
+        "related_variables": [
+          {
+            "variable": "WPROGR",
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line": 362,
+            "statement": "IF SCELTAI  =  WPROGR   THEN",
+            "relationship": "appears with SCELTAI in control_sites",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json | line 362 | WPROGR"
+          }
+        ],
+        "source_artifact": "dataflow.variable/dataflow.variable.SCELTAI.json"
+      },
+      {
+        "field": "SCELTAL",
+        "family": "SCELTA",
+        "family_members": [
+          "SCELTAI",
+          "SCELTAL",
+          "SCELTAO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [
+          "BROWSE-FASE2-NOSEL"
+        ],
+        "modified_in": [
+          "BROWSE-FASE2-NOSEL",
+          "BROWSE-FASE2-NOTFND",
+          "PREPARA-MAP"
+        ],
+        "used_in": [],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line_start": 349,
+            "statement": "MOVE  -1  TO SCELTAL.",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAL.json | line 349"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line_start": 375,
+            "statement": "MOVE  -1  TO  SCELTAL.",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAL.json | line 375"
+          },
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 531,
+            "statement": "MOVE  -1         TO  SCELTAL.",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAL.json | line 531"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": [],
+        "literal_assignments": [
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line": 349,
+            "statement": "MOVE  -1  TO SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 349 | SCELTAL"
+          },
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line": 375,
+            "statement": "MOVE  -1  TO  SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 375 | SCELTAL"
+          },
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "PREPARA-MAP",
+            "line": 531,
+            "statement": "MOVE  -1         TO  SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 531 | SCELTAL"
+          }
+        ],
+        "related_variables": [],
+        "source_artifact": "dataflow.variable/dataflow.variable.SCELTAL.json"
+      },
+      {
+        "field": "SCELTAO",
+        "family": "SCELTA",
+        "family_members": [
+          "SCELTAI",
+          "SCELTAL",
+          "SCELTAO"
+        ],
+        "origin": "COPY:PDCBVCM",
+        "defined_in": [],
+        "modified_in": [],
+        "used_in": [
+          "PREPARA-MAP"
+        ],
+        "controls_flow": false,
+        "fanout_nodes": [],
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 529,
+            "statement": "THEN MOVE '01'  TO SCELTAO.",
+            "citation": "dataflow.variable/dataflow.variable.SCELTAO.json | line 529"
+          }
+        ],
+        "control_sites": [],
+        "literal_assignments": [
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line": 349,
+            "statement": "MOVE  -1  TO SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 349 | SCELTAL"
+          },
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line": 375,
+            "statement": "MOVE  -1  TO  SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 375 | SCELTAL"
+          },
+          {
+            "target_variable": "SCELTAL",
+            "literal": "-1",
+            "paragraph": "PREPARA-MAP",
+            "line": 531,
+            "statement": "MOVE  -1         TO  SCELTAL.",
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 531 | SCELTAL"
+          }
+        ],
+        "related_variables": [],
+        "source_artifact": "dataflow.variable/dataflow.variable.SCELTAO.json"
+      }
+    ],
+    "copybook_origins": [
+      "PDCBVCM"
+    ],
+    "limitations": [
+      "Lineage is derived from dataflow.variable artifacts and literal assignments.",
+      "Input-origin values entered by terminal users have read/control evidence but may not have write evidence in COBOL.",
+      "Family grouping uses common BMS suffixes such as I, O, L, A, and F."
+    ]
+  },
+  "evidence": {
+    "variable_artifacts": "dataflow.variable/dataflow.variable.*.json",
+    "literal_artifact": "dataflow.literal_assignments/dataflow.literal_assignments.json"
+  }
+}
