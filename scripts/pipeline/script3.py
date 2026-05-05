@@ -27,6 +27,16 @@ def die(msg: str, code: int = 1) -> None:
 def normalize_name(x: str) -> str:
     return (x or "").strip().upper()
 
+
+def normalize_program_from_path(path_text: str | None) -> str:
+    text = (path_text or "").strip()
+    if not text:
+        return "UNKNOWN"
+    leaf = text.replace("\\", "/").rstrip("/").split("/")[-1]
+    if "." in leaf:
+        leaf = leaf.rsplit(".", 1)[0]
+    return normalize_name(leaf or text)
+
 def stable_id(*parts: str, length: int = 16) -> str:
     """Stable short id for documents. Increase length a bit to reduce collision risk."""
     s = "||".join(parts)
@@ -169,7 +179,7 @@ def parse_mapa_result(lines: List[str], example_cap: int = 3) -> Tuple[Dict[str,
             # FILE,<uuid>,<path>,<timestamp>
             file_path = parts[2] if len(parts) > 2 else None
             ts = parts[3] if len(parts) > 3 else None
-            prog = normalize_name(Path(file_path).stem if file_path else "UNKNOWN")
+            prog = normalize_program_from_path(file_path)
 
             current_prog = prog
             if prog not in programs:
