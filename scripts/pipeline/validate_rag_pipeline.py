@@ -100,6 +100,36 @@ def count_files(root: Path, patterns: list[str]) -> int:
     return len(seen)
 
 
+def package_copybook_inventory(package_dir: Path, manifest: dict[str, Any]) -> dict[str, Any]:
+    files = (manifest.get("files") or {}).get("copybooks") if manifest else None
+    if isinstance(files, list):
+        paths = [Path(str(item)) for item in files if str(item).strip()]
+    else:
+        copybook_dir = package_dir / "copybooks"
+        paths = [path for path in copybook_dir.iterdir() if path.is_file()] if copybook_dir.is_dir() else []
+
+    stubs = []
+    for path in paths:
+        resolved = path if path.is_absolute() else package_dir / path
+        if is_stub_copybook(resolved):
+            stubs.append(path.name)
+    return {
+        "present_count": len(paths),
+        "stub_count": len(stubs),
+        "stubs": sorted(stubs),
+    }
+
+
+def is_stub_copybook(path: Path) -> bool:
+    if not path.is_file():
+        return False
+    try:
+        text = path.read_text(encoding="utf-8", errors="ignore")[:1000].upper()
+    except OSError:
+        return False
+    return "STUB COPYBOOK" in text or "ORIGINAL COPYBOOK NOT FOUND" in text
+
+
 def package_status(package_dir: Path | None) -> dict[str, Any]:
     if not package_dir:
         return {
@@ -123,10 +153,11 @@ def package_status(package_dir: Path | None) -> dict[str, Any]:
             manifest_valid = False
 
     cobol_files = count_files(package_dir / "cobol", ["*.cbl", "*.CBL", "*.cob", "*.COB", "*.cobol", "*.COBOL"]) if (package_dir / "cobol").is_dir() else 0
-    copybook_files = count_files(package_dir / "copybooks", ["*.cpy", "*.CPY", "*.copy", "*.COPY", "*.cob", "*.COB"]) if (package_dir / "copybooks").is_dir() else 0
     mapa_files = count_files(package_dir / "mapa", ["*.txt", "*.TXT", "*.csv", "*.CSV"]) if (package_dir / "mapa").is_dir() else 0
     cfg_files = count_files(package_dir / "controlflow", ["*.json", "*.JSON"]) if (package_dir / "controlflow").is_dir() else 0
     jcl_files = count_files(package_dir / "jcl", ["*.jcl", "*.JCL", "*.txt", "*.TXT"]) if (package_dir / "jcl").is_dir() else 0
+    copybook_inventory = package_copybook_inventory(package_dir, manifest)
+    copybook_files = copybook_inventory["present_count"]
 
     missing_copybooks = []
     if manifest:
@@ -151,6 +182,8 @@ def package_status(package_dir: Path | None) -> dict[str, Any]:
             "present_count": copybook_files,
             "missing_count": len(missing_copybooks),
             "missing": missing_copybooks,
+            "stub_count": copybook_inventory["stub_count"],
+            "stubs": copybook_inventory["stubs"],
         },
         "manifest_valid": manifest_valid,
     }
@@ -368,7 +401,11 @@ def program_status(package: dict[str, Any], output: dict[str, Any]) -> tuple[str
             notes.append(f"missing {package['copybooks']['missing_count']} copybooks")
             if status != "FAIL":
                 status = "WARN"
-        elif package["copybooks"]["status"] == "none":
+        if package["copybooks"].get("stub_count", 0):
+            notes.append(f"{package['copybooks']['stub_count']} stub copybooks packaged")
+            if status != "FAIL":
+                status = "WARN"
+        if package["copybooks"]["status"] == "none":
             notes.append("no copybooks packaged")
             if status != "FAIL":
                 status = "WARN"
@@ -458,14 +495,16 @@ def copybook_cell(row: dict[str, Any]) -> str:
     copybooks = row["copybooks"]
     missing = copybooks.get("missing_count")
     present = copybooks.get("present_count")
+    stub_count = copybooks.get("stub_count", 0)
+    stub_suffix = f" / {stub_count} stub" if stub_count else ""
     if copybooks.get("status") == "complete":
-        return f"complete ({present})"
+        return f"complete ({present}{stub_suffix})"
     if copybooks.get("status") == "missing":
         names = ", ".join(copybooks.get("missing", [])[:3])
         extra = max(0, (missing or 0) - 3)
         if extra:
             names += f", +{extra}"
-        return f"{present} present / {missing} missing: {names}"
+        return f"{present} present{stub_suffix} / {missing} missing: {names}"
     if copybooks.get("status") == "none":
         return "none"
     return "unknown"
