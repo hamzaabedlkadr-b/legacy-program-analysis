@@ -1,0 +1,32 @@
+{
+  "id": "8e92b361049a0fbf",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-003",
+  "embedding_text": "PDCBVC business rule BR-003 in scope PDCBVC. If TWCOB-FASE = '2' then JUMP -> BROWSE-FASE2. Category=control. Kind=state. Severity=neutral.",
+  "content": {
+    "id": "BR-003",
+    "program": "PDCBVC",
+    "scope": "PDCBVC",
+    "category": "control",
+    "kind": "state",
+    "severity": "neutral",
+    "condition": "TWCOB-FASE = '2'",
+    "action": "JUMP -> BROWSE-FASE2",
+    "flags": [],
+    "evidence": {
+      "from": "PDCBVC",
+      "to": "BROWSE-FASE2",
+      "type": "JUMP",
+      "raw_evidence": "GO TO BROWSE-FASE2."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "PDCBVC",
+    "category": "control",
+    "kind": "state",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

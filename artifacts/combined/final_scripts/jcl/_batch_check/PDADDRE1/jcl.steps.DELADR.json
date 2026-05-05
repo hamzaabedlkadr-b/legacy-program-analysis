@@ -1,0 +1,116 @@
+{
+  "type": "jcl.steps",
+  "job": "PDADDRE1",
+  "step": "DELADR",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDADDRE1",
+  "exec_kind": "program",
+  "target": "PDKADR",
+  "program": "PDKADR",
+  "proc": null,
+  "parameters": {
+    "PARM": "'D'"
+  },
+  "positional": [],
+  "notes": [
+    "ATTENZIONE PARAMETRO"
+  ],
+  "comment_context": [
+    "RIPRISTINO DATI",
+    "CANCELLAZIONE DALLA TABELLA PDKADR DEI SOLI RECORD PRODOTTI",
+    "DALL'ELABORAZIONE PRECEDENTE (MODALITA' \"D\"=SOLO DELETE PUNTUALE)"
+  ],
+  "reads": [
+    "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+  ],
+  "writes": [],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
+  "dds": [
+    {
+      "ddname": "SYSPRINT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "annotations": [],
+      "source_lines": {
+        "start": 15,
+        "end": 15
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "SYSOUT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "annotations": [],
+      "source_lines": {
+        "start": 16,
+        "end": 16
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "INPSEQ",
+      "concatenated": false,
+      "dsn": "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO,DISP=SHR",
+      "annotations": [],
+      "source_lines": {
+        "start": 17,
+        "end": 17
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "Input DD name"
+    },
+    {
+      "ddname": "SYSTSPRT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "annotations": [],
+      "source_lines": {
+        "start": 18,
+        "end": 18
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 14,
+    "end": 14
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\jcl_files\\PDADDRE1.JCL"
+}

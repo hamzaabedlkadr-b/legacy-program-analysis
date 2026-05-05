@@ -1,0 +1,32 @@
+{
+  "id": "faf35fe24a20d337",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-004",
+  "embedding_text": "PDCBVC business rule BR-004 in scope BROWSE-FASE1. If (TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' then CALL -> READ-TAB-SEMAF. Category=precondition. Kind=business. Severity=guard.",
+  "content": {
+    "id": "BR-004",
+    "program": "PDCBVC",
+    "scope": "BROWSE-FASE1",
+    "category": "precondition",
+    "kind": "business",
+    "severity": "guard",
+    "condition": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP'",
+    "action": "CALL -> READ-TAB-SEMAF",
+    "flags": [],
+    "evidence": {
+      "from": "BROWSE-FASE1",
+      "to": "READ-TAB-SEMAF",
+      "type": "CALL",
+      "raw_evidence": "PERFORM READ-TAB-SEMAF"
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "BROWSE-FASE1",
+    "category": "precondition",
+    "kind": "business",
+    "severity": "guard",
+    "flags_count": 0
+  }
+}

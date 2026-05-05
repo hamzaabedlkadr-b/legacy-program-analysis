@@ -1,0 +1,42 @@
+{
+  "id": "a372f7a93d18d606",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WPD1VOCI",
+  "embedding_text": "PDCBVC variable WPD1VOCI. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: LINK-PD1VOCI. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WPD1VOCI",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "LINK-PD1VOCI"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "LINK-PD1VOCI",
+          "line_start": 486,
+          "statement": "EXEC CICS LINK PROGRAM('PD1VOCI') COMMAREA(WPD1VOCI)"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

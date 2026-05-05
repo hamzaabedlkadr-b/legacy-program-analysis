@@ -1,0 +1,55 @@
+{
+  "id": "67e025cb56fcd399",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PXCSEMAF-STATUS",
+  "embedding_text": "PDCBVC variable PXCSEMAF-STATUS. Origin=UNKNOWN. Defined in: none. Modified in: none. Used in: BROWSE-FASE1. Controls flow: yes. Fanout nodes: XCTL-LIV4.",
+  "content": {
+    "variable": "PXCSEMAF-STATUS",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE1"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "XCTL-LIV4"
+    ],
+    "origin": "UNKNOWN",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 246,
+          "statement": "IF PXCSEMAF-STATUS = 1"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 246,
+          "statement": "IF PXCSEMAF-STATUS = 1"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": -1,
+          "statement": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "UNKNOWN",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 1,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 2
+    }
+  }
+}

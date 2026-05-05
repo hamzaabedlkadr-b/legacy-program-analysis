@@ -1,0 +1,56 @@
+{
+  "id": "b16b8cd45fe896e3",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-VARCONT-VOCE",
+  "embedding_text": "PDCBVC variable TWCOB-VARCONT-VOCE. Origin=COMMAREA. Defined in: BROWSE-FASE2-SEL-10. Modified in: BROWSE-FASE2-SEL-10, XCTL-LIV2, XCTL-LIV4. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-VARCONT-VOCE",
+    "defined_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "modified_in": [
+      "BROWSE-FASE2-SEL-10",
+      "XCTL-LIV2",
+      "XCTL-LIV4"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 364,
+          "statement": "MOVE  VOCE        TO   TWCOB-VARCONT-VOCE"
+        },
+        {
+          "paragraph": "XCTL-LIV2",
+          "line_start": 858,
+          "statement": "MOVE SPACES      TO TWCOB-VARCONT-VOCE"
+        },
+        {
+          "paragraph": "XCTL-LIV4",
+          "line_start": 873,
+          "statement": "MOVE SPACES     TO TWCOB-VARCONT-VOCE"
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 3,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 3,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

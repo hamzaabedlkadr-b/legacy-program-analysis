@@ -1,0 +1,65 @@
+{
+  "id": "a0326ff6d08d5eea",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WPROGR",
+  "embedding_text": "PDCBVC variable WPROGR. Origin=WORKING-STORAGE. Defined in: PREP-RIGA. Modified in: PREP-RIGA. Used in: BROWSE-FASE2-SEL-10. Controls flow: yes. Fanout nodes: BROWSE-FASE2-SEL-20.",
+  "content": {
+    "variable": "WPROGR",
+    "defined_in": [
+      "PREP-RIGA"
+    ],
+    "modified_in": [
+      "PREP-RIGA"
+    ],
+    "used_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "BROWSE-FASE2-SEL-20"
+    ],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 702,
+          "statement": "MOVE WCTRIG                 TO  WPROGR."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 362,
+          "statement": "IF SCELTAI  =  WPROGR   THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 362,
+          "statement": "IF SCELTAI  =  WPROGR   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": -1,
+          "statement": "SCELTAI = WPROGR"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 1,
+      "write_sites": 1,
+      "read_sites": 1,
+      "control_sites": 2
+    }
+  }
+}

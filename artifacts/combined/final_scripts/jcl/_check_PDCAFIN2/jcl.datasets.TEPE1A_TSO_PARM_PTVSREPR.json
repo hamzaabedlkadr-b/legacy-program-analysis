@@ -1,0 +1,16 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "TEPE1A.TSO.PARM(PTVSREPR)",
+  "used_by": [
+    {
+      "step": "SCARCAF",
+      "ddname": "SYSIN",
+      "program": "IDCAMS",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

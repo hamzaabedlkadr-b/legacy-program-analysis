@@ -1,0 +1,54 @@
+{
+  "id": "program.comment.PDCBVC.637.6fc79ff66bc5",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 637",
+  "embedding_text": "PDCBVC comment line 637 section LINKAGE paragraph MUOVI-DATI. ------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
+  "content": {
+    "line": 637,
+    "section": "LINKAGE",
+    "paragraph": "MUOVI-DATI",
+    "kind": "full_line",
+    "text": "------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
+    "text_raw": "------- BROWSE CHIAMATO  DA  PDCGVC -  FASE1 E FASE2",
+    "normalized_text": "------- BROWSE CHIAMATO DA PDCGVC - FASE1 E FASE2",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 637,
+    "section": "LINKAGE",
+    "paragraph": "MUOVI-DATI",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:MUOVI-DATI",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [
+      "business_rule.BR-025.json",
+      "business_rule.BR-031.json"
+    ],
+    "variables": [
+      "MAX-RIGHE",
+      "N-RIGHE",
+      "PD1VOCI-IND",
+      "SW-FINE",
+      "TWCOB-FASE",
+      "TWCOB-VARCONT-NPAGINA",
+      "TWCOB-XCTL-PGM",
+      "WCTPAG",
+      "WCTRIG",
+      "WKOST"
+    ]
+  }
+}

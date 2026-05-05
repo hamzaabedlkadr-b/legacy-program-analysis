@@ -1,0 +1,44 @@
+{
+  "id": "7d0a5ca32cac153a",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable M1DATAO",
+  "embedding_text": "PDCBVC variable M1DATAO. Origin=COPY:PDCBVCM. Defined in: MUOVI-TESTATA-00. Modified in: MUOVI-TESTATA-00. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "M1DATAO",
+    "defined_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "modified_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 554,
+          "statement": "MOVE  WDATA             TO  M1DATAO."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

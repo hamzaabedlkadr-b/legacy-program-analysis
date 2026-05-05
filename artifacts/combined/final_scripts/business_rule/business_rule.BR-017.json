@@ -1,0 +1,32 @@
+{
+  "id": "8c4877622ecba944",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-017",
+  "embedding_text": "PDCBVC business rule BR-017 in scope BROWSE-FASE2. If EIBAID = DFHPF8 then JUMP -> BROWSE-FASE2-PF8. Category=control. Kind=ui. Severity=neutral.",
+  "content": {
+    "id": "BR-017",
+    "program": "PDCBVC",
+    "scope": "BROWSE-FASE2",
+    "category": "control",
+    "kind": "ui",
+    "severity": "neutral",
+    "condition": "EIBAID = DFHPF8",
+    "action": "JUMP -> BROWSE-FASE2-PF8",
+    "flags": [],
+    "evidence": {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-PF8",
+      "type": "JUMP",
+      "raw_evidence": "GO TO BROWSE-FASE2-PF8."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "BROWSE-FASE2",
+    "category": "control",
+    "kind": "ui",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

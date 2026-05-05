@@ -1,0 +1,42 @@
+{
+  "id": "4cc1d4874b7be5e2",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PDRUTI01-F04-IMPOX11",
+  "embedding_text": "PDCBVC variable PDRUTI01-F04-IMPOX11. Origin=COPY:PDRUTI01. Defined in: none. Modified in: none. Used in: LINK-PD0UTI01. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PDRUTI01-F04-IMPOX11",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "LINK-PD0UTI01"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDRUTI01",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "LINK-PD0UTI01",
+          "line_start": 783,
+          "statement": "INSPECT PDRUTI01-F04-IMPOX11 CONVERTING ' ' TO '_'"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDRUTI01",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

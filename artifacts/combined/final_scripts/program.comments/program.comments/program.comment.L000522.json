@@ -1,0 +1,46 @@
+{
+  "id": "program.comment.PDCBVC.522.b75fc7bd80b9",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 522",
+  "embedding_text": "PDCBVC comment line 522 section LINKAGE paragraph PREPARA-MAP. - ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+  "content": {
+    "line": 522,
+    "section": "LINKAGE",
+    "paragraph": "PREPARA-MAP",
+    "kind": "full_line",
+    "text": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+    "text_raw": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+    "normalized_text": "- ESISTE UNA SOLA RIGA VISULAIZZATA SULLA MAPPA(WCTRIG = 2)",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 522,
+    "section": "LINKAGE",
+    "paragraph": "PREPARA-MAP",
+    "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:explanatory_comment",
+      "section:LINKAGE",
+      "paragraph:PREPARA-MAP",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "SCELTAL",
+      "SCELTAO",
+      "TWCOB-VARCONT-VOCE-LIV4",
+      "TWCOB-XCTL",
+      "WCTRIG"
+    ]
+  }
+}

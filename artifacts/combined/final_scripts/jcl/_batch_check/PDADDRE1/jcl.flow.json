@@ -1,0 +1,365 @@
+{
+  "type": "jcl.flow",
+  "job": "PDADDRE1",
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\jcl_files\\PDADDRE1.JCL",
+  "purpose": "CALCOLO ADDIZIONALE REGIONALE PER IP/AV",
+  "warnings": [
+    "!!!! VERIFICARE SE PUO' SERIVRE E QUANDO FARLO !!!!",
+    "DELADR: ATTENZIONE PARAMETRO",
+    "CARADR: ATTENZIONE PARAMETRO"
+  ],
+  "execution_steps": [
+    {
+      "execution_order": 1,
+      "step": "DELADR",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1",
+      "exec_kind": "program",
+      "target": "PDKADR",
+      "program": "PDKADR",
+      "proc": null,
+      "parameters": {
+        "PARM": "'D'"
+      },
+      "reads": [
+        "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [
+        "ATTENZIONE PARAMETRO"
+      ],
+      "comment_context": [
+        "RIPRISTINO DATI",
+        "CANCELLAZIONE DALLA TABELLA PDKADR DEI SOLI RECORD PRODOTTI",
+        "DALL'ELABORAZIONE PRECEDENTE (MODALITA' \"D\"=SOLO DELETE PUNTUALE)"
+      ]
+    },
+    {
+      "execution_order": 2,
+      "step": "SCRADDR",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1",
+      "exec_kind": "program",
+      "target": "IEFBR14",
+      "program": "IEFBR14",
+      "proc": null,
+      "parameters": {},
+      "reads": [],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 3,
+      "step": "PDHADR00",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1",
+      "exec_kind": "program",
+      "target": "PDHADR00",
+      "program": "PDHADR00",
+      "proc": null,
+      "parameters": {
+        "PARM": "'&ANNO,&TIPOLIQ,&TIPO'"
+      },
+      "reads": [
+        "TEPDET.CXCB2S.PDKM101"
+      ],
+      "writes": [
+        "TEPDET.PDADDRE1.PDHADR00"
+      ],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 4,
+      "step": "PDHADR01",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1",
+      "exec_kind": "program",
+      "target": "PDHADR01",
+      "program": "PDHADR01",
+      "proc": null,
+      "parameters": {
+        "PARM": "'&ANNO,&SESSLIQ,&TIPOLIQ'"
+      },
+      "reads": [
+        "TEPDET.CXCB2S.PDKM101",
+        "TEPDET.PDADDRE1.PDHADR00"
+      ],
+      "writes": [
+        "TEPDET.PDADDRE1.ADDREG",
+        "TEPDET.B.ADRCES.&TIPO"
+      ],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 5,
+      "step": "SKSADR",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1",
+      "exec_kind": "program",
+      "target": "PARM2SK",
+      "program": "PARM2SK",
+      "proc": null,
+      "parameters": {
+        "PARM": "' SORT FIELDS=(1,15,CH,A)'"
+      },
+      "reads": [],
+      "writes": [
+        "&&INSADR"
+      ],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 6,
+      "step": "SORADR",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1",
+      "exec_kind": "program",
+      "target": "ICEMAN",
+      "program": "ICEMAN",
+      "proc": null,
+      "parameters": {},
+      "reads": [
+        "TEPDET.PDADDRE1.ADDREG"
+      ],
+      "writes": [
+        "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+      ],
+      "deletes": [],
+      "controls": [
+        "SYS1.SORTLIB",
+        "&&INSADR"
+      ],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 7,
+      "step": "CARADR",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDADDRE1",
+      "invoked_proc": "PDADDRE1",
+      "exec_kind": "program",
+      "target": "PDKADR",
+      "program": "PDKADR",
+      "proc": null,
+      "parameters": {
+        "PARM": "'I'"
+      },
+      "reads": [
+        "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [
+        "ATTENZIONE PARAMETRO"
+      ],
+      "comment_context": [
+        "CARICAMENTO TABELLA PDKADR DEI SOLI RECORD PRODOTTI",
+        "DALL'ELABORAZIONE (MODALITA' \"I\"=DELETE/INSERT)"
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "dsn": "&&INSADR",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 5,
+          "step": "SKSADR",
+          "ddname": "SKEDA",
+          "program": "PARM2SK",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 6,
+          "step": "SORADR",
+          "ddname": "SYSIN",
+          "program": "ICEMAN",
+          "proc": null,
+          "access_type": "control"
+        }
+      ]
+    },
+    {
+      "dsn": "SYS1.SORTLIB",
+      "dataset_kind": "system",
+      "external_input": true,
+      "timeline": [
+        {
+          "execution_order": 6,
+          "step": "SORADR",
+          "ddname": "SORTLIB",
+          "program": "ICEMAN",
+          "proc": null,
+          "access_type": "control"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.B.ADRCES.&TIPO",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 4,
+          "step": "PDHADR01",
+          "ddname": "FADRCES",
+          "program": "PDHADR01",
+          "proc": null,
+          "access_type": "write"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.CXCB2S.PDKM101",
+      "dataset_kind": "persistent",
+      "external_input": true,
+      "timeline": [
+        {
+          "execution_order": 3,
+          "step": "PDHADR00",
+          "ddname": "PDKM101",
+          "program": "PDHADR00",
+          "proc": null,
+          "access_type": "read"
+        },
+        {
+          "execution_order": 4,
+          "step": "PDHADR01",
+          "ddname": "PDKM101",
+          "program": "PDHADR01",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.PDADDRE1.ADDREG",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 4,
+          "step": "PDHADR01",
+          "ddname": "FADDIZ",
+          "program": "PDHADR01",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 6,
+          "step": "SORADR",
+          "ddname": "SORTIN",
+          "program": "ICEMAN",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO",
+      "dataset_kind": "persistent",
+      "external_input": true,
+      "timeline": [
+        {
+          "execution_order": 1,
+          "step": "DELADR",
+          "ddname": "INPSEQ",
+          "program": "PDKADR",
+          "proc": null,
+          "access_type": "read"
+        },
+        {
+          "execution_order": 6,
+          "step": "SORADR",
+          "ddname": "SORTOUT",
+          "program": "ICEMAN",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 7,
+          "step": "CARADR",
+          "ddname": "INPSEQ",
+          "program": "PDKADR",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.PDADDRE1.PDHADR00",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 3,
+          "step": "PDHADR00",
+          "ddname": "PDSM101",
+          "program": "PDHADR00",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 4,
+          "step": "PDHADR01",
+          "ddname": "PDSM101",
+          "program": "PDHADR01",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from_step": "PDHADR01",
+      "to_step": "SORADR",
+      "dsn": "TEPDET.PDADDRE1.ADDREG",
+      "flow_type": "produces_input_for"
+    },
+    {
+      "from_step": "SORADR",
+      "to_step": "CARADR",
+      "dsn": "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO",
+      "flow_type": "produces_input_for"
+    },
+    {
+      "from_step": "PDHADR00",
+      "to_step": "PDHADR01",
+      "dsn": "TEPDET.PDADDRE1.PDHADR00",
+      "flow_type": "produces_input_for"
+    }
+  ]
+}

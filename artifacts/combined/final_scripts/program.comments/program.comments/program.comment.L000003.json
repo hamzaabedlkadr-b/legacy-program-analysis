@@ -1,0 +1,38 @@
+{
+  "id": "program.comment.PDCBVC.3.9bff8b662a3b",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 3",
+  "embedding_text": "PDCBVC comment line 3. PDCBVC: BROWSE VOCI CONTABILI *",
+  "content": {
+    "line": 3,
+    "section": null,
+    "paragraph": null,
+    "kind": "full_line",
+    "text": "PDCBVC: BROWSE VOCI CONTABILI *",
+    "text_raw": "PDCBVC: BROWSE VOCI CONTABILI                           *",
+    "normalized_text": "PDCBVC: BROWSE VOCI CONTABILI",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 3,
+    "section": null,
+    "paragraph": null,
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

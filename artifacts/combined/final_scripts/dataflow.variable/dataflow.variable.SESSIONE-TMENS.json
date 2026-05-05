@@ -1,0 +1,44 @@
+{
+  "id": "73d80ddaeeb61f5a",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable SESSIONE-TMENS",
+  "embedding_text": "PDCBVC variable SESSIONE-TMENS. Origin=WORKING-STORAGE. Defined in: MUOVI-TESTATA-00. Modified in: MUOVI-TESTATA-00. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "SESSIONE-TMENS",
+    "defined_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "modified_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 561,
+          "statement": "MOVE  PD1FS00-SESS-TMENS  TO   SESSIONE-TMENS."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "3951d7f4ebc7e660",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-VARCONT-PROGVOCE",
+  "embedding_text": "PDCBVC variable TWCOB-VARCONT-PROGVOCE. Origin=COMMAREA. Defined in: BROWSE-FASE2-SEL-10. Modified in: BROWSE-FASE2-SEL-10. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-VARCONT-PROGVOCE",
+    "defined_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "modified_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 365,
+          "statement": "MOVE  WPROGREC    TO   TWCOB-VARCONT-PROGVOCE"
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

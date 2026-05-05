@@ -1,0 +1,42 @@
+{
+  "id": "38eccb5aa53f1073",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WDATE-MM",
+  "embedding_text": "PDCBVC variable WDATE-MM. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: MUOVI-TESTATA-00. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WDATE-MM",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 552,
+          "statement": "MOVE  WDATE-MM          TO  WDATA-MM."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "9b455be27f8813b8",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable IMPORTO-RATA",
+  "embedding_text": "PDCBVC variable IMPORTO-RATA. Origin=WORKING-STORAGE. Defined in: PREP-RIGA. Modified in: PREP-RIGA. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "IMPORTO-RATA",
+    "defined_in": [
+      "PREP-RIGA"
+    ],
+    "modified_in": [
+      "PREP-RIGA"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 736,
+          "statement": "MOVE  PDRUTI01-F05-IMPOX11      TO  IMPORTO-RATA."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "SYS1.SORTLIB",
+  "used_by": [
+    {
+      "step": "SORANAG",
+      "ddname": "SORTLIB",
+      "program": "ICEMAN",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

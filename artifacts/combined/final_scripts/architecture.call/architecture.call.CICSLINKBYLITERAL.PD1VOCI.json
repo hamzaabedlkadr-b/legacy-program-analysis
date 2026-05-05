@@ -1,0 +1,24 @@
+{
+  "id": "a1876f31804a1333",
+  "type": "architecture.call",
+  "program": "PDCBVC",
+  "title": "PDCBVC CICSLINKBYLITERAL -> PD1VOCI",
+  "embedding_text": "PDCBVC calls PD1VOCI using CICSLINKBYLITERAL. Intent: sync_service_call (conf=0.7).",
+  "content": {
+    "caller": "PDCBVC",
+    "call_type": "CICSLINKBYLITERAL",
+    "target": "PD1VOCI",
+    "heuristic_intent": "sync_service_call",
+    "intent_confidence": 0.7,
+    "note": "Intent labels are heuristic; verify against COBOL/CFG for accuracy."
+  },
+  "meta": {
+    "source": "mapa_result",
+    "call_type": "CICSLINKBYLITERAL",
+    "target": "PD1VOCI"
+  },
+  "evidence_ref": "04d2093fe6f75344",
+  "evidence": [
+    "CALL,0b788100-92a0-4006-b634-4f009ccb6f8f,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1VOCI"
+  ]
+}

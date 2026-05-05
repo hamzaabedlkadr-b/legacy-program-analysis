@@ -1,0 +1,32 @@
+{
+  "id": "4e5b6d7be12384aa",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-005",
+  "embedding_text": "PDCBVC business rule BR-005 in scope BROWSE-FASE1. If (TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1 then JUMP -> XCTL-LIV4. Category=permission. Kind=business. Severity=block.",
+  "content": {
+    "id": "BR-005",
+    "program": "PDCBVC",
+    "scope": "BROWSE-FASE1",
+    "category": "permission",
+    "kind": "business",
+    "severity": "block",
+    "condition": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1",
+    "action": "JUMP -> XCTL-LIV4",
+    "flags": [],
+    "evidence": {
+      "from": "BROWSE-FASE1",
+      "to": "XCTL-LIV4",
+      "type": "JUMP",
+      "raw_evidence": "GO  TO  XCTL-LIV4"
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "BROWSE-FASE1",
+    "category": "permission",
+    "kind": "business",
+    "severity": "block",
+    "flags_count": 0
+  }
+}

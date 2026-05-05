@@ -1,0 +1,47 @@
+{
+  "id": "791e0271029b07eb",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WW-DATE",
+  "embedding_text": "PDCBVC variable WW-DATE. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: MUOVI-TESTATA-00. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WW-DATE",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 547,
+          "statement": "EXEC CICS ASKTIME  ABSTIME(WW-DATE)   END-EXEC."
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 548,
+          "statement": "EXEC CICS FORMATTIME  ABSTIME(WW-DATE)  DDMMYY(WDATE)"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 2,
+      "control_sites": 0
+    }
+  }
+}

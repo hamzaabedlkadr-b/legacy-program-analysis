@@ -1,0 +1,46 @@
+{
+  "id": "program.comment.PDCBVC.523.490e39349857",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 523",
+  "embedding_text": "PDCBVC comment line 523 section LINKAGE paragraph PREPARA-MAP. - NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+  "content": {
+    "line": 523,
+    "section": "LINKAGE",
+    "paragraph": "PREPARA-MAP",
+    "kind": "full_line",
+    "text": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+    "text_raw": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+    "normalized_text": "- NEL LIVELLO 4 E' STATA SCELTA LA VOCE (VARCONT-VOCE-LIV4)",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 523,
+    "section": "LINKAGE",
+    "paragraph": "PREPARA-MAP",
+    "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:explanatory_comment",
+      "section:LINKAGE",
+      "paragraph:PREPARA-MAP",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "SCELTAL",
+      "SCELTAO",
+      "TWCOB-VARCONT-VOCE-LIV4",
+      "TWCOB-XCTL",
+      "WCTRIG"
+    ]
+  }
+}

@@ -1,0 +1,2 @@
+cd c:\users\lenovo\MAPA\cobol
+.\run_calltree.ps1 -CobolDir C:\path\to\cobol -CopyDir C:\path\to\cpy -OutDir C:\path\to\out

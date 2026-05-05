@@ -1,0 +1,40 @@
+{
+  "id": "program.comment.PDCBVC.407.f9ab3bf3fc86",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 407",
+  "embedding_text": "PDCBVC comment line 407 section LINKAGE paragraph EXIT. PREPARAZIONE LINK PD1FS00",
+  "content": {
+    "line": 407,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "PREPARAZIONE LINK PD1FS00",
+    "text_raw": "PREPARAZIONE LINK PD1FS00",
+    "normalized_text": "PREPARAZIONE LINK PD1FS00",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 407,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:EXIT",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "type": "jcl.flow",
+  "job": "PDASCO01",
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\jcl_files\\PDASCO01.JCL",
+  "purpose": "Acquisizione Assenze In Commissione su VSAM TEPDET.CXCB2S.ASSC",
+  "warnings": [
+    "NON RIESEGUIBILE",
+    "Unresolved procedure invocation: PDASCO01"
+  ],
+  "execution_steps": [
+    {
+      "execution_order": 1,
+      "step": "PDASCO01",
+      "execution_scope": "job",
+      "invoked_by_step": null,
+      "invoked_proc": null,
+      "exec_kind": "procedure",
+      "target": "PDASCO01",
+      "program": null,
+      "proc": "PDASCO01",
+      "parameters": {
+        "ANNO": "2024",
+        "MESE": "07"
+      },
+      "reads": [],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [
+        "MESE DI RIFER.ASSENZE"
+      ],
+      "comment_context": []
+    }
+  ],
+  "datasets": [],
+  "edges": []
+}

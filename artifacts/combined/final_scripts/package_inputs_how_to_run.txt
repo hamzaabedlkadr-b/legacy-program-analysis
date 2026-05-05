@@ -1,0 +1,202 @@
+Create per-program input packages
+=================================
+
+Script:
+
+  scripts\pipeline\package_program_inputs.py
+
+Purpose:
+
+  Build one package per COBOL program under:
+
+    artifacts\final\final_scripts\input\program_packages\<PROGRAM>\
+
+  Each package contains:
+
+    cobol\          the source .CBL/.COB file
+    copybooks\      referenced copybooks, or all copybooks if --copy-mode all
+    jcl\            matching JCL files, when provided
+    mapa\           matching MAPA result .csv/.txt files
+    controlflow\    matching control-flow .json files
+    manifest.json   copied files and missing matches
+
+Inputs you provide:
+
+  --cbl-dir           folder with .CBL/.cbl files
+  --cpy-dir           folder with copybooks
+  --jcl-dir           optional folder with .JCL/.jcl files
+  --mapa-dir          folder with MAPA result files, for example *_result.csv
+  --controlflow-dir   folder with control-flow JSON files
+  --out-dir           destination package folder
+
+Recommended command - dry run first:
+
+  python scripts\pipeline\package_program_inputs.py `
+    --cbl-dir "C:\path\to\cbl_folder" `
+    --cpy-dir "C:\path\to\copybooks" `
+    --jcl-dir "C:\path\to\jcl_folder" `
+    --mapa-dir "C:\path\to\mapa_results" `
+    --controlflow-dir "C:\path\to\controlflow_json" `
+    --out-dir "artifacts\final\final_scripts\input\program_packages" `
+    --recursive `
+    --dry-run
+
+Real run:
+
+  python scripts\pipeline\package_program_inputs.py `
+    --cbl-dir "C:\path\to\cbl_folder" `
+    --cpy-dir "C:\path\to\copybooks" `
+    --jcl-dir "C:\path\to\jcl_folder" `
+    --mapa-dir "C:\path\to\mapa_results" `
+    --controlflow-dir "C:\path\to\controlflow_json" `
+    --out-dir "artifacts\final\final_scripts\input\program_packages" `
+    --recursive
+
+If you want every copybook in every program package instead of only directly
+referenced COPY members, add:
+
+  --copy-mode all
+
+Example for the current sample layout:
+
+  python scripts\pipeline\package_program_inputs.py `
+    --cbl-dir "inputs\cobol" `
+    --cpy-dir "inputs\copybooks" `
+    --mapa-dir "inputs\mapa" `
+    --controlflow-dir "artifacts\final\final_scripts\controlflow.cfg" `
+    --out-dir "artifacts\final\final_scripts\input\program_packages_sample" `
+    --recursive
+
+After packaging:
+
+  1. Open package_summary.json.
+  2. Check missing.mapa and missing.controlflow for every program.
+  3. Fix naming or folder inputs if a program has no MAPA/control-flow file.
+  4. Run the final artifact/RAG generation pipeline against the package folders.
+
+One-command RAG document factory:
+
+  python scripts\pipeline\run_rag_factory.py `
+    --cbl-dir "C:\path\to\cbl_folder" `
+    --cpy-dir "C:\path\to\copybooks" `
+    --jcl-dir "C:\path\to\jcl_folder" `
+    --mapa-dir "C:\path\to\mapa_results" `
+    --controlflow-dir "C:\path\to\controlflow_json" `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --rag-index-dir "artifacts\final\final_scripts\output\rag_index" `
+    --validation-dir "artifacts\final\final_scripts\output\validation" `
+    --factory-report-dir "artifacts\final\final_scripts\output\factory_report" `
+    --recursive
+
+This runs, in order:
+
+  1. package_program_inputs.py
+  2. run_batch_pipeline.py
+  3. build_global_rag_maps.py
+  4. build_rag_index.py
+  5. validate_rag_pipeline.py
+  6. rag_factory_report.json/.md
+
+If packages already exist, omit the input folders and run:
+
+  python scripts\pipeline\run_rag_factory.py `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --rag-index-dir "artifacts\final\final_scripts\output\rag_index" `
+    --validation-dir "artifacts\final\final_scripts\output\validation"
+
+Use --skip-package, --skip-pipeline, --skip-global-maps, --skip-index, or
+--skip-validation when you want to rerun only part of the factory.
+
+Run all packages through the final pipeline:
+
+  python scripts\pipeline\run_batch_pipeline.py `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts"
+
+This package-root mode expects each program package to contain:
+
+  cobol\          required, one .CBL/.COB source
+  copybooks\      required
+  mapa\           required, one matching .csv/.txt MAPA result
+  controlflow\    required, one matching .json control-flow file
+  jcl\            optional
+
+The output is written under:
+
+  artifacts\final\final_scripts\output\program_artifacts\programs\<PROGRAM>\
+
+Each program gets an inputs\ folder with intermediate files and an artifacts\
+folder with the generated final JSON documents.
+
+If a package has exactly one MAPA .csv/.txt file, the pipeline writes canonical
+artifact names such as program.summary.json and architecture.copybooks.json. If
+a package has multiple MAPA files, the MAPA-derived artifact names include a
+suffix so the results do not overwrite each other.
+
+Build the final vector-DB ingestion bundle:
+
+  python scripts\pipeline\build_global_rag_maps.py `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-dir "artifacts\final\final_scripts\output\program_artifacts\_global\rag_maps"
+
+  python scripts\pipeline\build_rag_index.py `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --global-docs-dir "artifacts\final\final_scripts\output\program_artifacts\_global\rag_maps" `
+    --out-dir "artifacts\final\final_scripts\output\rag_index"
+
+This writes:
+
+  rag_documents.jsonl     main vector-DB ingestion file
+  rag_documents.json      same documents as a JSON array for inspection
+  rag_manifest.json/.md   counts by program and document type
+  program_index.json      per-program document counts
+
+The global maps add cross-program RAG docs for:
+
+  copybook usage
+  call graph targets and program dependencies
+  DB2 table usage
+  JCL-to-program mapping
+  shared variables and common structures
+
+Validate packages and generated output:
+
+  python scripts\pipeline\validate_rag_pipeline.py `
+    --package-root "artifacts\final\final_scripts\input\program_packages" `
+    --out-root "artifacts\final\final_scripts\output\program_artifacts" `
+    --rag-index-dir "artifacts\final\final_scripts\output\rag_index" `
+    --output-dir "artifacts\final\final_scripts\output\validation"
+
+The Markdown report is the quick scan. The JSON report is for automation.
+
+Naming assumptions:
+
+  MAPA files are matched by names like:
+
+    <PROGRAM>_result.csv
+    <SOURCE_STEM>_result.csv
+    <PROGRAM>_result.txt
+    <SOURCE_STEM>_result.txt
+
+  Control-flow files are matched by names like:
+
+    <PROGRAM>.json
+    <SOURCE_STEM>.json
+    <PROGRAM>_controlflow.json
+    <SOURCE_STEM>_controlflow.json
+    <PROGRAM>_cfg.json
+    <SOURCE_STEM>_cfg.json
+
+  JCL files are matched by exact file stem first, then by content containing
+  the program/source stem.
+
+Fallback behavior:
+
+  If --mapa-dir contains exactly one .csv/.txt file, the script uses it even
+  when it is named generically, for example result.txt.
+
+  If --controlflow-dir contains exactly one .json file, the script uses it even
+  when it is named generically, for example controlflow.cfg.json.

@@ -1,0 +1,84 @@
+{
+  "type": "jcl.summary",
+  "job": "PDADDRE1",
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDADDRE1.JCL",
+  "purpose": "CALCOLO ADDIZIONALE REGIONALE PER IP/AV",
+  "warnings": [
+    "!!!! VERIFICARE SE PUO' SERIVRE E QUANDO FARLO !!!!",
+    "DELADR: ATTENZIONE PARAMETRO",
+    "CARADR: ATTENZIONE PARAMETRO"
+  ],
+  "comment_highlights": [
+    "CALCOLO ADDIZIONALE REGIONALE PER IP/AV",
+    "RIPRISTINO DATI",
+    "CANCELLAZIONE DALLA TABELLA PDKADR DEI SOLI RECORD PRODOTTI",
+    "DALL'ELABORAZIONE PRECEDENTE (MODALITA' \"D\"=SOLO DELETE PUNTUALE)",
+    "!!!! VERIFICARE SE PUO' SERIVRE E QUANDO FARLO !!!!",
+    "* SALVATAGGIO PREVENTIVO TABELLA ORACLE 'PDKADR' SU SEQUENZIALE",
+    "** CALCOLA ADDIZIONALE REGIONALE PER OGNI MATRICOLA **",
+    "CARICAMENTO TABELLA PDKADR DEI SOLI RECORD PRODOTTI"
+  ],
+  "requirements": [],
+  "products": [],
+  "rerun_notes": [],
+  "programs": [
+    "ICEMAN",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHADR00",
+    "PDHADR01",
+    "PDKADR"
+  ],
+  "procedures": [
+    "PDADDRE1"
+  ],
+  "unresolved_procedures": [],
+  "jcllib_order": [],
+  "symbols": {},
+  "local_procedures": [
+    {
+      "procedure": "PDADDRE1",
+      "parameters": {},
+      "steps_count": 7,
+      "programs": [
+        "ICEMAN",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHADR00",
+        "PDHADR01",
+        "PDKADR"
+      ],
+      "source_lines": {
+        "start": 6,
+        "end": 103
+      }
+    }
+  ],
+  "procedure_invocations": [
+    {
+      "step": "PDADDRE1",
+      "proc": "PDADDRE1",
+      "resolved_locally": true,
+      "resolved_proc_programs": [
+        "ICEMAN",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHADR00",
+        "PDHADR01",
+        "PDKADR"
+      ],
+      "parameters": {
+        "ANNO": "2019",
+        "SESSLIQ": "202002",
+        "TIPOLIQ": "F",
+        "TIPO": "IP",
+        "CATEG": "T"
+      }
+    }
+  ],
+  "control_statements_count": 0,
+  "steps_count": 8,
+  "execution_steps_count": 7,
+  "datasets_count": 7,
+  "external_inputs_count": 3
+}

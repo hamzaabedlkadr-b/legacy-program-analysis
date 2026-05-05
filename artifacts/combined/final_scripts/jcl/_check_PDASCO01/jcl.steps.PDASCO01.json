@@ -1,0 +1,34 @@
+{
+  "type": "jcl.steps",
+  "job": "PDASCO01",
+  "step": "PDASCO01",
+  "scope": "job",
+  "defined_in_proc": null,
+  "exec_kind": "procedure",
+  "target": "PDASCO01",
+  "program": null,
+  "proc": "PDASCO01",
+  "parameters": {
+    "ANNO": "2024",
+    "MESE": "07"
+  },
+  "positional": [],
+  "notes": [
+    "MESE DI RIFER.ASSENZE"
+  ],
+  "comment_context": [],
+  "reads": [],
+  "writes": [],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
+  "dds": [],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 14,
+    "end": 15
+  },
+  "source": "jcl_files\\PDASCO01.JCL"
+}

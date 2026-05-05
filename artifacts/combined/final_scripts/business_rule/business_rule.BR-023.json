@@ -1,0 +1,32 @@
+{
+  "id": "42cc380b445bd864",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-023",
+  "embedding_text": "PDCBVC business rule BR-023 in scope MUOVI-TESTATA-10. If (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'D') then JUMP -> MUOVI-TESTATA-20. Category=control. Kind=business_logic. Severity=neutral.",
+  "content": {
+    "id": "BR-023",
+    "program": "PDCBVC",
+    "scope": "MUOVI-TESTATA-10",
+    "category": "control",
+    "kind": "business_logic",
+    "severity": "neutral",
+    "condition": "(TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'D')",
+    "action": "JUMP -> MUOVI-TESTATA-20",
+    "flags": [],
+    "evidence": {
+      "from": "MUOVI-TESTATA-10",
+      "to": "MUOVI-TESTATA-20",
+      "type": "JUMP",
+      "raw_evidence": "GO  TO  MUOVI-TESTATA-20."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "MUOVI-TESTATA-10",
+    "category": "control",
+    "kind": "business_logic",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

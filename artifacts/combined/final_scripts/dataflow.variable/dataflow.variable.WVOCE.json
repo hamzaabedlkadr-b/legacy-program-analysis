@@ -1,0 +1,52 @@
+{
+  "id": "e17f0e26a35113ba",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WVOCE",
+  "embedding_text": "PDCBVC variable WVOCE. Origin=WORKING-STORAGE. Defined in: BROWSE-FASE2-SEL-10. Modified in: BROWSE-FASE2-SEL-10. Used in: PREP-RIGA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WVOCE",
+    "defined_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "modified_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "used_in": [
+      "PREP-RIGA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 363,
+          "statement": "MOVE  WCODVO      TO   WVOCE"
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 708,
+          "statement": "MOVE WVOCE                               TO  WCODVO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "a1397e8e25a0cba9",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable M1PF8A",
+  "embedding_text": "PDCBVC variable M1PF8A. Origin=COPY:PDCBVCM. Defined in: BROWSE-FASE1. Modified in: BROWSE-FASE1, BROWSE-FASE2-VISUAL. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "M1PF8A",
+    "defined_in": [
+      "BROWSE-FASE1"
+    ],
+    "modified_in": [
+      "BROWSE-FASE1",
+      "BROWSE-FASE2-VISUAL"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 282,
+          "statement": "MOVE  ASKIP-DRK     TO  M1PF8A."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 384,
+          "statement": "MOVE  ASKIP-DRK     TO  M1PF8A"
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 2,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

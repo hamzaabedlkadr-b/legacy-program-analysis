@@ -1,0 +1,42 @@
+{
+  "id": "c42701d6c3366867",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PROG-LIV2",
+  "embedding_text": "PDCBVC variable PROG-LIV2. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: XCTL-LIV2. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PROG-LIV2",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "XCTL-LIV2"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "XCTL-LIV2",
+          "line_start": 857,
+          "statement": "MOVE PROG-LIV2  TO  TWCOB-NOME-PGM."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

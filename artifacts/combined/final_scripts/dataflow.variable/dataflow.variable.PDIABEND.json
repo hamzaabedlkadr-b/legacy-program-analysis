@@ -1,0 +1,42 @@
+{
+  "id": "da22e6fa770c55f9",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PDIABEND",
+  "embedding_text": "PDCBVC variable PDIABEND. Origin=UNKNOWN. Defined in: none. Modified in: none. Used in: ABEND00. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PDIABEND",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "ABEND00"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "UNKNOWN",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "ABEND00",
+          "line_start": 902,
+          "statement": "COPY PDIABEND."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "UNKNOWN",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

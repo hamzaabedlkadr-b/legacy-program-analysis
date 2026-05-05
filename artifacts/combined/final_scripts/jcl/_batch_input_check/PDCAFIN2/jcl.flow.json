@@ -1,0 +1,515 @@
+{
+  "type": "jcl.flow",
+  "job": "PDCAFIN2",
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+  "purpose": "ACQUISIZIONI DATI DAL CAF DELLA CAMERA E DAI CAAF ESTERNI",
+  "warnings": [],
+  "execution_steps": [
+    {
+      "execution_order": 1,
+      "step": "SCARCAF",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "program",
+      "target": "IDCAMS",
+      "program": "IDCAMS",
+      "proc": null,
+      "parameters": {},
+      "reads": [
+        "TEPDET.CXCB2S.PDKCAF"
+      ],
+      "writes": [
+        "&&CAFSEQ"
+      ],
+      "deletes": [],
+      "controls": [
+        "TEPE1A.TSO.PARM(PTVSREPR)"
+      ],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 2,
+      "step": "SCRA",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "program",
+      "target": "IEFBR14",
+      "program": "IEFBR14",
+      "proc": null,
+      "parameters": {},
+      "reads": [],
+      "writes": [],
+      "deletes": [
+        "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+        "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 3,
+      "step": "PDHM730B",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "program",
+      "target": "PDHM730B",
+      "program": "PDHM730B",
+      "proc": null,
+      "parameters": {
+        "PARM": "'&ANNORIF,&TIPO,&ANNO.&MENS.0'"
+      },
+      "reads": [
+        "&&CAFSEQ"
+      ],
+      "writes": [
+        "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+        "&&SKVAR2",
+        "&&FILESTA",
+        "&&FILEST2"
+      ],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 4,
+      "step": "PDHM730C",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "program",
+      "target": "PDHM730C",
+      "program": "PDHM730C",
+      "proc": null,
+      "parameters": {
+        "PARM": "'&TIPO,  ,        ,                    '"
+      },
+      "reads": [
+        "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "writes": [
+        "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO"
+      ],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 5,
+      "step": "SKSANAG",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "program",
+      "target": "PARM2SK",
+      "program": "PARM2SK",
+      "proc": null,
+      "parameters": {
+        "PARM": "' SORT FIELDS=(400,60,CH,A)'"
+      },
+      "reads": [],
+      "writes": [
+        "&&SKANAG"
+      ],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 6,
+      "step": "SORANAG",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "program",
+      "target": "ICEMAN",
+      "program": "ICEMAN",
+      "proc": null,
+      "parameters": {},
+      "reads": [
+        "&&FILESTA"
+      ],
+      "writes": [
+        "&&ANAGS"
+      ],
+      "deletes": [],
+      "controls": [
+        "SYS1.SORTLIB",
+        "&&SKANAG"
+      ],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 7,
+      "step": "PDHM730D",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "program",
+      "target": "PDHM730D",
+      "program": "PDHM730D",
+      "proc": null,
+      "parameters": {
+        "PARM": "'&ANNORIF,T,&TIPO,&ANNO&MENS'"
+      },
+      "reads": [
+        "&&ANAGS"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [],
+      "comment_context": []
+    },
+    {
+      "execution_order": 8,
+      "step": "M730D2",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "program",
+      "target": "PDHM730D",
+      "program": "PDHM730D",
+      "proc": null,
+      "parameters": {
+        "PARM": "'&ANNORIF,T,AT,TTTTTTT'"
+      },
+      "reads": [
+        "&&ANAGS"
+      ],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [
+        "* CESSATI ***"
+      ],
+      "comment_context": []
+    },
+    {
+      "execution_order": 9,
+      "step": "COPYVAR",
+      "execution_scope": "expanded_local_procedure",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2",
+      "exec_kind": "unknown",
+      "target": null,
+      "program": null,
+      "proc": null,
+      "parameters": {},
+      "reads": [],
+      "writes": [],
+      "deletes": [],
+      "controls": [],
+      "unknowns": [],
+      "notes": [
+        "PGM=IEBGENER"
+      ],
+      "comment_context": []
+    }
+  ],
+  "datasets": [
+    {
+      "dsn": "&&ANAGS",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 6,
+          "step": "SORANAG",
+          "ddname": "SORTOUT",
+          "program": "ICEMAN",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 7,
+          "step": "PDHM730D",
+          "ddname": "INPCAF",
+          "program": "PDHM730D",
+          "proc": null,
+          "access_type": "read"
+        },
+        {
+          "execution_order": 8,
+          "step": "M730D2",
+          "ddname": "INPCAF",
+          "program": "PDHM730D",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    },
+    {
+      "dsn": "&&CAFSEQ",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 1,
+          "step": "SCARCAF",
+          "ddname": "OUTPUT",
+          "program": "IDCAMS",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "INPCAF",
+          "program": "PDHM730B",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    },
+    {
+      "dsn": "&&FILEST2",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "FILEST2",
+          "program": "PDHM730B",
+          "proc": null,
+          "access_type": "write"
+        }
+      ]
+    },
+    {
+      "dsn": "&&FILESTA",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "FILESTA",
+          "program": "PDHM730B",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 6,
+          "step": "SORANAG",
+          "ddname": "SORTIN",
+          "program": "ICEMAN",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    },
+    {
+      "dsn": "&&SKANAG",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 5,
+          "step": "SKSANAG",
+          "ddname": "SKEDA",
+          "program": "PARM2SK",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 6,
+          "step": "SORANAG",
+          "ddname": "SYSIN",
+          "program": "ICEMAN",
+          "proc": null,
+          "access_type": "control"
+        }
+      ]
+    },
+    {
+      "dsn": "&&SKVAR2",
+      "dataset_kind": "temporary",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "SKVAR2",
+          "program": "PDHM730B",
+          "proc": null,
+          "access_type": "write"
+        }
+      ]
+    },
+    {
+      "dsn": "SYS1.SORTLIB",
+      "dataset_kind": "system",
+      "external_input": true,
+      "timeline": [
+        {
+          "execution_order": 6,
+          "step": "SORANAG",
+          "ddname": "SORTLIB",
+          "program": "ICEMAN",
+          "proc": null,
+          "access_type": "control"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 2,
+          "step": "SCRA",
+          "ddname": "PDKCAF",
+          "program": "IEFBR14",
+          "proc": null,
+          "access_type": "delete"
+        },
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "OUTCAF",
+          "program": "PDHM730B",
+          "proc": null,
+          "access_type": "write"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 2,
+          "step": "SCRA",
+          "ddname": "VARIAZ",
+          "program": "IEFBR14",
+          "proc": null,
+          "access_type": "delete"
+        },
+        {
+          "execution_order": 3,
+          "step": "PDHM730B",
+          "ddname": "SKVAR1",
+          "program": "PDHM730B",
+          "proc": null,
+          "access_type": "write"
+        },
+        {
+          "execution_order": 4,
+          "step": "PDHM730C",
+          "ddname": "SKINPUT",
+          "program": "PDHM730C",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO",
+      "dataset_kind": "persistent",
+      "external_input": false,
+      "timeline": [
+        {
+          "execution_order": 2,
+          "step": "SCRA",
+          "ddname": "VOCI730",
+          "program": "IEFBR14",
+          "proc": null,
+          "access_type": "delete"
+        },
+        {
+          "execution_order": 4,
+          "step": "PDHM730C",
+          "ddname": "FOUTPUT",
+          "program": "PDHM730C",
+          "proc": null,
+          "access_type": "write"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPDET.CXCB2S.PDKCAF",
+      "dataset_kind": "persistent",
+      "external_input": true,
+      "timeline": [
+        {
+          "execution_order": 1,
+          "step": "SCARCAF",
+          "ddname": "INPUT",
+          "program": "IDCAMS",
+          "proc": null,
+          "access_type": "read"
+        }
+      ]
+    },
+    {
+      "dsn": "TEPE1A.TSO.PARM(PTVSREPR)",
+      "dataset_kind": "persistent",
+      "external_input": true,
+      "timeline": [
+        {
+          "execution_order": 1,
+          "step": "SCARCAF",
+          "ddname": "SYSIN",
+          "program": "IDCAMS",
+          "proc": null,
+          "access_type": "control"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from_step": "SORANAG",
+      "to_step": "PDHM730D",
+      "dsn": "&&ANAGS",
+      "flow_type": "produces_input_for"
+    },
+    {
+      "from_step": "SORANAG",
+      "to_step": "M730D2",
+      "dsn": "&&ANAGS",
+      "flow_type": "produces_input_for"
+    },
+    {
+      "from_step": "SCARCAF",
+      "to_step": "PDHM730B",
+      "dsn": "&&CAFSEQ",
+      "flow_type": "produces_input_for"
+    },
+    {
+      "from_step": "PDHM730B",
+      "to_step": "SORANAG",
+      "dsn": "&&FILESTA",
+      "flow_type": "produces_input_for"
+    },
+    {
+      "from_step": "PDHM730B",
+      "to_step": "PDHM730C",
+      "dsn": "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+      "flow_type": "produces_input_for"
+    }
+  ]
+}

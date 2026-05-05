@@ -1,0 +1,32 @@
+{
+  "id": "cc2e25b9d061951e",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-029",
+  "embedding_text": "PDCBVC business rule BR-029 in scope BROWSE-FASE2-SEL-10. If SCELTAI = WPROGR then JUMP -> BROWSE-FASE2-SEL-20. Category=control. Kind=control. Severity=neutral.",
+  "content": {
+    "id": "BR-029",
+    "program": "PDCBVC",
+    "scope": "BROWSE-FASE2-SEL-10",
+    "category": "control",
+    "kind": "control",
+    "severity": "neutral",
+    "condition": "SCELTAI = WPROGR",
+    "action": "JUMP -> BROWSE-FASE2-SEL-20",
+    "flags": [],
+    "evidence": {
+      "from": "BROWSE-FASE2-SEL-10",
+      "to": "BROWSE-FASE2-SEL-20",
+      "type": "JUMP",
+      "raw_evidence": "GO TO BROWSE-FASE2-SEL-20."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "BROWSE-FASE2-SEL-10",
+    "category": "control",
+    "kind": "control",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

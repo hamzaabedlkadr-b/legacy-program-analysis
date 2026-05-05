@@ -1,0 +1,75 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "SCARCAF",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "IDCAMS",
+  "program": "IDCAMS",
+  "proc": null,
+  "parameters": {},
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "INPUT",
+      "dsn": "TEPDET.CXCB2S.PDKCAF",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.CXCB2S.PDKCAF,DISP=SHR",
+      "source_lines": {
+        "start": 38,
+        "end": 38
+      }
+    },
+    {
+      "ddname": "OUTPUT",
+      "dsn": "&&CAFSEQ",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&CAFSEQ,DISP=(,PASS),SPACE=(CYL,(2,1)),UNIT=3390, DCB=(RECFM=FB,LRECL=600,DSORG=PS)",
+      "source_lines": {
+        "start": 39,
+        "end": 40
+      }
+    },
+    {
+      "ddname": "SYSPRINT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "source_lines": {
+        "start": 41,
+        "end": 41
+      }
+    },
+    {
+      "ddname": "SYSIN",
+      "dsn": "TEPE1A.TSO.PARM(PTVSREPR)",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPE1A.TSO.PARM(PTVSREPR),DISP=SHR",
+      "source_lines": {
+        "start": 42,
+        "end": 42
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 37,
+    "end": 37
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

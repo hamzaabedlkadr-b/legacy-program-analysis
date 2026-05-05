@@ -1,0 +1,40 @@
+{
+  "id": "program.comment.PDCBVC.698.22321b0b17e9",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 698",
+  "embedding_text": "PDCBVC comment line 698 section LINKAGE paragraph EXIT. PREPARA RIGA MAPPA",
+  "content": {
+    "line": 698,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "PREPARA RIGA MAPPA",
+    "text_raw": "PREPARA RIGA MAPPA",
+    "normalized_text": "PREPARA RIGA MAPPA",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 698,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:EXIT",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

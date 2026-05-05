@@ -1,0 +1,53 @@
+{
+  "id": "6398ca2e36cba15e",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-VARCONT-ANNO",
+  "embedding_text": "PDCBVC variable TWCOB-VARCONT-ANNO. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: INIZ-PARAM-020. Controls flow: yes. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-VARCONT-ANNO",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "INIZ-PARAM-020"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "INIZ-PARAM-020",
+          "line_start": 470,
+          "statement": "IF    TWCOB-VARCONT-ANNO   =      'TTTT'  THEN"
+        },
+        {
+          "paragraph": "INIZ-PARAM-020",
+          "line_start": 473,
+          "statement": "MOVE  TWCOB-VARCONT-ANNO   TO  PD1VOCI-LIQUID1-ANNO."
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "INIZ-PARAM-020",
+          "line_start": 470,
+          "statement": "IF    TWCOB-VARCONT-ANNO   =      'TTTT'  THEN"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 2,
+      "control_sites": 1
+    }
+  }
+}

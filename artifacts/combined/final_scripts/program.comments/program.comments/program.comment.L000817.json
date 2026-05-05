@@ -1,0 +1,40 @@
+{
+  "id": "program.comment.PDCBVC.817.b3b9cd4ef68e",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 817",
+  "embedding_text": "PDCBVC comment line 817 section LINKAGE paragraph EXIT. INVIO MAPPA PDCBVC1 (DATA ONLY) *",
+  "content": {
+    "line": 817,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "INVIO MAPPA PDCBVC1 (DATA ONLY) *",
+    "text_raw": "INVIO MAPPA  PDCBVC1 (DATA ONLY)                *",
+    "normalized_text": "INVIO MAPPA PDCBVC1 (DATA ONLY)",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 817,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:EXIT",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

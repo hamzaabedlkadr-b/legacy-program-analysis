@@ -1,0 +1,69 @@
+{
+  "id": "4d6e45e225c1287e",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-VARCONT-NPAGINA",
+  "embedding_text": "PDCBVC variable TWCOB-VARCONT-NPAGINA. Origin=COMMAREA. Defined in: BROWSE-FASE1. Modified in: BROWSE-FASE1, BROWSE-FASE2-VISUAL. Used in: BROWSE-FASE2, MUOVI-DATI. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-VARCONT-NPAGINA",
+    "defined_in": [
+      "BROWSE-FASE1"
+    ],
+    "modified_in": [
+      "BROWSE-FASE1",
+      "BROWSE-FASE2-VISUAL"
+    ],
+    "used_in": [
+      "BROWSE-FASE2",
+      "MUOVI-DATI"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 279,
+          "statement": "MOVE     WCTPAG        TO   TWCOB-VARCONT-NPAGINA."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 382,
+          "statement": "MOVE     WCTPAG        TO   TWCOB-VARCONT-NPAGINA."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 297,
+          "statement": "MOVE     TWCOB-VARCONT-NPAGINA  TO  WCTPAG."
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 641,
+          "statement": "MOVE TWCOB-VARCONT-NPAGINA  TO  WCTPAG"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 653,
+          "statement": "MOVE TWCOB-VARCONT-NPAGINA  TO  WCTPAG"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 2,
+      "used_in": 2,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 3,
+      "control_sites": 0
+    }
+  }
+}

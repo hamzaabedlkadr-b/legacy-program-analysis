@@ -1,0 +1,44 @@
+{
+  "id": "9f2dc022145c056b",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PXCSEMAF-NAME",
+  "embedding_text": "PDCBVC variable PXCSEMAF-NAME. Origin=UNKNOWN. Defined in: READ-TAB-SEMAF. Modified in: READ-TAB-SEMAF. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PXCSEMAF-NAME",
+    "defined_in": [
+      "READ-TAB-SEMAF"
+    ],
+    "modified_in": [
+      "READ-TAB-SEMAF"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "UNKNOWN",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "READ-TAB-SEMAF",
+          "line_start": 753,
+          "statement": "MOVE 'PDAGGVIP'       TO PXCSEMAF-NAME"
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "UNKNOWN",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

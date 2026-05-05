@@ -1,0 +1,73 @@
+{
+  "id": "df4ce3b1588751af",
+  "type": "architecture.copybooks",
+  "program": "PDCBVC",
+  "title": "PDCBVC copybooks",
+  "embedding_text": "PDCBVC copybooks. UI/CICS=DFHAID, DFHBMSCA. Business=PD1FS00, PD1VOCI, PDCBVCM, PDRTIP01, PDRVC. Utilities=PDRUTI01, PXCSEMAF. State=PDRTWA2, PDSAVTW2. Errors=PDIABEND.",
+  "content": {
+    "all": [
+      "DFHAID",
+      "DFHBMSCA",
+      "PD1FS00",
+      "PD1VOCI",
+      "PDCBVCM",
+      "PDIABEND",
+      "PDRTIP01",
+      "PDRTWA2",
+      "PDRUTI01",
+      "PDRVC",
+      "PDSAVTW2",
+      "PXCSEMAF"
+    ],
+    "classified": {
+      "business": [
+        "PD1FS00",
+        "PD1VOCI",
+        "PDCBVCM",
+        "PDRTIP01",
+        "PDRVC"
+      ],
+      "utilities": [
+        "PDRUTI01",
+        "PXCSEMAF"
+      ],
+      "ui_cics": [
+        "DFHAID",
+        "DFHBMSCA"
+      ],
+      "state_context": [
+        "PDRTWA2",
+        "PDSAVTW2"
+      ],
+      "error_handling": [
+        "PDIABEND"
+      ]
+    },
+    "classification_note": "Categories are heuristic; treat as hints, not ground truth."
+  },
+  "meta": {
+    "source": "mapa_result",
+    "counts": {
+      "business": 5,
+      "utilities": 2,
+      "ui_cics": 2,
+      "state_context": 2,
+      "error_handling": 1
+    }
+  },
+  "evidence_ref": "04d2093fe6f75344",
+  "evidence": [
+    "COPY,8fdc0dc6-9986-4349-aaf5-5a4ce6ddecce,63db1ed1-6569-4af6-a322-c4307d946321,PDRTIP01",
+    "COPY,30727e90-c3cc-4230-86e9-a5f262a950ca,63db1ed1-6569-4af6-a322-c4307d946321,PDRVC",
+    "COPY,97225717-3d77-4368-806f-a74b85b627ab,63db1ed1-6569-4af6-a322-c4307d946321,PD1VOCI",
+    "COPY,8d2673ca-0d8c-4992-8865-2888189dfc39,63db1ed1-6569-4af6-a322-c4307d946321,PD1FS00",
+    "COPY,985a282f-88eb-4f1f-b8d3-a4231cd54df6,63db1ed1-6569-4af6-a322-c4307d946321,PDRUTI01",
+    "COPY,948032df-4db4-4db5-a367-d7d347831b25,63db1ed1-6569-4af6-a322-c4307d946321,PXCSEMAF",
+    "COPY,f73dd60b-a8ad-4125-8277-517818ad147f,63db1ed1-6569-4af6-a322-c4307d946321,PDCBVCM",
+    "COPY,d6c748a9-1021-4b27-96db-7d219b20ed19,63db1ed1-6569-4af6-a322-c4307d946321,DFHBMSCA",
+    "COPY,5b3e51c9-6e12-4e02-8bac-9e7c83c88249,63db1ed1-6569-4af6-a322-c4307d946321,DFHAID",
+    "COPY,d7a26ea4-8e77-499b-83d1-0560a7c25879,63db1ed1-6569-4af6-a322-c4307d946321,PDRTWA2",
+    "COPY,f73212f6-362d-4fa3-8263-1212b80b27b0,63db1ed1-6569-4af6-a322-c4307d946321,PDIABEND",
+    "COPY,c706f977-e772-408e-8af4-24cde44b39b2,63db1ed1-6569-4af6-a322-c4307d946321,PDSAVTW2"
+  ]
+}

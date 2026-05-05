@@ -1,0 +1,18 @@
+{
+  "id": "40c714c3519294ca",
+  "type": "architecture.sqlinclude",
+  "program": "PDCBVC",
+  "title": "PDCBVC SQLINCLUDE PDPSQLER",
+  "embedding_text": "PDCBVC includes SQL include PDPSQLER (embedded SQL support).",
+  "content": {
+    "include": "PDPSQLER"
+  },
+  "meta": {
+    "source": "mapa_result",
+    "include": "PDPSQLER"
+  },
+  "evidence_ref": "04d2093fe6f75344",
+  "evidence": [
+    "SQLINCLUDE,9b558fb7-4151-4fa4-a3a4-22eb5c3199b8,63db1ed1-6569-4af6-a322-c4307d946321,PDPSQLER"
+  ]
+}

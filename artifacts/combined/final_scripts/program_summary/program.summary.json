@@ -1,0 +1,23 @@
+{
+  "id": "c676cbb31aaabe92",
+  "type": "program.summary",
+  "program": "PDCBVC",
+  "title": "PDCBVC overview",
+  "embedding_text": "Program PDCBVC. COBOL CICS. LOC=392, paragraphs=14, statements=72. Source=C:\\Users\\Lenovo\\Desktop\\COBOL\\Cics\\Cics\\PDCBVC.CBL. Calls=5. UnresolvedCalls=0. CICSops=0.",
+  "content": "PDCBVC is a COBOL CICS program discovered from MAPA. It contains approximately 392 LOC and 14 paragraphs. Source file: C:\\Users\\Lenovo\\Desktop\\COBOL\\Cics\\Cics\\PDCBVC.CBL.",
+  "meta": {
+    "source": "mapa_result",
+    "file_timestamp": "20260120104353381",
+    "loc": 392,
+    "paragraphs": 14,
+    "statements": 72
+  },
+  "evidence_ref": "04d2093fe6f75344",
+  "evidence": [
+    "FILE,63db1ed1-6569-4af6-a322-c4307d946321,C:\\Users\\Lenovo\\Desktop\\COBOL\\Cics\\Cics\\PDCBVC.CBL,20260120104353381",
+    "PGM,ede9098e-7d32-44af-b35b-29f21235d088,63db1ed1-6569-4af6-a322-c4307d946321,PDCBVC,392,72,14,2,0,99,97,0,0,2",
+    "CALL,0b788100-92a0-4006-b634-4f009ccb6f8f,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1VOCI",
+    "CALL,9fb965c1-6dc5-422e-ae8b-9d16a772699e,ede9098e-7d32-44af-b35b-29f21235d088,PDCBVC,CICSLINKBYLITERAL,PD1FS00",
+    "DB2TABLE,29d7f91e-492a-4d8d-809d-a54cd17c4e1e,ede9098e-7d32-44af-b35b-29f21235d088,DUAL,selectIntoStatement"
+  ]
+}

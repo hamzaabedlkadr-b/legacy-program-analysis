@@ -1,0 +1,13 @@
+$CobolDir   = "inputs\\cobol"
+$CopyDir    = "inputs\\copybooks"
+$PdcJson    = "artifacts\\intermediate\\pdc.json"
+$MapaResult = "inputs\\mapa\\result.txt"
+$OutRoot    = "artifacts\\final\\batch_output"
+
+python scripts\\pipeline\\run_batch_pipeline.py `
+  --cobol-dir "$CobolDir" `
+  --copy-dir "$CopyDir" `
+  --pdc-json-dir "$PdcJson" `
+  --mapa-result "$MapaResult" `
+  --script3 "scripts\\pipeline\\script3.py" `
+  --out-root "$OutRoot"

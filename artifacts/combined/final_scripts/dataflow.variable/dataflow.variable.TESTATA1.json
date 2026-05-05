@@ -1,0 +1,69 @@
+{
+  "id": "6a84cc679ed64ba8",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TESTATA1",
+  "embedding_text": "PDCBVC variable TESTATA1. Origin=WORKING-STORAGE. Defined in: MUOVI-TESTATA-10. Modified in: MUOVI-TESTATA-10. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TESTATA1",
+    "defined_in": [
+      "MUOVI-TESTATA-10"
+    ],
+    "modified_in": [
+      "MUOVI-TESTATA-10"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 576,
+          "statement": "MOVE  '              IMPIANTO' TO  TESTATA1"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 580,
+          "statement": "MOVE  '       VISUALIZZAZIONE' TO  TESTATA1"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 584,
+          "statement": "MOVE  '            CESSAZIONE' TO  TESTATA1"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 588,
+          "statement": "MOVE  '         AGGIORNAMENTO' TO  TESTATA1"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 592,
+          "statement": "MOVE  '   MODIFICA DECORRENZA' TO  TESTATA1"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 596,
+          "statement": "MOVE  'MODIFICA PROVVEDIMENTO' TO  TESTATA1."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 6,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

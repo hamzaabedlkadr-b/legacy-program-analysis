@@ -1,0 +1,65 @@
+{
+  "id": "1e170b9df7d48dc1",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PDRUTI01-RETURN",
+  "embedding_text": "PDCBVC variable PDRUTI01-RETURN. Origin=COPY:PDRUTI01. Defined in: LINK-PD0UTI01. Modified in: LINK-PD0UTI01. Used in: LINK-PD0UTI01. Controls flow: yes. Fanout nodes: ABEND00.",
+  "content": {
+    "variable": "PDRUTI01-RETURN",
+    "defined_in": [
+      "LINK-PD0UTI01"
+    ],
+    "modified_in": [
+      "LINK-PD0UTI01"
+    ],
+    "used_in": [
+      "LINK-PD0UTI01"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "ABEND00"
+    ],
+    "origin": "COPY:PDRUTI01",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "LINK-PD0UTI01",
+          "line_start": 773,
+          "statement": "MOVE HIGH-VALUE TO  PDRUTI01-RETURN."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "LINK-PD0UTI01",
+          "line_start": 778,
+          "statement": "IF  PDRUTI01-RETURN EQUAL 'E'"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "LINK-PD0UTI01",
+          "line_start": 778,
+          "statement": "IF  PDRUTI01-RETURN EQUAL 'E'"
+        },
+        {
+          "paragraph": "LINK-PD0UTI01",
+          "line_start": -1,
+          "statement": "PDRUTI01-RETURN EQUAL 'E'"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDRUTI01",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 1,
+      "write_sites": 1,
+      "read_sites": 1,
+      "control_sites": 2
+    }
+  }
+}

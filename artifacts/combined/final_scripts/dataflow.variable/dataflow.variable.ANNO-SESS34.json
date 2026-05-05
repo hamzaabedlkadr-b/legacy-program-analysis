@@ -1,0 +1,42 @@
+{
+  "id": "acfbc5bb4e6b21d1",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable ANNO-SESS34",
+  "embedding_text": "PDCBVC variable ANNO-SESS34. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: MUOVI-TESTATA-00. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "ANNO-SESS34",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 559,
+          "statement": "MOVE  ANNO-SESS34         TO   SESSIONE-ANNO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

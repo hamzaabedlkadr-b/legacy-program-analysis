@@ -1,0 +1,127 @@
+{
+  "type": "jcl.steps",
+  "job": "PDADDRE1",
+  "step": "SORADR",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDADDRE1",
+  "exec_kind": "program",
+  "target": "ICEMAN",
+  "program": "ICEMAN",
+  "proc": null,
+  "parameters": {},
+  "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [
+    "TEPDET.PDADDRE1.ADDREG"
+  ],
+  "writes": [
+    "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO"
+  ],
+  "deletes": [],
+  "controls": [
+    "SYS1.SORTLIB",
+    "&&INSADR"
+  ],
+  "unknowns": [],
+  "dds": [
+    {
+      "ddname": "SORTLIB",
+      "dsn": "SYS1.SORTLIB",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=SYS1.SORTLIB,DISP=SHR",
+      "annotations": [],
+      "source_lines": {
+        "start": 86,
+        "end": 86
+      },
+      "dataset_kind": "system",
+      "is_temporary": false,
+      "access_type": "control",
+      "access_reason": "Control DD name"
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "annotations": [],
+      "source_lines": {
+        "start": 87,
+        "end": 87
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "SORTIN",
+      "dsn": "TEPDET.PDADDRE1.ADDREG",
+      "disp": "OLD",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.PDADDRE1.ADDREG,DISP=OLD",
+      "annotations": [],
+      "source_lines": {
+        "start": 88,
+        "end": 88
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "read",
+      "access_reason": "Input DD name"
+    },
+    {
+      "ddname": "SORTOUT",
+      "dsn": "TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO",
+      "disp": "(,CATLG)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.PDADDRE1.ADRTOT.&CATEG..&TIPO,DISP=(,CATLG), DCB=(LRECL=100,DSORG=PS,RECFM=FB)",
+      "annotations": [],
+      "source_lines": {
+        "start": 89,
+        "end": 90
+      },
+      "dataset_kind": "persistent",
+      "is_temporary": false,
+      "access_type": "write",
+      "access_reason": "Output DD name"
+    },
+    {
+      "ddname": "SYSIN",
+      "dsn": "&&INSADR",
+      "disp": "(OLD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&INSADR,DISP=(OLD,DELETE)",
+      "annotations": [],
+      "source_lines": {
+        "start": 91,
+        "end": 91
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "control",
+      "access_reason": "Control DD name"
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 85,
+    "end": 85
+  },
+  "source": "jcl_files\\PDADDRE1.JCL"
+}

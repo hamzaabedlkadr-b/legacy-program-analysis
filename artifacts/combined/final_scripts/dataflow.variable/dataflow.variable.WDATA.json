@@ -1,0 +1,53 @@
+{
+  "id": "2fc0778c5a3754dd",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WDATA",
+  "embedding_text": "PDCBVC variable WDATA. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: MUOVI-TESTATA-00, PREP-RIGA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WDATA",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "MUOVI-TESTATA-00",
+      "PREP-RIGA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 554,
+          "statement": "MOVE  WDATA             TO  M1DATAO."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 716,
+          "statement": "MOVE WDATA                  TO  DATA-IMPIANTO."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 731,
+          "statement": "MOVE WDATA                  TO  DATA-CESSAZIONE."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 2,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 3,
+      "control_sites": 0
+    }
+  }
+}

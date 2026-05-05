@@ -1,0 +1,58 @@
+{
+  "id": "90b7355a968e32b1",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable MRIGAO",
+  "embedding_text": "PDCBVC variable MRIGAO. Origin=COPY:PDCBVCM. Defined in: PREP-RIGA-010. Modified in: ABBL-RIGA-10, PREP-RIGA-010. Used in: BROWSE-FASE2-SEL-10. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "MRIGAO",
+    "defined_in": [
+      "PREP-RIGA-010"
+    ],
+    "modified_in": [
+      "ABBL-RIGA-10",
+      "PREP-RIGA-010"
+    ],
+    "used_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "PREP-RIGA-010",
+          "line_start": 739,
+          "statement": "MOVE RIGA-MAPPA             TO  MRIGAO(WCTRIG)."
+        },
+        {
+          "paragraph": "ABBL-RIGA-10",
+          "line_start": 795,
+          "statement": "MOVE  SPACE  TO   MRIGAO(WCTRIG)."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 360,
+          "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 2,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

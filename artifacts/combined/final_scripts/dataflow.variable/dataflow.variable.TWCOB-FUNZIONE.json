@@ -1,0 +1,221 @@
+{
+  "id": "a61e93a00533a8f7",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-FUNZIONE",
+  "embedding_text": "PDCBVC variable TWCOB-FUNZIONE. Origin=COMMAREA. Defined in: XCTL-LIV1. Modified in: XCTL-LIV0, XCTL-LIV1, XCTL-LIV2, XCTL-LIV3, XCTL-LIV4. Used in: BROWSE-FASE1, INIZ-PARAM, MUOVI-TESTATA-10, PREP-RIGA. Controls flow: yes. Fanout nodes: INIZ-PARAM-010, MUOVI-TESTATA-20, PREP-RIGA-010, READ-TAB-SEMAF, XCTL-LIV4.",
+  "content": {
+    "variable": "TWCOB-FUNZIONE",
+    "defined_in": [
+      "XCTL-LIV1"
+    ],
+    "modified_in": [
+      "XCTL-LIV0",
+      "XCTL-LIV1",
+      "XCTL-LIV2",
+      "XCTL-LIV3",
+      "XCTL-LIV4"
+    ],
+    "used_in": [
+      "BROWSE-FASE1",
+      "INIZ-PARAM",
+      "MUOVI-TESTATA-10",
+      "PREP-RIGA"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "INIZ-PARAM-010",
+      "MUOVI-TESTATA-20",
+      "PREP-RIGA-010",
+      "READ-TAB-SEMAF",
+      "XCTL-LIV4"
+    ],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "XCTL-LIV1",
+          "line_start": 849,
+          "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+        },
+        {
+          "paragraph": "XCTL-LIV2",
+          "line_start": 856,
+          "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+        },
+        {
+          "paragraph": "XCTL-LIV3",
+          "line_start": 864,
+          "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+        },
+        {
+          "paragraph": "XCTL-LIV4",
+          "line_start": 871,
+          "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+        },
+        {
+          "paragraph": "XCTL-LIV0",
+          "line_start": 886,
+          "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 239,
+          "statement": "IF (TWCOB-FUNZIONE =  'I' OR 'A' OR 'C' OR 'D' OR 'P')"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 269,
+          "statement": "IF TWCOB-FUNZIONE  = 'A'"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 432,
+          "statement": "MOVE TWCOB-FUNZIONE         TO  PD1VOCI-TIPO-VARIAZ."
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 444,
+          "statement": "IF  TWCOB-FUNZIONE      =   'I'   THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 575,
+          "statement": "IF    TWCOB-FUNZIONE  =  'I'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 579,
+          "statement": "IF    TWCOB-FUNZIONE  =  'V'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 583,
+          "statement": "IF    TWCOB-FUNZIONE  =  'C'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 587,
+          "statement": "IF    TWCOB-FUNZIONE  =  'A'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 591,
+          "statement": "IF    TWCOB-FUNZIONE  =  'D'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 595,
+          "statement": "IF    TWCOB-FUNZIONE  =  'P'  THEN"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 704,
+          "statement": "IF   TWCOB-FUNZIONE     =   'I'   THEN"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 710,
+          "statement": "IF   TWCOB-FUNZIONE     =   'I'   THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 239,
+          "statement": "IF (TWCOB-FUNZIONE =  'I' OR 'A' OR 'C' OR 'D' OR 'P')"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 269,
+          "statement": "IF TWCOB-FUNZIONE  = 'A'"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 444,
+          "statement": "IF  TWCOB-FUNZIONE      =   'I'   THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 575,
+          "statement": "IF    TWCOB-FUNZIONE  =  'I'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 579,
+          "statement": "IF    TWCOB-FUNZIONE  =  'V'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 583,
+          "statement": "IF    TWCOB-FUNZIONE  =  'C'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 587,
+          "statement": "IF    TWCOB-FUNZIONE  =  'A'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 591,
+          "statement": "IF    TWCOB-FUNZIONE  =  'D'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": 595,
+          "statement": "IF    TWCOB-FUNZIONE  =  'P'  THEN"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 704,
+          "statement": "IF   TWCOB-FUNZIONE     =   'I'   THEN"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 710,
+          "statement": "IF   TWCOB-FUNZIONE     =   'I'   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": -1,
+          "statement": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP'"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": -1,
+          "statement": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1"
+        },
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": -1,
+          "statement": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')"
+        },
+        {
+          "paragraph": "MUOVI-TESTATA-10",
+          "line_start": -1,
+          "statement": "(TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'D')"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": -1,
+          "statement": "TWCOB-FUNZIONE = 'I'"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 5,
+      "used_in": 4,
+      "fanout_nodes": 5,
+      "write_sites": 5,
+      "read_sites": 12,
+      "control_sites": 16
+    }
+  }
+}

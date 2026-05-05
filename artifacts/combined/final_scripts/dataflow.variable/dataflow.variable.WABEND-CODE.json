@@ -1,0 +1,76 @@
+{
+  "id": "69e8dffdd73b94b9",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WABEND-CODE",
+  "embedding_text": "PDCBVC variable WABEND-CODE. Origin=WORKING-STORAGE. Defined in: TOP. Modified in: LINK-PD1FS00, PREP-LINK-PD1FS00, READ-TAB-SEMAF, TOP. Used in: LINK-PD0UTI01, LINK-PD1VOCI. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WABEND-CODE",
+    "defined_in": [
+      "TOP"
+    ],
+    "modified_in": [
+      "LINK-PD1FS00",
+      "PREP-LINK-PD1FS00",
+      "READ-TAB-SEMAF",
+      "TOP"
+    ],
+    "used_in": [
+      "LINK-PD0UTI01",
+      "LINK-PD1VOCI"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "TOP",
+          "line_start": 226,
+          "statement": "MOVE  'BR00'  TO  WABEND-CODE"
+        },
+        {
+          "paragraph": "PREP-LINK-PD1FS00",
+          "line_start": 418,
+          "statement": "MOVE 'VC04'  TO  WABEND-CODE."
+        },
+        {
+          "paragraph": "LINK-PD1FS00",
+          "line_start": 504,
+          "statement": "MOVE 'FS00'  TO  WABEND-CODE"
+        },
+        {
+          "paragraph": "READ-TAB-SEMAF",
+          "line_start": 764,
+          "statement": "MOVE 'GET1'   TO WABEND-CODE"
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "LINK-PD1VOCI",
+          "line_start": 490,
+          "statement": "THEN MOVE  'LE10'  TO  WABEND-CODE"
+        },
+        {
+          "paragraph": "LINK-PD0UTI01",
+          "line_start": 779,
+          "statement": "THEN  MOVE 'UT01'   TO WABEND-CODE"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 4,
+      "used_in": 2,
+      "fanout_nodes": 0,
+      "write_sites": 4,
+      "read_sites": 2,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "d9d66ae1fc072ddd",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WDATE2-MM",
+  "embedding_text": "PDCBVC variable WDATE2-MM. Origin=WORKING-STORAGE. Defined in: none. Modified in: none. Used in: PREP-RIGA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WDATE2-MM",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "PREP-RIGA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 714,
+          "statement": "MOVE WDATE2-MM              TO  WDATA-MM."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 729,
+          "statement": "MOVE WDATE2-MM              TO  WDATA-MM"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 2,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "84f1a12d38660649",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-026",
+  "embedding_text": "PDCBVC business rule BR-026 in scope PREP-RIGA. If TWCOB-FUNZIONE = 'I' then JUMP -> PREP-RIGA-010. Category=control. Kind=business_logic. Severity=neutral.",
+  "content": {
+    "id": "BR-026",
+    "program": "PDCBVC",
+    "scope": "PREP-RIGA",
+    "category": "control",
+    "kind": "business_logic",
+    "severity": "neutral",
+    "condition": "TWCOB-FUNZIONE = 'I'",
+    "action": "JUMP -> PREP-RIGA-010",
+    "flags": [],
+    "evidence": {
+      "from": "PREP-RIGA",
+      "to": "PREP-RIGA-010",
+      "type": "JUMP",
+      "raw_evidence": "GO  TO   PREP-RIGA-010."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "PREP-RIGA",
+    "category": "control",
+    "kind": "business_logic",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

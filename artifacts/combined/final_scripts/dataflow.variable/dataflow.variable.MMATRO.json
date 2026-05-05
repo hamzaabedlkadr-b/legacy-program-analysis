@@ -1,0 +1,44 @@
+{
+  "id": "63303f2d30619d85",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable MMATRO",
+  "embedding_text": "PDCBVC variable MMATRO. Origin=COPY:PDCBVCM. Defined in: MUOVI-TESTATA. Modified in: MUOVI-TESTATA. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "MMATRO",
+    "defined_in": [
+      "MUOVI-TESTATA"
+    ],
+    "modified_in": [
+      "MUOVI-TESTATA"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA",
+          "line_start": 542,
+          "statement": "MOVE TWCOB-CODICE-DIP   TO MMATRO."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

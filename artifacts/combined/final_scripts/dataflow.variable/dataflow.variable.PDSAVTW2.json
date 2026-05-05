@@ -1,0 +1,42 @@
+{
+  "id": "99152db16d5a2171",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PDSAVTW2",
+  "embedding_text": "PDCBVC variable PDSAVTW2. Origin=UNKNOWN. Defined in: none. Modified in: none. Used in: SAVE-TWA. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "PDSAVTW2",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "SAVE-TWA"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "UNKNOWN",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "SAVE-TWA",
+          "line_start": 909,
+          "statement": "COPY PDSAVTW2."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "UNKNOWN",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

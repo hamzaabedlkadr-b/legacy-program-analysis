@@ -1,0 +1,50 @@
+{
+  "id": "program.comment.PDCBVC.393.1bcd052d492d",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 393",
+  "embedding_text": "PDCBVC comment line 393 section LINKAGE paragraph BROWSE-FASE2-VISUAL. CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+  "content": {
+    "line": 393,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE2-VISUAL",
+    "kind": "full_line",
+    "text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+    "text_raw": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+    "normalized_text": "CALCOLO DEL NUMERO DI PAGINE DA VISUALIZZARE",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 393,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE2-VISUAL",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:BROWSE-FASE2-VISUAL",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "ASKIP-DRK",
+      "KFINE-DATI",
+      "M1MSGO",
+      "M1PF7A",
+      "M1PF8A",
+      "SW-FINE",
+      "TWCOB-FASE",
+      "TWCOB-VARCONT-NPAGINA",
+      "WCTPAG"
+    ]
+  }
+}

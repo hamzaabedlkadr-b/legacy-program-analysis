@@ -1,0 +1,68 @@
+{
+  "id": "eeaf215667b3bfd3",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable M1MSGO",
+  "embedding_text": "PDCBVC variable M1MSGO. Origin=COPY:PDCBVCM. Defined in: BROWSE-FASE1. Modified in: BROWSE-FASE1, BROWSE-FASE2-NOSEL, BROWSE-FASE2-NOTFND, BROWSE-FASE2-TASTOER, BROWSE-FASE2-VISUAL. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "M1MSGO",
+    "defined_in": [
+      "BROWSE-FASE1"
+    ],
+    "modified_in": [
+      "BROWSE-FASE1",
+      "BROWSE-FASE2-NOSEL",
+      "BROWSE-FASE2-NOTFND",
+      "BROWSE-FASE2-TASTOER",
+      "BROWSE-FASE2-VISUAL"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 285,
+          "statement": "MOVE  KFINE-DATI    TO  M1MSGO."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-TASTOER",
+          "line_start": 344,
+          "statement": "MOVE  WTASTOER     TO M1MSGO."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-NOSEL",
+          "line_start": 350,
+          "statement": "MOVE  WMNOSEL      TO M1MSGO."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-NOTFND",
+          "line_start": 376,
+          "statement": "MOVE  'Progressivo digitato non presente'  TO M1MSGO."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 387,
+          "statement": "MOVE  KFINE-DATI    TO  M1MSGO."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 5,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 5,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

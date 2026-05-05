@@ -1,0 +1,77 @@
+{
+  "id": "1d19bcd24e44b71c",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable SCELTAI",
+  "embedding_text": "PDCBVC variable SCELTAI. Origin=COPY:PDCBVCM. Defined in: none. Modified in: none. Used in: BROWSE-FASE2-ENTER, BROWSE-FASE2-SEL-10. Controls flow: yes. Fanout nodes: BROWSE-FASE2-SEL, BROWSE-FASE2-SEL-20.",
+  "content": {
+    "variable": "SCELTAI",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE2-ENTER",
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "BROWSE-FASE2-SEL",
+      "BROWSE-FASE2-SEL-20"
+    ],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": 317,
+          "statement": "IF SCELTAI   NOT  =  '__'   AND"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": 318,
+          "statement": "SCELTAI   NOT  =  SPACES"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 362,
+          "statement": "IF SCELTAI  =  WPROGR   THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": 317,
+          "statement": "IF SCELTAI   NOT  =  '__'   AND"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 362,
+          "statement": "IF SCELTAI  =  WPROGR   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": -1,
+          "statement": "(SCELTAI NOT = '__') AND (SCELTAI NOT = SPACES)"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": -1,
+          "statement": "SCELTAI = WPROGR"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 2,
+      "fanout_nodes": 2,
+      "write_sites": 0,
+      "read_sites": 3,
+      "control_sites": 4
+    }
+  }
+}

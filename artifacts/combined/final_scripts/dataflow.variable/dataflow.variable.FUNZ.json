@@ -1,0 +1,49 @@
+{
+  "id": "7d80d0bab1a6cd0d",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable FUNZ",
+  "embedding_text": "PDCBVC variable FUNZ. Origin=WORKING-STORAGE. Defined in: PREP-RIGA. Modified in: PREP-RIGA. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "FUNZ",
+    "defined_in": [
+      "PREP-RIGA"
+    ],
+    "modified_in": [
+      "PREP-RIGA"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 705,
+          "statement": "MOVE SPACES  TO  FUNZ"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 707,
+          "statement": "MOVE PD1VOCI-TABVOX-TIPVAR(PD1VOCI-IND)  TO  FUNZ."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

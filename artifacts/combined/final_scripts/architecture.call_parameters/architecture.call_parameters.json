@@ -1,0 +1,671 @@
+{
+  "type": "architecture.call_parameters",
+  "program": "PDCBVC",
+  "title": "PDCBVC call parameters",
+  "embedding_text": "PDCBVC outgoing call parameters. PD1VOCI via CICSLINK uses WPD1VOCI in LINK-PD1VOCI line 486. PD1FS00 via CICSLINK uses WPD1FS00 in LINK-PD1FS00 line 500. PXRSEMAF via CALL uses PXCSEMAF-AREA in READ-TAB-SEMAF line 746. PD0UTI01 via CICSLINK uses WPDRUTI01 in LINK-PD0UTI01 line 775. PDPRED via CICSXCTL uses no explicit parameter in XCTL-MAIN line 845.",
+  "calls": [
+    {
+      "id": "bcc888313848d9e0",
+      "program": "PDCBVC",
+      "caller": "PDCBVC",
+      "target": "PD1VOCI",
+      "call_type": "CICSLINK",
+      "paragraph": "LINK-PD1VOCI",
+      "line_start": 486,
+      "line_end": 487,
+      "statement": "EXEC CICS LINK PROGRAM('PD1VOCI') COMMAREA(WPD1VOCI) LENGTH(32000) END-EXEC.",
+      "parameters": [
+        "WPD1VOCI"
+      ],
+      "commarea": "WPD1VOCI",
+      "length": "32000",
+      "parameter_details": [
+        {
+          "parameter": "WPD1VOCI",
+          "field_prefix": "PD1VOCI",
+          "variables": [
+            {
+              "variable": "PD1VOCI-COD-VOCE",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 428,
+                  "statement": "MOVE TWCOB-VARCONT-VOCE-LIV4 TO  PD1VOCI-COD-VOCE."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-CODDIP-MATR",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 430,
+                  "statement": "MOVE TWCOB-SP-MATR          TO  PD1VOCI-CODDIP-MATR."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-CODDIP-PAD",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 431,
+                  "statement": "MOVE TWCOB-SP-PAD           TO  PD1VOCI-CODDIP-PAD."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-CODDIP-TIPO",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 429,
+                  "statement": "MOVE TWCOB-TIPO-DIP         TO  PD1VOCI-CODDIP-TIPO."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-DATI",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 427,
+                  "statement": "MOVE SPACE                  TO  PD1VOCI-DATI."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-FUNZIONE",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 437,
+                  "statement": "MOVE  '11'         TO  PD1VOCI-FUNZIONE"
+                },
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 441,
+                  "statement": "MOVE  '12'         TO  PD1VOCI-FUNZIONE"
+                },
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 445,
+                  "statement": "MOVE  '02'         TO  PD1VOCI-FUNZIONE"
+                },
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 449,
+                  "statement": "MOVE  '11'         TO  PD1VOCI-FUNZIONE."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-IND",
+              "origin": "WORKING-STORAGE",
+              "controls_flow": true,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "MUOVI-DATI-10",
+                  "line_start": 676,
+                  "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+                },
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 703,
+                  "statement": "MOVE PD1VOCI-TABVOX-CODVOX(PD1VOCI-IND)  TO  VOCE."
+                },
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 707,
+                  "statement": "MOVE PD1VOCI-TABVOX-TIPVAR(PD1VOCI-IND)  TO  FUNZ."
+                },
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 709,
+                  "statement": "MOVE PD1VOCI-TABVOX-DESCRIZ(PD1VOCI-IND) TO  WDESCVO."
+                },
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 712,
+                  "statement": "MOVE PD1VOCI-TABVOX-INIZ(PD1VOCI-IND)    TO  WDATE2."
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-LIQUID1-ANNO",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM-020",
+                  "line_start": 471,
+                  "statement": "MOVE  'TTTT'           TO  PD1VOCI-LIQUID1-ANNO"
+                },
+                {
+                  "paragraph": "INIZ-PARAM-020",
+                  "line_start": 473,
+                  "statement": "MOVE  TWCOB-VARCONT-ANNO   TO  PD1VOCI-LIQUID1-ANNO."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-LIQUID1-MESE",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM-020",
+                  "line_start": 475,
+                  "statement": "MOVE  TWCOB-VARCONT-MESE   TO  PD1VOCI-LIQUID1-MESE."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-LIQUID1-TIPO",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM-020",
+                  "line_start": 476,
+                  "statement": "MOVE  TWCOB-VARCONT-TMENS  TO  PD1VOCI-LIQUID1-TIPO."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-RETURN",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": true,
+              "writes_before_call": [
+                {
+                  "paragraph": "LINK-PD1VOCI",
+                  "line_start": 484,
+                  "statement": "MOVE HIGH-VALUE TO  PD1VOCI-RETURN."
+                }
+              ],
+              "reads_after_call": [
+                {
+                  "paragraph": "LINK-PD1VOCI",
+                  "line_start": 489,
+                  "statement": "IF  PD1VOCI-RETURN EQUAL 'E'"
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-TABVOX-CODVOX",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 703,
+                  "statement": "MOVE PD1VOCI-TABVOX-CODVOX(PD1VOCI-IND)  TO  VOCE."
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-TABVOX-DESCRIZ",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 709,
+                  "statement": "MOVE PD1VOCI-TABVOX-DESCRIZ(PD1VOCI-IND) TO  WDESCVO."
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-TABVOX-FINE",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": true,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 724,
+                  "statement": "IF   PD1VOCI-TABVOX-FINE(PD1VOCI-IND)  =  SPACES THEN"
+                },
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 727,
+                  "statement": "MOVE PD1VOCI-TABVOX-FINE(PD1VOCI-IND)    TO  WDATE2"
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-TABVOX-INIZ",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 712,
+                  "statement": "MOVE PD1VOCI-TABVOX-INIZ(PD1VOCI-IND)    TO  WDATE2."
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-TABVOX-NUMERO",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": true,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "MUOVI-DATI-10",
+                  "line_start": 676,
+                  "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-TABVOX-PROGVOX",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 737,
+                  "statement": "MOVE PD1VOCI-TABVOX-PROGVOX(PD1VOCI-IND) TO  WPROGREC."
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-TABVOX-TIPVAR",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 707,
+                  "statement": "MOVE PD1VOCI-TABVOX-TIPVAR(PD1VOCI-IND)  TO  FUNZ."
+                }
+              ]
+            },
+            {
+              "variable": "PD1VOCI-TIPO-ESTRA",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 446,
+                  "statement": "MOVE   'A'         TO  PD1VOCI-TIPO-ESTRA"
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-TIPO-GEST",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 434,
+                  "statement": "MOVE   '00'                 TO  PD1VOCI-TIPO-GEST."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-TIPO-VARIAZ",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM",
+                  "line_start": 432,
+                  "statement": "MOVE TWCOB-FUNZIONE         TO  PD1VOCI-TIPO-VARIAZ."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1VOCI-TIPO-VOCE",
+              "origin": "COPY:PD1VOCI",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "INIZ-PARAM-010",
+                  "line_start": 456,
+                  "statement": "MOVE  '1'         TO  PD1VOCI-TIPO-VOCE"
+                },
+                {
+                  "paragraph": "INIZ-PARAM-010",
+                  "line_start": 459,
+                  "statement": "MOVE  '3'         TO  PD1VOCI-TIPO-VOCE"
+                },
+                {
+                  "paragraph": "INIZ-PARAM-010",
+                  "line_start": 462,
+                  "statement": "MOVE  '2'         TO  PD1VOCI-TIPO-VOCE"
+                },
+                {
+                  "paragraph": "INIZ-PARAM-010",
+                  "line_start": 465,
+                  "statement": "MOVE  '4'         TO  PD1VOCI-TIPO-VOCE"
+                },
+                {
+                  "paragraph": "INIZ-PARAM-010",
+                  "line_start": 467,
+                  "statement": "MOVE  '0'         TO  PD1VOCI-TIPO-VOCE."
+                }
+              ],
+              "reads_after_call": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e639d036d0a47448",
+      "program": "PDCBVC",
+      "caller": "PDCBVC",
+      "target": "PD1FS00",
+      "call_type": "CICSLINK",
+      "paragraph": "LINK-PD1FS00",
+      "line_start": 500,
+      "line_end": 501,
+      "statement": "EXEC CICS LINK PROGRAM('PD1FS00') COMMAREA(WPD1FS00) LENGTH(PD1FS00-LUNGH) END-EXEC.",
+      "parameters": [
+        "WPD1FS00"
+      ],
+      "commarea": "WPD1FS00",
+      "length": "PD1FS00-LUNGH",
+      "parameter_details": [
+        {
+          "parameter": "WPD1FS00",
+          "field_prefix": "PD1FS00",
+          "variables": [
+            {
+              "variable": "PD1FS00-FUNZIONE",
+              "origin": "COPY:PD1FS00",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "PREP-LINK-PD1FS00",
+                  "line_start": 410,
+                  "statement": "MOVE  '03'        TO   PD1FS00-FUNZIONE."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1FS00-LUNGH",
+              "origin": "COPY:PD1FS00",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "LINK-PD1FS00",
+                  "line_start": 501,
+                  "statement": "LENGTH(PD1FS00-LUNGH) END-EXEC."
+                }
+              ]
+            },
+            {
+              "variable": "PD1FS00-RETURN",
+              "origin": "COPY:PD1FS00",
+              "controls_flow": true,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "LINK-PD1FS00",
+                  "line_start": 503,
+                  "statement": "IF  PD1FS00-RETURN  EQUAL 'E' THEN"
+                }
+              ]
+            },
+            {
+              "variable": "PD1FS00-SESS-ANNO",
+              "origin": "COPY:PD1FS00",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "MUOVI-TESTATA-00",
+                  "line_start": 558,
+                  "statement": "MOVE  PD1FS00-SESS-ANNO   TO   ANNO-SESS."
+                }
+              ]
+            },
+            {
+              "variable": "PD1FS00-SESS-FLAG",
+              "origin": "COPY:PD1FS00",
+              "controls_flow": true,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "MUOVI-TESTATA-00",
+                  "line_start": 564,
+                  "statement": "IF    PD1FS00-SESS-FLAG  =  '1'  THEN"
+                },
+                {
+                  "paragraph": "MUOVI-TESTATA-00",
+                  "line_start": 567,
+                  "statement": "IF    PD1FS00-SESS-FLAG  =  '2'  THEN"
+                },
+                {
+                  "paragraph": "MUOVI-TESTATA-00",
+                  "line_start": 570,
+                  "statement": "IF    PD1FS00-SESS-FLAG  =  '3'  THEN"
+                }
+              ]
+            },
+            {
+              "variable": "PD1FS00-SESS-MESE",
+              "origin": "COPY:PD1FS00",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "MUOVI-TESTATA-00",
+                  "line_start": 560,
+                  "statement": "MOVE  PD1FS00-SESS-MESE   TO   SESSIONE-MESE."
+                }
+              ]
+            },
+            {
+              "variable": "PD1FS00-SESS-SISTEMA",
+              "origin": "COPY:PD1FS00",
+              "controls_flow": false,
+              "writes_before_call": [
+                {
+                  "paragraph": "PREP-LINK-PD1FS00",
+                  "line_start": 411,
+                  "statement": "MOVE  TWCOB-ID-SISTEMA TO  PD1FS00-SESS-SISTEMA."
+                }
+              ],
+              "reads_after_call": []
+            },
+            {
+              "variable": "PD1FS00-SESS-TMENS",
+              "origin": "COPY:PD1FS00",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "MUOVI-TESTATA-00",
+                  "line_start": 561,
+                  "statement": "MOVE  PD1FS00-SESS-TMENS  TO   SESSIONE-TMENS."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4d66c052ed6cdea",
+      "program": "PDCBVC",
+      "caller": "PDCBVC",
+      "target": "PXRSEMAF",
+      "call_type": "CALL",
+      "paragraph": "READ-TAB-SEMAF",
+      "line_start": 746,
+      "line_end": 760,
+      "statement": "mar23 * LETTURA STATO SEMAFORO SU TABELLA ORACLE ORAMF.SEMAFORO INITIALIZE PXCSEMAF-AREA MOVE 'GET' TO PXCSEMAF-REQ MOVE 'PDAGGVIP' TO PXCSEMAF-NAME MOVE 'SEMAFORO' TO PXCSEMAF-AGENT MOVE 'PDCBVC' TO PXCSEMAF-CALLER MOVE 'CICS' TO PXCSEMAF-CALLER-TYPE MOVE TWCOB-OPER-SIGLA TO PXCSEMAF-USER-REQ CALL PXRSEMAF USING PXCSEMAF-AREA",
+      "parameters": [
+        "PXCSEMAF-AREA"
+      ],
+      "commarea": null,
+      "length": null,
+      "parameter_details": [
+        {
+          "parameter": "PXCSEMAF-AREA",
+          "field_prefix": "PXCSEMAF",
+          "variables": [
+            {
+              "variable": "PXCSEMAF-AREA",
+              "origin": "UNKNOWN",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "READ-TAB-SEMAF",
+                  "line_start": 760,
+                  "statement": "CALL PXRSEMAF USING PXCSEMAF-AREA"
+                }
+              ]
+            },
+            {
+              "variable": "PXCSEMAF-OUTCOME",
+              "origin": "UNKNOWN",
+              "controls_flow": true,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "READ-TAB-SEMAF",
+                  "line_start": 762,
+                  "statement": "IF PXCSEMAF-OUTCOME NOT = SPACE"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c821306f21f49585",
+      "program": "PDCBVC",
+      "caller": "PDCBVC",
+      "target": "PD0UTI01",
+      "call_type": "CICSLINK",
+      "paragraph": "LINK-PD0UTI01",
+      "line_start": 775,
+      "line_end": 776,
+      "statement": "EXEC CICS LINK PROGRAM('PD0UTI01') COMMAREA(WPDRUTI01) LENGTH(400) END-EXEC.",
+      "parameters": [
+        "WPDRUTI01"
+      ],
+      "commarea": "WPDRUTI01",
+      "length": "400",
+      "parameter_details": [
+        {
+          "parameter": "WPDRUTI01",
+          "field_prefix": "PDRUTI01",
+          "variables": [
+            {
+              "variable": "PDRUTI01-F04-IMPOX11",
+              "origin": "COPY:PDRUTI01",
+              "controls_flow": false,
+              "writes_before_call": [],
+              "reads_after_call": [
+                {
+                  "paragraph": "LINK-PD0UTI01",
+                  "line_start": 783,
+                  "statement": "INSPECT PDRUTI01-F04-IMPOX11 CONVERTING ' ' TO '_'"
+                }
+              ]
+            },
+            {
+              "variable": "PDRUTI01-FUNZIONE",
+              "origin": "COPY:PDRUTI01",
+              "controls_flow": true,
+              "writes_before_call": [
+                {
+                  "paragraph": "PREP-RIGA",
+                  "line_start": 732,
+                  "statement": "MOVE '05'       TO  PDRUTI01-FUNZIONE."
+                }
+              ],
+              "reads_after_call": [
+                {
+                  "paragraph": "LINK-PD0UTI01",
+                  "line_start": 782,
+                  "statement": "IF  PDRUTI01-FUNZIONE = '04' OR '05'"
+                }
+              ]
+            },
+            {
+              "variable": "PDRUTI01-RETURN",
+              "origin": "COPY:PDRUTI01",
+              "controls_flow": true,
+              "writes_before_call": [
+                {
+                  "paragraph": "LINK-PD0UTI01",
+                  "line_start": 773,
+                  "statement": "MOVE HIGH-VALUE TO  PDRUTI01-RETURN."
+                }
+              ],
+              "reads_after_call": [
+                {
+                  "paragraph": "LINK-PD0UTI01",
+                  "line_start": 778,
+                  "statement": "IF  PDRUTI01-RETURN EQUAL 'E'"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b55a4ddae63b3c2e",
+      "program": "PDCBVC",
+      "caller": "PDCBVC",
+      "target": "PDPRED",
+      "call_type": "CICSXCTL",
+      "paragraph": "XCTL-MAIN",
+      "line_start": 845,
+      "line_end": 845,
+      "statement": "EXEC CICS XCTL PROGRAM('PDPRED') END-EXEC.",
+      "parameters": [],
+      "commarea": null,
+      "length": null,
+      "parameter_details": []
+    }
+  ],
+  "meta": {
+    "count": 5,
+    "with_parameters": 4
+  }
+}

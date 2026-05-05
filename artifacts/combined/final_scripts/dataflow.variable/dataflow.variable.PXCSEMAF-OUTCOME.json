@@ -1,0 +1,55 @@
+{
+  "id": "3242ea59eaeb71ba",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PXCSEMAF-OUTCOME",
+  "embedding_text": "PDCBVC variable PXCSEMAF-OUTCOME. Origin=UNKNOWN. Defined in: none. Modified in: none. Used in: READ-TAB-SEMAF. Controls flow: yes. Fanout nodes: ABEND00.",
+  "content": {
+    "variable": "PXCSEMAF-OUTCOME",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "READ-TAB-SEMAF"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "ABEND00"
+    ],
+    "origin": "UNKNOWN",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "READ-TAB-SEMAF",
+          "line_start": 762,
+          "statement": "IF PXCSEMAF-OUTCOME NOT = SPACE"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "READ-TAB-SEMAF",
+          "line_start": 762,
+          "statement": "IF PXCSEMAF-OUTCOME NOT = SPACE"
+        },
+        {
+          "paragraph": "READ-TAB-SEMAF",
+          "line_start": -1,
+          "statement": "PXCSEMAF-OUTCOME NOT = SPACE"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "UNKNOWN",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 1,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 2
+    }
+  }
+}

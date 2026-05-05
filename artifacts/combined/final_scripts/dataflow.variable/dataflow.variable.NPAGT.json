@@ -1,0 +1,115 @@
+{
+  "id": "2f6e6887e140d5f1",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable NPAGT",
+  "embedding_text": "PDCBVC variable NPAGT. Origin=WORKING-STORAGE. Defined in: CALCOLA-NPAG. Modified in: CALCOLA-NPAG. Used in: BROWSE-FASE1, BROWSE-FASE2-ENTER, CALCOLA-NPAG, MUOVI-DATI-30. Controls flow: yes. Fanout nodes: BROWSE-FASE2-VISUAL, CALCOLA-NPAG-EXIT, XCTL-LIV4.",
+  "content": {
+    "variable": "NPAGT",
+    "defined_in": [
+      "CALCOLA-NPAG"
+    ],
+    "modified_in": [
+      "CALCOLA-NPAG"
+    ],
+    "used_in": [
+      "BROWSE-FASE1",
+      "BROWSE-FASE2-ENTER",
+      "CALCOLA-NPAG",
+      "MUOVI-DATI-30"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "BROWSE-FASE2-VISUAL",
+      "CALCOLA-NPAG-EXIT",
+      "XCTL-LIV4"
+    ],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 397,
+          "statement": "DIVIDE MAX-RIGHE INTO PD1VOCI-TABVOX-NUMERO GIVING NPAGT"
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 284,
+          "statement": "IF    NPAGT     NOT GREATER    1  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": 325,
+          "statement": "IF  WCTPAG NOT LESS  NPAGT  THEN"
+        },
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 399,
+          "statement": "IF  NPAGT  LESS  1   THEN  ADD +1  TO  NPAGT"
+        },
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 401,
+          "statement": "IF  RESTO  GREATER  ZERO  THEN ADD  +1  TO  NPAGT."
+        },
+        {
+          "paragraph": "MUOVI-DATI-30",
+          "line_start": 691,
+          "statement": "MOVE  NPAGT    TO  COM2."
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 284,
+          "statement": "IF    NPAGT     NOT GREATER    1  THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": 325,
+          "statement": "IF  WCTPAG NOT LESS  NPAGT  THEN"
+        },
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 399,
+          "statement": "IF  NPAGT  LESS  1   THEN  ADD +1  TO  NPAGT"
+        },
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": 401,
+          "statement": "IF  RESTO  GREATER  ZERO  THEN ADD  +1  TO  NPAGT."
+        },
+        {
+          "paragraph": "CALCOLA-NPAG",
+          "line_start": -1,
+          "statement": "NPAGT LESS 1"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": -1,
+          "statement": "WCTPAG LESS NPAGT"
+        },
+        {
+          "paragraph": "BROWSE-FASE2-ENTER",
+          "line_start": -1,
+          "statement": "(WCTPAG NOT LESS NPAGT)"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 4,
+      "fanout_nodes": 3,
+      "write_sites": 1,
+      "read_sites": 5,
+      "control_sites": 7
+    }
+  }
+}

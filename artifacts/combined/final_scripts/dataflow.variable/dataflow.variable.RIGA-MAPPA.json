@@ -1,0 +1,58 @@
+{
+  "id": "27c6fe11abaed72f",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable RIGA-MAPPA",
+  "embedding_text": "PDCBVC variable RIGA-MAPPA. Origin=WORKING-STORAGE. Defined in: BROWSE-FASE2-SEL-10. Modified in: BROWSE-FASE2-SEL-10, PREP-RIGA. Used in: PREP-RIGA-010. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "RIGA-MAPPA",
+    "defined_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "modified_in": [
+      "BROWSE-FASE2-SEL-10",
+      "PREP-RIGA"
+    ],
+    "used_in": [
+      "PREP-RIGA-010"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 360,
+          "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 701,
+          "statement": "MOVE SPACES                 TO  RIGA-MAPPA."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "PREP-RIGA-010",
+          "line_start": 739,
+          "statement": "MOVE RIGA-MAPPA             TO  MRIGAO(WCTRIG)."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 2,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

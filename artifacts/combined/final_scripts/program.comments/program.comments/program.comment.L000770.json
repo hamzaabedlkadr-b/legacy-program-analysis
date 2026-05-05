@@ -1,0 +1,40 @@
+{
+  "id": "program.comment.PDCBVC.770.62bb3d4d28c0",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 770",
+  "embedding_text": "PDCBVC comment line 770 section LINKAGE paragraph EXIT. LINK ALLA ROUTINE CONTROLLO IMPORTO",
+  "content": {
+    "line": 770,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+    "text_raw": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+    "normalized_text": "LINK ALLA ROUTINE CONTROLLO IMPORTO",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 770,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:EXIT",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

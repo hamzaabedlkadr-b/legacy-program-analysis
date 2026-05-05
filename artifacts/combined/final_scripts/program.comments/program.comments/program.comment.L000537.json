@@ -1,0 +1,40 @@
+{
+  "id": "program.comment.PDCBVC.537.41bca810c8ee",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 537",
+  "embedding_text": "PDCBVC comment line 537 section LINKAGE paragraph EXIT. IMPOSTAZIONE TESTATA DELLA MAPPA *",
+  "content": {
+    "line": 537,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "IMPOSTAZIONE TESTATA DELLA MAPPA *",
+    "text_raw": "IMPOSTAZIONE TESTATA DELLA MAPPA                      *",
+    "normalized_text": "IMPOSTAZIONE TESTATA DELLA MAPPA",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 537,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:EXIT",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

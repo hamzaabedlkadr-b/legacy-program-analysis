@@ -1,0 +1,32 @@
+{
+  "id": "49b9d4ef1759e7c0",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-027",
+  "embedding_text": "PDCBVC business rule BR-027 in scope LINK-PD0UTI01. If PDRUTI01-RETURN EQUAL 'E' then JUMP -> ABEND00. Category=error. Kind=business. Severity=fatal.",
+  "content": {
+    "id": "BR-027",
+    "program": "PDCBVC",
+    "scope": "LINK-PD0UTI01",
+    "category": "error",
+    "kind": "business",
+    "severity": "fatal",
+    "condition": "PDRUTI01-RETURN EQUAL 'E'",
+    "action": "JUMP -> ABEND00",
+    "flags": [],
+    "evidence": {
+      "from": "LINK-PD0UTI01",
+      "to": "ABEND00",
+      "type": "JUMP",
+      "raw_evidence": "GO TO ABEND00."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "LINK-PD0UTI01",
+    "category": "error",
+    "kind": "business",
+    "severity": "fatal",
+    "flags_count": 0
+  }
+}

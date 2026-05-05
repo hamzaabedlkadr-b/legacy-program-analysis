@@ -1,0 +1,32 @@
+{
+  "id": "e95460b9259f965c",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-019",
+  "embedding_text": "PDCBVC business rule BR-019 in scope INIZ-PARAM. If (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') AND (TWCOB-FUNZIONE = 'I') then JUMP -> INIZ-PARAM-010. Category=control. Kind=business_logic. Severity=neutral.",
+  "content": {
+    "id": "BR-019",
+    "program": "PDCBVC",
+    "scope": "INIZ-PARAM",
+    "category": "control",
+    "kind": "business_logic",
+    "severity": "neutral",
+    "condition": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') AND (TWCOB-FUNZIONE = 'I')",
+    "action": "JUMP -> INIZ-PARAM-010",
+    "flags": [],
+    "evidence": {
+      "from": "INIZ-PARAM",
+      "to": "INIZ-PARAM-010",
+      "type": "JUMP",
+      "raw_evidence": "GO  TO  INIZ-PARAM-010."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "INIZ-PARAM",
+    "category": "control",
+    "kind": "business_logic",
+    "severity": "neutral",
+    "flags_count": 0
+  }
+}

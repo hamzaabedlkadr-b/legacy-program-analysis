@@ -1,0 +1,90 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "PDHM730C",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "PDHM730C",
+  "program": "PDHM730C",
+  "proc": null,
+  "parameters": {
+    "PARM": "'&TIPO,  ,        ,                    '"
+  },
+  "positional": [],
+  "dds": [
+    {
+      "ddname": "SKINPUT",
+      "dsn": "TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=TEPDET.BVARIAZ.CAF&ANNO..M&MENS.T&TIPO,DISP=SHR",
+      "source_lines": {
+        "start": 83,
+        "end": 83
+      }
+    },
+    {
+      "ddname": "FOUTPUT",
+      "dsn": "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO",
+      "disp": "(,CATLG)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO, UNIT=3390,SPACE=(CYL,(1,1)),DISP=(,CATLG),VOL=SER=TESP2A, DCB=(DSORG=PS,LRECL=200,RECFM=FB)",
+      "source_lines": {
+        "start": 84,
+        "end": 86
+      }
+    },
+    {
+      "ddname": "STAMPA",
+      "dsn": null,
+      "disp": null,
+      "sysout": "(,)",
+      "unit": null,
+      "output": "(*.OUTCPA,*.OUTINF)",
+      "raw": "DD SYSOUT=(,),OUTPUT=(*.OUTCPA,*.OUTINF), DCB=(RECFM=FA,LRECL=133)",
+      "source_lines": {
+        "start": 87,
+        "end": 88
+      }
+    },
+    {
+      "ddname": "SYSOUT",
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "source_lines": {
+        "start": 89,
+        "end": 89
+      }
+    },
+    {
+      "ddname": "SYSUDUMP",
+      "dsn": null,
+      "disp": null,
+      "sysout": "9",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=9",
+      "source_lines": {
+        "start": 90,
+        "end": 90
+      }
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 77,
+    "end": 78
+  },
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

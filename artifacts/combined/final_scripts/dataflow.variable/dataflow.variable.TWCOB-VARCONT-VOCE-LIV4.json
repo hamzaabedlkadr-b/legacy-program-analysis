@@ -1,0 +1,53 @@
+{
+  "id": "5495275e30bdd78b",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-VARCONT-VOCE-LIV4",
+  "embedding_text": "PDCBVC variable TWCOB-VARCONT-VOCE-LIV4. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: INIZ-PARAM, PREPARA-MAP. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-VARCONT-VOCE-LIV4",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "INIZ-PARAM",
+      "PREPARA-MAP"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "INIZ-PARAM",
+          "line_start": 428,
+          "statement": "MOVE TWCOB-VARCONT-VOCE-LIV4 TO  PD1VOCI-COD-VOCE."
+        },
+        {
+          "paragraph": "PREPARA-MAP",
+          "line_start": 527,
+          "statement": "TWCOB-VARCONT-VOCE-LIV4  NUMERIC   AND"
+        },
+        {
+          "paragraph": "PREPARA-MAP",
+          "line_start": 528,
+          "statement": "TWCOB-VARCONT-VOCE-LIV4  NOT = ZERO"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 2,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 3,
+      "control_sites": 0
+    }
+  }
+}

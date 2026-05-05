@@ -1,0 +1,61 @@
+{
+  "id": "6d59bdd67fa7e7e3",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable DFHPF9",
+  "embedding_text": "PDCBVC variable DFHPF9. Origin=CICS_CONST. Defined in: none. Modified in: none. Used in: BROWSE-FASE2. Controls flow: yes. Fanout nodes: BROWSE-FASE2-TASTOER, XCTL-LIV0.",
+  "content": {
+    "variable": "DFHPF9",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE2"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "BROWSE-FASE2-TASTOER",
+      "XCTL-LIV0"
+    ],
+    "origin": "CICS_CONST",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 308,
+          "statement": "IF  EIBAID = DFHPF9   THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": 308,
+          "statement": "IF  EIBAID = DFHPF9   THEN"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+        },
+        {
+          "paragraph": "BROWSE-FASE2",
+          "line_start": -1,
+          "statement": "EIBAID = DFHPF9"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "CICS_CONST",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 2,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 3
+    }
+  }
+}

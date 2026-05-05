@@ -1,0 +1,42 @@
+{
+  "id": "6496c8e5d54f797b",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-VARCONT-TMENS",
+  "embedding_text": "PDCBVC variable TWCOB-VARCONT-TMENS. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: INIZ-PARAM-020. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-VARCONT-TMENS",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "INIZ-PARAM-020"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "INIZ-PARAM-020",
+          "line_start": 476,
+          "statement": "MOVE  TWCOB-VARCONT-TMENS  TO  PD1VOCI-LIQUID1-TIPO."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

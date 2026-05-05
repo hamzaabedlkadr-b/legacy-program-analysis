@@ -1,0 +1,52 @@
+{
+  "id": "6559059287c048f7",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WPROGREC",
+  "embedding_text": "PDCBVC variable WPROGREC. Origin=WORKING-STORAGE. Defined in: PREP-RIGA. Modified in: PREP-RIGA. Used in: BROWSE-FASE2-SEL-10. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WPROGREC",
+    "defined_in": [
+      "PREP-RIGA"
+    ],
+    "modified_in": [
+      "PREP-RIGA"
+    ],
+    "used_in": [
+      "BROWSE-FASE2-SEL-10"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 737,
+          "statement": "MOVE PD1VOCI-TABVOX-PROGVOX(PD1VOCI-IND) TO  WPROGREC."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE2-SEL-10",
+          "line_start": 365,
+          "statement": "MOVE  WPROGREC    TO   TWCOB-VARCONT-PROGVOCE"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

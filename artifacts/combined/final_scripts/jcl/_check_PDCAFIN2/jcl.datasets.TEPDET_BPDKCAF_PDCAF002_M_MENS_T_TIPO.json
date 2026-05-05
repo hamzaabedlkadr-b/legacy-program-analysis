@@ -1,0 +1,24 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "TEPDET.BPDKCAF.PDCAF002.M&MENS.T&TIPO",
+  "used_by": [
+    {
+      "step": "SCRA",
+      "ddname": "PDKCAF",
+      "program": "IEFBR14",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    },
+    {
+      "step": "PDHM730B",
+      "ddname": "OUTCAF",
+      "program": "PDHM730B",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "procedure_definition"
+    }
+  ],
+  "source": "final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

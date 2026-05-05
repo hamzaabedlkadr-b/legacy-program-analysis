@@ -1,0 +1,82 @@
+{
+  "type": "jcl.summary",
+  "job": "PDCAFIN2",
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL",
+  "purpose": "ACQUISIZIONI DATI DAL CAF DELLA CAMERA E DAI CAAF ESTERNI",
+  "warnings": [],
+  "comment_highlights": [
+    "ACQUISIZIONI DATI DAL CAF DELLA CAMERA E DAI CAAF ESTERNI",
+    "CREAZIONE SKEDE VARIAZIONI PER RIMBORSI/TRATTENUTE IRPEF/CSSN",
+    "4181 : SALDO CSSN A DEBITO(SOLO PER 1997)",
+    "4182 : SALDO CSSN A CREDITO (SOLO PER 1997)",
+    "4183 : SALDO IRPEF A DEBITO (RATEIZZABILE) - BASE",
+    "4237 : SALDO IRPEF A DEBITO (RATEIZZABILE) - RIMBORSI",
+    "4184 : SALDO IRPEF A CREDITO",
+    "4185 : PRIMO ACCONTO IRPEF"
+  ],
+  "requirements": [],
+  "products": [],
+  "rerun_notes": [],
+  "programs": [
+    "ICEMAN",
+    "IDCAMS",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHM730B",
+    "PDHM730C",
+    "PDHM730D"
+  ],
+  "procedures": [
+    "PDCAFIN2"
+  ],
+  "unresolved_procedures": [],
+  "jcllib_order": [],
+  "symbols": {},
+  "local_procedures": [
+    {
+      "procedure": "PDCAFIN2",
+      "parameters": {},
+      "steps_count": 9,
+      "programs": [
+        "ICEMAN",
+        "IDCAMS",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHM730B",
+        "PDHM730C",
+        "PDHM730D"
+      ],
+      "source_lines": {
+        "start": 35,
+        "end": 149
+      }
+    }
+  ],
+  "procedure_invocations": [
+    {
+      "step": "PDCAFIN2",
+      "proc": "PDCAFIN2",
+      "resolved_locally": true,
+      "resolved_proc_programs": [
+        "ICEMAN",
+        "IDCAMS",
+        "IEFBR14",
+        "PARM2SK",
+        "PDHM730B",
+        "PDHM730C",
+        "PDHM730D"
+      ],
+      "parameters": {
+        "ANNORIF": "2023",
+        "ANNO": "2024",
+        "TIPO": "67",
+        "MENS": "12"
+      }
+    }
+  ],
+  "control_statements_count": 3,
+  "steps_count": 10,
+  "execution_steps_count": 9,
+  "datasets_count": 12,
+  "external_inputs_count": 3
+}

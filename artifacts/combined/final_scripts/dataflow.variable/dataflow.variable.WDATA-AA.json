@@ -1,0 +1,55 @@
+{
+  "id": "aff1ff9c6baad17b",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WDATA-AA",
+  "embedding_text": "PDCBVC variable WDATA-AA. Origin=WORKING-STORAGE. Defined in: MUOVI-TESTATA-00. Modified in: MUOVI-TESTATA-00, PREP-RIGA. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WDATA-AA",
+    "defined_in": [
+      "MUOVI-TESTATA-00"
+    ],
+    "modified_in": [
+      "MUOVI-TESTATA-00",
+      "PREP-RIGA"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-00",
+          "line_start": 553,
+          "statement": "MOVE  WDATE-AA          TO  WDATA-AA."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 713,
+          "statement": "MOVE WDATE2-AA34            TO  WDATA-AA."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 728,
+          "statement": "MOVE WDATE2-AA34            TO  WDATA-AA"
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 2,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 3,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

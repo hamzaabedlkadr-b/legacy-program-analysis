@@ -1,0 +1,41 @@
+{
+  "program": "PDCBVC",
+  "source_bundle_path": "cobol-rekt/knowledge-base_rag/PDCBVC",
+  "base_rag_jsonl": "control_flow_rag_documents.jsonl",
+  "combined_rag_jsonl": "artifacts/combined/rag_index/control_flow_rag_documents_combined.jsonl",
+  "rag_info": {
+    "base_count": 824,
+    "added_count": 652,
+    "total_count": 1476
+  },
+  "max_rag_text_chars": 12000,
+  "chunk_type_counts": {
+    "call_contract": 5,
+    "cics.operation": 13,
+    "cics.program_transfer": 4,
+    "cics.resource": 7,
+    "cics_operations": 1,
+    "cobol_analysis_health": 1,
+    "commented_out_code": 1,
+    "comments": 1,
+    "controlflow.cfg": 137,
+    "copybook_fields": 34,
+    "copybook_mentions": 2,
+    "dataflow.variable": 275,
+    "datasets_tables_resources": 1,
+    "dead_code": 1,
+    "dependencies": 1,
+    "error_path": 60,
+    "external_program_calls": 1,
+    "paragraph_logic": 54,
+    "program_summary": 1,
+    "screen.key_dispatch": 2,
+    "screen.pagination": 3,
+    "screen.row_build": 4,
+    "screen.selection": 5,
+    "static_values": 11,
+    "unused_copybooks": 2,
+    "variable_group": 16,
+    "workflow": 4
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "id": "331cc0d7be520bc3",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1VOCI-IND",
+  "embedding_text": "PDCBVC variable PD1VOCI-IND. Origin=WORKING-STORAGE. Defined in: MUOVI-DATI. Modified in: MUOVI-DATI, MUOVI-DATI-05, MUOVI-DATI-20. Used in: MUOVI-DATI-10, PREP-RIGA. Controls flow: yes. Fanout nodes: MUOVI-DATI-30.",
+  "content": {
+    "variable": "PD1VOCI-IND",
+    "defined_in": [
+      "MUOVI-DATI"
+    ],
+    "modified_in": [
+      "MUOVI-DATI",
+      "MUOVI-DATI-05",
+      "MUOVI-DATI-20"
+    ],
+    "used_in": [
+      "MUOVI-DATI-10",
+      "PREP-RIGA"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "MUOVI-DATI-30"
+    ],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 648,
+          "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 658,
+          "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 669,
+          "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+        },
+        {
+          "paragraph": "MUOVI-DATI-05",
+          "line_start": 674,
+          "statement": "MOVE  +1  TO  PD1VOCI-IND."
+        },
+        {
+          "paragraph": "MUOVI-DATI-20",
+          "line_start": 685,
+          "statement": "ADD  +1  TO   PD1VOCI-IND."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": 676,
+          "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 703,
+          "statement": "MOVE PD1VOCI-TABVOX-CODVOX(PD1VOCI-IND)  TO  VOCE."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 707,
+          "statement": "MOVE PD1VOCI-TABVOX-TIPVAR(PD1VOCI-IND)  TO  FUNZ."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 709,
+          "statement": "MOVE PD1VOCI-TABVOX-DESCRIZ(PD1VOCI-IND) TO  WDESCVO."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 712,
+          "statement": "MOVE PD1VOCI-TABVOX-INIZ(PD1VOCI-IND)    TO  WDATE2."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 724,
+          "statement": "IF   PD1VOCI-TABVOX-FINE(PD1VOCI-IND)  =  SPACES THEN"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 727,
+          "statement": "MOVE PD1VOCI-TABVOX-FINE(PD1VOCI-IND)    TO  WDATE2"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 737,
+          "statement": "MOVE PD1VOCI-TABVOX-PROGVOX(PD1VOCI-IND) TO  WPROGREC."
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": 676,
+          "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 724,
+          "statement": "IF   PD1VOCI-TABVOX-FINE(PD1VOCI-IND)  =  SPACES THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI-10",
+          "line_start": -1,
+          "statement": "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 3,
+      "used_in": 2,
+      "fanout_nodes": 1,
+      "write_sites": 5,
+      "read_sites": 8,
+      "control_sites": 3
+    }
+  }
+}

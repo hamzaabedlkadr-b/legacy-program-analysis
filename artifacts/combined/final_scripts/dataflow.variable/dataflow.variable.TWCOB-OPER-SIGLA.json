@@ -1,0 +1,42 @@
+{
+  "id": "1335ab3cfaf8864a",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-OPER-SIGLA",
+  "embedding_text": "PDCBVC variable TWCOB-OPER-SIGLA. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: READ-TAB-SEMAF. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-OPER-SIGLA",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "READ-TAB-SEMAF"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "READ-TAB-SEMAF",
+          "line_start": 758,
+          "statement": "MOVE TWCOB-OPER-SIGLA TO PXCSEMAF-USER-REQ"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

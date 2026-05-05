@@ -1,0 +1,6104 @@
+{
+  "type": "dataflow.used_variables",
+  "program": "PDCBVC",
+  "variables": [
+    {
+      "variable": "ANNO-SESS",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 558,
+            "statement": "MOVE  PD1FS00-SESS-ANNO   TO   ANNO-SESS."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "ANNO-SESS34",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 559,
+            "statement": "MOVE  ANNO-SESS34         TO   SESSIONE-ANNO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "ASKIP-DRK",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-VISUAL"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 281,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF7A"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 282,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF8A."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 384,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF8A"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 385,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF7A."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "COM2",
+      "defined_in": [
+        "MUOVI-DATI-30"
+      ],
+      "modified_in": [
+        "MUOVI-DATI-30"
+      ],
+      "used_in": [
+        "MUOVI-DATI-30"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 691,
+            "statement": "MOVE  NPAGT    TO  COM2."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 692,
+            "statement": "MOVE  COM2     TO  NPGT."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "COM3",
+      "defined_in": [
+        "MUOVI-DATI-30"
+      ],
+      "modified_in": [
+        "MUOVI-DATI-30"
+      ],
+      "used_in": [
+        "MUOVI-DATI-30"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 689,
+            "statement": "MOVE  WCTPAG   TO  COM3."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 690,
+            "statement": "MOVE  COM3     TO  NPG."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "DATA-CESSAZIONE",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 725,
+            "statement": "MOVE     '   -    '    TO  DATA-CESSAZIONE"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 731,
+            "statement": "MOVE WDATA                  TO  DATA-CESSAZIONE."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "DATA-IMPIANTO",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 716,
+            "statement": "MOVE WDATA                  TO  DATA-IMPIANTO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "DFHENTER",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-ENTER",
+        "BROWSE-FASE2-TASTOER"
+      ],
+      "origin": "CICS_CONST",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 298,
+            "statement": "IF  EIBAID = DFHENTER THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 298,
+            "statement": "IF  EIBAID = DFHENTER THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHENTER"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "DFHPF1",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-TASTOER",
+        "XCTL-LIV1"
+      ],
+      "origin": "CICS_CONST",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 300,
+            "statement": "IF  EIBAID = DFHPF1   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 300,
+            "statement": "IF  EIBAID = DFHPF1   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF1"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "DFHPF2",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-TASTOER",
+        "XCTL-LIV2"
+      ],
+      "origin": "CICS_CONST",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 302,
+            "statement": "IF  EIBAID = DFHPF2   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 302,
+            "statement": "IF  EIBAID = DFHPF2   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF2"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "DFHPF3",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-TASTOER",
+        "XCTL-LIV3"
+      ],
+      "origin": "CICS_CONST",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 304,
+            "statement": "IF  EIBAID = DFHPF3   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 304,
+            "statement": "IF  EIBAID = DFHPF3   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF3"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "DFHPF4",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-TASTOER",
+        "XCTL-LIV4"
+      ],
+      "origin": "CICS_CONST",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 306,
+            "statement": "IF  EIBAID = DFHPF4   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 306,
+            "statement": "IF  EIBAID = DFHPF4   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF4"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "DFHPF7",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-PF7",
+        "BROWSE-FASE2-TASTOER"
+      ],
+      "origin": "CICS_CONST",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 310,
+            "statement": "IF  EIBAID = DFHPF7   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 310,
+            "statement": "IF  EIBAID = DFHPF7   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF7"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "DFHPF8",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-PF8",
+        "BROWSE-FASE2-TASTOER"
+      ],
+      "origin": "CICS_CONST",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 312,
+            "statement": "IF  EIBAID = DFHPF8   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 312,
+            "statement": "IF  EIBAID = DFHPF8   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF8"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "DFHPF9",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-TASTOER",
+        "XCTL-LIV0"
+      ],
+      "origin": "CICS_CONST",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 308,
+            "statement": "IF  EIBAID = DFHPF9   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 308,
+            "statement": "IF  EIBAID = DFHPF9   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF9"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "EIBAID",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-ENTER",
+        "BROWSE-FASE2-PF7",
+        "BROWSE-FASE2-PF8",
+        "BROWSE-FASE2-TASTOER",
+        "XCTL-LIV0",
+        "XCTL-LIV1",
+        "XCTL-LIV2",
+        "XCTL-LIV3",
+        "XCTL-LIV4"
+      ],
+      "origin": "CICS_EIB",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 298,
+            "statement": "IF  EIBAID = DFHENTER THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 300,
+            "statement": "IF  EIBAID = DFHPF1   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 302,
+            "statement": "IF  EIBAID = DFHPF2   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 304,
+            "statement": "IF  EIBAID = DFHPF3   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 306,
+            "statement": "IF  EIBAID = DFHPF4   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 308,
+            "statement": "IF  EIBAID = DFHPF9   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 310,
+            "statement": "IF  EIBAID = DFHPF7   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 312,
+            "statement": "IF  EIBAID = DFHPF8   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 298,
+            "statement": "IF  EIBAID = DFHENTER THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 300,
+            "statement": "IF  EIBAID = DFHPF1   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 302,
+            "statement": "IF  EIBAID = DFHPF2   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 304,
+            "statement": "IF  EIBAID = DFHPF3   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 306,
+            "statement": "IF  EIBAID = DFHPF4   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 308,
+            "statement": "IF  EIBAID = DFHPF9   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 310,
+            "statement": "IF  EIBAID = DFHPF7   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 312,
+            "statement": "IF  EIBAID = DFHPF8   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHENTER"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF1"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF2"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF3"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF4"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF9"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF7"
+          },
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": -1,
+            "statement": "EIBAID = DFHPF8"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "ERRORE-SQL",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "TOP"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "TOP",
+            "line_start": 217,
+            "statement": "EXEC SQL WHENEVER SQLERROR GO TO ERRORE-SQL END-EXEC"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "FUNZ",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 705,
+            "statement": "MOVE SPACES  TO  FUNZ"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 707,
+            "statement": "MOVE PD1VOCI-TABVOX-TIPVAR(PD1VOCI-IND)  TO  FUNZ."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "HSQL-DATE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "TOP"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "TOP",
+            "line_start": 218,
+            "statement": "EXEC SQL SELECT SYSDATE INTO :HSQL-DATE FROM DUAL END-EXEC."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "IMPORTO-RATA",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 736,
+            "statement": "MOVE  PDRUTI01-F05-IMPOX11      TO  IMPORTO-RATA."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "KFINE-DATI",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-VISUAL"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 285,
+            "statement": "MOVE  KFINE-DATI    TO  M1MSGO."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 387,
+            "statement": "MOVE  KFINE-DATI    TO  M1MSGO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "M0AMBO",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 544,
+            "statement": "MOVE TWCOB-NOME-CICS TO M0AMBO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "M1DATAO",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 554,
+            "statement": "MOVE  WDATA             TO  M1DATAO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "M1MSGL",
+      "defined_in": [
+        "BROWSE-FASE2-TASTOER"
+      ],
+      "modified_in": [
+        "BROWSE-FASE2-TASTOER"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-TASTOER",
+            "line_start": 343,
+            "statement": "MOVE  -1  TO M1MSGL."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "M1MSGO",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-NOSEL",
+        "BROWSE-FASE2-NOTFND",
+        "BROWSE-FASE2-TASTOER",
+        "BROWSE-FASE2-VISUAL"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 285,
+            "statement": "MOVE  KFINE-DATI    TO  M1MSGO."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-TASTOER",
+            "line_start": 344,
+            "statement": "MOVE  WTASTOER     TO M1MSGO."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line_start": 350,
+            "statement": "MOVE  WMNOSEL      TO M1MSGO."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line_start": 376,
+            "statement": "MOVE  'Progressivo digitato non presente'  TO M1MSGO."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 387,
+            "statement": "MOVE  KFINE-DATI    TO  M1MSGO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "M1PF7A",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-VISUAL"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 281,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF7A"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 385,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF7A."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "M1PF8A",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-VISUAL"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 282,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF8A."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 384,
+            "statement": "MOVE  ASKIP-DRK     TO  M1PF8A"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "M1SYSO",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 556,
+            "statement": "MOVE  TWCOB-ID-SISTEMA  TO  M1SYSO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "MAX-RIGHE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "ABBL-RIGA-10",
+        "CALCOLA-NPAG",
+        "MUOVI-DATI"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "ABBL-RIGA-10"
+      ],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 397,
+            "statement": "DIVIDE MAX-RIGHE INTO PD1VOCI-TABVOX-NUMERO GIVING NPAGT"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 644,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 645,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 654,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 655,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 665,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 666,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 671,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": 797,
+            "statement": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": 797,
+            "statement": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": -1,
+            "statement": "(WCTRIG NOT GREATER MAX-RIGHE)"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "MCOGO",
+      "defined_in": [
+        "MUOVI-TESTATA"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 540,
+            "statement": "MOVE TWCOB-COGNOME      TO MCOGO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "MDESCO",
+      "defined_in": [
+        "MUOVI-TESTATA-30"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-30"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-30",
+            "line_start": 623,
+            "statement": "MOVE  TESTATA              TO  MDESCO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "MDSESSO",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 565,
+            "statement": "MOVE  'Aperta'           TO   MDSESSO"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 568,
+            "statement": "MOVE  'Chiusa'           TO   MDSESSO"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 571,
+            "statement": "MOVE  'Liquidata'        TO   MDSESSO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "MMATRO",
+      "defined_in": [
+        "MUOVI-TESTATA"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 542,
+            "statement": "MOVE TWCOB-CODICE-DIP   TO MMATRO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "MNOMO",
+      "defined_in": [
+        "MUOVI-TESTATA"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 541,
+            "statement": "MOVE TWCOB-NOME         TO MNOMO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "MNPAGO",
+      "defined_in": [
+        "MUOVI-DATI-30"
+      ],
+      "modified_in": [
+        "MUOVI-DATI-30"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 693,
+            "statement": "MOVE  NPAGINA  TO  MNPAGO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "MRIGAO",
+      "defined_in": [
+        "PREP-RIGA-010"
+      ],
+      "modified_in": [
+        "ABBL-RIGA-10",
+        "PREP-RIGA-010"
+      ],
+      "used_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA-010",
+            "line_start": 739,
+            "statement": "MOVE RIGA-MAPPA             TO  MRIGAO(WCTRIG)."
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": 795,
+            "statement": "MOVE  SPACE  TO   MRIGAO(WCTRIG)."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 360,
+            "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "MSESSIO",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 562,
+            "statement": "MOVE  SESSIONE            TO   MSESSIO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "N-RIGHE",
+      "defined_in": [
+        "MUOVI-DATI"
+      ],
+      "modified_in": [
+        "MUOVI-DATI"
+      ],
+      "used_in": [
+        "MUOVI-DATI"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 644,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 646,
+            "statement": "ADD  +1  TO  N-RIGHE"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 654,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 656,
+            "statement": "ADD  +1  TO  N-RIGHE"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 666,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 668,
+            "statement": "ADD  +1  TO  N-RIGHE"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 648,
+            "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 658,
+            "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 669,
+            "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "NPAGINA",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-DATI-30"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 693,
+            "statement": "MOVE  NPAGINA  TO  MNPAGO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "NPAGT",
+      "defined_in": [
+        "CALCOLA-NPAG"
+      ],
+      "modified_in": [
+        "CALCOLA-NPAG"
+      ],
+      "used_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-ENTER",
+        "CALCOLA-NPAG",
+        "MUOVI-DATI-30"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-VISUAL",
+        "CALCOLA-NPAG-EXIT",
+        "XCTL-LIV4"
+      ],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 397,
+            "statement": "DIVIDE MAX-RIGHE INTO PD1VOCI-TABVOX-NUMERO GIVING NPAGT"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 284,
+            "statement": "IF    NPAGT     NOT GREATER    1  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 325,
+            "statement": "IF  WCTPAG NOT LESS  NPAGT  THEN"
+          },
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 399,
+            "statement": "IF  NPAGT  LESS  1   THEN  ADD +1  TO  NPAGT"
+          },
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 401,
+            "statement": "IF  RESTO  GREATER  ZERO  THEN ADD  +1  TO  NPAGT."
+          },
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 691,
+            "statement": "MOVE  NPAGT    TO  COM2."
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 284,
+            "statement": "IF    NPAGT     NOT GREATER    1  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 325,
+            "statement": "IF  WCTPAG NOT LESS  NPAGT  THEN"
+          },
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 399,
+            "statement": "IF  NPAGT  LESS  1   THEN  ADD +1  TO  NPAGT"
+          },
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 401,
+            "statement": "IF  RESTO  GREATER  ZERO  THEN ADD  +1  TO  NPAGT."
+          },
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": -1,
+            "statement": "NPAGT LESS 1"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": -1,
+            "statement": "WCTPAG LESS NPAGT"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": -1,
+            "statement": "(WCTPAG NOT LESS NPAGT)"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "NPG",
+      "defined_in": [
+        "MUOVI-DATI-30"
+      ],
+      "modified_in": [
+        "MUOVI-DATI-30"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 690,
+            "statement": "MOVE  COM3     TO  NPG."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "NPGT",
+      "defined_in": [
+        "MUOVI-DATI-30"
+      ],
+      "modified_in": [
+        "MUOVI-DATI-30"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 692,
+            "statement": "MOVE  COM2     TO  NPGT."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1FS00-FUNZIONE",
+      "defined_in": [
+        "PREP-LINK-PD1FS00"
+      ],
+      "modified_in": [
+        "PREP-LINK-PD1FS00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1FS00",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": 410,
+            "statement": "MOVE  '03'        TO   PD1FS00-FUNZIONE."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1FS00-LUNGH",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "LINK-PD1FS00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1FS00",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD1FS00",
+            "line_start": 501,
+            "statement": "LENGTH(PD1FS00-LUNGH) END-EXEC."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1FS00-RETURN",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "LINK-PD1FS00",
+        "PREP-LINK-PD1FS00"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "ABEND00",
+        "PREP-LINK-PD1FS00-EXIT"
+      ],
+      "origin": "COPY:PD1FS00",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": 414,
+            "statement": "IF PD1FS00-RETURN   = '0'"
+          },
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": 416,
+            "statement": "IF PD1FS00-RETURN   = '2'"
+          },
+          {
+            "paragraph": "LINK-PD1FS00",
+            "line_start": 503,
+            "statement": "IF  PD1FS00-RETURN  EQUAL 'E' THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": 414,
+            "statement": "IF PD1FS00-RETURN   = '0'"
+          },
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": 416,
+            "statement": "IF PD1FS00-RETURN   = '2'"
+          },
+          {
+            "paragraph": "LINK-PD1FS00",
+            "line_start": 503,
+            "statement": "IF  PD1FS00-RETURN  EQUAL 'E' THEN"
+          },
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": -1,
+            "statement": "(NOT ((PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2')))"
+          },
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": -1,
+            "statement": "(PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2')"
+          },
+          {
+            "paragraph": "LINK-PD1FS00",
+            "line_start": -1,
+            "statement": "PD1FS00-RETURN EQUAL 'E'"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PD1FS00-SESS-ANNO",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1FS00",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 558,
+            "statement": "MOVE  PD1FS00-SESS-ANNO   TO   ANNO-SESS."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1FS00-SESS-FLAG",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "MUOVI-TESTATA-10"
+      ],
+      "origin": "COPY:PD1FS00",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 564,
+            "statement": "IF    PD1FS00-SESS-FLAG  =  '1'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 567,
+            "statement": "IF    PD1FS00-SESS-FLAG  =  '2'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 570,
+            "statement": "IF    PD1FS00-SESS-FLAG  =  '3'  THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 564,
+            "statement": "IF    PD1FS00-SESS-FLAG  =  '1'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 567,
+            "statement": "IF    PD1FS00-SESS-FLAG  =  '2'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 570,
+            "statement": "IF    PD1FS00-SESS-FLAG  =  '3'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": -1,
+            "statement": "(PD1FS00-SESS-FLAG = '1') OR (PD1FS00-SESS-FLAG = '2')"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PD1FS00-SESS-MESE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1FS00",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 560,
+            "statement": "MOVE  PD1FS00-SESS-MESE   TO   SESSIONE-MESE."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1FS00-SESS-SISTEMA",
+      "defined_in": [
+        "PREP-LINK-PD1FS00"
+      ],
+      "modified_in": [
+        "PREP-LINK-PD1FS00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1FS00",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": 411,
+            "statement": "MOVE  TWCOB-ID-SISTEMA TO  PD1FS00-SESS-SISTEMA."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1FS00-SESS-TMENS",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1FS00",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 561,
+            "statement": "MOVE  PD1FS00-SESS-TMENS  TO   SESSIONE-TMENS."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-COD-VOCE",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 428,
+            "statement": "MOVE TWCOB-VARCONT-VOCE-LIV4 TO  PD1VOCI-COD-VOCE."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-CODDIP-MATR",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 430,
+            "statement": "MOVE TWCOB-SP-MATR          TO  PD1VOCI-CODDIP-MATR."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-CODDIP-PAD",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 431,
+            "statement": "MOVE TWCOB-SP-PAD           TO  PD1VOCI-CODDIP-PAD."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-CODDIP-TIPO",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 429,
+            "statement": "MOVE TWCOB-TIPO-DIP         TO  PD1VOCI-CODDIP-TIPO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-DATI",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 427,
+            "statement": "MOVE SPACE                  TO  PD1VOCI-DATI."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-FUNZIONE",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 437,
+            "statement": "MOVE  '11'         TO  PD1VOCI-FUNZIONE"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 441,
+            "statement": "MOVE  '12'         TO  PD1VOCI-FUNZIONE"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 445,
+            "statement": "MOVE  '02'         TO  PD1VOCI-FUNZIONE"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 449,
+            "statement": "MOVE  '11'         TO  PD1VOCI-FUNZIONE."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-IND",
+      "defined_in": [
+        "MUOVI-DATI"
+      ],
+      "modified_in": [
+        "MUOVI-DATI",
+        "MUOVI-DATI-05",
+        "MUOVI-DATI-20"
+      ],
+      "used_in": [
+        "MUOVI-DATI-10",
+        "PREP-RIGA"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "MUOVI-DATI-30"
+      ],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 648,
+            "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 658,
+            "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 669,
+            "statement": "MOVE  N-RIGHE  TO  PD1VOCI-IND"
+          },
+          {
+            "paragraph": "MUOVI-DATI-05",
+            "line_start": 674,
+            "statement": "MOVE  +1  TO  PD1VOCI-IND."
+          },
+          {
+            "paragraph": "MUOVI-DATI-20",
+            "line_start": 685,
+            "statement": "ADD  +1  TO   PD1VOCI-IND."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": 676,
+            "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 703,
+            "statement": "MOVE PD1VOCI-TABVOX-CODVOX(PD1VOCI-IND)  TO  VOCE."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 707,
+            "statement": "MOVE PD1VOCI-TABVOX-TIPVAR(PD1VOCI-IND)  TO  FUNZ."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 709,
+            "statement": "MOVE PD1VOCI-TABVOX-DESCRIZ(PD1VOCI-IND) TO  WDESCVO."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 712,
+            "statement": "MOVE PD1VOCI-TABVOX-INIZ(PD1VOCI-IND)    TO  WDATE2."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 724,
+            "statement": "IF   PD1VOCI-TABVOX-FINE(PD1VOCI-IND)  =  SPACES THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 727,
+            "statement": "MOVE PD1VOCI-TABVOX-FINE(PD1VOCI-IND)    TO  WDATE2"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 737,
+            "statement": "MOVE PD1VOCI-TABVOX-PROGVOX(PD1VOCI-IND) TO  WPROGREC."
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": 676,
+            "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 724,
+            "statement": "IF   PD1VOCI-TABVOX-FINE(PD1VOCI-IND)  =  SPACES THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": -1,
+            "statement": "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PD1VOCI-LIQUID1-ANNO",
+      "defined_in": [
+        "INIZ-PARAM-020"
+      ],
+      "modified_in": [
+        "INIZ-PARAM-020"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 471,
+            "statement": "MOVE  'TTTT'           TO  PD1VOCI-LIQUID1-ANNO"
+          },
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 473,
+            "statement": "MOVE  TWCOB-VARCONT-ANNO   TO  PD1VOCI-LIQUID1-ANNO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-LIQUID1-MESE",
+      "defined_in": [
+        "INIZ-PARAM-020"
+      ],
+      "modified_in": [
+        "INIZ-PARAM-020"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 475,
+            "statement": "MOVE  TWCOB-VARCONT-MESE   TO  PD1VOCI-LIQUID1-MESE."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-LIQUID1-TIPO",
+      "defined_in": [
+        "INIZ-PARAM-020"
+      ],
+      "modified_in": [
+        "INIZ-PARAM-020"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 476,
+            "statement": "MOVE  TWCOB-VARCONT-TMENS  TO  PD1VOCI-LIQUID1-TIPO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-RETURN",
+      "defined_in": [
+        "LINK-PD1VOCI"
+      ],
+      "modified_in": [
+        "LINK-PD1VOCI"
+      ],
+      "used_in": [
+        "LINK-PD1VOCI"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "ABEND00"
+      ],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "LINK-PD1VOCI",
+            "line_start": 484,
+            "statement": "MOVE HIGH-VALUE TO  PD1VOCI-RETURN."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD1VOCI",
+            "line_start": 489,
+            "statement": "IF  PD1VOCI-RETURN EQUAL 'E'"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "LINK-PD1VOCI",
+            "line_start": 489,
+            "statement": "IF  PD1VOCI-RETURN EQUAL 'E'"
+          },
+          {
+            "paragraph": "LINK-PD1VOCI",
+            "line_start": -1,
+            "statement": "PD1VOCI-RETURN EQUAL 'E'"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PD1VOCI-TABVOX-CODVOX",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 703,
+            "statement": "MOVE PD1VOCI-TABVOX-CODVOX(PD1VOCI-IND)  TO  VOCE."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-TABVOX-DESCRIZ",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 709,
+            "statement": "MOVE PD1VOCI-TABVOX-DESCRIZ(PD1VOCI-IND) TO  WDESCVO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-TABVOX-FINE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 724,
+            "statement": "IF   PD1VOCI-TABVOX-FINE(PD1VOCI-IND)  =  SPACES THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 727,
+            "statement": "MOVE PD1VOCI-TABVOX-FINE(PD1VOCI-IND)    TO  WDATE2"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 724,
+            "statement": "IF   PD1VOCI-TABVOX-FINE(PD1VOCI-IND)  =  SPACES THEN"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PD1VOCI-TABVOX-INIZ",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 712,
+            "statement": "MOVE PD1VOCI-TABVOX-INIZ(PD1VOCI-IND)    TO  WDATE2."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-TABVOX-NUMERO",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1",
+        "CALCOLA-NPAG",
+        "MUOVI-DATI-10"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "MUOVI-DATI-30",
+        "XCTL-LIV4"
+      ],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 260,
+            "statement": "IF PD1VOCI-TABVOX-NUMERO  =  0    AND"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 272,
+            "statement": "IF PD1VOCI-TABVOX-NUMERO  =  0    THEN"
+          },
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 397,
+            "statement": "DIVIDE MAX-RIGHE INTO PD1VOCI-TABVOX-NUMERO GIVING NPAGT"
+          },
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": 676,
+            "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 260,
+            "statement": "IF PD1VOCI-TABVOX-NUMERO  =  0    AND"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 272,
+            "statement": "IF PD1VOCI-TABVOX-NUMERO  =  0    THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": 676,
+            "statement": "IF  PD1VOCI-IND  GREATER  PD1VOCI-TABVOX-NUMERO THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": -1,
+            "statement": "PD1VOCI-TABVOX-NUMERO = 0 AND TWCOB-XCTL-PGM = 'PDCGVC'"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": -1,
+            "statement": "PD1VOCI-TABVOX-NUMERO = 0"
+          },
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": -1,
+            "statement": "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PD1VOCI-TABVOX-PROGVOX",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 737,
+            "statement": "MOVE PD1VOCI-TABVOX-PROGVOX(PD1VOCI-IND) TO  WPROGREC."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-TABVOX-TIPVAR",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 707,
+            "statement": "MOVE PD1VOCI-TABVOX-TIPVAR(PD1VOCI-IND)  TO  FUNZ."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-TIPO-ESTRA",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 446,
+            "statement": "MOVE   'A'         TO  PD1VOCI-TIPO-ESTRA"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-TIPO-GEST",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 434,
+            "statement": "MOVE   '00'                 TO  PD1VOCI-TIPO-GEST."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-TIPO-VARIAZ",
+      "defined_in": [
+        "INIZ-PARAM"
+      ],
+      "modified_in": [
+        "INIZ-PARAM"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 432,
+            "statement": "MOVE TWCOB-FUNZIONE         TO  PD1VOCI-TIPO-VARIAZ."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PD1VOCI-TIPO-VOCE",
+      "defined_in": [
+        "INIZ-PARAM-010"
+      ],
+      "modified_in": [
+        "INIZ-PARAM-010"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PD1VOCI",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 456,
+            "statement": "MOVE  '1'         TO  PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 459,
+            "statement": "MOVE  '3'         TO  PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 462,
+            "statement": "MOVE  '2'         TO  PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 465,
+            "statement": "MOVE  '4'         TO  PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 467,
+            "statement": "MOVE  '0'         TO  PD1VOCI-TIPO-VOCE."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PDCBVC1I",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 234,
+            "statement": "MOVE LOW-VALUE TO PDCBVC1I."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PDIABEND",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "ABEND00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "ABEND00",
+            "line_start": 902,
+            "statement": "COPY PDIABEND."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PDPSQLER",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "ABEND00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "ABEND00",
+            "line_start": 903,
+            "statement": "EXEC SQL INCLUDE PDPSQLER END-EXEC."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PDRTWA2",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "ADDRESS-TWA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDRTWA2",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "ADDRESS-TWA",
+            "line_start": 805,
+            "statement": "EXEC CICS ADDRESS TWA(ADDRESS OF PDRTWA2) END-EXEC."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PDRUTI01-F04-IMPOX11",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "LINK-PD0UTI01"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDRUTI01",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": 783,
+            "statement": "INSPECT PDRUTI01-F04-IMPOX11 CONVERTING ' ' TO '_'"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PDRUTI01-F05-IMPOX11",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDRUTI01",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 736,
+            "statement": "MOVE  PDRUTI01-F05-IMPOX11      TO  IMPORTO-RATA."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PDRUTI01-F05-VALORE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDRUTI01",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 734,
+            "statement": "TO  PDRUTI01-F05-VALORE."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PDRUTI01-FUNZIONE",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [
+        "LINK-PD0UTI01"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [],
+      "origin": "COPY:PDRUTI01",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 732,
+            "statement": "MOVE '05'       TO  PDRUTI01-FUNZIONE."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": 782,
+            "statement": "IF  PDRUTI01-FUNZIONE = '04' OR '05'"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": 782,
+            "statement": "IF  PDRUTI01-FUNZIONE = '04' OR '05'"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PDRUTI01-RETURN",
+      "defined_in": [
+        "LINK-PD0UTI01"
+      ],
+      "modified_in": [
+        "LINK-PD0UTI01"
+      ],
+      "used_in": [
+        "LINK-PD0UTI01"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "ABEND00"
+      ],
+      "origin": "COPY:PDRUTI01",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": 773,
+            "statement": "MOVE HIGH-VALUE TO  PDRUTI01-RETURN."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": 778,
+            "statement": "IF  PDRUTI01-RETURN EQUAL 'E'"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": 778,
+            "statement": "IF  PDRUTI01-RETURN EQUAL 'E'"
+          },
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": -1,
+            "statement": "PDRUTI01-RETURN EQUAL 'E'"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PDSAVTW2",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "SAVE-TWA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "SAVE-TWA",
+            "line_start": 909,
+            "statement": "COPY PDSAVTW2."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PROG-LIV0",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "XCTL-LIV0"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "XCTL-LIV0",
+            "line_start": 887,
+            "statement": "MOVE PROG-LIV0  TO  TWCOB-NOME-PGM."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PROG-LIV1",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "XCTL-LIV1"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "XCTL-LIV1",
+            "line_start": 850,
+            "statement": "MOVE PROG-LIV1  TO  TWCOB-NOME-PGM."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PROG-LIV2",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "XCTL-LIV2"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "XCTL-LIV2",
+            "line_start": 857,
+            "statement": "MOVE PROG-LIV2  TO  TWCOB-NOME-PGM."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PROG-LIV3",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "XCTL-LIV3"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "XCTL-LIV3",
+            "line_start": 865,
+            "statement": "MOVE PROG-LIV3  TO  TWCOB-NOME-PGM."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PROG-LIV4",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "XCTL-LIV4"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "XCTL-LIV4",
+            "line_start": 872,
+            "statement": "MOVE PROG-LIV4  TO  TWCOB-NOME-PGM."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PROG-LIV5",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "XCTL-LIV5"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "XCTL-LIV5",
+            "line_start": 880,
+            "statement": "MOVE PROG-LIV5  TO  TWCOB-NOME-PGM."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PXCSEMAF-AGENT",
+      "defined_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "modified_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 755,
+            "statement": "MOVE 'SEMAFORO'       TO PXCSEMAF-AGENT"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PXCSEMAF-AREA",
+      "defined_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "modified_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "used_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 750,
+            "statement": "INITIALIZE PXCSEMAF-AREA"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 760,
+            "statement": "CALL PXRSEMAF USING PXCSEMAF-AREA"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PXCSEMAF-CALLER",
+      "defined_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "modified_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 756,
+            "statement": "MOVE 'PDCBVC'         TO PXCSEMAF-CALLER"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PXCSEMAF-CALLER-TYPE",
+      "defined_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "modified_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 757,
+            "statement": "MOVE 'CICS'           TO PXCSEMAF-CALLER-TYPE"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PXCSEMAF-NAME",
+      "defined_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "modified_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 753,
+            "statement": "MOVE 'PDAGGVIP'       TO PXCSEMAF-NAME"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PXCSEMAF-OUTCOME",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "ABEND00"
+      ],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 762,
+            "statement": "IF PXCSEMAF-OUTCOME NOT = SPACE"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 762,
+            "statement": "IF PXCSEMAF-OUTCOME NOT = SPACE"
+          },
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": -1,
+            "statement": "PXCSEMAF-OUTCOME NOT = SPACE"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PXCSEMAF-REQ",
+      "defined_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "modified_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 752,
+            "statement": "MOVE 'GET'            TO PXCSEMAF-REQ"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "PXCSEMAF-STATUS",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "XCTL-LIV4"
+      ],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 246,
+            "statement": "IF PXCSEMAF-STATUS = 1"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 246,
+            "statement": "IF PXCSEMAF-STATUS = 1"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": -1,
+            "statement": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "PXCSEMAF-USER-REQ",
+      "defined_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "modified_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 758,
+            "statement": "MOVE TWCOB-OPER-SIGLA TO PXCSEMAF-USER-REQ"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "REMAINDER",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "CALCOLA-NPAG"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 398,
+            "statement": "REMAINDER  RESTO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "RESTO",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "CALCOLA-NPAG"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 398,
+            "statement": "REMAINDER  RESTO."
+          },
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 401,
+            "statement": "IF  RESTO  GREATER  ZERO  THEN ADD  +1  TO  NPAGT."
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "CALCOLA-NPAG",
+            "line_start": 401,
+            "statement": "IF  RESTO  GREATER  ZERO  THEN ADD  +1  TO  NPAGT."
+          }
+        ]
+      }
+    },
+    {
+      "variable": "RIGA-MAPPA",
+      "defined_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "modified_in": [
+        "BROWSE-FASE2-SEL-10",
+        "PREP-RIGA"
+      ],
+      "used_in": [
+        "PREP-RIGA-010"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 360,
+            "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 701,
+            "statement": "MOVE SPACES                 TO  RIGA-MAPPA."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA-010",
+            "line_start": 739,
+            "statement": "MOVE RIGA-MAPPA             TO  MRIGAO(WCTRIG)."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "SCELTAI",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2-ENTER",
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-SEL",
+        "BROWSE-FASE2-SEL-20"
+      ],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 317,
+            "statement": "IF SCELTAI   NOT  =  '__'   AND"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 318,
+            "statement": "SCELTAI   NOT  =  SPACES"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 362,
+            "statement": "IF SCELTAI  =  WPROGR   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 317,
+            "statement": "IF SCELTAI   NOT  =  '__'   AND"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 362,
+            "statement": "IF SCELTAI  =  WPROGR   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": -1,
+            "statement": "(SCELTAI NOT = '__') AND (SCELTAI NOT = SPACES)"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": -1,
+            "statement": "SCELTAI = WPROGR"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "SCELTAL",
+      "defined_in": [
+        "BROWSE-FASE2-NOSEL"
+      ],
+      "modified_in": [
+        "BROWSE-FASE2-NOSEL",
+        "BROWSE-FASE2-NOTFND",
+        "PREPARA-MAP"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line_start": 349,
+            "statement": "MOVE  -1  TO SCELTAL."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-NOTFND",
+            "line_start": 375,
+            "statement": "MOVE  -1  TO  SCELTAL."
+          },
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 531,
+            "statement": "MOVE  -1         TO  SCELTAL."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "SCELTAO",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREPARA-MAP"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COPY:PDCBVCM",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 529,
+            "statement": "THEN MOVE '01'  TO SCELTAO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "SESSIONE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 562,
+            "statement": "MOVE  SESSIONE            TO   MSESSIO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "SESSIONE-ANNO",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 559,
+            "statement": "MOVE  ANNO-SESS34         TO   SESSIONE-ANNO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "SESSIONE-MESE",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 560,
+            "statement": "MOVE  PD1FS00-SESS-MESE   TO   SESSIONE-MESE."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "SESSIONE-TMENS",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 561,
+            "statement": "MOVE  PD1FS00-SESS-TMENS  TO   SESSIONE-TMENS."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "SQLERROR",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "TOP"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "TOP",
+            "line_start": 217,
+            "statement": "EXEC SQL WHENEVER SQLERROR GO TO ERRORE-SQL END-EXEC"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "SW-FINE",
+      "defined_in": [
+        "MUOVI-DATI"
+      ],
+      "modified_in": [
+        "MUOVI-DATI",
+        "MUOVI-DATI-10"
+      ],
+      "used_in": [
+        "BROWSE-FASE2-VISUAL"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 634,
+            "statement": "MOVE  '0'       TO  SW-FINE."
+          },
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": 677,
+            "statement": "MOVE  '1'   TO   SW-FINE"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 386,
+            "statement": "IF     SW-FINE    =    '1'        THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 386,
+            "statement": "IF     SW-FINE    =    '1'        THEN"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "TESTATA",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-30"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-30",
+            "line_start": 623,
+            "statement": "MOVE  TESTATA              TO  MDESCO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TESTATA1",
+      "defined_in": [
+        "MUOVI-TESTATA-10"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-10"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 576,
+            "statement": "MOVE  '              IMPIANTO' TO  TESTATA1"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 580,
+            "statement": "MOVE  '       VISUALIZZAZIONE' TO  TESTATA1"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 584,
+            "statement": "MOVE  '            CESSAZIONE' TO  TESTATA1"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 588,
+            "statement": "MOVE  '         AGGIORNAMENTO' TO  TESTATA1"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 592,
+            "statement": "MOVE  '   MODIFICA DECORRENZA' TO  TESTATA1"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 596,
+            "statement": "MOVE  'MODIFICA PROVVEDIMENTO' TO  TESTATA1."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TESTATA2",
+      "defined_in": [
+        "MUOVI-TESTATA-20"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-20"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 599,
+            "statement": "MOVE  'COMPETENZE E RITENUTE' TO  TESTATA2"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 603,
+            "statement": "MOVE  'COMPETENZE IMPONIBILI' TO  TESTATA2"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 607,
+            "statement": "MOVE  'COMPETENZE NON IMPONIBILI' TO  TESTATA2"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 611,
+            "statement": "MOVE  'RITENUTE PREVIDENZIALI' TO  TESTATA2"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 615,
+            "statement": "MOVE  'RITENUTE VARIE' TO  TESTATA2"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 619,
+            "statement": "MOVE  'VARIAZIONI MENSILI' TO  TESTATA2."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWA",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "ADDRESS-TWA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "UNKNOWN",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "ADDRESS-TWA",
+            "line_start": 805,
+            "statement": "EXEC CICS ADDRESS TWA(ADDRESS OF PDRTWA2) END-EXEC."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-AREA-MSG",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1"
+      ],
+      "used_in": [
+        "BROWSE-FASE1"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 262,
+            "statement": "MOVE  SPACES      TO  TWCOB-AREA-MSG"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 273,
+            "statement": "MOVE  WKMSG     TO  TWCOB-AREA-MSG"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 250,
+            "statement": "TO TWCOB-AREA-MSG"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-BRO-STATO",
+      "defined_in": [
+        "RESET-TWA"
+      ],
+      "modified_in": [
+        "RESET-TWA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "RESET-TWA",
+            "line_start": 838,
+            "statement": "MOVE  '0'     TO  TWCOB-BRO-STATO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-BROWSE",
+      "defined_in": [
+        "RESET-TWA"
+      ],
+      "modified_in": [
+        "RESET-TWA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "RESET-TWA",
+            "line_start": 837,
+            "statement": "MOVE  SPACES  TO  TWCOB-BROWSE."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-CODICE-DIP",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 542,
+            "statement": "MOVE TWCOB-CODICE-DIP   TO MMATRO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-COGNOME",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 540,
+            "statement": "MOVE TWCOB-COGNOME      TO MCOGO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-FASE",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-VISUAL",
+        "XCTL-LIV0",
+        "XCTL-LIV1",
+        "XCTL-LIV2",
+        "XCTL-LIV3",
+        "XCTL-LIV4",
+        "XCTL-LIV5"
+      ],
+      "used_in": [
+        "MUOVI-DATI",
+        "TOP"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "ABEND00",
+        "BROWSE-FASE1",
+        "BROWSE-FASE2",
+        "MUOVI-DATI-10"
+      ],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 288,
+            "statement": "MOVE  '2' TO  TWCOB-FASE."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 389,
+            "statement": "MOVE  '2' TO  TWCOB-FASE."
+          },
+          {
+            "paragraph": "XCTL-LIV1",
+            "line_start": 848,
+            "statement": "MOVE '1' TO TWCOB-FASE."
+          },
+          {
+            "paragraph": "XCTL-LIV2",
+            "line_start": 855,
+            "statement": "MOVE '1' TO TWCOB-FASE."
+          },
+          {
+            "paragraph": "XCTL-LIV3",
+            "line_start": 863,
+            "statement": "MOVE '1' TO TWCOB-FASE."
+          },
+          {
+            "paragraph": "XCTL-LIV4",
+            "line_start": 870,
+            "statement": "MOVE '1' TO TWCOB-FASE."
+          },
+          {
+            "paragraph": "XCTL-LIV5",
+            "line_start": 878,
+            "statement": "MOVE '1' TO TWCOB-FASE."
+          },
+          {
+            "paragraph": "XCTL-LIV0",
+            "line_start": 885,
+            "statement": "MOVE '1' TO TWCOB-FASE."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "TOP",
+            "line_start": 221,
+            "statement": "IF  TWCOB-FASE = '1' THEN"
+          },
+          {
+            "paragraph": "TOP",
+            "line_start": 223,
+            "statement": "IF  TWCOB-FASE = '2' THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 640,
+            "statement": "TWCOB-FASE  =  '1'            THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 652,
+            "statement": "TWCOB-FASE  =  '2'            THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 663,
+            "statement": "IF  TWCOB-FASE  =  '1'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 667,
+            "statement": "IF  TWCOB-FASE  =  '2'  THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "TOP",
+            "line_start": 221,
+            "statement": "IF  TWCOB-FASE = '1' THEN"
+          },
+          {
+            "paragraph": "TOP",
+            "line_start": 223,
+            "statement": "IF  TWCOB-FASE = '2' THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 663,
+            "statement": "IF  TWCOB-FASE  =  '1'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 667,
+            "statement": "IF  TWCOB-FASE  =  '2'  THEN"
+          },
+          {
+            "paragraph": "PDCBVC",
+            "line_start": -1,
+            "statement": "NOT (TWCOB-FASE = '1' OR TWCOB-FASE = '2')"
+          },
+          {
+            "paragraph": "PDCBVC",
+            "line_start": -1,
+            "statement": "TWCOB-FASE = '1'"
+          },
+          {
+            "paragraph": "PDCBVC",
+            "line_start": -1,
+            "statement": "TWCOB-FASE = '2'"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": -1,
+            "statement": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": -1,
+            "statement": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '1')"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "TWCOB-FUNZIONE",
+      "defined_in": [
+        "XCTL-LIV1"
+      ],
+      "modified_in": [
+        "XCTL-LIV0",
+        "XCTL-LIV1",
+        "XCTL-LIV2",
+        "XCTL-LIV3",
+        "XCTL-LIV4"
+      ],
+      "used_in": [
+        "BROWSE-FASE1",
+        "INIZ-PARAM",
+        "MUOVI-TESTATA-10",
+        "PREP-RIGA"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "INIZ-PARAM-010",
+        "MUOVI-TESTATA-20",
+        "PREP-RIGA-010",
+        "READ-TAB-SEMAF",
+        "XCTL-LIV4"
+      ],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "XCTL-LIV1",
+            "line_start": 849,
+            "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+          },
+          {
+            "paragraph": "XCTL-LIV2",
+            "line_start": 856,
+            "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+          },
+          {
+            "paragraph": "XCTL-LIV3",
+            "line_start": 864,
+            "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+          },
+          {
+            "paragraph": "XCTL-LIV4",
+            "line_start": 871,
+            "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+          },
+          {
+            "paragraph": "XCTL-LIV0",
+            "line_start": 886,
+            "statement": "MOVE '1' TO TWCOB-FUNZIONE."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 239,
+            "statement": "IF (TWCOB-FUNZIONE =  'I' OR 'A' OR 'C' OR 'D' OR 'P')"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 269,
+            "statement": "IF TWCOB-FUNZIONE  = 'A'"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 432,
+            "statement": "MOVE TWCOB-FUNZIONE         TO  PD1VOCI-TIPO-VARIAZ."
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 444,
+            "statement": "IF  TWCOB-FUNZIONE      =   'I'   THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 575,
+            "statement": "IF    TWCOB-FUNZIONE  =  'I'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 579,
+            "statement": "IF    TWCOB-FUNZIONE  =  'V'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 583,
+            "statement": "IF    TWCOB-FUNZIONE  =  'C'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 587,
+            "statement": "IF    TWCOB-FUNZIONE  =  'A'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 591,
+            "statement": "IF    TWCOB-FUNZIONE  =  'D'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 595,
+            "statement": "IF    TWCOB-FUNZIONE  =  'P'  THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 704,
+            "statement": "IF   TWCOB-FUNZIONE     =   'I'   THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 710,
+            "statement": "IF   TWCOB-FUNZIONE     =   'I'   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 239,
+            "statement": "IF (TWCOB-FUNZIONE =  'I' OR 'A' OR 'C' OR 'D' OR 'P')"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 269,
+            "statement": "IF TWCOB-FUNZIONE  = 'A'"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 444,
+            "statement": "IF  TWCOB-FUNZIONE      =   'I'   THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 575,
+            "statement": "IF    TWCOB-FUNZIONE  =  'I'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 579,
+            "statement": "IF    TWCOB-FUNZIONE  =  'V'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 583,
+            "statement": "IF    TWCOB-FUNZIONE  =  'C'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 587,
+            "statement": "IF    TWCOB-FUNZIONE  =  'A'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 591,
+            "statement": "IF    TWCOB-FUNZIONE  =  'D'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": 595,
+            "statement": "IF    TWCOB-FUNZIONE  =  'P'  THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 704,
+            "statement": "IF   TWCOB-FUNZIONE     =   'I'   THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 710,
+            "statement": "IF   TWCOB-FUNZIONE     =   'I'   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": -1,
+            "statement": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP'"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": -1,
+            "statement": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": -1,
+            "statement": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-10",
+            "line_start": -1,
+            "statement": "(TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'D')"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": -1,
+            "statement": "TWCOB-FUNZIONE = 'I'"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "TWCOB-ID-SISTEMA",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1",
+        "MUOVI-TESTATA-00",
+        "PREP-LINK-PD1FS00"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "READ-TAB-SEMAF",
+        "XCTL-LIV4"
+      ],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 240,
+            "statement": "AND TWCOB-ID-SISTEMA = 'IP'"
+          },
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": 411,
+            "statement": "MOVE  TWCOB-ID-SISTEMA TO  PD1FS00-SESS-SISTEMA."
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 556,
+            "statement": "MOVE  TWCOB-ID-SISTEMA  TO  M1SYSO."
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": -1,
+            "statement": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP'"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": -1,
+            "statement": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "TWCOB-NOME",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA",
+            "line_start": 541,
+            "statement": "MOVE TWCOB-NOME         TO MNOMO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-NOME-CICS",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 544,
+            "statement": "MOVE TWCOB-NOME-CICS TO M0AMBO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-NOME-PGM",
+      "defined_in": [
+        "XCTL-LIV1"
+      ],
+      "modified_in": [
+        "XCTL-LIV0",
+        "XCTL-LIV1",
+        "XCTL-LIV2",
+        "XCTL-LIV3",
+        "XCTL-LIV4",
+        "XCTL-LIV5"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "XCTL-LIV1",
+            "line_start": 850,
+            "statement": "MOVE PROG-LIV1  TO  TWCOB-NOME-PGM."
+          },
+          {
+            "paragraph": "XCTL-LIV2",
+            "line_start": 857,
+            "statement": "MOVE PROG-LIV2  TO  TWCOB-NOME-PGM."
+          },
+          {
+            "paragraph": "XCTL-LIV3",
+            "line_start": 865,
+            "statement": "MOVE PROG-LIV3  TO  TWCOB-NOME-PGM."
+          },
+          {
+            "paragraph": "XCTL-LIV4",
+            "line_start": 872,
+            "statement": "MOVE PROG-LIV4  TO  TWCOB-NOME-PGM."
+          },
+          {
+            "paragraph": "XCTL-LIV5",
+            "line_start": 880,
+            "statement": "MOVE PROG-LIV5  TO  TWCOB-NOME-PGM."
+          },
+          {
+            "paragraph": "XCTL-LIV0",
+            "line_start": 887,
+            "statement": "MOVE PROG-LIV0  TO  TWCOB-NOME-PGM."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-OPER-SIGLA",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "READ-TAB-SEMAF"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 758,
+            "statement": "MOVE TWCOB-OPER-SIGLA TO PXCSEMAF-USER-REQ"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-SP-MATR",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "INIZ-PARAM"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 430,
+            "statement": "MOVE TWCOB-SP-MATR          TO  PD1VOCI-CODDIP-MATR."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-SP-PAD",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "INIZ-PARAM"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 431,
+            "statement": "MOVE TWCOB-SP-PAD           TO  PD1VOCI-CODDIP-PAD."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-TIPO-DIP",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "INIZ-PARAM"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 429,
+            "statement": "MOVE TWCOB-TIPO-DIP         TO  PD1VOCI-CODDIP-TIPO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-VARCONT-ANNO",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "INIZ-PARAM-020"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 470,
+            "statement": "IF    TWCOB-VARCONT-ANNO   =      'TTTT'  THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 473,
+            "statement": "MOVE  TWCOB-VARCONT-ANNO   TO  PD1VOCI-LIQUID1-ANNO."
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 470,
+            "statement": "IF    TWCOB-VARCONT-ANNO   =      'TTTT'  THEN"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "TWCOB-VARCONT-MESE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "INIZ-PARAM-020"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 475,
+            "statement": "MOVE  TWCOB-VARCONT-MESE   TO  PD1VOCI-LIQUID1-MESE."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-VARCONT-NPAGINA",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-VISUAL"
+      ],
+      "used_in": [
+        "BROWSE-FASE2",
+        "MUOVI-DATI"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 279,
+            "statement": "MOVE     WCTPAG        TO   TWCOB-VARCONT-NPAGINA."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 382,
+            "statement": "MOVE     WCTPAG        TO   TWCOB-VARCONT-NPAGINA."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 297,
+            "statement": "MOVE     TWCOB-VARCONT-NPAGINA  TO  WCTPAG."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 641,
+            "statement": "MOVE TWCOB-VARCONT-NPAGINA  TO  WCTPAG"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 653,
+            "statement": "MOVE TWCOB-VARCONT-NPAGINA  TO  WCTPAG"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-VARCONT-NUMFUNZ",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1",
+        "INIZ-PARAM",
+        "INIZ-PARAM-010",
+        "MUOVI-TESTATA-20"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "INIZ-PARAM-010",
+        "INIZ-PARAM-020",
+        "MUOVI-TESTATA-30"
+      ],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 266,
+            "statement": "IF TWCOB-VARCONT-NUMFUNZ = '1'"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 436,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '1'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 440,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '6'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 455,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '2'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 458,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '3'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 461,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '4'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 464,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '5'   THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 598,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '1'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 602,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '2'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 606,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '3'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 610,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '4'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 614,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '5'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 618,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '6'  THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 266,
+            "statement": "IF TWCOB-VARCONT-NUMFUNZ = '1'"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 436,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '1'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 440,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '6'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 455,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '2'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 458,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '3'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 461,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '4'   THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": 464,
+            "statement": "IF  TWCOB-VARCONT-NUMFUNZ   =   '5'   THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 598,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '1'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 602,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '2'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 606,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '3'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 610,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '4'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 614,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '5'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": 618,
+            "statement": "IF    TWCOB-VARCONT-NUMFUNZ  =  '6'  THEN"
+          },
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": -1,
+            "statement": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')"
+          },
+          {
+            "paragraph": "INIZ-PARAM-010",
+            "line_start": -1,
+            "statement": "(TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '5')"
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-20",
+            "line_start": -1,
+            "statement": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '5')"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "TWCOB-VARCONT-PROGVOCE",
+      "defined_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "modified_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 365,
+            "statement": "MOVE  WPROGREC    TO   TWCOB-VARCONT-PROGVOCE"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-VARCONT-TMENS",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "INIZ-PARAM-020"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "INIZ-PARAM-020",
+            "line_start": 476,
+            "statement": "MOVE  TWCOB-VARCONT-TMENS  TO  PD1VOCI-LIQUID1-TIPO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-VARCONT-VOCE",
+      "defined_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "modified_in": [
+        "BROWSE-FASE2-SEL-10",
+        "XCTL-LIV2",
+        "XCTL-LIV4"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 364,
+            "statement": "MOVE  VOCE        TO   TWCOB-VARCONT-VOCE"
+          },
+          {
+            "paragraph": "XCTL-LIV2",
+            "line_start": 858,
+            "statement": "MOVE SPACES      TO TWCOB-VARCONT-VOCE"
+          },
+          {
+            "paragraph": "XCTL-LIV4",
+            "line_start": 873,
+            "statement": "MOVE SPACES     TO TWCOB-VARCONT-VOCE"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-VARCONT-VOCE-LIV4",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "INIZ-PARAM",
+        "PREPARA-MAP"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "INIZ-PARAM",
+            "line_start": 428,
+            "statement": "MOVE TWCOB-VARCONT-VOCE-LIV4 TO  PD1VOCI-COD-VOCE."
+          },
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 527,
+            "statement": "TWCOB-VARCONT-VOCE-LIV4  NUMERIC   AND"
+          },
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 528,
+            "statement": "TWCOB-VARCONT-VOCE-LIV4  NOT = ZERO"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-XCTL",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1"
+      ],
+      "used_in": [
+        "PREPARA-MAP"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 289,
+            "statement": "MOVE SPACE  TO  TWCOB-XCTL."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 526,
+            "statement": "TWCOB-XCTL   = SPACE               AND"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "TWCOB-XCTL-PGM",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1",
+        "MUOVI-DATI"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "MUOVI-DATI-10",
+        "XCTL-LIV4"
+      ],
+      "origin": "COMMAREA",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 261,
+            "statement": "TWCOB-XCTL-PGM        =  'PDCGVC'  THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 639,
+            "statement": "IF  TWCOB-XCTL-PGM   =  'PDCGVC'  AND"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 651,
+            "statement": "IF  TWCOB-XCTL-PGM   =  'PDCGVC'  AND"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 639,
+            "statement": "IF  TWCOB-XCTL-PGM   =  'PDCGVC'  AND"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 651,
+            "statement": "IF  TWCOB-XCTL-PGM   =  'PDCGVC'  AND"
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": -1,
+            "statement": "PD1VOCI-TABVOX-NUMERO = 0 AND TWCOB-XCTL-PGM = 'PDCGVC'"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": -1,
+            "statement": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": -1,
+            "statement": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '1')"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "VOCE",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 703,
+            "statement": "MOVE PD1VOCI-TABVOX-CODVOX(PD1VOCI-IND)  TO  VOCE."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 364,
+            "statement": "MOVE  VOCE        TO   TWCOB-VARCONT-VOCE"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WABEND-CODE",
+      "defined_in": [
+        "TOP"
+      ],
+      "modified_in": [
+        "LINK-PD1FS00",
+        "PREP-LINK-PD1FS00",
+        "READ-TAB-SEMAF",
+        "TOP"
+      ],
+      "used_in": [
+        "LINK-PD0UTI01",
+        "LINK-PD1VOCI"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "TOP",
+            "line_start": 226,
+            "statement": "MOVE  'BR00'  TO  WABEND-CODE"
+          },
+          {
+            "paragraph": "PREP-LINK-PD1FS00",
+            "line_start": 418,
+            "statement": "MOVE 'VC04'  TO  WABEND-CODE."
+          },
+          {
+            "paragraph": "LINK-PD1FS00",
+            "line_start": 504,
+            "statement": "MOVE 'FS00'  TO  WABEND-CODE"
+          },
+          {
+            "paragraph": "READ-TAB-SEMAF",
+            "line_start": 764,
+            "statement": "MOVE 'GET1'   TO WABEND-CODE"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD1VOCI",
+            "line_start": 490,
+            "statement": "THEN MOVE  'LE10'  TO  WABEND-CODE"
+          },
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": 779,
+            "statement": "THEN  MOVE 'UT01'   TO WABEND-CODE"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WCODVO",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 708,
+            "statement": "MOVE WVOCE                               TO  WCODVO."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 363,
+            "statement": "MOVE  WCODVO      TO   WVOCE"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WCTPAG",
+      "defined_in": [
+        "BROWSE-FASE2"
+      ],
+      "modified_in": [
+        "BROWSE-FASE2",
+        "BROWSE-FASE2-PF8",
+        "MUOVI-DATI"
+      ],
+      "used_in": [
+        "BROWSE-FASE1",
+        "BROWSE-FASE2-ENTER",
+        "BROWSE-FASE2-PF7",
+        "BROWSE-FASE2-PF8",
+        "BROWSE-FASE2-VISUAL",
+        "MUOVI-DATI",
+        "MUOVI-DATI-30"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-ENTER",
+        "BROWSE-FASE2-TASTOER",
+        "BROWSE-FASE2-VISUAL",
+        "XCTL-LIV4"
+      ],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2",
+            "line_start": 297,
+            "statement": "MOVE     TWCOB-VARCONT-NPAGINA  TO  WCTPAG."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF8",
+            "line_start": 339,
+            "statement": "MOVE  ZERO  TO  WCTPAG."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 641,
+            "statement": "MOVE TWCOB-VARCONT-NPAGINA  TO  WCTPAG"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 647,
+            "statement": "ADD  +1  TO   WCTPAG"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 653,
+            "statement": "MOVE TWCOB-VARCONT-NPAGINA  TO  WCTPAG"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 657,
+            "statement": "ADD  +1  TO   WCTPAG"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 664,
+            "statement": "MOVE +1  TO   WCTPAG"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 670,
+            "statement": "ADD  +1  TO   WCTPAG"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 279,
+            "statement": "MOVE     WCTPAG        TO   TWCOB-VARCONT-NPAGINA."
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 280,
+            "statement": "IF   WCTPAG     =      1  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 325,
+            "statement": "IF  WCTPAG NOT LESS  NPAGT  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF7",
+            "line_start": 331,
+            "statement": "IF    WCTPAG   NOT GREATER  1  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF7",
+            "line_start": 333,
+            "statement": "SUBTRACT   2  FROM  WCTPAG."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF8",
+            "line_start": 337,
+            "statement": "IF    WCTPAG   =   1  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 382,
+            "statement": "MOVE     WCTPAG        TO   TWCOB-VARCONT-NPAGINA."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 383,
+            "statement": "IF     WCTPAG   =    1     THEN"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 643,
+            "statement": "SUBTRACT   1    FROM      WCTPAG"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 644,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 645,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 654,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 655,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 665,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 666,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING N-RIGHE."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 671,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          },
+          {
+            "paragraph": "MUOVI-DATI-30",
+            "line_start": 689,
+            "statement": "MOVE  WCTPAG   TO  COM3."
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 280,
+            "statement": "IF   WCTPAG     =      1  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": 325,
+            "statement": "IF  WCTPAG NOT LESS  NPAGT  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF7",
+            "line_start": 331,
+            "statement": "IF    WCTPAG   NOT GREATER  1  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF8",
+            "line_start": 337,
+            "statement": "IF    WCTPAG   =   1  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-VISUAL",
+            "line_start": 383,
+            "statement": "IF     WCTPAG   =    1     THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": -1,
+            "statement": "WCTPAG LESS NPAGT"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-ENTER",
+            "line_start": -1,
+            "statement": "(WCTPAG NOT LESS NPAGT)"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF7",
+            "line_start": -1,
+            "statement": "WCTPAG GREATER 1"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF7",
+            "line_start": -1,
+            "statement": "(WCTPAG NOT GREATER 1)"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF8",
+            "line_start": -1,
+            "statement": "NOT (WCTPAG = 1)"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-PF8",
+            "line_start": -1,
+            "statement": "WCTPAG = 1"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "WCTRIG",
+      "defined_in": [
+        "BROWSE-FASE2-SEL"
+      ],
+      "modified_in": [
+        "ABBL-RIGA",
+        "ABBL-RIGA-10",
+        "BROWSE-FASE2-SEL",
+        "BROWSE-FASE2-SEL-10",
+        "MUOVI-DATI",
+        "PREP-RIGA-010"
+      ],
+      "used_in": [
+        "ABBL-RIGA-10",
+        "BROWSE-FASE2-SEL-10",
+        "MUOVI-DATI-10",
+        "PREP-RIGA",
+        "PREPARA-MAP"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "ABBL-RIGA-10",
+        "BROWSE-FASE2-NOTFND",
+        "MUOVI-DATI-30"
+      ],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL",
+            "line_start": 355,
+            "statement": "MOVE  1   TO  WCTRIG."
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 368,
+            "statement": "ADD   1   TO  WCTRIG."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 633,
+            "statement": "MOVE   1        TO  WCTRIG."
+          },
+          {
+            "paragraph": "PREP-RIGA-010",
+            "line_start": 739,
+            "statement": "MOVE RIGA-MAPPA             TO  MRIGAO(WCTRIG)."
+          },
+          {
+            "paragraph": "PREP-RIGA-010",
+            "line_start": 740,
+            "statement": "ADD   +1  TO     WCTRIG."
+          },
+          {
+            "paragraph": "ABBL-RIGA",
+            "line_start": 793,
+            "statement": "MOVE   1    TO  WCTRIG."
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": 795,
+            "statement": "MOVE  SPACE  TO   MRIGAO(WCTRIG)."
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": 796,
+            "statement": "ADD    1     TO  WCTRIG."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 358,
+            "statement": "IF WCTRIG  GREATER  15  THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 360,
+            "statement": "MOVE  MRIGAO(WCTRIG)  TO  RIGA-MAPPA."
+          },
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 525,
+            "statement": "IF WCTRIG NOT GREATER 2  AND"
+          },
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": 679,
+            "statement": "IF  WCTRIG  GREATER      15   THEN"
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 702,
+            "statement": "MOVE WCTRIG                 TO  WPROGR."
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": 797,
+            "statement": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 358,
+            "statement": "IF WCTRIG  GREATER  15  THEN"
+          },
+          {
+            "paragraph": "PREPARA-MAP",
+            "line_start": 525,
+            "statement": "IF WCTRIG NOT GREATER 2  AND"
+          },
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": 679,
+            "statement": "IF  WCTRIG  GREATER      15   THEN"
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": 797,
+            "statement": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+          },
+          {
+            "paragraph": "ABBL-RIGA-10",
+            "line_start": -1,
+            "statement": "(WCTRIG NOT GREATER MAX-RIGHE)"
+          },
+          {
+            "paragraph": "MUOVI-DATI-10",
+            "line_start": -1,
+            "statement": "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": -1,
+            "statement": "WCTRIG GREATER 15"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "WDATA",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00",
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 554,
+            "statement": "MOVE  WDATA             TO  M1DATAO."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 716,
+            "statement": "MOVE WDATA                  TO  DATA-IMPIANTO."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 731,
+            "statement": "MOVE WDATA                  TO  DATA-CESSAZIONE."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATA-AA",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00",
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 553,
+            "statement": "MOVE  WDATE-AA          TO  WDATA-AA."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 713,
+            "statement": "MOVE WDATE2-AA34            TO  WDATA-AA."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 728,
+            "statement": "MOVE WDATE2-AA34            TO  WDATA-AA"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATA-GG",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00",
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 551,
+            "statement": "MOVE  WDATE-GG          TO  WDATA-GG."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 715,
+            "statement": "MOVE WDATE2-GG              TO  WDATA-GG."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 730,
+            "statement": "MOVE WDATE2-GG              TO  WDATA-GG"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATA-MM",
+      "defined_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "modified_in": [
+        "MUOVI-TESTATA-00",
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 552,
+            "statement": "MOVE  WDATE-MM          TO  WDATA-MM."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 714,
+            "statement": "MOVE WDATE2-MM              TO  WDATA-MM."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 729,
+            "statement": "MOVE WDATE2-MM              TO  WDATA-MM"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 548,
+            "statement": "EXEC CICS FORMATTIME  ABSTIME(WW-DATE)  DDMMYY(WDATE)"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATE-AA",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 553,
+            "statement": "MOVE  WDATE-AA          TO  WDATA-AA."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATE-GG",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 551,
+            "statement": "MOVE  WDATE-GG          TO  WDATA-GG."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATE-MM",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 552,
+            "statement": "MOVE  WDATE-MM          TO  WDATA-MM."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATE2",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 712,
+            "statement": "MOVE PD1VOCI-TABVOX-INIZ(PD1VOCI-IND)    TO  WDATE2."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 727,
+            "statement": "MOVE PD1VOCI-TABVOX-FINE(PD1VOCI-IND)    TO  WDATE2"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATE2-AA34",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 713,
+            "statement": "MOVE WDATE2-AA34            TO  WDATA-AA."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 728,
+            "statement": "MOVE WDATE2-AA34            TO  WDATA-AA"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATE2-GG",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 715,
+            "statement": "MOVE WDATE2-GG              TO  WDATA-GG."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 730,
+            "statement": "MOVE WDATE2-GG              TO  WDATA-GG"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDATE2-MM",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 714,
+            "statement": "MOVE WDATE2-MM              TO  WDATA-MM."
+          },
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 729,
+            "statement": "MOVE WDATE2-MM              TO  WDATA-MM"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WDESCVO",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 709,
+            "statement": "MOVE PD1VOCI-TABVOX-DESCRIZ(PD1VOCI-IND) TO  WDESCVO."
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WKERR1",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 267,
+            "statement": "THEN MOVE WKERR1  TO WKMSG."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WKERR2",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 270,
+            "statement": "THEN MOVE WKERR2  TO WKMSG."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WKMSG",
+      "defined_in": [
+        "BROWSE-FASE1"
+      ],
+      "modified_in": [
+        "BROWSE-FASE1"
+      ],
+      "used_in": [
+        "BROWSE-FASE1"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 265,
+            "statement": "MOVE WMSGNOREC   TO WKMSG."
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 276,
+            "statement": "MOVE SPACE    TO WKMSG."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 267,
+            "statement": "THEN MOVE WKERR1  TO WKMSG."
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 270,
+            "statement": "THEN MOVE WKERR2  TO WKMSG."
+          },
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 273,
+            "statement": "MOVE  WKMSG     TO  TWCOB-AREA-MSG"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WKOST",
+      "defined_in": [
+        "MUOVI-DATI"
+      ],
+      "modified_in": [
+        "MUOVI-DATI"
+      ],
+      "used_in": [],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 645,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 655,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 665,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST."
+          },
+          {
+            "paragraph": "MUOVI-DATI",
+            "line_start": 671,
+            "statement": "MULTIPLY MAX-RIGHE BY WCTPAG GIVING WKOST"
+          }
+        ],
+        "read_sites": [],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WMNOSEL",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2-NOSEL"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-NOSEL",
+            "line_start": 350,
+            "statement": "MOVE  WMNOSEL      TO M1MSGO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WMSGNOREC",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE1"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE1",
+            "line_start": 265,
+            "statement": "MOVE WMSGNOREC   TO WKMSG."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WPD1FS00",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "LINK-PD1FS00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD1FS00",
+            "line_start": 500,
+            "statement": "EXEC CICS LINK PROGRAM('PD1FS00') COMMAREA(WPD1FS00)"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WPD1VOCI",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "LINK-PD1VOCI"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD1VOCI",
+            "line_start": 486,
+            "statement": "EXEC CICS LINK PROGRAM('PD1VOCI') COMMAREA(WPD1VOCI)"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WPDRUTI01",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "LINK-PD0UTI01"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "LINK-PD0UTI01",
+            "line_start": 775,
+            "statement": "EXEC CICS LINK PROGRAM('PD0UTI01') COMMAREA(WPDRUTI01)"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WPROGR",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "controls_flow": true,
+      "fanout_nodes": [
+        "BROWSE-FASE2-SEL-20"
+      ],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 702,
+            "statement": "MOVE WCTRIG                 TO  WPROGR."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 362,
+            "statement": "IF SCELTAI  =  WPROGR   THEN"
+          }
+        ],
+        "control_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 362,
+            "statement": "IF SCELTAI  =  WPROGR   THEN"
+          },
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": -1,
+            "statement": "SCELTAI = WPROGR"
+          }
+        ]
+      }
+    },
+    {
+      "variable": "WPROGREC",
+      "defined_in": [
+        "PREP-RIGA"
+      ],
+      "modified_in": [
+        "PREP-RIGA"
+      ],
+      "used_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 737,
+            "statement": "MOVE PD1VOCI-TABVOX-PROGVOX(PD1VOCI-IND) TO  WPROGREC."
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 365,
+            "statement": "MOVE  WPROGREC    TO   TWCOB-VARCONT-PROGVOCE"
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WTASTOER",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "BROWSE-FASE2-TASTOER"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-TASTOER",
+            "line_start": 344,
+            "statement": "MOVE  WTASTOER     TO M1MSGO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WVOCE",
+      "defined_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "modified_in": [
+        "BROWSE-FASE2-SEL-10"
+      ],
+      "used_in": [
+        "PREP-RIGA"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [
+          {
+            "paragraph": "BROWSE-FASE2-SEL-10",
+            "line_start": 363,
+            "statement": "MOVE  WCODVO      TO   WVOCE"
+          }
+        ],
+        "read_sites": [
+          {
+            "paragraph": "PREP-RIGA",
+            "line_start": 708,
+            "statement": "MOVE WVOCE                               TO  WCODVO."
+          }
+        ],
+        "control_sites": []
+      }
+    },
+    {
+      "variable": "WW-DATE",
+      "defined_in": [],
+      "modified_in": [],
+      "used_in": [
+        "MUOVI-TESTATA-00"
+      ],
+      "controls_flow": false,
+      "fanout_nodes": [],
+      "origin": "WORKING-STORAGE",
+      "evidence": {
+        "write_sites": [],
+        "read_sites": [
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 547,
+            "statement": "EXEC CICS ASKTIME  ABSTIME(WW-DATE)   END-EXEC."
+          },
+          {
+            "paragraph": "MUOVI-TESTATA-00",
+            "line_start": 548,
+            "statement": "EXEC CICS FORMATTIME  ABSTIME(WW-DATE)  DDMMYY(WDATE)"
+          }
+        ],
+        "control_sites": []
+      }
+    }
+  ],
+  "source": "pdc_var_index_used.json"
+}

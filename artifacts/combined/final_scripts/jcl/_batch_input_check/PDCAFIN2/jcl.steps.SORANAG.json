@@ -1,0 +1,132 @@
+{
+  "type": "jcl.steps",
+  "job": "PDCAFIN2",
+  "step": "SORANAG",
+  "scope": "procedure_definition",
+  "defined_in_proc": "PDCAFIN2",
+  "exec_kind": "program",
+  "target": "ICEMAN",
+  "program": "ICEMAN",
+  "proc": null,
+  "parameters": {},
+  "positional": [],
+  "notes": [],
+  "comment_context": [],
+  "reads": [
+    "&&FILESTA"
+  ],
+  "writes": [
+    "&&ANAGS"
+  ],
+  "deletes": [],
+  "controls": [
+    "SYS1.SORTLIB",
+    "&&SKANAG"
+  ],
+  "unknowns": [],
+  "dds": [
+    {
+      "ddname": "SORTLIB",
+      "concatenated": false,
+      "dsn": "SYS1.SORTLIB",
+      "disp": "SHR",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=SYS1.SORTLIB,DISP=SHR",
+      "annotations": [],
+      "source_lines": {
+        "start": 99,
+        "end": 99
+      },
+      "dataset_kind": "system",
+      "is_temporary": false,
+      "access_type": "control",
+      "access_reason": "Control DD name"
+    },
+    {
+      "ddname": "SORTIN",
+      "concatenated": false,
+      "dsn": "&&FILESTA",
+      "disp": "(OLD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&FILESTA,DISP=(OLD,DELETE)",
+      "annotations": [],
+      "source_lines": {
+        "start": 100,
+        "end": 100
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "read",
+      "access_reason": "Input DD name"
+    },
+    {
+      "ddname": "SORTOUT",
+      "concatenated": false,
+      "dsn": "&&ANAGS",
+      "disp": "(,PASS)",
+      "sysout": null,
+      "unit": "3390",
+      "output": null,
+      "raw": "DD DSN=&&ANAGS,DISP=(,PASS),UNIT=3390,SPACE=(CYL,(1,1))",
+      "annotations": [],
+      "source_lines": {
+        "start": 101,
+        "end": 101
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "write",
+      "access_reason": "Output DD name"
+    },
+    {
+      "ddname": "SYSOUT",
+      "concatenated": false,
+      "dsn": null,
+      "disp": null,
+      "sysout": "*",
+      "unit": null,
+      "output": null,
+      "raw": "DD SYSOUT=*",
+      "annotations": [],
+      "source_lines": {
+        "start": 102,
+        "end": 102
+      },
+      "dataset_kind": null,
+      "is_temporary": false,
+      "access_type": "sysout",
+      "access_reason": "SYSOUT destination"
+    },
+    {
+      "ddname": "SYSIN",
+      "concatenated": false,
+      "dsn": "&&SKANAG",
+      "disp": "(OLD,DELETE)",
+      "sysout": null,
+      "unit": null,
+      "output": null,
+      "raw": "DD DSN=&&SKANAG,DISP=(OLD,DELETE)",
+      "annotations": [],
+      "source_lines": {
+        "start": 103,
+        "end": 103
+      },
+      "dataset_kind": "temporary",
+      "is_temporary": true,
+      "access_type": "control",
+      "access_reason": "Control DD name"
+    }
+  ],
+  "resolved_locally": false,
+  "resolved_proc_steps": [],
+  "resolved_proc_programs": [],
+  "source_lines": {
+    "start": 98,
+    "end": 98
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

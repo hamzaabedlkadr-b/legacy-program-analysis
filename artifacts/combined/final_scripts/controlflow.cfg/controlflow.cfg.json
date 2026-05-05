@@ -1,0 +1,955 @@
+{
+  "type": "controlflow.cfg",
+  "program": "PDCBVC",
+  "graph": {
+    "name": "A",
+    "rankdir": "LR"
+  },
+  "nodes": [
+    "ABBL-RIGA",
+    "ABBL-RIGA-10",
+    "ABBL-RIGA-EXIT",
+    "ABEND00",
+    "ADDRESS-TWA",
+    "BROWSE-FASE1",
+    "BROWSE-FASE2",
+    "BROWSE-FASE2-ENTER",
+    "BROWSE-FASE2-NOTFND",
+    "BROWSE-FASE2-PF7",
+    "BROWSE-FASE2-PF8",
+    "BROWSE-FASE2-SEL",
+    "BROWSE-FASE2-SEL-10",
+    "BROWSE-FASE2-SEL-20",
+    "BROWSE-FASE2-TASTOER",
+    "BROWSE-FASE2-VISUAL",
+    "CALCOLA-NPAG",
+    "CALCOLA-NPAG-EXIT",
+    "FINE-ELABORAZIONE",
+    "INIZ-PARAM",
+    "INIZ-PARAM-010",
+    "INIZ-PARAM-020",
+    "INIZ-PARAM-EXIT",
+    "LINK-PD0UTI01",
+    "LINK-PD0UTI01-EXIT",
+    "LINK-PD1FS00",
+    "LINK-PD1FS00-EXIT",
+    "LINK-PD1VOCI",
+    "LINK-PD1VOCI-EXIT",
+    "MUOVI-DATI",
+    "MUOVI-DATI-05",
+    "MUOVI-DATI-10",
+    "MUOVI-DATI-15",
+    "MUOVI-DATI-20",
+    "MUOVI-DATI-30",
+    "MUOVI-DATI-EXIT",
+    "MUOVI-TESTATA",
+    "MUOVI-TESTATA-00",
+    "MUOVI-TESTATA-10",
+    "MUOVI-TESTATA-20",
+    "MUOVI-TESTATA-30",
+    "MUOVI-TESTATA-EXIT",
+    "PDCBVC",
+    "PREP-LINK-PD1FS00",
+    "PREP-LINK-PD1FS00-EXIT",
+    "PREP-RIGA",
+    "PREP-RIGA-010",
+    "PREP-RIGA-EXIT",
+    "PREPARA-MAP",
+    "PREPARA-MAP-EXIT",
+    "READ-TAB-SEMAF",
+    "RECEIVE-PDCBVC1",
+    "RESET-TWA",
+    "RESET-TWA-EXIT",
+    "RETURN-MAIN",
+    "SAVE-TWA",
+    "SEND-PDCBVC1",
+    "SEND-PDCBVC1-DO",
+    "XCTL-LIV0",
+    "XCTL-LIV1",
+    "XCTL-LIV2",
+    "XCTL-LIV3",
+    "XCTL-LIV4",
+    "XCTL-LIV5",
+    "XCTL-MAIN"
+  ],
+  "edges": [
+    {
+      "from": "PDCBVC",
+      "to": "ADDRESS-TWA",
+      "type": "CALL",
+      "cics_ops": [
+        "ADDRESS"
+      ],
+      "evidence": "PERFORM ADDRESS-TWA."
+    },
+    {
+      "from": "PDCBVC",
+      "to": "ABEND00",
+      "type": "JUMP",
+      "condition": "NOT (TWCOB-FASE = '1' OR TWCOB-FASE = '2')",
+      "evidence": "GO  TO ABEND00."
+    },
+    {
+      "from": "PDCBVC",
+      "to": "BROWSE-FASE1",
+      "type": "JUMP",
+      "condition": "TWCOB-FASE = '1'",
+      "evidence": "GO TO BROWSE-FASE1."
+    },
+    {
+      "from": "PDCBVC",
+      "to": "BROWSE-FASE2",
+      "type": "JUMP",
+      "condition": "TWCOB-FASE = '2'",
+      "evidence": "GO TO BROWSE-FASE2."
+    },
+    {
+      "from": "ABEND00",
+      "to": "SAVE-TWA",
+      "type": "FALLTHROUGH"
+    },
+    {
+      "from": "SAVE-TWA",
+      "to": "FINE-ELABORAZIONE",
+      "type": "FALLTHROUGH"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "PREP-LINK-PD1FS00",
+      "type": "CALL_RANGE",
+      "range_start": "PREP-LINK-PD1FS00",
+      "range_end": "PREP-LINK-PD1FS00-EXIT",
+      "evidence": "PERFORM PREP-LINK-PD1FS00 THRU PREP-LINK-PD1FS00-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "READ-TAB-SEMAF",
+      "type": "CALL",
+      "evidence": "PERFORM READ-TAB-SEMAF",
+      "condition": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP'"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "INIZ-PARAM",
+      "type": "CALL_RANGE",
+      "range_start": "INIZ-PARAM",
+      "range_end": "INIZ-PARAM-EXIT",
+      "evidence": "PERFORM INIZ-PARAM        THRU INIZ-PARAM-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "LINK-PD1VOCI",
+      "type": "CALL_RANGE",
+      "range_start": "LINK-PD1VOCI",
+      "range_end": "LINK-PD1VOCI-EXIT",
+      "cics_ops": [
+        "LINK"
+      ],
+      "evidence": "PERFORM LINK-PD1VOCI      THRU LINK-PD1VOCI-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "CALCOLA-NPAG",
+      "type": "CALL_RANGE",
+      "range_start": "CALCOLA-NPAG",
+      "range_end": "CALCOLA-NPAG-EXIT",
+      "evidence": "PERFORM CALCOLA-NPAG      THRU CALCOLA-NPAG-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "PREPARA-MAP",
+      "type": "CALL_RANGE",
+      "range_start": "PREPARA-MAP",
+      "range_end": "PREPARA-MAP-EXIT",
+      "evidence": "PERFORM  PREPARA-MAP   THRU PREPARA-MAP-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "XCTL-LIV4",
+      "type": "JUMP",
+      "evidence": "GO  TO  XCTL-LIV4",
+      "condition": "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1"
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "SEND-PDCBVC1",
+      "type": "CALL",
+      "cics_ops": [
+        "SEND"
+      ],
+      "evidence": "PERFORM  SEND-PDCBVC1."
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "RETURN-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO RETURN-MAIN."
+    },
+    {
+      "from": "PREP-LINK-PD1FS00",
+      "to": "LINK-PD1FS00",
+      "type": "CALL_RANGE",
+      "range_start": "LINK-PD1FS00",
+      "range_end": "LINK-PD1FS00-EXIT",
+      "cics_ops": [
+        "LINK"
+      ],
+      "evidence": "PERFORM LINK-PD1FS00 THRU LINK-PD1FS00-EXIT."
+    },
+    {
+      "from": "PREP-LINK-PD1FS00",
+      "to": "ABEND00",
+      "type": "JUMP",
+      "condition": "(NOT ((PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2')))",
+      "evidence": "GO  TO ABEND00."
+    },
+    {
+      "from": "PREP-LINK-PD1FS00",
+      "to": "PREP-LINK-PD1FS00-EXIT",
+      "type": "JUMP",
+      "condition": "(PD1FS00-RETURN = '0') OR (PD1FS00-RETURN = '2')",
+      "evidence": "GO TO PREP-LINK-PD1FS00-EXIT."
+    },
+    {
+      "from": "LINK-PD1FS00",
+      "to": "LINK-PD1FS00-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "LINK-PD1FS00",
+          "end": "LINK-PD1FS00-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "LINK-PD1FS00",
+      "to": "ABEND00",
+      "type": "JUMP",
+      "condition": "PD1FS00-RETURN EQUAL 'E'",
+      "evidence": "GO TO ABEND00."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "RECEIVE-PDCBVC1",
+      "type": "CALL",
+      "cics_ops": [
+        "RECEIVE"
+      ],
+      "evidence": "PERFORM  RECEIVE-PDCBVC1."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-TASTOER",
+      "type": "JUMP",
+      "condition": "(NOT ((EIBAID = DFHENTER) OR (EIBAID = DFHPF1) OR (EIBAID = DFHPF2) OR (EIBAID = DFHPF3) OR (EIBAID = DFHPF4) OR (EIBAID = DFHPF9) OR (EIBAID = DFHPF7) OR (EIBAID = DFHPF8)))",
+      "evidence": "GO TO BROWSE-FASE2-TASTOER."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-ENTER",
+      "type": "JUMP",
+      "condition": "EIBAID = DFHENTER",
+      "evidence": "GO TO BROWSE-FASE2-ENTER."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV1",
+      "type": "JUMP",
+      "condition": "EIBAID = DFHPF1",
+      "evidence": "GO TO XCTL-LIV1."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV2",
+      "type": "JUMP",
+      "condition": "EIBAID = DFHPF2",
+      "evidence": "GO TO XCTL-LIV2."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV3",
+      "type": "JUMP",
+      "condition": "EIBAID = DFHPF3",
+      "evidence": "GO TO XCTL-LIV3."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV4",
+      "type": "JUMP",
+      "condition": "EIBAID = DFHPF4",
+      "evidence": "GO TO XCTL-LIV4."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV0",
+      "type": "JUMP",
+      "condition": "EIBAID = DFHPF9",
+      "evidence": "GO TO XCTL-LIV0."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-PF7",
+      "type": "JUMP",
+      "condition": "EIBAID = DFHPF7",
+      "evidence": "GO TO BROWSE-FASE2-PF7."
+    },
+    {
+      "from": "BROWSE-FASE2",
+      "to": "BROWSE-FASE2-PF8",
+      "type": "JUMP",
+      "condition": "EIBAID = DFHPF8",
+      "evidence": "GO TO BROWSE-FASE2-PF8."
+    },
+    {
+      "from": "BROWSE-FASE2-TASTOER",
+      "to": "SEND-PDCBVC1-DO",
+      "type": "CALL",
+      "cics_ops": [
+        "SEND"
+      ],
+      "evidence": "PERFORM  SEND-PDCBVC1-DO."
+    },
+    {
+      "from": "BROWSE-FASE2-TASTOER",
+      "to": "RETURN-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO RETURN-MAIN."
+    },
+    {
+      "from": "RETURN-MAIN",
+      "to": "SAVE-TWA",
+      "type": "CALL",
+      "evidence": "PERFORM SAVE-TWA."
+    },
+    {
+      "from": "READ-TAB-SEMAF",
+      "to": "ABEND00",
+      "type": "CALL",
+      "evidence": "PERFORM ABEND00",
+      "condition": "PXCSEMAF-OUTCOME NOT = SPACE"
+    },
+    {
+      "from": "INIZ-PARAM",
+      "to": "INIZ-PARAM-010",
+      "type": "JUMP",
+      "condition": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')",
+      "evidence": "GO  TO  INIZ-PARAM-010."
+    },
+    {
+      "from": "INIZ-PARAM-010",
+      "to": "INIZ-PARAM-020",
+      "type": "JUMP",
+      "condition": "(TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '5')",
+      "evidence": "GO  TO  INIZ-PARAM-020."
+    },
+    {
+      "from": "INIZ-PARAM-020",
+      "to": "INIZ-PARAM-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "INIZ-PARAM",
+          "end": "INIZ-PARAM-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "LINK-PD1VOCI",
+      "to": "LINK-PD1VOCI-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "LINK-PD1VOCI",
+          "end": "LINK-PD1VOCI-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "LINK-PD1VOCI",
+      "to": "ABEND00",
+      "type": "JUMP",
+      "condition": "PD1VOCI-RETURN EQUAL 'E'",
+      "evidence": "GO TO ABEND00."
+    },
+    {
+      "from": "CALCOLA-NPAG",
+      "to": "CALCOLA-NPAG-EXIT",
+      "type": "JUMP",
+      "condition": "NPAGT LESS 1",
+      "evidence": "GO  TO  CALCOLA-NPAG-EXIT."
+    },
+    {
+      "from": "PREPARA-MAP",
+      "to": "MUOVI-TESTATA",
+      "type": "CALL_RANGE",
+      "range_start": "MUOVI-TESTATA",
+      "range_end": "MUOVI-TESTATA-EXIT",
+      "evidence": "PERFORM  MUOVI-TESTATA THRU MUOVI-TESTATA-EXIT."
+    },
+    {
+      "from": "PREPARA-MAP",
+      "to": "ABBL-RIGA",
+      "type": "CALL_RANGE",
+      "range_start": "ABBL-RIGA",
+      "range_end": "ABBL-RIGA-EXIT",
+      "evidence": "PERFORM  ABBL-RIGA  THRU  ABBL-RIGA-EXIT."
+    },
+    {
+      "from": "PREPARA-MAP",
+      "to": "MUOVI-DATI",
+      "type": "CALL_RANGE",
+      "range_start": "MUOVI-DATI",
+      "range_end": "MUOVI-DATI-EXIT",
+      "evidence": "PERFORM  MUOVI-DATI THRU  MUOVI-DATI-EXIT."
+    },
+    {
+      "from": "PREPARA-MAP",
+      "to": "PREPARA-MAP-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "PREPARA-MAP",
+          "end": "PREPARA-MAP-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "MUOVI-TESTATA",
+      "to": "MUOVI-TESTATA-00",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "MUOVI-TESTATA",
+          "end": "MUOVI-TESTATA-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "MUOVI-TESTATA-00",
+      "to": "MUOVI-TESTATA-10",
+      "type": "JUMP",
+      "condition": "(PD1FS00-SESS-FLAG = '1') OR (PD1FS00-SESS-FLAG = '2')",
+      "evidence": "GO  TO  MUOVI-TESTATA-10."
+    },
+    {
+      "from": "MUOVI-TESTATA-10",
+      "to": "MUOVI-TESTATA-20",
+      "type": "JUMP",
+      "condition": "(TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'I') OR (TWCOB-FUNZIONE = 'V') OR (TWCOB-FUNZIONE = 'C') OR (TWCOB-FUNZIONE = 'A') OR (TWCOB-FUNZIONE = 'D')",
+      "evidence": "GO  TO  MUOVI-TESTATA-20."
+    },
+    {
+      "from": "MUOVI-TESTATA-20",
+      "to": "MUOVI-TESTATA-30",
+      "type": "JUMP",
+      "condition": "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '2') OR (TWCOB-VARCONT-NUMFUNZ = '3') OR (TWCOB-VARCONT-NUMFUNZ = '4') OR (TWCOB-VARCONT-NUMFUNZ = '5')",
+      "evidence": "GO  TO  MUOVI-TESTATA-30."
+    },
+    {
+      "from": "MUOVI-TESTATA-30",
+      "to": "MUOVI-TESTATA-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "MUOVI-TESTATA",
+          "end": "MUOVI-TESTATA-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "ABBL-RIGA",
+      "to": "ABBL-RIGA-10",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "ABBL-RIGA",
+          "end": "ABBL-RIGA-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "ABBL-RIGA-10",
+      "to": "ABBL-RIGA-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "ABBL-RIGA",
+          "end": "ABBL-RIGA-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "ABBL-RIGA-10",
+      "to": "ABBL-RIGA-10",
+      "type": "JUMP",
+      "condition": "(WCTRIG NOT GREATER MAX-RIGHE)",
+      "evidence": "IF  WCTRIG NOT  GREATER MAX-RIGHE GO TO ABBL-RIGA-10."
+    },
+    {
+      "from": "MUOVI-DATI",
+      "to": "ABBL-RIGA",
+      "type": "CALL_RANGE",
+      "range_start": "ABBL-RIGA",
+      "range_end": "ABBL-RIGA-EXIT",
+      "evidence": "PERFORM ABBL-RIGA  THRU  ABBL-RIGA-EXIT."
+    },
+    {
+      "from": "MUOVI-DATI",
+      "to": "MUOVI-DATI-05",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "MUOVI-DATI",
+          "end": "MUOVI-DATI-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "MUOVI-DATI",
+      "to": "MUOVI-DATI-10",
+      "type": "JUMP",
+      "condition": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')",
+      "evidence": "GO  TO  MUOVI-DATI-10."
+    },
+    {
+      "from": "MUOVI-DATI-05",
+      "to": "MUOVI-DATI-10",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "MUOVI-DATI",
+          "end": "MUOVI-DATI-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "MUOVI-DATI-10",
+      "to": "MUOVI-DATI-15",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "MUOVI-DATI",
+          "end": "MUOVI-DATI-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "MUOVI-DATI-10",
+      "to": "MUOVI-DATI-30",
+      "type": "JUMP",
+      "condition": "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)",
+      "evidence": "GO  TO  MUOVI-DATI-30."
+    },
+    {
+      "from": "MUOVI-DATI-15",
+      "to": "PREP-RIGA",
+      "type": "CALL_RANGE",
+      "range_start": "PREP-RIGA",
+      "range_end": "PREP-RIGA-EXIT",
+      "evidence": "PERFORM PREP-RIGA THRU PREP-RIGA-EXIT."
+    },
+    {
+      "from": "MUOVI-DATI-15",
+      "to": "MUOVI-DATI-20",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "MUOVI-DATI",
+          "end": "MUOVI-DATI-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "PREP-RIGA",
+      "to": "LINK-PD0UTI01",
+      "type": "CALL_RANGE",
+      "range_start": "LINK-PD0UTI01",
+      "range_end": "LINK-PD0UTI01-EXIT",
+      "cics_ops": [
+        "LINK"
+      ],
+      "evidence": "PERFORM  LINK-PD0UTI01  THRU LINK-PD0UTI01-EXIT."
+    },
+    {
+      "from": "PREP-RIGA",
+      "to": "PREP-RIGA-010",
+      "type": "JUMP",
+      "condition": "TWCOB-FUNZIONE = 'I'",
+      "evidence": "GO  TO   PREP-RIGA-010."
+    },
+    {
+      "from": "LINK-PD0UTI01",
+      "to": "LINK-PD0UTI01-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "LINK-PD0UTI01",
+          "end": "LINK-PD0UTI01-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "LINK-PD0UTI01",
+      "to": "ABEND00",
+      "type": "JUMP",
+      "condition": "PDRUTI01-RETURN EQUAL 'E'",
+      "evidence": "GO TO ABEND00."
+    },
+    {
+      "from": "PREP-RIGA-010",
+      "to": "PREP-RIGA-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "PREP-RIGA",
+          "end": "PREP-RIGA-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "MUOVI-DATI-20",
+      "to": "MUOVI-DATI-10",
+      "type": "JUMP",
+      "evidence": "GO    TO  MUOVI-DATI-10."
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "PREP-LINK-PD1FS00",
+      "type": "CALL_RANGE",
+      "range_start": "PREP-LINK-PD1FS00",
+      "range_end": "PREP-LINK-PD1FS00-EXIT",
+      "evidence": "PERFORM PREP-LINK-PD1FS00 THRU PREP-LINK-PD1FS00-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "BROWSE-FASE2-SEL",
+      "type": "JUMP",
+      "condition": "(SCELTAI NOT = '__') AND (SCELTAI NOT = SPACES)",
+      "evidence": "THEN GO TO BROWSE-FASE2-SEL."
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "INIZ-PARAM",
+      "type": "CALL_RANGE",
+      "range_start": "INIZ-PARAM",
+      "range_end": "INIZ-PARAM-EXIT",
+      "evidence": "PERFORM INIZ-PARAM        THRU INIZ-PARAM-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "LINK-PD1VOCI",
+      "type": "CALL_RANGE",
+      "range_start": "LINK-PD1VOCI",
+      "range_end": "LINK-PD1VOCI-EXIT",
+      "cics_ops": [
+        "LINK"
+      ],
+      "evidence": "PERFORM LINK-PD1VOCI      THRU LINK-PD1VOCI-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "CALCOLA-NPAG",
+      "type": "CALL_RANGE",
+      "range_start": "CALCOLA-NPAG",
+      "range_end": "CALCOLA-NPAG-EXIT",
+      "evidence": "PERFORM CALCOLA-NPAG      THRU CALCOLA-NPAG-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "BROWSE-FASE2-VISUAL",
+      "type": "JUMP",
+      "condition": "WCTPAG LESS NPAGT",
+      "evidence": "GO TO BROWSE-FASE2-VISUAL."
+    },
+    {
+      "from": "BROWSE-FASE2-ENTER",
+      "to": "XCTL-LIV4",
+      "type": "JUMP",
+      "condition": "(WCTPAG NOT LESS NPAGT)",
+      "evidence": "GO TO XCTL-LIV4."
+    },
+    {
+      "from": "XCTL-LIV1",
+      "to": "RESET-TWA",
+      "type": "CALL_RANGE",
+      "range_start": "RESET-TWA",
+      "range_end": "RESET-TWA-EXIT",
+      "evidence": "PERFORM RESET-TWA  THRU  RESET-TWA-EXIT."
+    },
+    {
+      "from": "XCTL-LIV1",
+      "to": "XCTL-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO XCTL-MAIN."
+    },
+    {
+      "from": "RESET-TWA",
+      "to": "RESET-TWA-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "RESET-TWA",
+          "end": "RESET-TWA-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "XCTL-MAIN",
+      "to": "XCTL-LIV1",
+      "type": "FALLTHROUGH"
+    },
+    {
+      "from": "XCTL-LIV2",
+      "to": "RESET-TWA",
+      "type": "CALL_RANGE",
+      "range_start": "RESET-TWA",
+      "range_end": "RESET-TWA-EXIT",
+      "evidence": "PERFORM RESET-TWA  THRU  RESET-TWA-EXIT."
+    },
+    {
+      "from": "XCTL-LIV2",
+      "to": "XCTL-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO XCTL-MAIN."
+    },
+    {
+      "from": "XCTL-LIV3",
+      "to": "RESET-TWA",
+      "type": "CALL_RANGE",
+      "range_start": "RESET-TWA",
+      "range_end": "RESET-TWA-EXIT",
+      "evidence": "PERFORM RESET-TWA  THRU  RESET-TWA-EXIT."
+    },
+    {
+      "from": "XCTL-LIV3",
+      "to": "XCTL-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO XCTL-MAIN."
+    },
+    {
+      "from": "XCTL-LIV4",
+      "to": "RESET-TWA",
+      "type": "CALL_RANGE",
+      "range_start": "RESET-TWA",
+      "range_end": "RESET-TWA-EXIT",
+      "evidence": "PERFORM RESET-TWA  THRU  RESET-TWA-EXIT."
+    },
+    {
+      "from": "XCTL-LIV4",
+      "to": "XCTL-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO XCTL-MAIN."
+    },
+    {
+      "from": "XCTL-LIV0",
+      "to": "RESET-TWA",
+      "type": "CALL_RANGE",
+      "range_start": "RESET-TWA",
+      "range_end": "RESET-TWA-EXIT",
+      "evidence": "PERFORM RESET-TWA  THRU  RESET-TWA-EXIT."
+    },
+    {
+      "from": "XCTL-LIV0",
+      "to": "XCTL-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO XCTL-MAIN."
+    },
+    {
+      "from": "BROWSE-FASE2-PF7",
+      "to": "BROWSE-FASE2-ENTER",
+      "type": "JUMP",
+      "condition": "WCTPAG GREATER 1",
+      "evidence": "GO TO BROWSE-FASE2-ENTER."
+    },
+    {
+      "from": "BROWSE-FASE2-PF7",
+      "to": "BROWSE-FASE2-TASTOER",
+      "type": "JUMP",
+      "condition": "(WCTPAG NOT GREATER 1)",
+      "evidence": "GO TO BROWSE-FASE2-TASTOER."
+    },
+    {
+      "from": "BROWSE-FASE2-PF8",
+      "to": "BROWSE-FASE2-ENTER",
+      "type": "JUMP",
+      "condition": "NOT (WCTPAG = 1)",
+      "evidence": "GO TO BROWSE-FASE2-ENTER."
+    },
+    {
+      "from": "BROWSE-FASE2-PF8",
+      "to": "BROWSE-FASE2-TASTOER",
+      "type": "JUMP",
+      "condition": "WCTPAG = 1",
+      "evidence": "GO TO BROWSE-FASE2-TASTOER."
+    },
+    {
+      "from": "MUOVI-DATI-30",
+      "to": "MUOVI-DATI-EXIT",
+      "type": "RANGE_FLOW",
+      "range_flow_of": [
+        {
+          "start": "MUOVI-DATI",
+          "end": "MUOVI-DATI-EXIT"
+        }
+      ]
+    },
+    {
+      "from": "BROWSE-FASE2-SEL",
+      "to": "BROWSE-FASE2-SEL-10",
+      "type": "FALLTHROUGH"
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-10",
+      "to": "BROWSE-FASE2-SEL-10",
+      "type": "JUMP",
+      "evidence": "GO TO BROWSE-FASE2-SEL-10."
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-10",
+      "to": "BROWSE-FASE2-NOTFND",
+      "type": "JUMP",
+      "condition": "WCTRIG GREATER 15",
+      "evidence": "GO TO BROWSE-FASE2-NOTFND."
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-10",
+      "to": "BROWSE-FASE2-SEL-20",
+      "type": "JUMP",
+      "condition": "SCELTAI = WPROGR",
+      "evidence": "GO TO BROWSE-FASE2-SEL-20."
+    },
+    {
+      "from": "BROWSE-FASE2-VISUAL",
+      "to": "PREPARA-MAP",
+      "type": "CALL_RANGE",
+      "range_start": "PREPARA-MAP",
+      "range_end": "PREPARA-MAP-EXIT",
+      "evidence": "PERFORM  PREPARA-MAP   THRU PREPARA-MAP-EXIT."
+    },
+    {
+      "from": "BROWSE-FASE2-VISUAL",
+      "to": "SEND-PDCBVC1",
+      "type": "CALL",
+      "cics_ops": [
+        "SEND"
+      ],
+      "evidence": "PERFORM  SEND-PDCBVC1."
+    },
+    {
+      "from": "BROWSE-FASE2-VISUAL",
+      "to": "RETURN-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO RETURN-MAIN."
+    },
+    {
+      "from": "BROWSE-FASE2-NOTFND",
+      "to": "SEND-PDCBVC1-DO",
+      "type": "CALL",
+      "cics_ops": [
+        "SEND"
+      ],
+      "evidence": "PERFORM  SEND-PDCBVC1-DO."
+    },
+    {
+      "from": "BROWSE-FASE2-NOTFND",
+      "to": "RETURN-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO RETURN-MAIN."
+    },
+    {
+      "from": "BROWSE-FASE2-SEL-20",
+      "to": "XCTL-LIV5",
+      "type": "JUMP",
+      "evidence": "GO  TO  XCTL-LIV5."
+    },
+    {
+      "from": "XCTL-LIV5",
+      "to": "RESET-TWA",
+      "type": "CALL_RANGE",
+      "range_start": "RESET-TWA",
+      "range_end": "RESET-TWA-EXIT",
+      "evidence": "PERFORM RESET-TWA  THRU  RESET-TWA-EXIT."
+    },
+    {
+      "from": "XCTL-LIV5",
+      "to": "XCTL-MAIN",
+      "type": "JUMP",
+      "evidence": "GO TO XCTL-MAIN."
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "XCTL-LIV4",
+      "type": "JUMP",
+      "condition": "PD1VOCI-TABVOX-NUMERO = 0 AND TWCOB-XCTL-PGM = 'PDCGVC'",
+      "evidence": "GO  TO  XCTL-LIV4"
+    },
+    {
+      "from": "MUOVI-DATI",
+      "to": "MUOVI-DATI-10",
+      "type": "JUMP",
+      "condition": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '1')",
+      "evidence": "GO  TO  MUOVI-DATI-10."
+    },
+    {
+      "from": "BROWSE-FASE1",
+      "to": "XCTL-LIV4",
+      "type": "JUMP",
+      "condition": "PD1VOCI-TABVOX-NUMERO = 0",
+      "evidence": "GO  TO  XCTL-LIV4"
+    }
+  ],
+  "meta": {
+    "program_id": "PDCBVC",
+    "ranges_detected": [
+      {
+        "start": "PREP-LINK-PD1FS00",
+        "end": "PREP-LINK-PD1FS00-EXIT"
+      },
+      {
+        "start": "INIZ-PARAM",
+        "end": "INIZ-PARAM-EXIT"
+      },
+      {
+        "start": "LINK-PD1VOCI",
+        "end": "LINK-PD1VOCI-EXIT"
+      },
+      {
+        "start": "CALCOLA-NPAG",
+        "end": "CALCOLA-NPAG-EXIT"
+      },
+      {
+        "start": "PREPARA-MAP",
+        "end": "PREPARA-MAP-EXIT"
+      },
+      {
+        "start": "LINK-PD1FS00",
+        "end": "LINK-PD1FS00-EXIT"
+      },
+      {
+        "start": "MUOVI-TESTATA",
+        "end": "MUOVI-TESTATA-EXIT"
+      },
+      {
+        "start": "ABBL-RIGA",
+        "end": "ABBL-RIGA-EXIT"
+      },
+      {
+        "start": "MUOVI-DATI",
+        "end": "MUOVI-DATI-EXIT"
+      },
+      {
+        "start": "PREP-RIGA",
+        "end": "PREP-RIGA-EXIT"
+      },
+      {
+        "start": "LINK-PD0UTI01",
+        "end": "LINK-PD0UTI01-EXIT"
+      },
+      {
+        "start": "RESET-TWA",
+        "end": "RESET-TWA-EXIT"
+      }
+    ]
+  },
+  "source": "pdc_enriched.json"
+}

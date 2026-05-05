@@ -1,0 +1,68 @@
+{
+  "id": "program.comment.PDCBVC.237.197dab93a2d5",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 237",
+  "embedding_text": "PDCBVC comment line 237 section LINKAGE paragraph BROWSE-FASE1. non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+  "content": {
+    "line": 237,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE1",
+    "kind": "full_line",
+    "text": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+    "text_raw": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+    "normalized_text": "non sono permesse se il semaforo \"PDAGGVIP\" � chiuso",
+    "classification": "explanatory_comment",
+    "classification_reason": "Looks like a natural-language explanatory comment.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 237,
+    "section": "LINKAGE",
+    "paragraph": "BROWSE-FASE1",
+    "kind": "full_line",
+    "classification": "explanatory_comment",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:explanatory_comment",
+      "section:LINKAGE",
+      "paragraph:BROWSE-FASE1",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [
+      "business_rule.BR-004.json",
+      "business_rule.BR-005.json",
+      "business_rule.BR-030.json",
+      "business_rule.BR-032.json"
+    ],
+    "variables": [
+      "ASKIP-DRK",
+      "KFINE-DATI",
+      "M1MSGO",
+      "M1PF7A",
+      "M1PF8A",
+      "NPAGT",
+      "PD1VOCI-TABVOX-NUMERO",
+      "PDCBVC1I",
+      "PXCSEMAF-STATUS",
+      "TWCOB-AREA-MSG",
+      "TWCOB-FASE",
+      "TWCOB-FUNZIONE",
+      "TWCOB-ID-SISTEMA",
+      "TWCOB-VARCONT-NPAGINA",
+      "TWCOB-VARCONT-NUMFUNZ",
+      "TWCOB-XCTL",
+      "TWCOB-XCTL-PGM",
+      "WCTPAG",
+      "WKERR1",
+      "WKERR2",
+      "WKMSG",
+      "WMSGNOREC"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "program.comment.PDCBVC.808.13309cdbaf61",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 808",
+  "embedding_text": "PDCBVC comment line 808 section LINKAGE paragraph ADDRESS-TWA. INVIO MAPPA PDCBVC1 *",
+  "content": {
+    "line": 808,
+    "section": "LINKAGE",
+    "paragraph": "ADDRESS-TWA",
+    "kind": "full_line",
+    "text": "INVIO MAPPA PDCBVC1 *",
+    "text_raw": "INVIO MAPPA  PDCBVC1                        *",
+    "normalized_text": "INVIO MAPPA PDCBVC1",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 808,
+    "section": "LINKAGE",
+    "paragraph": "ADDRESS-TWA",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:ADDRESS-TWA",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": [
+      "PDRTWA2",
+      "TWA"
+    ]
+  }
+}

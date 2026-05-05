@@ -1,0 +1,86 @@
+{
+  "artifact_type": "integration.conflicts",
+  "source_system": "combined",
+  "conflict_count": 3,
+  "conflicts": [
+    {
+      "topic": "commented_out_code",
+      "final_scripts_value": 15,
+      "cobol_rekt_value": 0,
+      "policy": "prefer_final_scripts_for_commented_out_code; keep cobol-rekt as external evidence",
+      "reason": "The cobol-rekt RAG bundle reports inactive/commented-out blocks differently than the existing final_scripts quality artifact.",
+      "cobol_rekt_sources": [
+        {
+          "chunk_id": "PDCBVC.CBL__commented_out_code",
+          "chunk_type": "commented_out_code",
+          "source_file": "chunks\\PDCBVC.CBL__commented_out_code.json",
+          "title": null,
+          "program": "PDCBVC.CBL",
+          "paragraph": null,
+          "variable": null,
+          "target": null,
+          "source_line": null,
+          "text_preview": "Commented-out or inactive COBOL evidence for PDCBVC.CBL: Status: produced. No commented-out COBOL code blocks were detected.",
+          "sha256": "142b07a32dab9e0cb4cf75174ee8b75bd22fd322f816f696037bc1a96f73a4b8"
+        }
+      ]
+    },
+    {
+      "topic": "unused_copybooks",
+      "final_scripts_needs_review": [],
+      "cobol_rekt_candidates": [
+        "{'copybook': 'PDRTIP01', 'field_count': 47, 'field_sample': ['RECORD-T01', 'T01-CHIAVE', 'T01-CHIAVE-IDTAB', 'T01-CHIAVE-ANNO', 'T01-CHIAVE-ANNOX', 'T01-CHIAVE-VOCE', 'T01-CHIAVE-VOCE-NTAB', 'T01-CHIAVE-VOCE-COD', 'T01-CHIAVE-IDSUBTAB', 'T01-VOCE-TIPO', 'T01-APPLICAB', 'T01-TIPO5', 'T01-TIPO6', 'T01-TIPO7', 'T01-DIPENDENZA', 'T01-VOCE-DESCR', 'T01-COD-OPERAT', 'T01-ULTAGG-DATA', 'T01-ULTAGG-GG', 'T01-ULTAGG-MM', 'T01-ULTAGG-AA', 'T01-TABMESI', 'T01-TABMESI-EL', 'T01-MESE', 'T01-MESE-NUM'], 'reason': 'no Java CFG variable reference found for owned fields'}",
+        "{'copybook': 'PDRVC', 'field_count': 80, 'field_sample': ['PDRVC-CHIAVE', 'PDRVC-CHIAVE-CODICE', 'PDRVC-CHIAVE-CODICE-TIPO', 'PDRVC-CHIAVE-CODICE-MATR', 'PDRVC-CHIAVE-CODICE-PAD', 'PDRVC-CHIAVE-CODICE-PADN', 'PDRVC-CHIAVE-VOCE', 'PDRVC-CHIAVE-VOCE-NTAB', 'PDRVC-CHIAVE-VOCE-COD', 'PDRVC-CHIAVE-PROG', 'PDRVC-COD-OPERAT', 'PDRVC-ULTAGG-DATA', 'PDRVC-ULTAGG-GG', 'PDRVC-ULTAGG-MM', 'PDRVC-ULTAGG-AA', 'PDRVC-TIPO-VOCE', 'PDRVC-IMPI-DATA', 'PDRVC-IMPI-GG', 'PDRVC-IMPI-MM', 'PDRVC-IMPI-AAAA', 'PDRVC-IMPI-AA12', 'PDRVC-IMPI-AA34', 'PDRVC-IMPI-NGG', 'PDRVC-IMPI-PROVV', 'PDRVC-IMPI-PROVV-TIPO'], 'reason': 'no Java CFG variable reference found for owned fields'}"
+      ],
+      "policy": "treat both as heuristics; report union with source labels until a compiler-level usage proof exists",
+      "cobol_rekt_sources": [
+        {
+          "chunk_id": "PDCBVC.CBL__unused_copybooks__part1",
+          "chunk_type": "unused_copybooks",
+          "source_file": "chunks\\PDCBVC.CBL__unused_copybooks__part1.json",
+          "title": null,
+          "program": "PDCBVC.CBL",
+          "paragraph": null,
+          "variable": null,
+          "target": null,
+          "source_line": null,
+          "text_preview": "Unused copybook candidates for PDCBVC.CBL: Status: candidate-only. This uses Java copybook ownership and Java CFG variable usage. It does not prove a copybook is unused. Candidates with no Java CFG field reference: - PDRTIP01: no Java CFG variable reference found for owned fields (47 owned fields...",
+          "sha256": "489a9ca5d8687f4cd8b6ed0ac13c2c50e055b065ff05df565e574b4e1a16a00f"
+        },
+        {
+          "chunk_id": "PDCBVC.CBL__unused_copybooks__part2",
+          "chunk_type": "unused_copybooks",
+          "source_file": "chunks\\PDCBVC.CBL__unused_copybooks__part2.json",
+          "title": null,
+          "program": "PDCBVC.CBL",
+          "paragraph": null,
+          "variable": null,
+          "target": null,
+          "source_line": null,
+          "text_preview": "Unused copybook candidates for PDCBVC.CBL: (continued): - PD1FS00: referenced fields PD1FS00-FUNZIONE, PD1FS00-RETURN, PD1FS00-SESS-ANNO, PD1FS00-SESS-FLAG, PD1FS00-SESS-MESE, PD1FS00-SESS-SISTEMA, PD1FS00-SESS-TMENS. - PDRUTI01: referenced fields PDRUTI01-F05-IMPOX11, PDRUTI01-F05-VALORE, PDRUTI...",
+          "sha256": "64e891c0d192944c1ec6fe26c2f9086cfefe8a35f4396250163af10f56f50290"
+        }
+      ]
+    },
+    {
+      "topic": "line_count_methodology",
+      "policy": "do not collapse different counting methods into one number",
+      "note": "Existing final_scripts and cobol-rekt may count physical source lines, LOC, CFG nodes, or analyzed statements differently. Preserve labels in answers.",
+      "cobol_rekt_sources": [
+        {
+          "chunk_id": "PDCBVC.CBL__program_summary",
+          "chunk_type": "program_summary",
+          "source_file": "chunks\\PDCBVC.CBL__program_summary.json",
+          "title": null,
+          "program": "PDCBVC.CBL",
+          "paragraph": null,
+          "variable": null,
+          "target": null,
+          "source_line": null,
+          "text_preview": "This is a very-high-complexity CICS online program with DB2 database access. Program PDCBVC.CBL has 922 CFG nodes, 1355 edges, and 1248 variables defined. McCabe cyclomatic complexity: 435. Top node types: SENTENCE: 267, MOVE: 162, GOTO: 71, PARAGRAPH: 69, PARAGRAPH_NAME: 69, IF_BRANCH: 69, IF_YE...",
+          "sha256": "2f36efe789937a01008fcbcbd3f3c0ddc86736a5212ea6888559b2ff6cd77cb7"
+        }
+      ]
+    }
+  ]
+}

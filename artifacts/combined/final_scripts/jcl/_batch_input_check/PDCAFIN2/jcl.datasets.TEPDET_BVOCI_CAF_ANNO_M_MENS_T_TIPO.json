@@ -1,0 +1,76 @@
+{
+  "type": "jcl.datasets",
+  "job": "PDCAFIN2",
+  "dsn": "TEPDET.BVOCI.CAF&ANNO..M&MENS.T&TIPO",
+  "dataset_kind": "persistent",
+  "external_input": false,
+  "produced_by": [
+    {
+      "execution_order": 4,
+      "step": "PDHM730C",
+      "ddname": "FOUTPUT",
+      "program": "PDHM730C",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation",
+      "dataset_kind": "persistent",
+      "disp": "(,CATLG)",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    }
+  ],
+  "consumed_by": [],
+  "controlled_by": [],
+  "deleted_by": [
+    {
+      "execution_order": 2,
+      "step": "SCRA",
+      "ddname": "VOCI730",
+      "program": "IEFBR14",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "delete",
+      "access_reason": "IEFBR14 cleanup pattern",
+      "dataset_kind": "persistent",
+      "disp": "(MOD,DELETE)",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    }
+  ],
+  "used_by": [
+    {
+      "execution_order": 2,
+      "step": "SCRA",
+      "ddname": "VOCI730",
+      "program": "IEFBR14",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "delete",
+      "access_reason": "IEFBR14 cleanup pattern",
+      "dataset_kind": "persistent",
+      "disp": "(MOD,DELETE)",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    },
+    {
+      "execution_order": 4,
+      "step": "PDHM730C",
+      "ddname": "FOUTPUT",
+      "program": "PDHM730C",
+      "proc": null,
+      "exec_kind": "program",
+      "scope": "expanded_local_procedure",
+      "access_type": "write",
+      "access_reason": "DISP implies dataset creation",
+      "dataset_kind": "persistent",
+      "disp": "(,CATLG)",
+      "invoked_by_step": "PDCAFIN2",
+      "invoked_proc": "PDCAFIN2"
+    }
+  ],
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\artifacts\\final\\final_scripts\\input\\cobol\\jcl\\PDCAFIN2.JCL"
+}

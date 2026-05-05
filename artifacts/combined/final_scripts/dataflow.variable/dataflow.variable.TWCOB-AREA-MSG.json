@@ -1,0 +1,57 @@
+{
+  "id": "6ac49813d772ce8f",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-AREA-MSG",
+  "embedding_text": "PDCBVC variable TWCOB-AREA-MSG. Origin=COMMAREA. Defined in: BROWSE-FASE1. Modified in: BROWSE-FASE1. Used in: BROWSE-FASE1. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-AREA-MSG",
+    "defined_in": [
+      "BROWSE-FASE1"
+    ],
+    "modified_in": [
+      "BROWSE-FASE1"
+    ],
+    "used_in": [
+      "BROWSE-FASE1"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 262,
+          "statement": "MOVE  SPACES      TO  TWCOB-AREA-MSG"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 273,
+          "statement": "MOVE  WKMSG     TO  TWCOB-AREA-MSG"
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 250,
+          "statement": "TO TWCOB-AREA-MSG"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

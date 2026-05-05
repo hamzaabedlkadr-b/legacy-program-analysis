@@ -1,0 +1,1765 @@
+{
+  "schema_version": 1,
+  "type": "architecture.unused_copybooks",
+  "program": "PDCBVC",
+  "title": "PDCBVC COPY usage review",
+  "content": {
+    "copybooks_total": 12,
+    "all_copybooks": [
+      "DFHAID",
+      "DFHBMSCA",
+      "PD1FS00",
+      "PD1VOCI",
+      "PDCBVCM",
+      "PDIABEND",
+      "PDRTIP01",
+      "PDRTWA2",
+      "PDRUTI01",
+      "PDRVC",
+      "PDSAVTW2",
+      "PXCSEMAF"
+    ],
+    "classified": {
+      "business": [
+        "PD1FS00",
+        "PD1VOCI",
+        "PDCBVCM",
+        "PDRTIP01",
+        "PDRVC"
+      ],
+      "utilities": [
+        "PDRUTI01",
+        "PXCSEMAF"
+      ],
+      "ui_cics": [
+        "DFHAID",
+        "DFHBMSCA"
+      ],
+      "state_context": [
+        "PDRTWA2",
+        "PDSAVTW2"
+      ],
+      "error_handling": [
+        "PDIABEND"
+      ]
+    },
+    "referenced_copybooks": [
+      "DFHAID",
+      "PD1FS00",
+      "PD1VOCI",
+      "PDCBVCM",
+      "PDIABEND",
+      "PDRTWA2",
+      "PDRUTI01",
+      "PDSAVTW2",
+      "PXCSEMAF"
+    ],
+    "needs_review_count": 3,
+    "needs_review_copybooks": [
+      "DFHBMSCA",
+      "PDRTIP01",
+      "PDRVC"
+    ],
+    "unused_copybooks_proven": [],
+    "copybook_status": [
+      {
+        "copybook": "DFHAID",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "CICS AID constant DFHENTER",
+            "line": 298,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 298 | CICS AID constant DFHENTER"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "CICS AID constant DFHPF1",
+            "line": 300,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 300 | CICS AID constant DFHPF1"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "CICS AID constant DFHPF2",
+            "line": 302,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 302 | CICS AID constant DFHPF2"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "CICS AID constant DFHPF3",
+            "line": 304,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 304 | CICS AID constant DFHPF3"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "CICS AID constant DFHPF4",
+            "line": 306,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 306 | CICS AID constant DFHPF4"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "CICS AID constant DFHPF7",
+            "line": 310,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 310 | CICS AID constant DFHPF7"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "CICS AID constant DFHPF8",
+            "line": 312,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 312 | CICS AID constant DFHPF8"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "CICS AID constant DFHPF9",
+            "line": 308,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 308 | CICS AID constant DFHPF9"
+          }
+        ]
+      },
+      {
+        "copybook": "DFHBMSCA",
+        "status": "needs_review_no_reference_in_available_artifacts",
+        "evidence": []
+      },
+      {
+        "copybook": "PD1FS00",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1FS00-FUNZIONE",
+            "line": 410,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 410 | variable PD1FS00-FUNZIONE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 410,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 410 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1FS00-LUNGH",
+            "line": 501,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 501 | variable PD1FS00-LUNGH"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 501,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 501 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1FS00-RETURN",
+            "line": 414,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 414 | variable PD1FS00-RETURN"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 414,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 414 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1FS00-SESS-ANNO",
+            "line": 558,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 558 | variable PD1FS00-SESS-ANNO"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 558,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 558 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1FS00-SESS-FLAG",
+            "line": 564,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 564 | variable PD1FS00-SESS-FLAG"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 564,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 564 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1FS00-SESS-MESE",
+            "line": 560,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 560 | variable PD1FS00-SESS-MESE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 560,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 560 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1FS00-SESS-SISTEMA",
+            "line": 411,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 411 | variable PD1FS00-SESS-SISTEMA"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 411,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 411 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1FS00-SESS-TMENS",
+            "line": 561,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 561 | variable PD1FS00-SESS-TMENS"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 561,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 561 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-FUNZIONE.json",
+            "detail": "variable PD1FS00-FUNZIONE",
+            "line": 410,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-FUNZIONE.json | line 410 | variable PD1FS00-FUNZIONE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-FUNZIONE.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 410,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-FUNZIONE.json | line 410 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-LUNGH.json",
+            "detail": "variable PD1FS00-LUNGH",
+            "line": 501,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-LUNGH.json | line 501 | variable PD1FS00-LUNGH"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-LUNGH.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 501,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-LUNGH.json | line 501 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-RETURN.json",
+            "detail": "variable PD1FS00-RETURN",
+            "line": 414,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-RETURN.json | line 414 | variable PD1FS00-RETURN"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-RETURN.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 414,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-RETURN.json | line 414 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-ANNO.json",
+            "detail": "variable PD1FS00-SESS-ANNO",
+            "line": 558,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-ANNO.json | line 558 | variable PD1FS00-SESS-ANNO"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-ANNO.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 558,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-ANNO.json | line 558 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-FLAG.json",
+            "detail": "variable PD1FS00-SESS-FLAG",
+            "line": 564,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-FLAG.json | line 564 | variable PD1FS00-SESS-FLAG"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-FLAG.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 564,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-FLAG.json | line 564 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-MESE.json",
+            "detail": "variable PD1FS00-SESS-MESE",
+            "line": 560,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-MESE.json | line 560 | variable PD1FS00-SESS-MESE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-MESE.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 560,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-MESE.json | line 560 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-SISTEMA.json",
+            "detail": "variable PD1FS00-SESS-SISTEMA",
+            "line": 411,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-SISTEMA.json | line 411 | variable PD1FS00-SESS-SISTEMA"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-SISTEMA.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 411,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-SISTEMA.json | line 411 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-TMENS.json",
+            "detail": "variable PD1FS00-SESS-TMENS",
+            "line": 561,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-TMENS.json | line 561 | variable PD1FS00-SESS-TMENS"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1FS00-SESS-TMENS.json",
+            "detail": "origin COPY:PD1FS00",
+            "line": 561,
+            "citation": "dataflow.variable/dataflow.variable.PD1FS00-SESS-TMENS.json | line 561 | origin COPY:PD1FS00"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1FS00-FUNZIONE",
+            "line": 410,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 410 | literal assignment target PD1FS00-FUNZIONE"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter field prefix",
+            "line": 500,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 500 | parameter field prefix"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 410,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 410 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 501,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 501 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 503,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 503 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 558,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 558 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 564,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 564 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 560,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 560 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 411,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 411 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 561,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 561 | parameter variable"
+          }
+        ]
+      },
+      {
+        "copybook": "PD1VOCI",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-COD-VOCE",
+            "line": 428,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 428 | variable PD1VOCI-COD-VOCE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 428,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 428 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-CODDIP-MATR",
+            "line": 430,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 430 | variable PD1VOCI-CODDIP-MATR"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 430,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 430 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-CODDIP-PAD",
+            "line": 431,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 431 | variable PD1VOCI-CODDIP-PAD"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 431,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 431 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-CODDIP-TIPO",
+            "line": 429,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 429 | variable PD1VOCI-CODDIP-TIPO"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 429,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 429 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-DATI",
+            "line": 427,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 427 | variable PD1VOCI-DATI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 427,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 427 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-FUNZIONE",
+            "line": 437,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 437 | variable PD1VOCI-FUNZIONE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 437,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 437 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-IND",
+            "line": 648,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 648 | variable PD1VOCI-IND"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-LIQUID1-ANNO",
+            "line": 471,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 471 | variable PD1VOCI-LIQUID1-ANNO"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 471,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 471 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-LIQUID1-MESE",
+            "line": 475,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 475 | variable PD1VOCI-LIQUID1-MESE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 475,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 475 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-LIQUID1-TIPO",
+            "line": 476,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 476 | variable PD1VOCI-LIQUID1-TIPO"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 476,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 476 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-RETURN",
+            "line": 484,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 484 | variable PD1VOCI-RETURN"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 484,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 484 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TABVOX-CODVOX",
+            "line": 703,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 703 | variable PD1VOCI-TABVOX-CODVOX"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 703,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 703 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TABVOX-DESCRIZ",
+            "line": 709,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 709 | variable PD1VOCI-TABVOX-DESCRIZ"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 709,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 709 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TABVOX-FINE",
+            "line": 724,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 724 | variable PD1VOCI-TABVOX-FINE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 724,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 724 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TABVOX-INIZ",
+            "line": 712,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 712 | variable PD1VOCI-TABVOX-INIZ"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 712,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 712 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TABVOX-NUMERO",
+            "line": 260,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 260 | variable PD1VOCI-TABVOX-NUMERO"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 260,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 260 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TABVOX-PROGVOX",
+            "line": 737,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 737 | variable PD1VOCI-TABVOX-PROGVOX"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 737,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 737 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TABVOX-TIPVAR",
+            "line": 707,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 707 | variable PD1VOCI-TABVOX-TIPVAR"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 707,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 707 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TIPO-ESTRA",
+            "line": 446,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 446 | variable PD1VOCI-TIPO-ESTRA"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 446,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 446 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TIPO-GEST",
+            "line": 434,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 434 | variable PD1VOCI-TIPO-GEST"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 434,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 434 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TIPO-VARIAZ",
+            "line": 432,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 432 | variable PD1VOCI-TIPO-VARIAZ"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 432,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 432 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PD1VOCI-TIPO-VOCE",
+            "line": 456,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 456 | variable PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 456,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 456 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-COD-VOCE.json",
+            "detail": "variable PD1VOCI-COD-VOCE",
+            "line": 428,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-COD-VOCE.json | line 428 | variable PD1VOCI-COD-VOCE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-COD-VOCE.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 428,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-COD-VOCE.json | line 428 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-MATR.json",
+            "detail": "variable PD1VOCI-CODDIP-MATR",
+            "line": 430,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-MATR.json | line 430 | variable PD1VOCI-CODDIP-MATR"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-MATR.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 430,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-MATR.json | line 430 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-PAD.json",
+            "detail": "variable PD1VOCI-CODDIP-PAD",
+            "line": 431,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-PAD.json | line 431 | variable PD1VOCI-CODDIP-PAD"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-PAD.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 431,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-PAD.json | line 431 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-TIPO.json",
+            "detail": "variable PD1VOCI-CODDIP-TIPO",
+            "line": 429,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-TIPO.json | line 429 | variable PD1VOCI-CODDIP-TIPO"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-TIPO.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 429,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-CODDIP-TIPO.json | line 429 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-DATI.json",
+            "detail": "variable PD1VOCI-DATI",
+            "line": 427,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-DATI.json | line 427 | variable PD1VOCI-DATI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-DATI.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 427,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-DATI.json | line 427 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-FUNZIONE.json",
+            "detail": "variable PD1VOCI-FUNZIONE",
+            "line": 437,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-FUNZIONE.json | line 437 | variable PD1VOCI-FUNZIONE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-FUNZIONE.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 437,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-FUNZIONE.json | line 437 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-IND.json",
+            "detail": "variable PD1VOCI-IND",
+            "line": 648,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-IND.json | line 648 | variable PD1VOCI-IND"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-ANNO.json",
+            "detail": "variable PD1VOCI-LIQUID1-ANNO",
+            "line": 471,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-ANNO.json | line 471 | variable PD1VOCI-LIQUID1-ANNO"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-ANNO.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 471,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-ANNO.json | line 471 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-MESE.json",
+            "detail": "variable PD1VOCI-LIQUID1-MESE",
+            "line": 475,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-MESE.json | line 475 | variable PD1VOCI-LIQUID1-MESE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-MESE.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 475,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-MESE.json | line 475 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-TIPO.json",
+            "detail": "variable PD1VOCI-LIQUID1-TIPO",
+            "line": 476,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-TIPO.json | line 476 | variable PD1VOCI-LIQUID1-TIPO"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-TIPO.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 476,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-LIQUID1-TIPO.json | line 476 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-RETURN.json",
+            "detail": "variable PD1VOCI-RETURN",
+            "line": 484,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-RETURN.json | line 484 | variable PD1VOCI-RETURN"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-RETURN.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 484,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-RETURN.json | line 484 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-CODVOX.json",
+            "detail": "variable PD1VOCI-TABVOX-CODVOX",
+            "line": 703,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-CODVOX.json | line 703 | variable PD1VOCI-TABVOX-CODVOX"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-CODVOX.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 703,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-CODVOX.json | line 703 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-DESCRIZ.json",
+            "detail": "variable PD1VOCI-TABVOX-DESCRIZ",
+            "line": 709,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-DESCRIZ.json | line 709 | variable PD1VOCI-TABVOX-DESCRIZ"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-DESCRIZ.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 709,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-DESCRIZ.json | line 709 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-FINE.json",
+            "detail": "variable PD1VOCI-TABVOX-FINE",
+            "line": 724,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-FINE.json | line 724 | variable PD1VOCI-TABVOX-FINE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-FINE.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 724,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-FINE.json | line 724 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-INIZ.json",
+            "detail": "variable PD1VOCI-TABVOX-INIZ",
+            "line": 712,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-INIZ.json | line 712 | variable PD1VOCI-TABVOX-INIZ"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-INIZ.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 712,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-INIZ.json | line 712 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-NUMERO.json",
+            "detail": "variable PD1VOCI-TABVOX-NUMERO",
+            "line": 260,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-NUMERO.json | line 260 | variable PD1VOCI-TABVOX-NUMERO"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-NUMERO.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 260,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-NUMERO.json | line 260 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-PROGVOX.json",
+            "detail": "variable PD1VOCI-TABVOX-PROGVOX",
+            "line": 737,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-PROGVOX.json | line 737 | variable PD1VOCI-TABVOX-PROGVOX"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-PROGVOX.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 737,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-PROGVOX.json | line 737 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-TIPVAR.json",
+            "detail": "variable PD1VOCI-TABVOX-TIPVAR",
+            "line": 707,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-TIPVAR.json | line 707 | variable PD1VOCI-TABVOX-TIPVAR"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-TIPVAR.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 707,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TABVOX-TIPVAR.json | line 707 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-ESTRA.json",
+            "detail": "variable PD1VOCI-TIPO-ESTRA",
+            "line": 446,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-ESTRA.json | line 446 | variable PD1VOCI-TIPO-ESTRA"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-ESTRA.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 446,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-ESTRA.json | line 446 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-GEST.json",
+            "detail": "variable PD1VOCI-TIPO-GEST",
+            "line": 434,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-GEST.json | line 434 | variable PD1VOCI-TIPO-GEST"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-GEST.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 434,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-GEST.json | line 434 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-VARIAZ.json",
+            "detail": "variable PD1VOCI-TIPO-VARIAZ",
+            "line": 432,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-VARIAZ.json | line 432 | variable PD1VOCI-TIPO-VARIAZ"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-VARIAZ.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 432,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-VARIAZ.json | line 432 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-VOCE.json",
+            "detail": "variable PD1VOCI-TIPO-VOCE",
+            "line": 456,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-VOCE.json | line 456 | variable PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-VOCE.json",
+            "detail": "origin COPY:PD1VOCI",
+            "line": 456,
+            "citation": "dataflow.variable/dataflow.variable.PD1VOCI-TIPO-VOCE.json | line 456 | origin COPY:PD1VOCI"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-TIPO-GEST",
+            "line": 434,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 434 | literal assignment target PD1VOCI-TIPO-GEST"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-FUNZIONE",
+            "line": 437,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 437 | literal assignment target PD1VOCI-FUNZIONE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-FUNZIONE",
+            "line": 441,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 441 | literal assignment target PD1VOCI-FUNZIONE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-FUNZIONE",
+            "line": 445,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 445 | literal assignment target PD1VOCI-FUNZIONE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-TIPO-ESTRA",
+            "line": 446,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 446 | literal assignment target PD1VOCI-TIPO-ESTRA"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-FUNZIONE",
+            "line": 449,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 449 | literal assignment target PD1VOCI-FUNZIONE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-TIPO-VOCE",
+            "line": 456,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 456 | literal assignment target PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-TIPO-VOCE",
+            "line": 459,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 459 | literal assignment target PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-TIPO-VOCE",
+            "line": 462,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 462 | literal assignment target PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-TIPO-VOCE",
+            "line": 465,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 465 | literal assignment target PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-TIPO-VOCE",
+            "line": 467,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 467 | literal assignment target PD1VOCI-TIPO-VOCE"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-LIQUID1-ANNO",
+            "line": 471,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 471 | literal assignment target PD1VOCI-LIQUID1-ANNO"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PD1VOCI-IND",
+            "line": 674,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 674 | literal assignment target PD1VOCI-IND"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter field prefix",
+            "line": 486,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 486 | parameter field prefix"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 428,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 428 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 430,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 430 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 431,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 431 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 429,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 429 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 427,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 427 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 437,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 437 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 676,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 676 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 471,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 471 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 475,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 475 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 476,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 476 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 484,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 484 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 703,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 703 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 709,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 709 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 724,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 724 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 712,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 712 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 737,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 737 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 707,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 707 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 446,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 446 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 434,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 434 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 432,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 432 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 456,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 456 | parameter variable"
+          }
+        ]
+      },
+      {
+        "copybook": "PDCBVCM",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 544,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 544 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 554,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 554 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 343,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 343 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 285,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 285 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 281,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 281 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 282,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 282 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 556,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 556 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 540,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 540 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 623,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 623 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 565,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 565 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 542,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 542 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 541,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 541 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 693,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 693 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 739,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 739 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 562,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 562 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 234,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 234 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 317,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 317 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 349,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 349 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 529,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 529 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.M0AMBO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 544,
+            "citation": "dataflow.variable/dataflow.variable.M0AMBO.json | line 544 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.M1DATAO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 554,
+            "citation": "dataflow.variable/dataflow.variable.M1DATAO.json | line 554 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.M1MSGL.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 343,
+            "citation": "dataflow.variable/dataflow.variable.M1MSGL.json | line 343 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.M1MSGO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 285,
+            "citation": "dataflow.variable/dataflow.variable.M1MSGO.json | line 285 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.M1PF7A.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 281,
+            "citation": "dataflow.variable/dataflow.variable.M1PF7A.json | line 281 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.M1PF8A.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 282,
+            "citation": "dataflow.variable/dataflow.variable.M1PF8A.json | line 282 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.M1SYSO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 556,
+            "citation": "dataflow.variable/dataflow.variable.M1SYSO.json | line 556 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.MCOGO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 540,
+            "citation": "dataflow.variable/dataflow.variable.MCOGO.json | line 540 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.MDESCO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 623,
+            "citation": "dataflow.variable/dataflow.variable.MDESCO.json | line 623 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.MDSESSO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 565,
+            "citation": "dataflow.variable/dataflow.variable.MDSESSO.json | line 565 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.MMATRO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 542,
+            "citation": "dataflow.variable/dataflow.variable.MMATRO.json | line 542 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.MNOMO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 541,
+            "citation": "dataflow.variable/dataflow.variable.MNOMO.json | line 541 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.MNPAGO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 693,
+            "citation": "dataflow.variable/dataflow.variable.MNPAGO.json | line 693 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.MRIGAO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 739,
+            "citation": "dataflow.variable/dataflow.variable.MRIGAO.json | line 739 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.MSESSIO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 562,
+            "citation": "dataflow.variable/dataflow.variable.MSESSIO.json | line 562 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDCBVC1I.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 234,
+            "citation": "dataflow.variable/dataflow.variable.PDCBVC1I.json | line 234 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.SCELTAI.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 317,
+            "citation": "dataflow.variable/dataflow.variable.SCELTAI.json | line 317 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.SCELTAL.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 349,
+            "citation": "dataflow.variable/dataflow.variable.SCELTAL.json | line 349 | origin COPY:PDCBVCM"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.SCELTAO.json",
+            "detail": "origin COPY:PDCBVCM",
+            "line": 529,
+            "citation": "dataflow.variable/dataflow.variable.SCELTAO.json | line 529 | origin COPY:PDCBVCM"
+          }
+        ]
+      },
+      {
+        "copybook": "PDIABEND",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PDIABEND",
+            "line": 902,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 902 | variable PDIABEND"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDIABEND.json",
+            "detail": "variable PDIABEND",
+            "line": 902,
+            "citation": "dataflow.variable/dataflow.variable.PDIABEND.json | line 902 | variable PDIABEND"
+          }
+        ]
+      },
+      {
+        "copybook": "PDRTIP01",
+        "status": "needs_review_no_reference_in_available_artifacts",
+        "evidence": []
+      },
+      {
+        "copybook": "PDRTWA2",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PDRTWA2",
+            "line": 805,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 805 | variable PDRTWA2"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDRTWA2",
+            "line": 805,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 805 | origin COPY:PDRTWA2"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRTWA2.json",
+            "detail": "variable PDRTWA2",
+            "line": 805,
+            "citation": "dataflow.variable/dataflow.variable.PDRTWA2.json | line 805 | variable PDRTWA2"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRTWA2.json",
+            "detail": "origin COPY:PDRTWA2",
+            "line": 805,
+            "citation": "dataflow.variable/dataflow.variable.PDRTWA2.json | line 805 | origin COPY:PDRTWA2"
+          }
+        ]
+      },
+      {
+        "copybook": "PDRUTI01",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PDRUTI01-F04-IMPOX11",
+            "line": 783,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 783 | variable PDRUTI01-F04-IMPOX11"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 783,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 783 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PDRUTI01-F05-IMPOX11",
+            "line": 736,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 736 | variable PDRUTI01-F05-IMPOX11"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 736,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 736 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PDRUTI01-F05-VALORE",
+            "line": 734,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 734 | variable PDRUTI01-F05-VALORE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 734,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 734 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PDRUTI01-FUNZIONE",
+            "line": 732,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 732 | variable PDRUTI01-FUNZIONE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 732,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 732 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PDRUTI01-RETURN",
+            "line": 773,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 773 | variable PDRUTI01-RETURN"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 773,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 773 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-F04-IMPOX11.json",
+            "detail": "variable PDRUTI01-F04-IMPOX11",
+            "line": 783,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-F04-IMPOX11.json | line 783 | variable PDRUTI01-F04-IMPOX11"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-F04-IMPOX11.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 783,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-F04-IMPOX11.json | line 783 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-F05-IMPOX11.json",
+            "detail": "variable PDRUTI01-F05-IMPOX11",
+            "line": 736,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-F05-IMPOX11.json | line 736 | variable PDRUTI01-F05-IMPOX11"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-F05-IMPOX11.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 736,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-F05-IMPOX11.json | line 736 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-F05-VALORE.json",
+            "detail": "variable PDRUTI01-F05-VALORE",
+            "line": 734,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-F05-VALORE.json | line 734 | variable PDRUTI01-F05-VALORE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-F05-VALORE.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 734,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-F05-VALORE.json | line 734 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-FUNZIONE.json",
+            "detail": "variable PDRUTI01-FUNZIONE",
+            "line": 732,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-FUNZIONE.json | line 732 | variable PDRUTI01-FUNZIONE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-FUNZIONE.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 732,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-FUNZIONE.json | line 732 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-RETURN.json",
+            "detail": "variable PDRUTI01-RETURN",
+            "line": 773,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-RETURN.json | line 773 | variable PDRUTI01-RETURN"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDRUTI01-RETURN.json",
+            "detail": "origin COPY:PDRUTI01",
+            "line": 773,
+            "citation": "dataflow.variable/dataflow.variable.PDRUTI01-RETURN.json | line 773 | origin COPY:PDRUTI01"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PDRUTI01-FUNZIONE",
+            "line": 732,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 732 | literal assignment target PDRUTI01-FUNZIONE"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter field prefix",
+            "line": 775,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 775 | parameter field prefix"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 783,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 783 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 732,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 732 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 773,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 773 | parameter variable"
+          }
+        ]
+      },
+      {
+        "copybook": "PDRVC",
+        "status": "needs_review_no_reference_in_available_artifacts",
+        "evidence": []
+      },
+      {
+        "copybook": "PDSAVTW2",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PDSAVTW2",
+            "line": 909,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 909 | variable PDSAVTW2"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PDSAVTW2.json",
+            "detail": "variable PDSAVTW2",
+            "line": 909,
+            "citation": "dataflow.variable/dataflow.variable.PDSAVTW2.json | line 909 | variable PDSAVTW2"
+          }
+        ]
+      },
+      {
+        "copybook": "PXCSEMAF",
+        "status": "referenced_by_available_artifacts",
+        "evidence": [
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-AGENT",
+            "line": 755,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 755 | variable PXCSEMAF-AGENT"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-AREA",
+            "line": 750,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 750 | variable PXCSEMAF-AREA"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-CALLER",
+            "line": 756,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 756 | variable PXCSEMAF-CALLER"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-CALLER-TYPE",
+            "line": 757,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 757 | variable PXCSEMAF-CALLER-TYPE"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-NAME",
+            "line": 753,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 753 | variable PXCSEMAF-NAME"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-OUTCOME",
+            "line": 762,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 762 | variable PXCSEMAF-OUTCOME"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-REQ",
+            "line": 752,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 752 | variable PXCSEMAF-REQ"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-STATUS",
+            "line": 246,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 246 | variable PXCSEMAF-STATUS"
+          },
+          {
+            "source": "dataflow.used_variables/dataflow.used_variables.json",
+            "detail": "variable PXCSEMAF-USER-REQ",
+            "line": 758,
+            "citation": "dataflow.used_variables/dataflow.used_variables.json | line 758 | variable PXCSEMAF-USER-REQ"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-AGENT.json",
+            "detail": "variable PXCSEMAF-AGENT",
+            "line": 755,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-AGENT.json | line 755 | variable PXCSEMAF-AGENT"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-AREA.json",
+            "detail": "variable PXCSEMAF-AREA",
+            "line": 750,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-AREA.json | line 750 | variable PXCSEMAF-AREA"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-CALLER-TYPE.json",
+            "detail": "variable PXCSEMAF-CALLER-TYPE",
+            "line": 757,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-CALLER-TYPE.json | line 757 | variable PXCSEMAF-CALLER-TYPE"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-CALLER.json",
+            "detail": "variable PXCSEMAF-CALLER",
+            "line": 756,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-CALLER.json | line 756 | variable PXCSEMAF-CALLER"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-NAME.json",
+            "detail": "variable PXCSEMAF-NAME",
+            "line": 753,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-NAME.json | line 753 | variable PXCSEMAF-NAME"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-OUTCOME.json",
+            "detail": "variable PXCSEMAF-OUTCOME",
+            "line": 762,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-OUTCOME.json | line 762 | variable PXCSEMAF-OUTCOME"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-REQ.json",
+            "detail": "variable PXCSEMAF-REQ",
+            "line": 752,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-REQ.json | line 752 | variable PXCSEMAF-REQ"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-STATUS.json",
+            "detail": "variable PXCSEMAF-STATUS",
+            "line": 246,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-STATUS.json | line 246 | variable PXCSEMAF-STATUS"
+          },
+          {
+            "source": "dataflow.variable/dataflow.variable.PXCSEMAF-USER-REQ.json",
+            "detail": "variable PXCSEMAF-USER-REQ",
+            "line": 758,
+            "citation": "dataflow.variable/dataflow.variable.PXCSEMAF-USER-REQ.json | line 758 | variable PXCSEMAF-USER-REQ"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PXCSEMAF-REQ",
+            "line": 752,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 752 | literal assignment target PXCSEMAF-REQ"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PXCSEMAF-NAME",
+            "line": 753,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 753 | literal assignment target PXCSEMAF-NAME"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PXCSEMAF-AGENT",
+            "line": 755,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 755 | literal assignment target PXCSEMAF-AGENT"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PXCSEMAF-CALLER",
+            "line": 756,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 756 | literal assignment target PXCSEMAF-CALLER"
+          },
+          {
+            "source": "dataflow.literal_assignments/dataflow.literal_assignments.json",
+            "detail": "literal assignment target PXCSEMAF-CALLER-TYPE",
+            "line": 757,
+            "citation": "dataflow.literal_assignments/dataflow.literal_assignments.json | line 757 | literal assignment target PXCSEMAF-CALLER-TYPE"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "call parameter PXCSEMAF-AREA",
+            "line": 746,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 746 | call parameter PXCSEMAF-AREA"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter field prefix",
+            "line": 746,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 746 | parameter field prefix"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 760,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 760 | parameter variable"
+          },
+          {
+            "source": "architecture.call_parameters/architecture.call_parameters.json",
+            "detail": "parameter variable",
+            "line": 762,
+            "citation": "architecture.call_parameters/architecture.call_parameters.json | line 762 | parameter variable"
+          }
+        ]
+      }
+    ],
+    "proof_level": "available-artifact-reference review; not compiler-expanded source proof",
+    "limitations": [
+      "This artifact does not prove COPY members are unused.",
+      "needs_review_copybooks are members with no reference evidence in the available artifacts.",
+      "A compiler-expanded source or copybook field-level parser is needed for stronger proof."
+    ]
+  },
+  "evidence": {
+    "copybooks_artifact": "architecture.copybooks/architecture.copybooks.json",
+    "dataflow_artifacts": [
+      "dataflow.used_variables/dataflow.used_variables.json",
+      "dataflow.variable/*.json",
+      "dataflow.literal_assignments/dataflow.literal_assignments.json",
+      "architecture.call_parameters/architecture.call_parameters.json"
+    ]
+  }
+}

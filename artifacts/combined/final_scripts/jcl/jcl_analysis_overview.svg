@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #13293d; }
+      .subtitle { font: 400 15px Arial, sans-serif; fill: #3e5c76; }
+      .h { font: 700 18px Arial, sans-serif; fill: #13293d; }
+      .t { font: 400 14px Arial, sans-serif; fill: #243b53; }
+      .small { font: 400 13px Arial, sans-serif; fill: #3e5c76; }
+      .mono { font: 400 13px 'Courier New', monospace; fill: #243b53; }
+      .box { stroke: #22577a; stroke-width: 2; rx: 18; ry: 18; }
+      .arrow { stroke: #22577a; stroke-width: 3; fill: none; marker-end: url(#m); }
+      .dash { stroke-dasharray: 8 7; }
+    </style>
+    <marker id="m" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#22577a" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="900" fill="#f7fbff" />
+  <text x="60" y="60" class="title">JCL Analysis Pipeline</text>
+  <text x="60" y="88" class="subtitle">From raw JCL to structured artifacts, RAG documents, and batch validation</text>
+
+  <rect x="60" y="140" width="240" height="120" class="box" fill="#d9f0ff" />
+  <text x="88" y="180" class="h">Raw JCL Files</text>
+  <text x="88" y="208" class="t">Input folder of batch jobs</text>
+  <text x="88" y="232" class="mono">PDADDRE1.JCL</text>
+  <text x="88" y="252" class="mono">PDASCO01.JCL</text>
+
+  <rect x="380" y="120" width="300" height="160" class="box" fill="#e6fcf5" />
+  <text x="408" y="160" class="h">build_jcl_artifacts.py</text>
+  <text x="408" y="188" class="t">Parses JCL structure and semantics</text>
+  <text x="408" y="214" class="small">- JOB / EXEC / DD / PROC</text>
+  <text x="408" y="236" class="small">- local PROC expansion</text>
+  <text x="408" y="258" class="small">- dataset access typing</text>
+  <text x="408" y="280" class="small">- purpose, warnings, comment sections</text>
+
+  <line x1="300" y1="200" x2="380" y2="200" class="arrow" />
+
+  <rect x="760" y="70" width="250" height="110" class="box" fill="#fff4d6" />
+  <text x="788" y="108" class="h">jcl.summary.json</text>
+  <text x="788" y="134" class="small">Job purpose, programs, warnings,</text>
+  <text x="788" y="156" class="small">procedures, counts</text>
+
+  <rect x="1070" y="70" width="250" height="110" class="box" fill="#fff4d6" />
+  <text x="1098" y="108" class="h">jcl.steps.*.json</text>
+  <text x="1098" y="134" class="small">Per-step execution detail:</text>
+  <text x="1098" y="156" class="small">reads, writes, notes, parameters</text>
+
+  <rect x="760" y="220" width="250" height="110" class="box" fill="#fff4d6" />
+  <text x="788" y="258" class="h">jcl.datasets.*.json</text>
+  <text x="788" y="284" class="small">Dataset lineage:</text>
+  <text x="788" y="306" class="small">produced by / consumed by / deleted by</text>
+
+  <rect x="1070" y="220" width="250" height="110" class="box" fill="#fff4d6" />
+  <text x="1098" y="258" class="h">jcl.flow.json</text>
+  <text x="1098" y="284" class="small">Expanded execution order</text>
+  <text x="1098" y="306" class="small">and step-to-step dataset flow</text>
+
+  <rect x="915" y="370" width="250" height="110" class="box" fill="#ffe3e3" />
+  <text x="943" y="408" class="h">jcl.rag_documents.json</text>
+  <text x="943" y="434" class="small">Embedding-ready documents for</text>
+  <text x="943" y="456" class="small">jobs, steps, datasets, warnings</text>
+
+  <line x1="680" y1="170" x2="760" y2="125" class="arrow" />
+  <line x1="680" y1="180" x2="1070" y2="125" class="arrow" />
+  <line x1="680" y1="220" x2="760" y2="275" class="arrow" />
+  <line x1="680" y1="230" x2="1070" y2="275" class="arrow" />
+  <line x1="1040" y1="330" x2="1040" y2="370" class="arrow" />
+
+  <rect x="60" y="400" width="240" height="120" class="box" fill="#d9f0ff" />
+  <text x="88" y="440" class="h">Batch JCL Folder</text>
+  <text x="88" y="468" class="t">All JCL files in one directory</text>
+  <text x="88" y="492" class="small">Used for cross-file checks</text>
+
+  <rect x="380" y="380" width="300" height="160" class="box" fill="#edf2ff" />
+  <text x="408" y="420" class="h">build_jcl_validation_report.py</text>
+  <text x="408" y="448" class="t">Batch-wide quality checks</text>
+  <text x="408" y="474" class="small">- unresolved procedures</text>
+  <text x="408" y="496" class="small">- zero parsed programs</text>
+  <text x="408" y="518" class="small">- ambiguous unknown DD usage</text>
+
+  <line x1="300" y1="460" x2="380" y2="460" class="arrow" />
+  <line x1="680" y1="460" x2="915" y2="460" class="arrow dash" />
+
+  <rect x="760" y="420" width="250" height="110" class="box" fill="#edf2ff" />
+  <text x="788" y="458" class="h">Procedure Catalog</text>
+  <text x="788" y="484" class="small">Cross-file local PROC lookup</text>
+  <text x="788" y="506" class="small">to separate true vs batch-resolvable gaps</text>
+
+  <rect x="1070" y="420" width="250" height="110" class="box" fill="#edf2ff" />
+  <text x="1098" y="458" class="h">jcl.validation.report.json</text>
+  <text x="1098" y="484" class="small">Flags weak or incomplete files</text>
+  <text x="1098" y="506" class="small">before indexing or presentation</text>
+
+  <line x1="680" y1="460" x2="760" y2="475" class="arrow" />
+  <line x1="1010" y1="475" x2="1070" y2="475" class="arrow" />
+
+  <rect x="60" y="610" width="610" height="210" class="box" fill="#ffffff" />
+  <text x="88" y="650" class="h">Comment Handling: JCL vs COBOL</text>
+
+  <rect x="90" y="680" width="255" height="110" class="box" fill="#f1f8e9" />
+  <text x="116" y="714" class="h">COBOL Comments</text>
+  <text x="116" y="740" class="small">Dedicated pipeline:</text>
+  <text x="116" y="762" class="mono">build_program_comments.py</text>
+  <text x="116" y="784" class="small">Produces standalone comment artifacts</text>
+
+  <rect x="380" y="680" width="255" height="110" class="box" fill="#fff8e1" />
+  <text x="406" y="714" class="h">JCL Comments</text>
+  <text x="406" y="740" class="small">Currently used heuristically inside</text>
+  <text x="406" y="762" class="mono">build_jcl_artifacts.py</text>
+  <text x="406" y="784" class="small">Purpose, warnings, requirements, products</text>
+
+  <rect x="760" y="610" width="560" height="210" class="box" fill="#ffffff" />
+  <text x="788" y="650" class="h">Key Takeaway</text>
+  <text x="788" y="686" class="t">JCL is now analyzed as an orchestration layer around COBOL.</text>
+  <text x="788" y="716" class="t">We extract execution flow, dataset lineage, semantic warnings,</text>
+  <text x="788" y="746" class="t">RAG-ready documents, and batch validation signals.</text>
+  <text x="788" y="790" class="small">Current limitation: external PROC resolution still depends on what source files are available.</text>
+</svg>

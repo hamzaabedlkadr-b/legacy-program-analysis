@@ -1,0 +1,42 @@
+{
+  "id": "0f6883886938ffa6",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-VARCONT-MESE",
+  "embedding_text": "PDCBVC variable TWCOB-VARCONT-MESE. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: INIZ-PARAM-020. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "TWCOB-VARCONT-MESE",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "INIZ-PARAM-020"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "INIZ-PARAM-020",
+          "line_start": 475,
+          "statement": "MOVE  TWCOB-VARCONT-MESE   TO  PD1VOCI-LIQUID1-MESE."
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 0,
+      "read_sites": 1,
+      "control_sites": 0
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "program.comment.PDCBVC.629.6be17beb876f",
+  "type": "program.comment",
+  "program": "PDCBVC",
+  "title": "PDCBVC comment line 629",
+  "embedding_text": "PDCBVC comment line 629 section LINKAGE paragraph EXIT. TRASFERIMENTO DATI SULLA MAPPA *",
+  "content": {
+    "line": 629,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "text": "TRASFERIMENTO DATI SULLA MAPPA *",
+    "text_raw": "TRASFERIMENTO DATI SULLA MAPPA                       *",
+    "normalized_text": "TRASFERIMENTO DATI SULLA MAPPA",
+    "classification": "descriptive_header",
+    "classification_reason": "Looks like a short descriptive banner for a data area or processing step.",
+    "indexable": true
+  },
+  "meta": {
+    "source": "archive\\invalid_dot_cobol\\Cics\\Cics\\PDCBVC.CBL",
+    "line": 629,
+    "section": "LINKAGE",
+    "paragraph": "EXIT",
+    "kind": "full_line",
+    "classification": "descriptive_header",
+    "indexable": true,
+    "tags": [
+      "program:PDCBVC",
+      "kind:full_line",
+      "classification:descriptive_header",
+      "section:LINKAGE",
+      "paragraph:EXIT",
+      "indexable:true"
+    ]
+  },
+  "links": {
+    "business_rules": [],
+    "variables": []
+  }
+}

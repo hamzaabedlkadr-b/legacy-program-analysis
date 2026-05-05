@@ -1,0 +1,67 @@
+{
+  "id": "f0ab86fe1aeb2a1e",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WKMSG",
+  "embedding_text": "PDCBVC variable WKMSG. Origin=WORKING-STORAGE. Defined in: BROWSE-FASE1. Modified in: BROWSE-FASE1. Used in: BROWSE-FASE1. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WKMSG",
+    "defined_in": [
+      "BROWSE-FASE1"
+    ],
+    "modified_in": [
+      "BROWSE-FASE1"
+    ],
+    "used_in": [
+      "BROWSE-FASE1"
+    ],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 265,
+          "statement": "MOVE WMSGNOREC   TO WKMSG."
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 276,
+          "statement": "MOVE SPACE    TO WKMSG."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 267,
+          "statement": "THEN MOVE WKERR1  TO WKMSG."
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 270,
+          "statement": "THEN MOVE WKERR2  TO WKMSG."
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 273,
+          "statement": "MOVE  WKMSG     TO  TWCOB-AREA-MSG"
+        }
+      ],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 3,
+      "control_sites": 0
+    }
+  }
+}

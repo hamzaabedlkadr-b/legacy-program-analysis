@@ -1,0 +1,56 @@
+{
+  "type": "jcl.steps",
+  "job": "PDADDRE1",
+  "step": "PDADDRE1",
+  "scope": "job",
+  "defined_in_proc": null,
+  "exec_kind": "procedure",
+  "target": "PDADDRE1",
+  "program": null,
+  "proc": "PDADDRE1",
+  "parameters": {
+    "ANNO": "2019",
+    "SESSLIQ": "202002",
+    "TIPOLIQ": "F",
+    "TIPO": "IP",
+    "CATEG": "T"
+  },
+  "positional": [],
+  "notes": [
+    "ANNO DEI REDDITI DA CERTIFICARE",
+    "SESSIONE DI LIQUIDAZIONE",
+    "F: LIQ. FINALE; P: LIQ. PROVVISORIA",
+    "IP - AV - CD (IP + AV)",
+    "C (CESSATI)/T (ATTIVI)"
+  ],
+  "comment_context": [],
+  "reads": [],
+  "writes": [],
+  "deletes": [],
+  "controls": [],
+  "unknowns": [],
+  "dds": [],
+  "resolved_locally": true,
+  "resolved_proc_steps": [
+    "DELADR",
+    "SCRADDR",
+    "PDHADR00",
+    "PDHADR01",
+    "SKSADR",
+    "SORADR",
+    "CARADR"
+  ],
+  "resolved_proc_programs": [
+    "ICEMAN",
+    "IEFBR14",
+    "PARM2SK",
+    "PDHADR00",
+    "PDHADR01",
+    "PDKADR"
+  ],
+  "source_lines": {
+    "start": 105,
+    "end": 112
+  },
+  "source": "C:\\Users\\Lenovo\\Desktop\\Camera\\control_flow\\jcl_files\\PDADDRE1.JCL"
+}

@@ -1,0 +1,82 @@
+{
+  "id": "1d9a9fd892ee756e",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-XCTL-PGM",
+  "embedding_text": "PDCBVC variable TWCOB-XCTL-PGM. Origin=COMMAREA. Defined in: none. Modified in: none. Used in: BROWSE-FASE1, MUOVI-DATI. Controls flow: yes. Fanout nodes: MUOVI-DATI-10, XCTL-LIV4.",
+  "content": {
+    "variable": "TWCOB-XCTL-PGM",
+    "defined_in": [],
+    "modified_in": [],
+    "used_in": [
+      "BROWSE-FASE1",
+      "MUOVI-DATI"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "MUOVI-DATI-10",
+      "XCTL-LIV4"
+    ],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [],
+      "read_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 261,
+          "statement": "TWCOB-XCTL-PGM        =  'PDCGVC'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 639,
+          "statement": "IF  TWCOB-XCTL-PGM   =  'PDCGVC'  AND"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 651,
+          "statement": "IF  TWCOB-XCTL-PGM   =  'PDCGVC'  AND"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 639,
+          "statement": "IF  TWCOB-XCTL-PGM   =  'PDCGVC'  AND"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 651,
+          "statement": "IF  TWCOB-XCTL-PGM   =  'PDCGVC'  AND"
+        },
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": -1,
+          "statement": "PD1VOCI-TABVOX-NUMERO = 0 AND TWCOB-XCTL-PGM = 'PDCGVC'"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": -1,
+          "statement": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": -1,
+          "statement": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '1')"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 0,
+      "modified_in": 0,
+      "used_in": 2,
+      "fanout_nodes": 2,
+      "write_sites": 0,
+      "read_sites": 3,
+      "control_sites": 5
+    }
+  }
+}

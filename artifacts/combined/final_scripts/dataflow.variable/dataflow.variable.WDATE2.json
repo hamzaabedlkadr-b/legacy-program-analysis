@@ -1,0 +1,49 @@
+{
+  "id": "43dec934143ac48e",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable WDATE2",
+  "embedding_text": "PDCBVC variable WDATE2. Origin=WORKING-STORAGE. Defined in: PREP-RIGA. Modified in: PREP-RIGA. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "WDATE2",
+    "defined_in": [
+      "PREP-RIGA"
+    ],
+    "modified_in": [
+      "PREP-RIGA"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "WORKING-STORAGE",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 712,
+          "statement": "MOVE PD1VOCI-TABVOX-INIZ(PD1VOCI-IND)    TO  WDATE2."
+        },
+        {
+          "paragraph": "PREP-RIGA",
+          "line_start": 727,
+          "statement": "MOVE PD1VOCI-TABVOX-FINE(PD1VOCI-IND)    TO  WDATE2"
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "WORKING-STORAGE",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 2,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

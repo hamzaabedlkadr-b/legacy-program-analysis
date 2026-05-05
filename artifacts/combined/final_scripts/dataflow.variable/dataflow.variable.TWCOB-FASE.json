@@ -1,0 +1,171 @@
+{
+  "id": "d43ca7234d8630e5",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable TWCOB-FASE",
+  "embedding_text": "PDCBVC variable TWCOB-FASE. Origin=COMMAREA. Defined in: BROWSE-FASE1. Modified in: BROWSE-FASE1, BROWSE-FASE2-VISUAL, XCTL-LIV0, XCTL-LIV1, XCTL-LIV2, XCTL-LIV3, XCTL-LIV4, XCTL-LIV5. Used in: MUOVI-DATI, TOP. Controls flow: yes. Fanout nodes: ABEND00, BROWSE-FASE1, BROWSE-FASE2, MUOVI-DATI-10.",
+  "content": {
+    "variable": "TWCOB-FASE",
+    "defined_in": [
+      "BROWSE-FASE1"
+    ],
+    "modified_in": [
+      "BROWSE-FASE1",
+      "BROWSE-FASE2-VISUAL",
+      "XCTL-LIV0",
+      "XCTL-LIV1",
+      "XCTL-LIV2",
+      "XCTL-LIV3",
+      "XCTL-LIV4",
+      "XCTL-LIV5"
+    ],
+    "used_in": [
+      "MUOVI-DATI",
+      "TOP"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "ABEND00",
+      "BROWSE-FASE1",
+      "BROWSE-FASE2",
+      "MUOVI-DATI-10"
+    ],
+    "origin": "COMMAREA",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "BROWSE-FASE1",
+          "line_start": 288,
+          "statement": "MOVE  '2' TO  TWCOB-FASE."
+        },
+        {
+          "paragraph": "BROWSE-FASE2-VISUAL",
+          "line_start": 389,
+          "statement": "MOVE  '2' TO  TWCOB-FASE."
+        },
+        {
+          "paragraph": "XCTL-LIV1",
+          "line_start": 848,
+          "statement": "MOVE '1' TO TWCOB-FASE."
+        },
+        {
+          "paragraph": "XCTL-LIV2",
+          "line_start": 855,
+          "statement": "MOVE '1' TO TWCOB-FASE."
+        },
+        {
+          "paragraph": "XCTL-LIV3",
+          "line_start": 863,
+          "statement": "MOVE '1' TO TWCOB-FASE."
+        },
+        {
+          "paragraph": "XCTL-LIV4",
+          "line_start": 870,
+          "statement": "MOVE '1' TO TWCOB-FASE."
+        },
+        {
+          "paragraph": "XCTL-LIV5",
+          "line_start": 878,
+          "statement": "MOVE '1' TO TWCOB-FASE."
+        },
+        {
+          "paragraph": "XCTL-LIV0",
+          "line_start": 885,
+          "statement": "MOVE '1' TO TWCOB-FASE."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "TOP",
+          "line_start": 221,
+          "statement": "IF  TWCOB-FASE = '1' THEN"
+        },
+        {
+          "paragraph": "TOP",
+          "line_start": 223,
+          "statement": "IF  TWCOB-FASE = '2' THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 640,
+          "statement": "TWCOB-FASE  =  '1'            THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 652,
+          "statement": "TWCOB-FASE  =  '2'            THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 663,
+          "statement": "IF  TWCOB-FASE  =  '1'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 667,
+          "statement": "IF  TWCOB-FASE  =  '2'  THEN"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "TOP",
+          "line_start": 221,
+          "statement": "IF  TWCOB-FASE = '1' THEN"
+        },
+        {
+          "paragraph": "TOP",
+          "line_start": 223,
+          "statement": "IF  TWCOB-FASE = '2' THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 663,
+          "statement": "IF  TWCOB-FASE  =  '1'  THEN"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": 667,
+          "statement": "IF  TWCOB-FASE  =  '2'  THEN"
+        },
+        {
+          "paragraph": "PDCBVC",
+          "line_start": -1,
+          "statement": "NOT (TWCOB-FASE = '1' OR TWCOB-FASE = '2')"
+        },
+        {
+          "paragraph": "PDCBVC",
+          "line_start": -1,
+          "statement": "TWCOB-FASE = '1'"
+        },
+        {
+          "paragraph": "PDCBVC",
+          "line_start": -1,
+          "statement": "TWCOB-FASE = '2'"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": -1,
+          "statement": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')"
+        },
+        {
+          "paragraph": "MUOVI-DATI",
+          "line_start": -1,
+          "statement": "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '1')"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COMMAREA",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 8,
+      "used_in": 2,
+      "fanout_nodes": 4,
+      "write_sites": 8,
+      "read_sites": 6,
+      "control_sites": 9
+    }
+  }
+}

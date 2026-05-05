@@ -1,0 +1,44 @@
+{
+  "id": "0610176afe12ef07",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable MDESCO",
+  "embedding_text": "PDCBVC variable MDESCO. Origin=COPY:PDCBVCM. Defined in: MUOVI-TESTATA-30. Modified in: MUOVI-TESTATA-30. Used in: none. Controls flow: no. Fanout nodes: none.",
+  "content": {
+    "variable": "MDESCO",
+    "defined_in": [
+      "MUOVI-TESTATA-30"
+    ],
+    "modified_in": [
+      "MUOVI-TESTATA-30"
+    ],
+    "used_in": [],
+    "controls_flow": false,
+    "fanout_nodes": [],
+    "origin": "COPY:PDCBVCM",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "MUOVI-TESTATA-30",
+          "line_start": 623,
+          "statement": "MOVE  TESTATA              TO  MDESCO."
+        }
+      ],
+      "read_sites": [],
+      "control_sites": []
+    }
+  },
+  "meta": {
+    "origin": "COPY:PDCBVCM",
+    "controls_flow": false,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 0,
+      "fanout_nodes": 0,
+      "write_sites": 1,
+      "read_sites": 0,
+      "control_sites": 0
+    }
+  }
+}

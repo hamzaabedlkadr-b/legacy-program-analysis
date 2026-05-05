@@ -1,0 +1,32 @@
+{
+  "id": "f6088cc765832290",
+  "type": "business_rule",
+  "program": "PDCBVC",
+  "title": "PDCBVC rule BR-011",
+  "embedding_text": "PDCBVC business rule BR-011 in scope BROWSE-FASE2. If EIBAID = DFHPF1 then JUMP -> XCTL-LIV1. Category=permission. Kind=ui. Severity=block.",
+  "content": {
+    "id": "BR-011",
+    "program": "PDCBVC",
+    "scope": "BROWSE-FASE2",
+    "category": "permission",
+    "kind": "ui",
+    "severity": "block",
+    "condition": "EIBAID = DFHPF1",
+    "action": "JUMP -> XCTL-LIV1",
+    "flags": [],
+    "evidence": {
+      "from": "BROWSE-FASE2",
+      "to": "XCTL-LIV1",
+      "type": "JUMP",
+      "raw_evidence": "GO TO XCTL-LIV1."
+    }
+  },
+  "meta": {
+    "source": "pdc_rules.json",
+    "scope": "BROWSE-FASE2",
+    "category": "permission",
+    "kind": "ui",
+    "severity": "block",
+    "flags_count": 0
+  }
+}

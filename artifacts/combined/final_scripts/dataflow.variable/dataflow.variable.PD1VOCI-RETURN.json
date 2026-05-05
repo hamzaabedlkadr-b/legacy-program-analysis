@@ -1,0 +1,65 @@
+{
+  "id": "f8392f508c1cfbcc",
+  "type": "dataflow.variable",
+  "program": "PDCBVC",
+  "title": "PDCBVC variable PD1VOCI-RETURN",
+  "embedding_text": "PDCBVC variable PD1VOCI-RETURN. Origin=COPY:PD1VOCI. Defined in: LINK-PD1VOCI. Modified in: LINK-PD1VOCI. Used in: LINK-PD1VOCI. Controls flow: yes. Fanout nodes: ABEND00.",
+  "content": {
+    "variable": "PD1VOCI-RETURN",
+    "defined_in": [
+      "LINK-PD1VOCI"
+    ],
+    "modified_in": [
+      "LINK-PD1VOCI"
+    ],
+    "used_in": [
+      "LINK-PD1VOCI"
+    ],
+    "controls_flow": true,
+    "fanout_nodes": [
+      "ABEND00"
+    ],
+    "origin": "COPY:PD1VOCI",
+    "evidence": {
+      "write_sites": [
+        {
+          "paragraph": "LINK-PD1VOCI",
+          "line_start": 484,
+          "statement": "MOVE HIGH-VALUE TO  PD1VOCI-RETURN."
+        }
+      ],
+      "read_sites": [
+        {
+          "paragraph": "LINK-PD1VOCI",
+          "line_start": 489,
+          "statement": "IF  PD1VOCI-RETURN EQUAL 'E'"
+        }
+      ],
+      "control_sites": [
+        {
+          "paragraph": "LINK-PD1VOCI",
+          "line_start": 489,
+          "statement": "IF  PD1VOCI-RETURN EQUAL 'E'"
+        },
+        {
+          "paragraph": "LINK-PD1VOCI",
+          "line_start": -1,
+          "statement": "PD1VOCI-RETURN EQUAL 'E'"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "origin": "COPY:PD1VOCI",
+    "controls_flow": true,
+    "counts": {
+      "defined_in": 1,
+      "modified_in": 1,
+      "used_in": 1,
+      "fanout_nodes": 1,
+      "write_sites": 1,
+      "read_sites": 1,
+      "control_sites": 2
+    }
+  }
+}
