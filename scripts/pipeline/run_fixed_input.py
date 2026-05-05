@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Run the fixed final_scripts/input layout into the RAG JSONL output.
 
 Expected input layout:
@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -94,6 +95,56 @@ def load_text(path: Path) -> str:
         except UnicodeDecodeError:
             continue
     return path.read_text(errors="ignore")
+
+
+DOT_EDGE_RE = re.compile(r"<([^>]+)>\s*->\s*<([^>]+)>\s*;")
+DOT_DIGRAPH_RE = re.compile(r"digraph\s+([A-Za-z0-9_]+)\s*\{", re.IGNORECASE)
+DOT_RANKDIR_RE = re.compile(r"rankdir\s*=\s*([A-Za-z]+)\s*;", re.IGNORECASE)
+
+
+def parse_dot_controlflow(text: str) -> dict[str, Any] | None:
+    match = DOT_DIGRAPH_RE.search(text)
+    if not match:
+        return None
+    nodes: set[str] = set()
+    edges: list[dict[str, str]] = []
+    for source, target in DOT_EDGE_RE.findall(text):
+        nodes.add(source)
+        nodes.add(target)
+        edges.append({"from": source, "to": target})
+    if not edges:
+        return None
+    rank_match = DOT_RANKDIR_RE.search(text)
+    return {
+        "graph": {"name": match.group(1), "rankdir": rank_match.group(1) if rank_match else None},
+        "nodes": sorted(nodes),
+        "edges": edges,
+    }
+
+
+def ensure_controlflow_json(info: dict[str, Any], input_root: Path, dry_run: bool) -> Path:
+    path = Path(info["controlflow"])
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            json.load(handle)
+        info["controlflow_format"] = "json"
+        return path.parent
+    except json.JSONDecodeError:
+        pass
+
+    text = load_text(path)
+    converted = parse_dot_controlflow(text)
+    if converted is None:
+        raise ConfigError(f"Controlflow file is neither valid JSON nor supported DOT: {path}")
+
+    out_dir = input_root / "_normalized_controlflow" / info["program"]
+    out_path = out_dir / path.name
+    info["controlflow_format"] = "dot-normalized-to-json"
+    info["normalized_controlflow"] = str(out_path.resolve())
+    if not dry_run:
+        out_dir.mkdir(parents=True, exist_ok=True)
+        write_json(out_path, converted)
+    return out_dir.resolve()
 
 
 def program_name_from_cbl(path: Path) -> str:
@@ -211,9 +262,11 @@ def main() -> int:
     if args.mode in {"my", "both"}:
         if not args.no_clean and not args.dry_run:
             safe_rmtree(package_root, input_root)
+            safe_rmtree(input_root / "_normalized_controlflow", input_root)
             safe_rmtree(output_root, PROJECT_ROOT / "artifacts" / "final" / "final_scripts")
 
         for info in programs:
+            controlflow_dir = ensure_controlflow_json(info, input_root, args.dry_run)
             cmd = [
                 sys.executable,
                 str(PIPELINE_DIR / "package_program_inputs.py"),
@@ -224,7 +277,7 @@ def main() -> int:
                 "--mapa-dir",
                 info["program_dir"],
                 "--controlflow-dir",
-                info["program_dir"],
+                str(controlflow_dir),
                 "--out-dir",
                 str(package_root),
                 "--copy-mode",
