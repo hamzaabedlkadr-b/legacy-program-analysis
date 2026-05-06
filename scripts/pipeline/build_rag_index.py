@@ -138,6 +138,17 @@ def normalize_type(doc: dict[str, Any], path: Path) -> str:
     return source_kind(path).replace("_", ".")
 
 
+def normalize_call_type(value: Any) -> str:
+    raw = scalar_to_text(value).upper()
+    if "XCTL" in raw:
+        return "XCTL"
+    if "LINK" in raw:
+        return "LINK"
+    if "CALL" in raw:
+        return "CALL"
+    return raw
+
+
 def scalar_to_text(value: Any) -> str:
     if value is None:
         return ""
@@ -148,6 +159,72 @@ def scalar_to_text(value: Any) -> str:
     if isinstance(value, str):
         return value.strip()
     return ""
+
+
+def nested_scalar(doc: dict[str, Any], *keys: str) -> str:
+    current: Any = doc
+    for key in keys:
+        if not isinstance(current, dict):
+            return ""
+        current = current.get(key)
+    return scalar_to_text(current)
+
+
+def coverage_dimension(doc_type: str) -> str:
+    if doc_type.startswith("global."):
+        return "cross_program"
+    if doc_type in {"integration.conflicts"}:
+        return "conflict_report"
+    if doc_type.startswith("quality."):
+        return "quality_confidence"
+    if doc_type in {"controlflow.cfg", "workflow", "paragraph_logic", "screen.interaction"}:
+        return "deep_logic"
+    return "static_inventory"
+
+
+def call_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
+    if not (
+        doc_type.startswith("architecture.call")
+        or doc_type in {"external_program_calls", "call_contract"}
+        or doc_type.startswith("cobol_rekt.call_contract")
+        or doc_type.startswith("cobol_rekt.external_program_calls")
+    ):
+        return {}
+
+    content = doc.get("content") if isinstance(doc.get("content"), dict) else {}
+    meta = doc.get("meta") or doc.get("metadata")
+    meta = meta if isinstance(meta, dict) else {}
+    evidence = doc.get("evidence") if isinstance(doc.get("evidence"), dict) else {}
+
+    target = (
+        scalar_to_text(doc.get("target"))
+        or nested_scalar(content, "target")
+        or nested_scalar(meta, "target")
+        or nested_scalar(evidence, "target")
+    )
+    call_type = (
+        normalize_call_type(doc.get("call_type"))
+        or normalize_call_type(nested_scalar(content, "call_type"))
+        or normalize_call_type(nested_scalar(content, "type"))
+        or normalize_call_type(nested_scalar(meta, "call_type"))
+        or normalize_call_type(nested_scalar(evidence, "type"))
+    )
+
+    if not target and doc_type == "architecture.call":
+        parts = path.stem.split(".")
+        if len(parts) >= 4:
+            call_type = call_type or normalize_call_type(parts[-2])
+            target = parts[-1]
+
+    if not target:
+        return {}
+    call_type = call_type or "CALL"
+    return {
+        "entity_type": "call",
+        "entity_key": f"{program}|{target.upper()}|{call_type}",
+        "target": target.upper(),
+        "call_type": call_type,
+    }
 
 
 def flatten_value(value: Any, prefix: str = "", depth: int = 0) -> list[str]:
@@ -306,6 +383,10 @@ def add_json_source_file(
                 "metadata": {
                     "program": program,
                     "type": doc_type,
+                    "chunk_type": doc_type,
+                    "source_system": "mapa_hamza",
+                    "source_chunk_type": doc_type,
+                    "coverage_dimension": coverage_dimension(doc_type),
                     "title": title,
                     "source_file": rel_path,
                     "source_kind": source_kind(path),
@@ -316,6 +397,7 @@ def add_json_source_file(
                     "content_hash": stable_hash(chunk, length=24),
                 },
             }
+            record["metadata"].update(call_metadata(item, doc_type, program, path))
             records.append(record)
             by_program[program] += 1
             by_type[doc_type] += 1

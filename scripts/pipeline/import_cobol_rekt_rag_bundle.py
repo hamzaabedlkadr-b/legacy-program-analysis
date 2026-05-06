@@ -44,6 +44,38 @@ def stable_id(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8", errors="replace")).hexdigest()[:16]
 
 
+def normalize_call_type(value: Any) -> str:
+    raw = str(value or "").upper()
+    if "XCTL" in raw:
+        return "XCTL"
+    if "LINK" in raw:
+        return "LINK"
+    if "CALL" in raw:
+        return "CALL"
+    return raw
+
+
+def call_entity_key(program: str, target: Any, call_type: Any) -> str:
+    target_text = str(target or "").strip().upper()
+    call_type_text = normalize_call_type(call_type) or "CALL"
+    if not target_text:
+        return ""
+    return f"{program.upper()}|{target_text}|{call_type_text}"
+
+
+def coverage_dimension_for_chunk_type(chunk_type: str) -> str:
+    base_type = chunk_type.removeprefix("cobol_rekt.")
+    if base_type in {"call_contract", "paragraph_logic", "controlflow.cfg", "workflow"}:
+        return "deep_logic"
+    if base_type in {"integration.conflicts"}:
+        return "conflict_report"
+    if base_type.startswith("quality."):
+        return "quality_confidence"
+    if base_type.startswith("global."):
+        return "cross_program"
+    return "static_inventory"
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -358,6 +390,23 @@ def make_bundle_summary(
 
 def rag_record_from_chunk(chunk: dict[str, Any], *, program: str, source_label: str, max_chars: int) -> dict[str, Any]:
     metadata = chunk["metadata"]
+    source_chunk_type = str(chunk["type"])
+    chunk_type = f"cobol_rekt.{source_chunk_type}"
+    entity_metadata: dict[str, Any] = {}
+    entity_key = call_entity_key(
+        program,
+        metadata.get("target"),
+        metadata.get("command") or metadata.get("call_type") or source_chunk_type,
+    )
+    if entity_key:
+        entity_metadata.update(
+            {
+                "entity_type": "call",
+                "entity_key": entity_key,
+                "target": str(metadata.get("target")).upper(),
+                "call_type": entity_key.rsplit("|", 1)[-1],
+            }
+        )
     title_bits = [program, "cobol-rekt", chunk["type"]]
     for key in ("target", "variable", "paragraph", "title"):
         value = metadata.get(key)
@@ -388,17 +437,22 @@ def rag_record_from_chunk(chunk: dict[str, Any], *, program: str, source_label: 
     return {
         "id": rid,
         "program": program,
-        "type": f"cobol_rekt.{chunk['type']}",
+        "type": chunk_type,
         "title": " ".join(title_bits),
         "text": "\n".join(text_parts),
         "metadata": {
-            "source_system": "cobol-rekt",
+            "program": program,
+            "chunk_type": chunk_type,
+            "source_system": "cobol_rekt",
+            "source_chunk_type": source_chunk_type,
+            "coverage_dimension": coverage_dimension_for_chunk_type(source_chunk_type),
             "source_bundle_path": source_label,
             "source_file": chunk["source_file"],
             "original_chunk_id": chunk["id"],
             "original_chunk_type": chunk["type"],
             "sha256": chunk["sha256"],
             "truncated_for_embedding": truncated,
+            **entity_metadata,
         },
     }
 
@@ -418,11 +472,118 @@ def rag_record_from_artifact(path: Path, artifact_type: str, program: str, max_c
         "title": f"{program} {artifact_type}",
         "text": f"Program: {program}\nArtifact: {artifact_type}\nSource file: {artifact_label}\nContent:\n{text}",
         "metadata": {
-            "source_system": "combined",
+            "program": program,
+            "chunk_type": artifact_type,
+            "source_system": "integration",
+            "source_chunk_type": artifact_type,
+            "coverage_dimension": coverage_dimension_for_chunk_type(artifact_type),
             "source_file": artifact_label,
             "truncated_for_embedding": truncated,
         },
     }
+
+
+def call_entities_from_jsonl(path: Path | None) -> dict[str, dict[str, Any]]:
+    if path is None or not path.is_file():
+        return {}
+    entities: dict[str, dict[str, Any]] = {}
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            metadata = record.get("metadata") if isinstance(record.get("metadata"), dict) else {}
+            entity_key = str(metadata.get("entity_key") or "")
+            if not entity_key or metadata.get("entity_type") != "call":
+                continue
+            source_system = str(metadata.get("source_system") or "mapa_hamza")
+            if source_system not in {"mapa_hamza", "mapa", "hamza"}:
+                continue
+            entities.setdefault(
+                entity_key,
+                {
+                    "entity_key": entity_key,
+                    "source_system": "mapa_hamza",
+                    "chunk_type": metadata.get("chunk_type") or record.get("type"),
+                    "record_id": record.get("id"),
+                    "title": record.get("title"),
+                },
+            )
+    return entities
+
+
+def call_entities_from_records(records: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    entities: dict[str, dict[str, Any]] = {}
+    for record in records:
+        metadata = record.get("metadata") if isinstance(record.get("metadata"), dict) else {}
+        entity_key = str(metadata.get("entity_key") or "")
+        if not entity_key or metadata.get("entity_type") != "call":
+            continue
+        entities.setdefault(
+            entity_key,
+            {
+                "entity_key": entity_key,
+                "source_system": metadata.get("source_system"),
+                "chunk_type": metadata.get("chunk_type") or record.get("type"),
+                "record_id": record.get("id"),
+                "title": record.get("title"),
+            },
+        )
+    return entities
+
+
+def make_entity_link_records(
+    *,
+    program: str,
+    base_rag_jsonl: Path | None,
+    cobol_rekt_records: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    mapa_entities = call_entities_from_jsonl(base_rag_jsonl)
+    rekt_entities = call_entities_from_records(cobol_rekt_records)
+    records: list[dict[str, Any]] = []
+    for entity_key in sorted(set(mapa_entities) & set(rekt_entities)):
+        _program, target, call_type = entity_key.split("|", 2)
+        rid = "integration_entity_link:" + stable_id(entity_key)
+        text = (
+            f"Program: {program}\n"
+            "Type: integration.entity_link\n"
+            f"Entity: call {target} via {call_type}\n"
+            "MAPA/Hamza provides static call inventory evidence. "
+            "cobol-rekt provides deep call-contract evidence for the same call entity."
+        )
+        records.append(
+            {
+                "id": rid,
+                "program": program,
+                "type": "integration.entity_link",
+                "title": f"{program} linked call {target}",
+                "text": text,
+                "metadata": {
+                    "program": program,
+                    "chunk_type": "integration.entity_link",
+                    "source_system": "integration",
+                    "source_chunk_type": "integration.entity_link",
+                    "coverage_dimension": "cross_program",
+                    "entity_type": "call",
+                    "entity_key": entity_key,
+                    "target": target,
+                    "call_type": call_type,
+                    "left_source_system": "mapa_hamza",
+                    "right_source_system": "cobol_rekt",
+                },
+            }
+        )
+    artifact = {
+        "artifact_type": "integration.entity_links",
+        "source_system": "integration",
+        "entity_type": "call",
+        "link_count": len(records),
+        "links": [record["metadata"] for record in records],
+    }
+    return records, artifact
 
 
 def write_jsonl(path: Path, records: list[dict[str, Any]], *, base_jsonl: Path | None = None) -> dict[str, Any]:
@@ -597,6 +758,14 @@ def main() -> int:
                 args.max_rag_text_chars,
             )
         )
+    entity_link_records, entity_links_artifact = make_entity_link_records(
+        program=program,
+        base_rag_jsonl=base_rag_jsonl,
+        cobol_rekt_records=rag_records,
+    )
+    if entity_link_records:
+        write_json(artifact_path(out_root, "integration.entity_links"), entity_links_artifact)
+        rag_records.extend(entity_link_records)
     rag_info = write_jsonl(combined_rag_jsonl, rag_records, base_jsonl=base_rag_jsonl)
     write_json(
         combined_rag_jsonl.parent / "combined_rag_manifest.json",
@@ -620,4 +789,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
