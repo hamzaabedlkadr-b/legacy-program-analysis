@@ -11,6 +11,7 @@ Expected input layout:
       copybooks/
       jcl/                  optional
       knowledge-base_rag/   optional, for combined mode
+    knowledge-base_rag/     optional shared cobol-rekt bundle for combined mode
 
 The script writes stable generated output under:
 
@@ -218,6 +219,9 @@ def find_rekt_bundle(program_dir: Path) -> str | None:
         program_dir / "knowledge_base_rag",
         program_dir / "cobol_rekt" / "knowledge-base_rag",
         program_dir / "cobol_rekt" / "knowledge-base_rag" / "knowledge-base_rag",
+        program_dir.parent / "knowledge-base_rag",
+        program_dir.parent / "knowledge-base_rag" / "knowledge-base_rag",
+        program_dir.parent / "knowledge_base_rag",
     ]
     for candidate in candidates:
         if (candidate / "manifest.json").is_file() or ((candidate / "knowledge-base_rag" / "manifest.json").is_file()):

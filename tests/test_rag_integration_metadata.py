@@ -106,3 +106,14 @@ def test_importer_makes_integration_entity_link_records(tmp_path: Path):
     assert records[0]["type"] == "integration.entity_link"
     assert records[0]["metadata"]["entity_key"] == "PDCBVC|PD1VOCI|LINK"
     assert artifact["link_count"] == 1
+
+
+def test_fixed_input_finds_shared_rekt_bundle(tmp_path: Path):
+    run_fixed_input = _load_module("scripts/pipeline/run_fixed_input.py", "run_fixed_input")
+    program_dir = tmp_path / "PDCBVC"
+    bundle = tmp_path / "knowledge-base_rag"
+    program_dir.mkdir()
+    (bundle / "chunks").mkdir(parents=True)
+    (bundle / "manifest.json").write_text("{}", encoding="utf-8")
+
+    assert run_fixed_input.find_rekt_bundle(program_dir) == str(bundle.resolve())
