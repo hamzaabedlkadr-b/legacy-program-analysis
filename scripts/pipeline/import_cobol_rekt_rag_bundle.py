@@ -181,6 +181,69 @@ def read_optional_json(path: Path) -> Any | None:
     return read_json(path)
 
 
+def artifact_candidates(root: Path, artifact_type: str) -> list[Path]:
+    """Support both legacy flat artifacts and newer nested integration artifacts."""
+    return [root / f"{artifact_type}.json", artifact_path(root, artifact_type)]
+
+
+def read_artifact_json(root: Path, artifact_type: str) -> Any | None:
+    for path in artifact_candidates(root, artifact_type):
+        payload = read_optional_json(path)
+        if payload is not None:
+            return payload
+    return None
+
+
+def artifact_content(payload: Any) -> Any:
+    if isinstance(payload, dict) and isinstance(payload.get("content"), (dict, list)):
+        return payload["content"]
+    return payload
+
+
+def as_list(value: Any) -> list[Any]:
+    if isinstance(value, list):
+        return value
+    if value is None:
+        return []
+    return [value]
+
+
+def compact_text(value: Any, limit: int = 220) -> str:
+    text = " ".join(str(value or "").split())
+    if len(text) <= limit:
+        return text
+    return text[: limit - 3] + "..."
+
+
+def compact_join(values: Any, *, limit: int = 8) -> str:
+    items = [str(item) for item in as_list(values) if str(item).strip()]
+    if not items:
+        return "none recorded"
+    suffix = "" if len(items) <= limit else f"; +{len(items) - limit} more"
+    return ", ".join(items[:limit]) + suffix
+
+
+def line_ref(site: Any) -> str:
+    if not isinstance(site, dict):
+        return compact_text(site)
+    paragraph = site.get("paragraph") or site.get("label") or site.get("node_type") or "unknown paragraph"
+    line = site.get("line_start") or site.get("line")
+    statement = site.get("statement") or site.get("evidence") or ""
+    prefix = f"{paragraph}"
+    if isinstance(line, int) and line > 0:
+        prefix += f" line {line}"
+    return compact_text(f"{prefix}: {statement}")
+
+
+def source_systems(*values: bool) -> list[str]:
+    systems = []
+    if values and values[0]:
+        systems.append("mapa_hamza")
+    if len(values) > 1 and values[1]:
+        systems.append("cobol_rekt")
+    return systems
+
+
 def copy_baseline(final_scripts_root: Path, out_root: Path) -> None:
     if not final_scripts_root.is_dir():
         raise FileNotFoundError(f"final_scripts root not found: {final_scripts_root}")
@@ -242,7 +305,7 @@ def extract_chunk_family(
 
 
 def find_final_dead_code_count(out_root: Path) -> int | None:
-    payload = read_optional_json(artifact_path(out_root, "quality.dead_code"))
+    payload = read_artifact_json(out_root, "quality.dead_code")
     if not isinstance(payload, dict):
         return None
     for key in ("commented_out_count", "commented_out_code_count", "commented_out_lines_count"):
@@ -261,14 +324,19 @@ def find_final_dead_code_count(out_root: Path) -> int | None:
 
 
 def find_final_unused_copybooks(out_root: Path) -> dict[str, Any] | None:
-    payload = read_optional_json(artifact_path(out_root, "architecture.unused_copybooks"))
+    payload = read_artifact_json(out_root, "architecture.unused_copybooks")
     if not isinstance(payload, dict):
         return None
     content = payload.get("content") if isinstance(payload.get("content"), dict) else payload
     return {
         "copybooks": content.get("copybooks") or content.get("listed_copybooks"),
         "referenced": content.get("referenced_copybooks") or content.get("referenced"),
-        "needs_review": content.get("needs_review") or content.get("possibly_unused") or content.get("unused_copybooks"),
+        "needs_review": (
+            content.get("needs_review")
+            or content.get("needs_review_copybooks")
+            or content.get("possibly_unused")
+            or content.get("unused_copybooks")
+        ),
         "raw": payload,
     }
 
@@ -308,7 +376,11 @@ def extract_conflicts(out_root: Path, grouped: dict[str, list[dict[str, Any]]]) 
             metadata = chunk["metadata"]
             candidates = metadata.get("candidate_copybooks") or metadata.get("candidates") or []
             if isinstance(candidates, list):
-                rekt_candidates.extend(str(item) for item in candidates)
+                for item in candidates:
+                    if isinstance(item, dict) and item.get("copybook"):
+                        rekt_candidates.append(str(item["copybook"]))
+                    else:
+                        rekt_candidates.append(str(item))
         if rekt_candidates and sorted(set(map(str, final_review))) != sorted(set(rekt_candidates)):
             conflicts.append(
                 {
@@ -535,6 +607,448 @@ def call_entities_from_records(records: list[dict[str, Any]]) -> dict[str, dict[
     return entities
 
 
+def load_mapa_call_facts(final_scripts_root: Path, program: str) -> dict[str, dict[str, Any]]:
+    payload = read_artifact_json(final_scripts_root, "architecture.call_parameters")
+    content = artifact_content(payload)
+    facts: dict[str, dict[str, Any]] = {}
+    for call in as_list(content.get("calls") if isinstance(content, dict) else None):
+        if not isinstance(call, dict):
+            continue
+        entity_key = call_entity_key(program, call.get("target"), call.get("call_type"))
+        if not entity_key:
+            continue
+        facts[entity_key] = {
+            "entity_key": entity_key,
+            "target": call.get("target"),
+            "call_type": normalize_call_type(call.get("call_type")),
+            "paragraph": call.get("paragraph"),
+            "line_start": call.get("line_start"),
+            "statement": call.get("statement"),
+            "parameters": call.get("parameters") or [],
+            "commarea": call.get("commarea"),
+            "length": call.get("length"),
+            "parameter_details": call.get("parameter_details") or [],
+            "source_file": "architecture.call_parameters.json",
+        }
+    return facts
+
+
+def load_mapa_variable_facts(final_scripts_root: Path) -> dict[str, dict[str, Any]]:
+    facts: dict[str, dict[str, Any]] = {}
+    for path in sorted((final_scripts_root / "dataflow.variable").glob("dataflow.variable.*.json")):
+        payload = read_optional_json(path)
+        content = artifact_content(payload)
+        if not isinstance(content, dict):
+            continue
+        variable = str(content.get("variable") or "").upper()
+        if not variable:
+            continue
+        facts[variable] = {
+            "variable": variable,
+            "defined_in": content.get("defined_in") or [],
+            "modified_in": content.get("modified_in") or [],
+            "used_in": content.get("used_in") or [],
+            "controls_flow": bool(content.get("controls_flow")),
+            "fanout_nodes": content.get("fanout_nodes") or [],
+            "origin": content.get("origin"),
+            "evidence": content.get("evidence") if isinstance(content.get("evidence"), dict) else {},
+            "source_file": display_path(path, ROOT),
+        }
+    return facts
+
+
+def load_mapa_paragraph_facts(final_scripts_root: Path) -> dict[str, dict[str, Any]]:
+    payload = read_artifact_json(final_scripts_root, "controlflow.cfg")
+    content = artifact_content(payload)
+    facts: dict[str, dict[str, Any]] = {}
+    if not isinstance(content, dict):
+        return facts
+    for node in as_list(content.get("nodes")):
+        name = str(node or "").upper()
+        if name:
+            facts.setdefault(name, {"paragraph": name, "incoming": [], "outgoing": []})
+    for edge in as_list(content.get("edges")):
+        if not isinstance(edge, dict):
+            continue
+        source = str(edge.get("from") or "").upper()
+        target = str(edge.get("to") or "").upper()
+        summary = {
+            "from": source,
+            "to": target,
+            "type": edge.get("type"),
+            "condition": edge.get("condition"),
+            "evidence": edge.get("evidence"),
+            "cics_ops": edge.get("cics_ops") or [],
+        }
+        if source:
+            facts.setdefault(source, {"paragraph": source, "incoming": [], "outgoing": []})["outgoing"].append(summary)
+        if target:
+            facts.setdefault(target, {"paragraph": target, "incoming": [], "outgoing": []})["incoming"].append(summary)
+    return facts
+
+
+def group_rekt_by_key(chunks: list[dict[str, Any]], metadata_key: str) -> dict[str, list[dict[str, Any]]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for chunk in chunks:
+        value = chunk["metadata"].get(metadata_key)
+        if value:
+            grouped[str(value).upper()].append(chunk)
+    return grouped
+
+
+def rekt_calls_by_entity(chunks: list[dict[str, Any]], program: str) -> dict[str, list[dict[str, Any]]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for chunk in chunks:
+        metadata = chunk["metadata"]
+        entity_key = call_entity_key(program, metadata.get("target"), metadata.get("command") or metadata.get("call_type"))
+        if entity_key:
+            grouped[entity_key].append(chunk)
+    return grouped
+
+
+def source_balance_artifact(program: str) -> dict[str, Any]:
+    return {
+        "artifact_type": "integration.source_balance",
+        "source_system": "integration",
+        "program": program,
+        "purpose": "Guide combined answers to use each evidence source for its strongest facts instead of producing canned prose.",
+        "policy": [
+            {
+                "question_area": "call inventory, copybooks, exact lines, control-flow edges, variable read/write sites",
+                "primary_source": "mapa_hamza",
+                "use_cobol_rekt_for": "nearby preparation context, call contracts, paragraph summaries, workflow and error-path detail",
+            },
+            {
+                "question_area": "what a paragraph or workflow does",
+                "primary_source": "cobol_rekt",
+                "use_mapa_hamza_for": "graph position, callers/callees, exact line evidence and variable facts",
+            },
+            {
+                "question_area": "variable lifecycle",
+                "primary_source": "mapa_hamza",
+                "use_cobol_rekt_for": "expanded read/write site context and data-group/origin clues",
+            },
+            {
+                "question_area": "conflicting counts or heuristic quality findings",
+                "primary_source": "integration.conflicts",
+                "use_cobol_rekt_for": "external evidence only; do not overwrite MAPA/final_scripts facts",
+            },
+        ],
+        "answer_style": [
+            "Synthesize from retrieved facts; do not return this policy as an answer.",
+            "Name source labels only when they clarify confidence or a difference.",
+            "Prefer concrete code facts over broad business interpretations.",
+            "If one source is silent, answer from the other source and say what was not found.",
+        ],
+    }
+
+
+def make_source_balance_record(program: str) -> dict[str, Any]:
+    text = (
+        f"Program: {program}\n"
+        "Type: integration.source_balance\n"
+        "Use MAPA/Hamza as the primary source for exact static inventory: calls, copybooks, control-flow edges, "
+        "line references, and variable read/write/control sites. Use cobol-rekt as the primary source for "
+        "paragraph-level intent, call-contract preparation context, workflow summaries, screen behavior, and "
+        "error-path detail. When both describe the same entity, combine the exact MAPA fact with the richer "
+        "cobol-rekt context. When facts disagree, preserve both with source labels and consult integration.conflicts."
+    )
+    return {
+        "id": "integration_source_balance:" + stable_id(program),
+        "program": program,
+        "type": "integration.source_balance",
+        "title": f"{program} source balance guide",
+        "text": text,
+        "metadata": {
+            "program": program,
+            "chunk_type": "integration.source_balance",
+            "source_system": "integration",
+            "source_chunk_type": "integration.source_balance",
+            "coverage_dimension": "cross_program",
+        },
+    }
+
+
+def make_call_context_records(
+    *,
+    program: str,
+    final_scripts_root: Path,
+    chunks: list[dict[str, Any]],
+    source_label: str,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    mapa_facts = load_mapa_call_facts(final_scripts_root, program)
+    rekt_facts = rekt_calls_by_entity(
+        [chunk for chunk in chunks if chunk["type"] == "call_contract"],
+        program,
+    )
+    records: list[dict[str, Any]] = []
+    artifact_contexts: list[dict[str, Any]] = []
+    for entity_key in sorted(set(mapa_facts) | set(rekt_facts)):
+        _program, target, call_type = entity_key.split("|", 2)
+        mapa = mapa_facts.get(entity_key)
+        rekt_chunks = rekt_facts.get(entity_key, [])
+        lines = [
+            f"Program: {program}",
+            "Type: integration.call_context",
+            f"Call entity: {target} via {call_type}",
+            "Source balance: MAPA/Hamza is used for exact call inventory and line-level call facts; cobol-rekt is used for preparation, contract, workflow, and error-path context.",
+        ]
+        if mapa:
+            lines.append(
+                "MAPA/Hamza call fact: "
+                f"{target} is invoked from {mapa.get('paragraph') or 'unknown paragraph'}"
+                f"{' line ' + str(mapa.get('line_start')) if mapa.get('line_start') else ''}"
+                f" with parameters {compact_join(mapa.get('parameters'))}."
+            )
+            if mapa.get("statement"):
+                lines.append(f"MAPA/Hamza statement: {compact_text(mapa.get('statement'), 500)}")
+            details = []
+            for detail in as_list(mapa.get("parameter_details"))[:6]:
+                if not isinstance(detail, dict):
+                    continue
+                variables = [
+                    item.get("variable")
+                    for item in as_list(detail.get("variables"))
+                    if isinstance(item, dict) and item.get("variable")
+                ]
+                details.append(f"{detail.get('parameter')}: {compact_join(variables, limit=10)}")
+            if details:
+                lines.append("MAPA/Hamza parameter variables: " + " | ".join(details))
+        else:
+            lines.append("MAPA/Hamza call fact: no matching static call record was found for this call key.")
+
+        if rekt_chunks:
+            contract_chunks = [chunk for chunk in rekt_chunks if chunk["type"] == "call_contract"]
+            if contract_chunks:
+                evidence = []
+                for item in as_list(contract_chunks[0]["metadata"].get("preparation_evidence"))[:8]:
+                    evidence.append(compact_text(item, 260))
+                lines.append("cobol-rekt call-contract context: " + ((" | ".join(evidence)) if evidence else compact_text(contract_chunks[0]["text"], 900)))
+            other_refs = [
+                f"{chunk['type']}:{chunk['metadata'].get('paragraph') or chunk['metadata'].get('target') or chunk['id']}"
+                for chunk in rekt_chunks
+                if chunk["type"] != "call_contract"
+            ]
+            if other_refs:
+                lines.append("cobol-rekt related context chunks: " + compact_join(other_refs, limit=10))
+        else:
+            lines.append("cobol-rekt context: no matching call-contract chunk was found for this call key.")
+
+        rid = "integration_call_context:" + stable_id(entity_key)
+        metadata = {
+            "program": program,
+            "chunk_type": "integration.call_context",
+            "source_system": "integration",
+            "source_chunk_type": "integration.call_context",
+            "coverage_dimension": "cross_program",
+            "entity_type": "call",
+            "entity_key": entity_key,
+            "target": target,
+            "call_type": call_type,
+            "source_systems": source_systems(bool(mapa), bool(rekt_chunks)),
+            "mapa_record": mapa,
+            "cobol_rekt_refs": [chunk_ref(chunk, text_limit=300) for chunk in rekt_chunks[:12]],
+            "source_bundle_path": source_label,
+        }
+        records.append(
+            {
+                "id": rid,
+                "program": program,
+                "type": "integration.call_context",
+                "title": f"{program} combined call context {target}",
+                "text": "\n".join(lines),
+                "metadata": metadata,
+            }
+        )
+        artifact_contexts.append(metadata)
+    return records, {
+        "artifact_type": "integration.call_contexts",
+        "source_system": "integration",
+        "program": program,
+        "context_count": len(records),
+        "contexts": artifact_contexts,
+    }
+
+
+def make_paragraph_context_records(
+    *,
+    program: str,
+    final_scripts_root: Path,
+    chunks: list[dict[str, Any]],
+    source_label: str,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    mapa_facts = load_mapa_paragraph_facts(final_scripts_root)
+    rekt_by_paragraph = group_rekt_by_key(
+        [chunk for chunk in chunks if chunk["type"] in {"paragraph_logic", "controlflow.cfg", "workflow", "screen.row_build", "screen.selection", "screen.key_dispatch", "screen.pagination", "error_path"}],
+        "paragraph",
+    )
+    for chunk in chunks:
+        if chunk["type"] == "workflow" and chunk["metadata"].get("entry_paragraph"):
+            rekt_by_paragraph[str(chunk["metadata"]["entry_paragraph"]).upper()].append(chunk)
+    records: list[dict[str, Any]] = []
+    artifact_contexts: list[dict[str, Any]] = []
+    for paragraph in sorted(set(mapa_facts) | set(rekt_by_paragraph)):
+        rekt_chunks = rekt_by_paragraph.get(paragraph, [])
+        if not rekt_chunks and paragraph not in mapa_facts:
+            continue
+        mapa = mapa_facts.get(paragraph)
+        lines = [
+            f"Program: {program}",
+            "Type: integration.paragraph_context",
+            f"Paragraph: {paragraph}",
+            "Source balance: cobol-rekt is used for paragraph intent and workflow detail; MAPA/Hamza is used for exact graph edges and code evidence.",
+        ]
+        if mapa:
+            outgoing = mapa.get("outgoing") or []
+            incoming = mapa.get("incoming") or []
+            lines.append(f"MAPA/Hamza graph fact: {len(incoming)} incoming edge(s), {len(outgoing)} outgoing edge(s).")
+            for edge in outgoing[:6]:
+                condition = f" when {edge.get('condition')}" if edge.get("condition") else ""
+                lines.append(f"MAPA/Hamza outgoing: {edge.get('type')} to {edge.get('to')}{condition}; evidence: {compact_text(edge.get('evidence'), 260)}")
+        else:
+            lines.append("MAPA/Hamza graph fact: no exact control-flow node was found for this paragraph.")
+        if rekt_chunks:
+            seen_summary_keys: set[tuple[str, str]] = set()
+            for chunk in rekt_chunks[:8]:
+                metadata = chunk["metadata"]
+                summary_key = (chunk["type"], str(metadata.get("source_id") or metadata.get("chunk_id") or chunk["id"]))
+                if summary_key in seen_summary_keys:
+                    continue
+                seen_summary_keys.add(summary_key)
+                if chunk["type"] == "paragraph_logic":
+                    lines.append(
+                        "cobol-rekt paragraph logic: "
+                        f"{metadata.get('comment_english') or compact_text(chunk['text'], 260)}; "
+                        f"reads {compact_join(metadata.get('variables_read'), limit=8)}; "
+                        f"modifies {compact_join(metadata.get('variables_modified'), limit=8)}."
+                    )
+                elif chunk["type"] == "workflow":
+                    lines.append(
+                        "cobol-rekt workflow: "
+                        f"orchestrates {compact_join(metadata.get('called_paragraphs'), limit=8)}."
+                    )
+                else:
+                    lines.append(f"cobol-rekt {chunk['type']}: {compact_text(chunk['text'], 360)}")
+        else:
+            lines.append("cobol-rekt context: no paragraph-level chunk was found.")
+        rid = "integration_paragraph_context:" + stable_id(f"{program}|{paragraph}")
+        metadata = {
+            "program": program,
+            "chunk_type": "integration.paragraph_context",
+            "source_system": "integration",
+            "source_chunk_type": "integration.paragraph_context",
+            "coverage_dimension": "deep_logic",
+            "entity_type": "paragraph",
+            "paragraph": paragraph,
+            "source_systems": source_systems(bool(mapa), bool(rekt_chunks)),
+            "mapa_record": mapa,
+            "cobol_rekt_refs": [chunk_ref(chunk, text_limit=300) for chunk in rekt_chunks[:12]],
+            "source_bundle_path": source_label,
+        }
+        records.append(
+            {
+                "id": rid,
+                "program": program,
+                "type": "integration.paragraph_context",
+                "title": f"{program} combined paragraph context {paragraph}",
+                "text": "\n".join(lines),
+                "metadata": metadata,
+            }
+        )
+        artifact_contexts.append(metadata)
+    return records, {
+        "artifact_type": "integration.paragraph_contexts",
+        "source_system": "integration",
+        "program": program,
+        "context_count": len(records),
+        "contexts": artifact_contexts,
+    }
+
+
+def make_variable_context_records(
+    *,
+    program: str,
+    final_scripts_root: Path,
+    chunks: list[dict[str, Any]],
+    source_label: str,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    mapa_facts = load_mapa_variable_facts(final_scripts_root)
+    rekt_by_variable = group_rekt_by_key(
+        [chunk for chunk in chunks if chunk["type"] in {"dataflow.variable", "variable_group", "static_values"}],
+        "variable",
+    )
+    records: list[dict[str, Any]] = []
+    artifact_contexts: list[dict[str, Any]] = []
+    for variable in sorted(set(mapa_facts) | set(rekt_by_variable)):
+        mapa = mapa_facts.get(variable)
+        rekt_chunks = rekt_by_variable.get(variable, [])
+        if not mapa and not rekt_chunks:
+            continue
+        lines = [
+            f"Program: {program}",
+            "Type: integration.variable_context",
+            f"Variable: {variable}",
+            "Source balance: MAPA/Hamza is used for concise lifecycle and exact read/write/control sites; cobol-rekt is used for expanded dataflow context and origin grouping.",
+        ]
+        if mapa:
+            evidence = mapa.get("evidence") or {}
+            lines.append(
+                "MAPA/Hamza variable fact: "
+                f"defined in {compact_join(mapa.get('defined_in'))}; modified in {compact_join(mapa.get('modified_in'))}; "
+                f"used in {compact_join(mapa.get('used_in'))}; controls flow: {'yes' if mapa.get('controls_flow') else 'no'}."
+            )
+            for label, key in (("write", "write_sites"), ("read", "read_sites"), ("control", "control_sites")):
+                sites = as_list(evidence.get(key))
+                if sites:
+                    lines.append(f"MAPA/Hamza {label} evidence: " + " | ".join(line_ref(site) for site in sites[:5]))
+        else:
+            lines.append("MAPA/Hamza variable fact: no generated variable artifact was found.")
+        if rekt_chunks:
+            metadata = rekt_chunks[0]["metadata"]
+            origin = metadata.get("origin_group") or metadata.get("group") or metadata.get("source_id")
+            lines.append(
+                "cobol-rekt variable context: "
+                f"origin/group {origin or 'not recorded'}; "
+                f"reads {metadata.get('read_count', 'not counted')}; writes {metadata.get('write_count', 'not counted')}."
+            )
+            for chunk in rekt_chunks[:4]:
+                lines.append(f"cobol-rekt {chunk['type']}: {compact_text(chunk['text'], 360)}")
+        else:
+            lines.append("cobol-rekt context: no variable chunk was found.")
+        rid = "integration_variable_context:" + stable_id(f"{program}|{variable}")
+        metadata = {
+            "program": program,
+            "chunk_type": "integration.variable_context",
+            "source_system": "integration",
+            "source_chunk_type": "integration.variable_context",
+            "coverage_dimension": "cross_program",
+            "entity_type": "variable",
+            "variable": variable,
+            "source_systems": source_systems(bool(mapa), bool(rekt_chunks)),
+            "mapa_record": mapa,
+            "cobol_rekt_refs": [chunk_ref(chunk, text_limit=300) for chunk in rekt_chunks[:10]],
+            "source_bundle_path": source_label,
+        }
+        records.append(
+            {
+                "id": rid,
+                "program": program,
+                "type": "integration.variable_context",
+                "title": f"{program} combined variable context {variable}",
+                "text": "\n".join(lines),
+                "metadata": metadata,
+            }
+        )
+        artifact_contexts.append(metadata)
+    return records, {
+        "artifact_type": "integration.variable_contexts",
+        "source_system": "integration",
+        "program": program,
+        "context_count": len(records),
+        "contexts": artifact_contexts,
+    }
+
+
 def make_entity_link_records(
     *,
     program: str,
@@ -630,6 +1144,8 @@ def build_report(summary: dict[str, Any], conflicts: dict[str, Any], rag_info: d
             "- `quality.error_paths.rich`: external error path chunks.",
             "- `architecture.copybook_fields`: external copybook field chunks.",
             "- `integration.conflicts`: explicit differences between current final_scripts and cobol-rekt evidence.",
+            "- `integration.source_balance`: guidance for using MAPA/Hamza and cobol-rekt according to each source's strongest evidence.",
+            "- `integration.call_contexts`, `integration.paragraph_contexts`, and `integration.variable_contexts`: neutral synthesis records that link exact MAPA/Hamza facts with cobol-rekt context without prewriting answers.",
             "",
             "## Conflict Policy",
             "",
@@ -737,13 +1253,45 @@ def main() -> int:
 
     conflicts = extract_conflicts(out_root, grouped)
     write_json(artifact_path(out_root, "integration.conflicts"), conflicts)
+    source_balance = source_balance_artifact(program)
+    write_json(artifact_path(out_root, "integration.source_balance"), source_balance)
+
+    call_context_records, call_contexts_artifact = make_call_context_records(
+        program=program,
+        final_scripts_root=final_scripts_root,
+        chunks=chunks,
+        source_label=source_label,
+    )
+    write_json(artifact_path(out_root, "integration.call_contexts"), call_contexts_artifact)
+    paragraph_context_records, paragraph_contexts_artifact = make_paragraph_context_records(
+        program=program,
+        final_scripts_root=final_scripts_root,
+        chunks=chunks,
+        source_label=source_label,
+    )
+    write_json(artifact_path(out_root, "integration.paragraph_contexts"), paragraph_contexts_artifact)
+    variable_context_records, variable_contexts_artifact = make_variable_context_records(
+        program=program,
+        final_scripts_root=final_scripts_root,
+        chunks=chunks,
+        source_label=source_label,
+    )
+    write_json(artifact_path(out_root, "integration.variable_contexts"), variable_contexts_artifact)
 
     rag_records = [
         rag_record_from_chunk(chunk, program=program, source_label=source_label, max_chars=args.max_rag_text_chars)
         for chunk in chunks
     ]
+    rag_records.append(make_source_balance_record(program))
+    rag_records.extend(call_context_records)
+    rag_records.extend(paragraph_context_records)
+    rag_records.extend(variable_context_records)
     combined_artifact_files = [
         artifact_path(out_root, "integration.cobol_rekt_bundle"),
+        artifact_path(out_root, "integration.source_balance"),
+        artifact_path(out_root, "integration.call_contexts"),
+        artifact_path(out_root, "integration.paragraph_contexts"),
+        artifact_path(out_root, "integration.variable_contexts"),
         artifact_path(out_root, "architecture.call_contracts"),
         artifact_path(out_root, "screen.interaction"),
         artifact_path(out_root, "quality.error_paths.rich"),
@@ -777,6 +1325,12 @@ def main() -> int:
             "rag_info": rag_info,
             "max_rag_text_chars": args.max_rag_text_chars,
             "chunk_type_counts": summary["chunk_type_counts"],
+            "integration_context_counts": {
+                "call_contexts": len(call_context_records),
+                "paragraph_contexts": len(paragraph_context_records),
+                "variable_contexts": len(variable_context_records),
+                "entity_links": len(entity_link_records),
+            },
         },
     )
 
