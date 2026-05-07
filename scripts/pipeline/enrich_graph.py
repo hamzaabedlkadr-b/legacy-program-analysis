@@ -21,14 +21,52 @@ def die(msg: str, code: int = 1) -> None:
 
 
 def read_json(path: Path, label: str):
+    text = None
     try:
-        return json.loads(path.read_text(encoding="utf-8", errors="replace"))
+        text = path.read_text(encoding="utf-8", errors="replace")
+        return json.loads(text)
     except FileNotFoundError:
         die(f"{label} file not found: {path}")
     except json.JSONDecodeError as exc:
+        converted = parse_dot_controlflow(text or "")
+        if converted is not None:
+            print(f"[INFO] Converted DOT control-flow input to JSON in memory: {path}")
+            return converted
         die(f"invalid JSON in {path} (line {exc.lineno}, col {exc.colno})")
     except Exception as exc:
         die(f"failed to read {path}: {exc}")
+
+
+DOT_EDGE_RE = re.compile(r"<([^>]+)>\s*->\s*<([^>]+)>\s*;")
+DOT_DIGRAPH_RE = re.compile(r"digraph\s+([A-Za-z0-9_]+)\s*\{", re.IGNORECASE)
+DOT_RANKDIR_RE = re.compile(r"rankdir\s*=\s*([A-Za-z]+)\s*;", re.IGNORECASE)
+
+
+def parse_dot_controlflow(text: str) -> Optional[Dict[str, Any]]:
+    """Accept legacy DOT files accidentally named *_controlflow.json."""
+    graph_match = DOT_DIGRAPH_RE.search(text)
+    if not graph_match:
+        return None
+
+    nodes: set[str] = set()
+    edges: List[Dict[str, str]] = []
+    for source, target in DOT_EDGE_RE.findall(text):
+        nodes.add(source)
+        nodes.add(target)
+        edges.append({"from": source, "to": target})
+
+    if not edges:
+        return None
+
+    rank_match = DOT_RANKDIR_RE.search(text)
+    return {
+        "graph": {
+            "name": graph_match.group(1),
+            "rankdir": rank_match.group(1) if rank_match else None,
+        },
+        "nodes": sorted(nodes),
+        "edges": edges,
+    }
 
 def norm_name(s: str) -> str:
     """Normalize COBOL paragraph/token name for matching."""
