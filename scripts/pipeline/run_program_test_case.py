@@ -36,6 +36,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--copy-mode", choices=("referenced", "all"), default="referenced")
     parser.add_argument("--recursive", action="store_true", help="Search input folders recursively.")
     parser.add_argument("--use-program-id", action="store_true", help="Pass --use-program-id to run_rag_factory.py.")
+    parser.add_argument("--optimize-constants", action="store_true", help="Pass --optimize-constants to run_rag_factory.py.")
+    parser.add_argument(
+        "--rag-profile",
+        choices=("full", "compact"),
+        default="full",
+        help="RAG indexing profile to pass to run_rag_factory.py.",
+    )
     parser.add_argument("--dry-run", action="store_true", help="Print commands without running them.")
     return parser.parse_args()
 
@@ -162,6 +169,8 @@ def main() -> int:
             str(factory_report_dir),
             "--copy-mode",
             args.copy_mode,
+            "--rag-profile",
+            args.rag_profile,
         ]
         if jcl_dir:
             cmd.extend(["--jcl-dir", str(jcl_dir)])
@@ -169,6 +178,8 @@ def main() -> int:
             cmd.append("--recursive")
         if args.use_program_id:
             cmd.append("--use-program-id")
+        if args.optimize_constants:
+            cmd.append("--optimize-constants")
         stages.append(run("my analysis", cmd, args.dry_run))
 
     if args.mode in {"combined", "both"}:

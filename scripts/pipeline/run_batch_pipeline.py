@@ -211,6 +211,8 @@ def run_package_root(args: argparse.Namespace) -> None:
             cmd.extend(["--pdc-json-pattern", args.pdc_json_pattern])
         if args.use_program_id:
             cmd.append("--use-program-id")
+        if args.optimize_constants:
+            cmd.append("--optimize-constants")
         if jcl_dir.exists() and collect_files(jcl_dir, ["*.JCL", "*.jcl"]):
             cmd.extend(["--jcl-dir", str(jcl_dir)])
 
@@ -249,6 +251,11 @@ def main():
     ap.add_argument("--out-root", required=True, help="Output root folder")
     ap.add_argument("--use-program-id", action="store_true",
                     help="Use PROGRAM-ID as program name (default uses file stem)")
+    ap.add_argument(
+        "--optimize-constants",
+        action="store_true",
+        help="Run conservative constant folding/propagation before building final artifacts",
+    )
     args = ap.parse_args()
 
     if args.package_root:
@@ -390,6 +397,9 @@ def main():
         rag_rules = inputs_dir / "rag_documents.json"
 
         controlflow_cfg = artifacts_dir / "controlflow.cfg.json"
+        controlflow_cfg_build_target = (
+            inputs_dir / "controlflow.cfg.raw.json" if args.optimize_constants else controlflow_cfg
+        )
 
         # pdc_json -> pdc_typed + pdc_enriched
         run_cmd([
@@ -404,8 +414,15 @@ def main():
         run_cmd([
             python, str(FINAL_SCRIPTS_DIR / "controlflow.cfg" / "build_controlflow_cfg.py"),
             "--input", str(pdc_enriched),
-            "--output", str(controlflow_cfg),
+            "--output", str(controlflow_cfg_build_target),
         ])
+        if args.optimize_constants:
+            run_cmd([
+                python, str(PIPELINE_SCRIPTS_DIR / "optimize_constants.py"),
+                "--cfg-in", str(controlflow_cfg_build_target),
+                "--cfg-out", str(controlflow_cfg),
+                "--report", str(artifacts_dir / "optimization.constants.cfg.json"),
+            ])
 
         # pdc_enriched -> pdc_dataflow -> pdc_var_index_used
         run_cmd([
@@ -415,11 +432,21 @@ def main():
             "--copy-dir", str(copy_dir),
             "--out", str(pdc_dataflow),
         ])
+        pdc_var_used_build_target = (
+            inputs_dir / "pdc_var_index_used.raw.json" if args.optimize_constants else pdc_var_used
+        )
         run_cmd([
             python, str(PIPELINE_SCRIPTS_DIR / "filter_used_variables.py"),
             "--in", str(pdc_dataflow),
-            "--out", str(pdc_var_used),
+            "--out", str(pdc_var_used_build_target),
         ])
+        if args.optimize_constants:
+            run_cmd([
+                python, str(PIPELINE_SCRIPTS_DIR / "optimize_constants.py"),
+                "--vars-in", str(pdc_var_used_build_target),
+                "--vars-out", str(pdc_var_used),
+                "--report", str(artifacts_dir / "optimization.constants.dataflow.json"),
+            ])
 
         # pdc_rules -> rag_documents (business rules)
         run_cmd([

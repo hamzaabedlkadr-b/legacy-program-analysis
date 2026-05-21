@@ -41,6 +41,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--use-program-id", action="store_true", help="Use PROGRAM-ID in run_batch_pipeline.py.")
     parser.add_argument("--max-text-chars", type=int, default=12000, help="Maximum indexed text chunk size.")
     parser.add_argument("--overlap-chars", type=int, default=600, help="Indexed text chunk overlap.")
+    parser.add_argument(
+        "--rag-profile",
+        choices=("full", "compact"),
+        default="full",
+        help="RAG indexing profile. compact reduces duplicate/detail-heavy indexed text.",
+    )
+    parser.add_argument(
+        "--optimize-constants",
+        action="store_true",
+        help="Run constant folding/propagation during program artifact generation.",
+    )
 
     parser.add_argument("--skip-package", action="store_true", help="Do not run package_program_inputs.py.")
     parser.add_argument("--skip-pipeline", action="store_true", help="Do not run run_batch_pipeline.py.")
@@ -132,6 +143,8 @@ def build_stage_commands(args: argparse.Namespace) -> list[tuple[str, list[str]]
         ]
         if args.use_program_id:
             pipeline_cmd.append("--use-program-id")
+        if args.optimize_constants:
+            pipeline_cmd.append("--optimize-constants")
         commands.append(("generate program artifacts", pipeline_cmd))
 
     if not args.skip_global_maps:
@@ -163,6 +176,8 @@ def build_stage_commands(args: argparse.Namespace) -> list[tuple[str, list[str]]
             str(args.max_text_chars),
             "--overlap-chars",
             str(args.overlap_chars),
+            "--profile",
+            args.rag_profile,
         ]
         if not args.skip_global_maps or global_maps_dir.exists():
             index_cmd.extend(["--global-docs-dir", str(global_maps_dir)])
@@ -267,6 +282,7 @@ def write_factory_report(args: argparse.Namespace, stages: list[dict[str, Any]])
         },
         "validation_summary": (validation or {}).get("summary") if isinstance(validation, dict) else None,
         "rag_index_summary": {
+            "profile": (rag_manifest or {}).get("profile") if isinstance(rag_manifest, dict) else args.rag_profile,
             "program_count": (rag_manifest or {}).get("program_count") if isinstance(rag_manifest, dict) else None,
             "indexed_documents": (rag_manifest or {}).get("indexed_documents") if isinstance(rag_manifest, dict) else None,
             "source_documents": (rag_manifest or {}).get("source_documents") if isinstance(rag_manifest, dict) else None,
@@ -316,6 +332,7 @@ def write_factory_report(args: argparse.Namespace, stages: list[dict[str, Any]])
             [
                 f"- Indexed documents/chunks: {index_summary.get('indexed_documents')}",
                 f"- Source documents: {index_summary.get('source_documents')}",
+                f"- RAG profile: {index_summary.get('profile')}",
                 f"- Index invalid files: {index_summary.get('invalid_files')}",
             ]
         )

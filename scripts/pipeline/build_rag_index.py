@@ -46,6 +46,15 @@ def parse_args() -> argparse.Namespace:
         help="Skip each program's inputs/rag_documents.json business-rule docs.",
     )
     parser.add_argument(
+        "--profile",
+        choices=("full", "compact"),
+        default="full",
+        help=(
+            "Indexing profile. full indexes every supported artifact. compact skips "
+            "known aggregate duplicates and trims evidence-heavy docs for lower token use."
+        ),
+    )
+    parser.add_argument(
         "--global-docs-dir",
         type=Path,
         help="Optional global RAG map folder. Defaults to <out-root>/_global/rag_maps when present.",
@@ -79,12 +88,30 @@ def iter_program_dirs(programs_dir: Path) -> list[Path]:
     return sorted(child for child in programs_dir.iterdir() if child.is_dir())
 
 
-def iter_source_files(program_dir: Path, include_input_rag: bool) -> list[Path]:
+def has_json_children(path: Path) -> bool:
+    return path.is_dir() and any(child.is_file() and child.suffix.lower() == ".json" for child in path.iterdir())
+
+
+def should_skip_compact_source(path: Path, program_dir: Path) -> bool:
+    artifacts_dir = program_dir / "artifacts"
+    if path.parent != artifacts_dir:
+        return False
+    if path.name == "dataflow.used_variables.json" and has_json_children(artifacts_dir / "dataflow.variable"):
+        return True
+    if path.name == "program.comments.json" and has_json_children(artifacts_dir / "program.comments"):
+        return True
+    return False
+
+
+def iter_source_files(program_dir: Path, include_input_rag: bool, profile: str = "full") -> list[Path]:
     files: list[Path] = []
     artifacts_dir = program_dir / "artifacts"
     if artifacts_dir.is_dir():
         files.extend(sorted(artifacts_dir.glob("*.json")))
         files.extend(sorted(artifacts_dir.glob("*/*.json")))
+    files = [path for path in files if not path.stem.startswith("optimization.constants")]
+    if profile == "compact":
+        files = [path for path in files if not should_skip_compact_source(path, program_dir)]
 
     input_rag = program_dir / "inputs" / "rag_documents.json"
     if include_input_rag and input_rag.is_file():
@@ -227,7 +254,7 @@ def call_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) 
     }
 
 
-def flatten_value(value: Any, prefix: str = "", depth: int = 0) -> list[str]:
+def flatten_value(value: Any, prefix: str = "", depth: int = 0, list_limit: int = 120) -> list[str]:
     if depth > 5:
         text = json.dumps(value, ensure_ascii=False, sort_keys=True)
         return [f"{prefix}: {text}" if prefix else text]
@@ -240,7 +267,7 @@ def flatten_value(value: Any, prefix: str = "", depth: int = 0) -> list[str]:
     if isinstance(value, dict):
         for key in sorted(value.keys(), key=str):
             child_prefix = f"{prefix}.{key}" if prefix else str(key)
-            lines.extend(flatten_value(value[key], child_prefix, depth + 1))
+            lines.extend(flatten_value(value[key], child_prefix, depth + 1, list_limit))
         return lines
 
     if isinstance(value, list):
@@ -255,12 +282,12 @@ def flatten_value(value: Any, prefix: str = "", depth: int = 0) -> list[str]:
         if simple_items:
             label = prefix or "items"
             lines.append(f"{label}: {', '.join(simple_items)}")
-        for index, item in enumerate(complex_items[:120]):
+        for index, item in enumerate(complex_items[:list_limit]):
             child_prefix = f"{prefix}[{index}]" if prefix else f"item[{index}]"
-            lines.extend(flatten_value(item, child_prefix, depth + 1))
-        if len(complex_items) > 120:
+            lines.extend(flatten_value(item, child_prefix, depth + 1, list_limit))
+        if len(complex_items) > list_limit:
             label = prefix or "items"
-            lines.append(f"{label}: ... {len(complex_items) - 120} more complex items not expanded")
+            lines.append(f"{label}: ... {len(complex_items) - list_limit} more complex items not expanded")
         return lines
 
     text = json.dumps(value, ensure_ascii=False, sort_keys=True)
@@ -272,7 +299,75 @@ def compact_ws(text: str) -> str:
     return "\n".join(line for line in lines if line)
 
 
-def document_text(doc: dict[str, Any], program: str, doc_type: str) -> tuple[str, str]:
+def compact_list(value: Any, limit: int) -> Any:
+    if isinstance(value, list) and len(value) > limit:
+        return value[:limit] + [{"omitted_items": len(value) - limit}]
+    return value
+
+
+def compact_evidence(evidence: Any, limit: int) -> Any:
+    if not isinstance(evidence, dict):
+        return evidence
+    compacted: dict[str, Any] = {}
+    for key, value in evidence.items():
+        if isinstance(value, list):
+            compacted[key] = compact_list(value, limit)
+        else:
+            compacted[key] = value
+    return compacted
+
+
+def compact_document_for_profile(doc: dict[str, Any], doc_type: str, profile: str) -> dict[str, Any]:
+    if profile != "compact":
+        return doc
+
+    if doc_type == "dataflow.variable":
+        compacted = dict(doc)
+        content = dict(compacted.get("content") or {})
+        if "evidence" in content:
+            content["evidence"] = compact_evidence(content["evidence"], 8)
+        compacted["content"] = content
+        return compacted
+
+    if doc_type == "architecture.unused_copybooks":
+        compacted = dict(doc)
+        content = doc.get("content")
+        if not isinstance(content, dict):
+            return compacted
+        status_summary = []
+        for item in content.get("copybook_status") or []:
+            if not isinstance(item, dict):
+                continue
+            evidence = item.get("evidence")
+            status_summary.append(
+                {
+                    "copybook": item.get("copybook"),
+                    "status": item.get("status"),
+                    "evidence_count": len(evidence) if isinstance(evidence, list) else 0,
+                }
+            )
+        compacted["content"] = {
+            "copybooks_total": content.get("copybooks_total"),
+            "classified": content.get("classified"),
+            "referenced_copybooks": content.get("referenced_copybooks"),
+            "needs_review_count": content.get("needs_review_count"),
+            "needs_review_copybooks": content.get("needs_review_copybooks"),
+            "unused_copybooks_proven": content.get("unused_copybooks_proven"),
+            "copybook_status_summary": status_summary,
+        }
+        return compacted
+
+    return doc
+
+
+def document_text(
+    doc: dict[str, Any],
+    program: str,
+    doc_type: str,
+    *,
+    list_limit: int = 120,
+    evidence_line_limit: int = 80,
+) -> tuple[str, str]:
     title = scalar_to_text(doc.get("title")) or f"{program} {doc_type}"
     parts = [f"Program: {program}", f"Type: {doc_type}", f"Title: {title}"]
 
@@ -282,24 +377,24 @@ def document_text(doc: dict[str, Any], program: str, doc_type: str) -> tuple[str
 
     content = doc.get("content")
     if content is not None:
-        content_lines = flatten_value(content, "content")
+        content_lines = flatten_value(content, "content", list_limit=list_limit)
         if content_lines:
             parts.append("Content:\n" + "\n".join(content_lines))
 
     meta = doc.get("meta") or doc.get("metadata")
     if meta:
-        meta_lines = flatten_value(meta, "meta")
+        meta_lines = flatten_value(meta, "meta", list_limit=list_limit)
         if meta_lines:
             parts.append("Metadata:\n" + "\n".join(meta_lines))
 
     evidence = doc.get("evidence")
     if evidence:
-        evidence_lines = flatten_value(evidence, "evidence")
+        evidence_lines = flatten_value(evidence, "evidence", list_limit=list_limit)
         if evidence_lines:
-            parts.append("Evidence:\n" + "\n".join(evidence_lines[:80]))
+            parts.append("Evidence:\n" + "\n".join(evidence_lines[:evidence_line_limit]))
 
     if not embedding_text and content is None:
-        parts.append("Document:\n" + "\n".join(flatten_value(doc)))
+        parts.append("Document:\n" + "\n".join(flatten_value(doc, list_limit=list_limit)))
 
     return title, compact_ws("\n\n".join(parts))
 
@@ -353,6 +448,7 @@ def add_json_source_file(
     program_types: dict[str, Counter[str]],
     max_chars: int,
     overlap: int,
+    profile: str,
 ) -> tuple[int, int]:
     try:
         data = load_json(path)
@@ -368,7 +464,14 @@ def add_json_source_file(
         program = scalar_to_text(item.get("program")) or default_program
         program = program.upper()
         doc_type = normalize_type(item, path)
-        title, text = document_text(item, program, doc_type)
+        index_item = compact_document_for_profile(item, doc_type, profile)
+        title, text = document_text(
+            index_item,
+            program,
+            doc_type,
+            list_limit=40 if profile == "compact" else 120,
+            evidence_line_limit=30 if profile == "compact" else 80,
+        )
         source_id = scalar_to_text(item.get("id"))
         chunks = chunk_text(text, max_chars, overlap)
         chunk_count = len(chunks)
@@ -405,7 +508,15 @@ def add_json_source_file(
     return 1, source_docs
 
 
-def build_index(out_root: Path, out_dir: Path, include_input_rag: bool, max_chars: int, overlap: int, global_docs_dir: Path | None = None) -> dict[str, Any]:
+def build_index(
+    out_root: Path,
+    out_dir: Path,
+    include_input_rag: bool,
+    max_chars: int,
+    overlap: int,
+    global_docs_dir: Path | None = None,
+    profile: str = "full",
+) -> dict[str, Any]:
     programs_dir = resolve_programs_dir(out_root)
     output_root = programs_dir.parent
     if global_docs_dir is None:
@@ -423,7 +534,7 @@ def build_index(out_root: Path, out_dir: Path, include_input_rag: bool, max_char
 
     for program_dir in iter_program_dirs(programs_dir):
         program = program_dir.name.upper()
-        for path in iter_source_files(program_dir, include_input_rag):
+        for path in iter_source_files(program_dir, include_input_rag, profile):
             files_added, docs_added = add_json_source_file(
                 path,
                 default_program=program,
@@ -435,6 +546,7 @@ def build_index(out_root: Path, out_dir: Path, include_input_rag: bool, max_char
                 program_types=program_types,
                 max_chars=max_chars,
                 overlap=overlap,
+                profile=profile,
             )
             source_file_count += files_added
             source_doc_count += docs_added
@@ -451,6 +563,7 @@ def build_index(out_root: Path, out_dir: Path, include_input_rag: bool, max_char
             program_types=program_types,
             max_chars=max_chars,
             overlap=overlap,
+            profile=profile,
         )
         source_file_count += files_added
         source_doc_count += docs_added
@@ -481,6 +594,7 @@ def build_index(out_root: Path, out_dir: Path, include_input_rag: bool, max_char
         "programs_dir": str(programs_dir),
         "global_docs_dir": str(global_docs_dir) if global_docs_dir else None,
         "out_dir": str(out_dir),
+        "profile": profile,
         "source_files": source_file_count,
         "source_documents": source_doc_count,
         "global_source_files": global_source_file_count,
@@ -503,6 +617,7 @@ def build_index(out_root: Path, out_dir: Path, include_input_rag: bool, max_char
     md_lines = [
         "# RAG Index Manifest",
         "",
+        f"- Profile: {profile}",
         f"- Programs: {manifest['program_count']}",
         f"- Record groups: {manifest['record_group_count']}",
         f"- Global indexed docs/chunks: {manifest['global_indexed_documents']}",
@@ -534,6 +649,7 @@ def main() -> int:
         max_chars=args.max_text_chars,
         overlap=args.overlap_chars,
         global_docs_dir=args.global_docs_dir,
+        profile=args.profile,
     )
     print(f"[OK] Indexed {manifest['indexed_documents']} RAG documents/chunks")
     print(f"[OK] JSONL: {manifest['files']['jsonl']}")
