@@ -1,0 +1,10 @@
+{
+  "type": "optimization.constants",
+  "stages": {
+    "variables": {
+      "variables_seen": 170,
+      "sites_changed": 165,
+      "duplicate_sites_removed": 0
+    }
+  }
+}

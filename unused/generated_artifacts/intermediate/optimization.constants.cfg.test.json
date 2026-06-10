@@ -1,0 +1,11 @@
+{
+  "type": "optimization.constants",
+  "stages": {
+    "cfg": {
+      "conditions_seen": 42,
+      "conditions_changed": 17,
+      "conditions_folded_true": 0,
+      "conditions_folded_false": 0
+    }
+  }
+}

@@ -134,7 +134,7 @@ def iter_global_source_files(global_docs_dir: Path | None) -> list[Path]:
         path
         for path in sorted(global_docs_dir.rglob("*.json"))
         if path.is_file()
-        and path.name not in {"global_maps_manifest.json"}
+        and path.name not in {"global_maps_manifest.json", "program_index.json", "entity_index.json", "relationship_index.json"}
         and not path.name.endswith(".rag_documents.json")
     ]
     seen: set[str] = set()
@@ -209,6 +209,95 @@ def coverage_dimension(doc_type: str) -> str:
     return "static_inventory"
 
 
+def intent_domain(doc_type: str) -> str:
+    if doc_type.startswith("global.call") or doc_type.startswith("architecture.call"):
+        return "external_programs"
+    if (
+        doc_type.startswith("global.control_variable_usage")
+        or doc_type.startswith("global.common_structure")
+        or doc_type.startswith("global.shared_variables")
+    ):
+        return "variable_dataflow"
+    if doc_type.startswith("global.program_dependencies"):
+        return "dependencies"
+    if doc_type.startswith("global.jcl_program_map"):
+        return "datasets_tables"
+    if doc_type.startswith("dataflow."):
+        return "variable_dataflow"
+    if doc_type.startswith("controlflow.") or doc_type in {"workflow", "paragraph_logic"}:
+        return "control_flow"
+    if doc_type.startswith("ui.") or doc_type.startswith("screen.") or doc_type == "screen_field_lineage":
+        return "ui_navigation"
+    if doc_type.startswith("business_rule"):
+        return "business_rules"
+    if "copybook" in doc_type:
+        return "copybooks"
+    if doc_type.startswith("quality.") or "dead_code" in doc_type:
+        return "dead_code"
+    if "db2" in doc_type or "sql" in doc_type:
+        return "datasets_tables"
+    if doc_type.startswith("jcl.") or "dataset" in doc_type:
+        return "datasets_tables"
+    if doc_type.startswith("program.comment"):
+        return "comments"
+    if doc_type.startswith("program.summary"):
+        return "program_summary"
+    return "general"
+
+
+def hierarchy_level(doc_type: str) -> str:
+    if doc_type.startswith("global."):
+        return "enterprise"
+    if doc_type.startswith("program.summary"):
+        return "program"
+    if doc_type in {
+        "architecture.calls",
+        "architecture.call_parameters",
+        "architecture.copybooks",
+        "architecture.unused_copybooks",
+        "dataflow.used_variables",
+        "dataflow.literal_assignments",
+        "jcl.file_io",
+        "quality.dead_code",
+        "screen_field_lineage",
+        "ui.cics.navigation",
+        "controlflow.cfg",
+        "program.comments",
+    }:
+        return "domain"
+    return "entity"
+
+
+def parent_type_for_level(level: str) -> str:
+    if level == "enterprise":
+        return "corpus"
+    if level == "program":
+        return "enterprise"
+    if level == "domain":
+        return "program"
+    return "domain"
+
+
+def parent_id_for_level(program: str, doc_type: str, level: str) -> str:
+    if level == "enterprise":
+        return "corpus:cobol"
+    if level == "program":
+        return "enterprise:cobol"
+    if level == "domain":
+        return f"program:{program}"
+    return f"domain:{program}:{intent_domain(doc_type)}"
+
+
+def hierarchy_metadata(doc_type: str, program: str) -> dict[str, str]:
+    level = hierarchy_level(doc_type)
+    return {
+        "intent_domain": intent_domain(doc_type),
+        "hierarchy_level": level,
+        "parent_type": parent_type_for_level(level),
+        "parent_id": parent_id_for_level(program, doc_type, level),
+    }
+
+
 def call_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
     if not (
         doc_type.startswith("architecture.call")
@@ -252,6 +341,104 @@ def call_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) 
         "target": target.upper(),
         "call_type": call_type,
     }
+
+
+def variable_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
+    if doc_type != "dataflow.variable":
+        return {}
+    content = doc.get("content") if isinstance(doc.get("content"), dict) else {}
+    variable = scalar_to_text(content.get("variable")) or path.stem.removeprefix("dataflow.variable.")
+    if not variable:
+        return {}
+    variable = variable.upper()
+    return {
+        "entity_type": "variable",
+        "entity_key": f"{program}|VARIABLE|{variable}",
+        "variable": variable,
+    }
+
+
+def copybook_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
+    if not doc_type.startswith("global.copybook_usage"):
+        return {}
+    content = doc.get("content") if isinstance(doc.get("content"), dict) else {}
+    copybook = scalar_to_text(content.get("copybook")) or scalar_to_text(doc.get("copybook"))
+    if not copybook and path.stem.startswith("global.copybook_usage."):
+        copybook = path.stem.removeprefix("global.copybook_usage.")
+    if not copybook or copybook.lower() in {"summary", "global.copybook_usage.summary"}:
+        return {}
+    copybook = copybook.upper()
+    return {
+        "entity_type": "copybook",
+        "entity_key": f"GLOBAL|COPYBOOK|{copybook}",
+        "copybook": copybook,
+    }
+
+
+def db2_table_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
+    if "db2" not in doc_type:
+        return {}
+    content = doc.get("content") if isinstance(doc.get("content"), dict) else {}
+    table = scalar_to_text(content.get("table")) or scalar_to_text(content.get("db2_table"))
+    if not table and doc_type.startswith("global.db2_table_usage"):
+        table = scalar_to_text(content.get("name")) or path.stem.removeprefix("global.db2_table_usage.")
+    if not table or table.lower() in {"summary", "global.db2_table_usage.summary"}:
+        return {}
+    table = table.upper()
+    return {
+        "entity_type": "db2_table",
+        "entity_key": f"{program}|DB2_TABLE|{table}",
+        "db2_table": table,
+    }
+
+
+def sql_include_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
+    if "sqlinclude" not in doc_type:
+        return {}
+    content = doc.get("content") if isinstance(doc.get("content"), dict) else {}
+    include = scalar_to_text(content.get("include")) or scalar_to_text(content.get("name"))
+    if not include:
+        include = path.stem.removeprefix("architecture.sqlinclude.")
+    if not include:
+        return {}
+    include = include.upper()
+    return {
+        "entity_type": "sql_include",
+        "entity_key": f"{program}|SQL_INCLUDE|{include}",
+        "sql_include": include,
+    }
+
+
+def paragraph_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
+    content = doc.get("content") if isinstance(doc.get("content"), dict) else {}
+    nested_metadata = doc.get("metadata") if isinstance(doc.get("metadata"), dict) else {}
+    paragraph = (
+        scalar_to_text(content.get("paragraph"))
+        or scalar_to_text(doc.get("paragraph"))
+        or scalar_to_text(nested_metadata.get("paragraph"))
+    )
+    if not paragraph:
+        return {}
+    paragraph = paragraph.upper()
+    return {
+        "entity_type": "paragraph",
+        "entity_key": f"{program}|PARAGRAPH|{paragraph}",
+        "paragraph": paragraph,
+    }
+
+
+def entity_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
+    metadata: dict[str, str] = {}
+    for builder in (
+        call_metadata,
+        variable_metadata,
+        copybook_metadata,
+        db2_table_metadata,
+        sql_include_metadata,
+        paragraph_metadata,
+    ):
+        metadata.update(builder(doc, doc_type, program, path))
+    return metadata
 
 
 def flatten_value(value: Any, prefix: str = "", depth: int = 0, list_limit: int = 120) -> list[str]:
@@ -492,15 +679,17 @@ def add_json_source_file(
                     "coverage_dimension": coverage_dimension(doc_type),
                     "title": title,
                     "source_file": rel_path,
+                    "evidence_path": rel_path,
                     "source_kind": source_kind(path),
                     "source_id": source_id,
                     "json_index": json_index,
                     "chunk_index": chunk_index,
                     "chunk_count": chunk_count,
                     "content_hash": stable_hash(chunk, length=24),
+                    **hierarchy_metadata(doc_type, program),
                 },
             }
-            record["metadata"].update(call_metadata(item, doc_type, program, path))
+            record["metadata"].update(entity_metadata(item, doc_type, program, path))
             records.append(record)
             by_program[program] += 1
             by_type[doc_type] += 1

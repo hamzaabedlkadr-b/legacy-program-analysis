@@ -1,0 +1,153 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue
+}
+
+\setlist[itemize]{leftmargin=1.2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\renewcommand{\arraystretch}{1.2}
+
+\title{PDCBVC Codebase Map for RAG Prompts}
+\author{Generated from \texttt{control\_flow/inputs} only}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Scope}
+
+This guide is a prompt-area reference for RAG answers over the local COBOL sample.
+It is built only from files under \texttt{inputs/}: \texttt{inputs/cobol},
+\texttt{inputs/copybooks}, \texttt{inputs/bms}, and \texttt{inputs/mapa}.
+Files under \texttt{temp/} are intentionally ignored.
+
+\section*{High-Level System Map}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\linewidth} >{\raggedright\arraybackslash}p{0.68\linewidth}}
+\textbf{Artifact} & \textbf{Meaning for RAG} \\
+\hline
+\texttt{PDCBVC.CBL} & Main CICS COBOL program. It browses accounting/payment voice data and drives the screen flow for map \texttt{PDCBVC1}. \\
+\texttt{PDCBVCM.BMS} & BMS mapset definition for the 24x80 terminal screen. It declares visible fields such as header, rows, selection input, messages, and PF-key hints. \\
+\texttt{PDCBVCM.cpy} & Generated symbolic map copybook. Variables ending in \texttt{I} are input fields, ending in \texttt{O} are output fields, ending in \texttt{L} are field lengths, and ending in \texttt{A}/\texttt{F} are attribute/flag bytes. \\
+\texttt{PDRTWA2.cpy} & Transaction Work Area layout. Most \texttt{TWCOB-} variables are persistent CICS navigation/context state shared across programs. \\
+\texttt{PD1VOCI.cpy} & COMMAREA layout for external program \texttt{PD1VOCI}. In this codebase it is used to retrieve voice/accounting rows into table fields \texttt{PD1VOCI-TABVOX-*}. \\
+\texttt{PD1FS00.cpy} & COMMAREA layout for external program \texttt{PD1FS00}. In this program it retrieves/validates session data. \\
+\texttt{PDRUTI01.cpy} & Utility COMMAREA. Here it formats numeric amounts before display. \\
+\texttt{PDRVC.cpy} & Voice/accounting record layout. Prefix \texttt{PDRVC-} means fields of an accounting voice record. \\
+\texttt{PDRTIP01.cpy} & Table/voice type record layout. Prefix \texttt{T01-} means table entry metadata for voice classification and validity. \\
+\texttt{result.txt} & MAPA structural facts: copybooks, SQL includes, DB2 table, program summary, and external calls. Use it as dependency evidence, not as path-level logic. \\
+\end{longtable}
+
+\section*{Prompt Rules}
+
+Use these rules when interpreting retrieved chunks:
+
+\begin{itemize}
+  \item If a variable starts with \texttt{TWCOB-}, treat it as shared CICS transaction context from \texttt{PDRTWA2.cpy}. It usually carries user identity, current function, page state, selected voice, next program, and messages across screen transitions.
+  \item If a variable starts with \texttt{PD1VOCI-}, treat it as the request/response area for \texttt{EXEC CICS LINK PROGRAM('PD1VOCI')}. It is the main source of browse rows displayed on the screen.
+  \item If a variable starts with \texttt{PD1FS00-}, treat it as the request/response area for \texttt{EXEC CICS LINK PROGRAM('PD1FS00')}. In this program it is used for session/access information, including session year/month/type and session status.
+  \item If a variable starts with \texttt{PDRUTI01-}, treat it as formatting/utility state. Here \texttt{PDRUTI01-FUNZIONE = '05'} is used before calling \texttt{PD0UTI01} to format amounts for display.
+  \item If a variable starts with \texttt{PDRVC-}, interpret it as an accounting voice record field. Names containing \texttt{IMPI} refer to start/installation data; names containing \texttt{CESS} refer to cessation/end data; names containing \texttt{IMPORTO} are amounts.
+  \item If a variable starts with \texttt{T01-}, interpret it as table metadata from \texttt{PDRTIP01.cpy}: voice code, applicability, description, validity period, and classification.
+  \item If a variable starts with \texttt{PXCSEMAF-}, interpret it as semaphore/lock request state. The local call \texttt{CALL PXRSEMAF USING PXCSEMAF-AREA} checks whether insert/update operations are allowed.
+  \item If a variable begins with \texttt{M} and appears in \texttt{PDCBVCM.cpy}, interpret it as a BMS map field. Suffix \texttt{I} means received input, \texttt{O} means output sent to the terminal, \texttt{L} means length, \texttt{A} or \texttt{F} means display attribute/flag.
+  \item If the code writes \texttt{-1} to a \texttt{...L} field, it is positioning the CICS cursor on that field for the next send.
+  \item If the code writes \texttt{ASKIP-DRK} to a \texttt{...A} field, it is making a map field dark/skipped, usually hiding unavailable PF-key hints.
+  \item Treat \texttt{TWCOB-FASE} as a screen phase switch. In \texttt{PDCBVC}, phase \texttt{'1'} enters first browse rendering and phase \texttt{'2'} receives user input from the map.
+  \item Treat \texttt{TWCOB-FUNZIONE} as the operation mode. In this program values are mapped to labels: \texttt{I}=IMPIANTO, \texttt{V}=VISUALIZZAZIONE, \texttt{C}=CESSAZIONE, \texttt{A}=AGGIORNAMENTO, \texttt{D}=MODIFICA DECORRENZA, \texttt{P}=MODIFICA PROVVEDIMENTO.
+  \item Treat \texttt{TWCOB-VARCONT-NUMFUNZ} as the voice category selector. Values observed in the program map to: \texttt{1}=COMPETENZE E RITENUTE, \texttt{2}=COMPETENZE IMPONIBILI, \texttt{3}=COMPETENZE NON IMPONIBILI, \texttt{4}=RITENUTE PREVIDENZIALI, \texttt{5}=RITENUTE VARIE, \texttt{6}=VARIAZIONI MENSILI.
+  \item Treat \texttt{WCTPAG}, \texttt{NPAGT}, \texttt{PD1VOCI-IND}, and \texttt{MAX-RIGHE} as pagination state. The screen shows up to \texttt{MAX-RIGHE = 15} rows using \texttt{MRIGAO(...)}.
+  \item Treat \texttt{SCELTAI} as the user selection input field on row 22. The selected progressive number is matched against \texttt{WPROGR}; on match the program stores the selected voice and progressive number into \texttt{TWCOB-VARCONT-VOCE} and \texttt{TWCOB-VARCONT-PROGVOCE}.
+  \item Treat \texttt{M1MSGO} as the primary message output field. Common messages include no records, invalid key/function, no selection, and end of data.
+  \item Treat \texttt{WABEND-CODE} as local abnormal/error code routing. Values like \texttt{BR00}, \texttt{LE10}, \texttt{FS00}, \texttt{UT01}, and \texttt{GET1} point to the failing local step or called service.
+\end{itemize}
+
+\section*{Control-Flow Rules}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\linewidth} >{\raggedright\arraybackslash}p{0.68\linewidth}}
+\textbf{Paragraph / Area} & \textbf{Interpretation} \\
+\hline
+\texttt{BROWSE-FASE1} & First screen phase. Initializes the map, validates update permission through semaphore logic when needed, prepares parameters, links to services, calculates pages, builds map rows, and sends the screen. \\
+\texttt{BROWSE-FASE2} & Receive phase. Receives \texttt{PDCBVC1}, dispatches by \texttt{EIBAID}, handles ENTER/PF keys, pagination, selection, and navigation. \\
+\texttt{INIZ-PARAM} & Builds the \texttt{PD1VOCI} request from \texttt{TWCOB-} context before linking to \texttt{PD1VOCI}. \\
+\texttt{LINK-PD1VOCI} & Calls \texttt{PD1VOCI}. On return \texttt{'E'}, the program sets \texttt{WABEND-CODE = 'LE10'} and abends. \\
+\texttt{PREP-LINK-PD1FS00} / \texttt{LINK-PD1FS00} & Prepares and calls \texttt{PD1FS00} for session/access data. Return \texttt{'2'} is accepted; return \texttt{'E'} causes \texttt{FS00} abend handling. \\
+\texttt{MUOVI-TESTATA} & Fills screen header fields from \texttt{TWCOB-} and \texttt{PD1FS00-} fields, including date, system, person identity, session, and title text. \\
+\texttt{MUOVI-DATI} / \texttt{PREP-RIGA} & Iterates \texttt{PD1VOCI-TABVOX-*} rows, formats dates and amounts, and moves row text into \texttt{MRIGAO(WCTRIG)}. \\
+\texttt{READ-TAB-SEMAF} & Checks semaphore state using \texttt{PXRSEMAF}; blocks insert/update when another process/state forbids it. \\
+\texttt{SEND-PDCBVC1} / \texttt{RECEIVE-PDCBVC1} & CICS terminal I/O for map \texttt{PDCBVC1} in mapset \texttt{PDCBVCM}. \\
+\texttt{XCTL-LIV0..LIV5} & Navigation exits. They reset TWA browse state, set \texttt{TWCOB-FASE/FUNZIONE/NOME-PGM}, then transfer to the target program flow. \\
+\texttt{RETURN-MAIN} / \texttt{RETURN-CICS} & Save TWA if needed, issue syncpoint, and return to CICS/transaction \texttt{PRED}. \\
+\end{longtable}
+
+\section*{External Dependency Rules}
+
+MAPA reports these structural dependencies. Prefer these names when building RAG context:
+
+\begin{itemize}
+  \item \texttt{PD1VOCI}: CICS LINK by literal. Main data retrieval service for accounting voice rows.
+  \item \texttt{PD1FS00}: CICS LINK by literal. Session/access service.
+  \item \texttt{PD0UTI01}: CICS LINK by literal. Utility/formatting service.
+  \item \texttt{PXRSEMAF}: dynamic CALL by identifier. Semaphore/lock check.
+  \item \texttt{PDPRED}: CICS XCTL by literal. Main transfer target.
+  \item \texttt{DUAL}: DB2 table used only for \texttt{SELECT SYSDATE INTO :HSQL-DATE FROM DUAL}.
+\end{itemize}
+
+\section*{BMS Field Rules}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.24\linewidth} >{\raggedright\arraybackslash}p{0.69\linewidth}}
+\textbf{Field Pattern} & \textbf{Meaning} \\
+\hline
+\texttt{PDCBVC1I} & Full input map area for \texttt{PDCBVC1}. It is cleared before first send with \texttt{MOVE LOW-VALUE TO PDCBVC1I}. \\
+\texttt{PDCBVC1O} & Output overlay for the same map area. Values moved to \texttt{...O} fields are displayed on screen. \\
+\texttt{M1SYSO} & System identifier displayed in the header. Filled from \texttt{TWCOB-ID-SISTEMA}. \\
+\texttt{M1DATAO} & Display date. Filled after CICS \texttt{ASKTIME}/\texttt{FORMATTIME}. \\
+\texttt{M0AMBO} & CICS environment/name field. Filled from \texttt{TWCOB-NOME-CICS}. \\
+\texttt{MMATRO}, \texttt{MCOGO}, \texttt{MNOMO} & Person identity fields: matricola/codice, surname, and name from \texttt{TWCOB-}. \\
+\texttt{MSESSIO}, \texttt{MDSESSO} & Session code and session status description. Status flag \texttt{1}=Aperta, \texttt{2}=Chiusa, \texttt{3}=Liquidata. \\
+\texttt{MNPAGO} & Current page/total page display, built from \texttt{WCTPAG} and \texttt{NPAGT}. \\
+\texttt{MDESCO} & Screen title/description, built from operation and category labels. \\
+\texttt{MRIGAO(1..15)} & Repeated output rows. Each row is assembled in \texttt{RIGA-MAPPA} and moved into \texttt{MRIGAO(WCTRIG)}. \\
+\texttt{SCELTAI}/\texttt{SCELTAO} & Two-character user selection input/output. \texttt{SCELTAL = -1} positions cursor here. \\
+\texttt{M1MSGO} & Message line. Used for validation errors, no data, and end-of-data messages. \\
+\texttt{M1PF7A}, \texttt{M1PF8A} & PF-key display attributes. The program darkens them when previous/next page is unavailable. \\
+\end{longtable}
+
+\section*{Data Movement Rules}
+
+\begin{itemize}
+  \item The main browse data path is: \texttt{TWCOB-* context} $\rightarrow$ \texttt{PD1VOCI-* request} $\rightarrow$ \texttt{PD1VOCI-TABVOX-* response} $\rightarrow$ local \texttt{RIGA-MAPPA} $\rightarrow$ \texttt{MRIGAO(...)} $\rightarrow$ terminal map.
+  \item The session/header path is: \texttt{TWCOB-ID-SISTEMA} $\rightarrow$ \texttt{PD1FS00-SESS-*} $\rightarrow$ \texttt{MSESSIO/MDSESSO/M1SYSO}.
+  \item The amount formatting path is: raw amount from \texttt{PD1VOCI-TABVOX-RATA(...)} $\rightarrow$ \texttt{PDRUTI01-F05-*} via \texttt{PD0UTI01} $\rightarrow$ \texttt{IMPORTO-RATA} $\rightarrow$ \texttt{RIGA-MAPPA}.
+  \item Selection path is: user enters \texttt{SCELTAI} $\rightarrow$ program scans row \texttt{MRIGAO(WCTRIG)} $\rightarrow$ matching \texttt{WPROGR} stores \texttt{TWCOB-VARCONT-VOCE} and \texttt{TWCOB-VARCONT-PROGVOCE} for downstream programs.
+  \item Navigation path is: PF key or selected action $\rightarrow$ \texttt{XCTL-LIV*} paragraph $\rightarrow$ \texttt{TWCOB-NOME-PGM} set from \texttt{PROG-LIV*} constants $\rightarrow$ CICS transfer/return flow.
+\end{itemize}
+
+\section*{RAG Answering Instructions}
+
+When answering questions about this codebase:
+
+\begin{enumerate}
+  \item Always identify whether a variable comes from main working storage, a copybook COMMAREA, the TWA, or the BMS map.
+  \item For UI questions, join evidence from \texttt{PDCBVC.CBL}, \texttt{PDCBVCM.BMS}, and \texttt{PDCBVCM.cpy}. BMS field names alone are not enough; use code moves to explain runtime values.
+  \item For business behavior, prefer paragraph names and data movement paths over isolated lines. Example: explain row display through \texttt{MUOVI-DATI} and \texttt{PREP-RIGA}.
+  \item For dependency questions, use MAPA \texttt{result.txt} as the authoritative list of copybooks, calls, SQL includes, and DB2 table references.
+  \item Do not infer runtime certainty from MAPA alone. MAPA says what can be called statically; paragraph logic and conditions decide when it is called.
+  \item When a field has a suffix convention, explain it explicitly: \texttt{I/O/L/A/F} for BMS, \texttt{RETURN/FUNZIONE} for service COMMAREAs, \texttt{FASE/FUNZIONE/VARCONT} for TWA state.
+  \item If a question asks ``what does this variable mean'', first map by prefix, then inspect its surrounding moves and conditions.
+\end{enumerate}
+
+\end{document}

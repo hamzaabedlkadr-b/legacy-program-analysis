@@ -1,8 +1,9 @@
 """Import a cobol-rekt knowledge-base_rag bundle as external evidence.
 
 This script is intentionally additive. It never edits artifacts/final/final_scripts.
-It copies the current final_scripts into artifacts/combined/final_scripts, then adds
-integration artifacts derived from a cobol-rekt knowledge-base_rag bundle.
+It copies the current final_scripts into the generated combined output area,
+then adds integration artifacts derived from a cobol-rekt knowledge-base_rag
+bundle.
 """
 
 from __future__ import annotations
@@ -74,6 +75,167 @@ def coverage_dimension_for_chunk_type(chunk_type: str) -> str:
     if base_type.startswith("global."):
         return "cross_program"
     return "static_inventory"
+
+
+def intent_domain_for_chunk_type(chunk_type: str) -> str:
+    base_type = chunk_type.removeprefix("cobol_rekt.")
+    if base_type.startswith("integration.call") or base_type in {"call_contract", "external_program_calls"}:
+        return "external_programs"
+    if (
+        base_type.startswith("integration.variable")
+        or base_type.startswith("dataflow.")
+        or base_type.startswith("variable_group")
+        or base_type.startswith("global.control_variable_usage")
+        or base_type.startswith("global.common_structure")
+        or base_type.startswith("global.shared_variables")
+    ):
+        return "variable_dataflow"
+    if base_type.startswith("integration.paragraph") or base_type in {"paragraph_logic", "workflow", "controlflow.cfg"}:
+        return "control_flow"
+    if base_type.startswith("screen.") or base_type.startswith("ui.") or base_type.startswith("cics."):
+        return "ui_navigation"
+    if base_type.startswith("business_rule"):
+        return "business_rules"
+    if "copybook" in base_type:
+        return "copybooks"
+    if base_type.startswith("error_path"):
+        return "error_paths"
+    if base_type.startswith("quality.") or "dead_code" in base_type or "unused" in base_type:
+        return "dead_code"
+    if "db2" in base_type or "sql" in base_type or "dataset" in base_type or base_type.startswith("jcl."):
+        return "datasets_tables"
+    if base_type.startswith("static_values"):
+        return "static_values"
+    if base_type.startswith("comment"):
+        return "comments"
+    if base_type.startswith("program_summary") or base_type.startswith("program.summary"):
+        return "program_summary"
+    if base_type.startswith("global.program_dependencies"):
+        return "dependencies"
+    return "general"
+
+
+def hierarchy_level_for_chunk_type(chunk_type: str) -> str:
+    base_type = chunk_type.removeprefix("cobol_rekt.")
+    if base_type.startswith("global."):
+        return "enterprise"
+    if base_type in {"program_summary", "program.summary", "integration.source_balance"}:
+        return "program"
+    if base_type in {
+        "architecture.calls",
+        "architecture.call_parameters",
+        "architecture.copybooks",
+        "architecture.unused_copybooks",
+        "dataflow.used_variables",
+        "dataflow.literal_assignments",
+        "jcl.file_io",
+        "quality.dead_code",
+        "screen_field_lineage",
+        "ui.cics.navigation",
+        "controlflow.cfg",
+        "program.comments",
+    }:
+        return "domain"
+    return "entity"
+
+
+def parent_type_for_level(level: str) -> str:
+    if level == "enterprise":
+        return "corpus"
+    if level == "program":
+        return "enterprise"
+    if level == "domain":
+        return "program"
+    return "domain"
+
+
+def parent_id_for_level(program: str, chunk_type: str, level: str) -> str:
+    if level == "enterprise":
+        return "corpus:cobol"
+    if level == "program":
+        return "enterprise:cobol"
+    if level == "domain":
+        return f"program:{program}"
+    return f"domain:{program}:{intent_domain_for_chunk_type(chunk_type)}"
+
+
+def normalize_entity_metadata(metadata: dict[str, Any], program: str, chunk_type: str) -> None:
+    if metadata.get("entity_key"):
+        return
+
+    target = str(metadata.get("target") or "").strip().upper()
+    if target:
+        entity_key = call_entity_key(program, target, metadata.get("call_type") or metadata.get("command") or chunk_type)
+        if entity_key:
+            metadata.setdefault("entity_type", "call")
+            metadata["entity_key"] = entity_key
+            metadata["target"] = target
+            metadata.setdefault("call_type", entity_key.rsplit("|", 1)[-1])
+            return
+
+    variable = str(metadata.get("variable") or "").strip().upper()
+    if variable:
+        metadata.setdefault("entity_type", "variable")
+        metadata["entity_key"] = f"{program}|VARIABLE|{variable}"
+        metadata["variable"] = variable
+        return
+
+    paragraph = str(metadata.get("paragraph") or "").strip().upper()
+    if paragraph:
+        metadata.setdefault("entity_type", "paragraph")
+        metadata["entity_key"] = f"{program}|PARAGRAPH|{paragraph}"
+        metadata["paragraph"] = paragraph
+        return
+
+    copybook = str(metadata.get("copybook") or metadata.get("candidate_copybook") or "").strip().upper()
+    if copybook:
+        metadata.setdefault("entity_type", "copybook")
+        metadata["entity_key"] = f"{program}|COPYBOOK|{copybook}"
+        metadata["copybook"] = copybook
+        return
+
+    table = str(metadata.get("db2_table") or metadata.get("table") or "").strip().upper()
+    if table:
+        metadata.setdefault("entity_type", "db2_table")
+        metadata["entity_key"] = f"{program}|DB2_TABLE|{table}"
+        metadata["db2_table"] = table
+        return
+
+    sql_include = str(metadata.get("sql_include") or metadata.get("include") or "").strip().upper()
+    if sql_include:
+        metadata.setdefault("entity_type", "sql_include")
+        metadata["entity_key"] = f"{program}|SQL_INCLUDE|{sql_include}"
+        metadata["sql_include"] = sql_include
+
+
+def normalize_rag_record_metadata(record: dict[str, Any]) -> dict[str, Any]:
+    metadata = record.get("metadata")
+    if not isinstance(metadata, dict):
+        metadata = {}
+        record["metadata"] = metadata
+
+    program = str(metadata.get("program") or record.get("program") or "").strip().upper()
+    if program:
+        metadata["program"] = program
+        record["program"] = program
+
+    chunk_type = str(metadata.get("chunk_type") or record.get("type") or "unknown")
+    metadata["chunk_type"] = chunk_type
+    metadata.setdefault("type", chunk_type)
+    metadata.setdefault("source_chunk_type", chunk_type.removeprefix("cobol_rekt."))
+    metadata.setdefault("source_system", "integration")
+    metadata.setdefault("coverage_dimension", coverage_dimension_for_chunk_type(chunk_type))
+    metadata.setdefault("intent_domain", intent_domain_for_chunk_type(chunk_type))
+
+    level = str(metadata.get("hierarchy_level") or hierarchy_level_for_chunk_type(chunk_type))
+    metadata["hierarchy_level"] = level
+    metadata.setdefault("parent_type", parent_type_for_level(level))
+    metadata.setdefault("parent_id", parent_id_for_level(program or "__GLOBAL__", chunk_type, level))
+    metadata.setdefault("evidence_path", metadata.get("source_bundle_path") or metadata.get("source_file") or record.get("id"))
+
+    if program:
+        normalize_entity_metadata(metadata, program, chunk_type)
+    return record
 
 
 def sha256_file(path: Path) -> str:
@@ -1112,6 +1274,7 @@ def write_jsonl(path: Path, records: list[dict[str, Any]], *, base_jsonl: Path |
                     out.write(line.rstrip("\n") + "\n")
                     base_count += 1
         for record in records:
+            normalize_rag_record_metadata(record)
             out.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
     return {"base_count": base_count, "added_count": len(records), "total_count": base_count + len(records)}
 
@@ -1171,7 +1334,7 @@ def build_report(summary: dict[str, Any], conflicts: dict[str, Any], rag_info: d
             "",
             "## How To Test",
             "",
-            "Point `COBOL_RAG_FINAL_SCRIPTS_DIR` to `artifacts/combined/final_scripts` and sync the generated combined JSONL instead of replacing the stable JSONL.",
+            "Point `COBOL_RAG_FINAL_SCRIPTS_DIR` to `artifacts/final/final_scripts/output/combined/final_scripts/<PROGRAM>` and sync the generated combined JSONL instead of replacing the stable JSONL.",
         ]
     )
     return "\n".join(lines)
@@ -1183,20 +1346,22 @@ def main() -> int:
     parser.add_argument("--cobol-rekt-rag-bundle", required=True)
     parser.add_argument("--source-label", help="Portable label to store in generated provenance instead of a local absolute path.")
     parser.add_argument("--final-scripts-root", default="artifacts/final/final_scripts")
-    parser.add_argument("--out-root", default="artifacts/combined/final_scripts")
+    parser.add_argument("--out-root")
     parser.add_argument("--base-rag-jsonl")
-    parser.add_argument("--combined-rag-jsonl", default="artifacts/combined/rag_index/control_flow_rag_documents_combined.jsonl")
+    parser.add_argument("--combined-rag-jsonl")
     parser.add_argument("--max-rag-text-chars", type=int, default=12000)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
     program = args.program.upper()
     final_scripts_root = resolve_repo_path(args.final_scripts_root, required=True)
-    out_root = resolve_repo_path(args.out_root, required=True)
+    out_root_arg = args.out_root or f"artifacts/final/final_scripts/output/combined/final_scripts/{program}"
+    combined_rag_jsonl_arg = args.combined_rag_jsonl or f"artifacts/final/final_scripts/output/combined/rag_index/{program}_combined.jsonl"
+    out_root = resolve_repo_path(out_root_arg, required=True)
     bundle = resolve_bundle_path(resolve_repo_path(args.cobol_rekt_rag_bundle, required=True))
     source_label = args.source_label or f"cobol-rekt/knowledge-base_rag/{program}"
     base_rag_jsonl = resolve_repo_path(args.base_rag_jsonl) if args.base_rag_jsonl else None
-    combined_rag_jsonl = resolve_repo_path(args.combined_rag_jsonl, required=True)
+    combined_rag_jsonl = resolve_repo_path(combined_rag_jsonl_arg, required=True)
 
     manifest = read_json(bundle / "manifest.json")
     chunks_manifest_path = bundle / "chunks" / "chunks_manifest.json"

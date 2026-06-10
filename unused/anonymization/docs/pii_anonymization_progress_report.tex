@@ -1,0 +1,360 @@
+﻿\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{verbatim}
+
+\definecolor{Primary}{RGB}{28,70,110}
+\definecolor{Muted}{RGB}{92,103,115}
+\definecolor{LightGray}{RGB}{245,247,249}
+\definecolor{RuleGray}{RGB}{210,216,222}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=Primary,
+  urlcolor=Primary
+}
+
+\pagestyle{fancy}
+\setlength{\headheight}{24pt}
+\sloppy
+\fancyhf{}
+\lhead{\textcolor{Muted}{PII Detection and Anonymization}}
+\rhead{\textcolor{Muted}{COBOL Source Analysis}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{RuleGray}\leaders\hrule height \headrulewidth\hfill}}
+
+\titleformat{\section}
+  {\Large\bfseries\color{Primary}}
+  {\thesection}{0.6em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{Primary}}
+  {\thesubsection}{0.6em}{}
+
+\setlist[itemize]{leftmargin=1.2em, itemsep=0.25em}
+\setlist[enumerate]{leftmargin=1.4em, itemsep=0.25em}
+\renewcommand{\arraystretch}{1.25}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\status}[1]{\textbf{\textcolor{Primary}{#1}}}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{2.2cm}
+  {\Huge\bfseries\color{Primary} PII Detection and Anonymization Progress Report\par}
+  \vspace{0.6cm}
+  {\Large COBOL Source Code and Generated Artifacts\par}
+  \vspace{1.2cm}
+  {\large Date: 2026-05-18\par}
+  \vfill
+  \begin{tabular}{>{\bfseries}p{0.28\textwidth}p{0.55\textwidth}}
+    Scope & Person names, IBAN, email, Italian codice fiscale, and COBOL PII-bearing fields \\
+    Main engine & Microsoft Presidio \\
+    NLP model & spaCy Italian model \code{it\_core\_news\_sm} \\
+    Custom layer & COBOL-aware recognizers and report generation scripts \\
+  \end{tabular}
+  \vfill
+  {\small\textcolor{Muted}{Prepared for internal evaluation of PII detection and anonymization approaches.}\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Objective}
+
+The objective is to identify and anonymize or pseudonymize personal data that may appear inside COBOL source files, copybooks, comments, display messages, string literals, and generated artifacts.
+
+The current PII categories in scope are:
+
+\begin{itemize}
+  \item Person names and surnames
+  \item IBAN values
+  \item Email addresses
+  \item Italian codice fiscale values
+  \item COBOL fields that may carry personal data, such as \code{NOME}, \code{COGNOME}, \code{MATRICOLA}, \code{CODDIP}, and \code{IBAN}
+\end{itemize}
+
+\section{Tools and Components}
+
+\subsection{Microsoft Presidio}
+
+Microsoft Presidio is used as the main PII detection engine. It provides built-in recognizers for structured PII and integrates with NLP models for natural-language entities.
+
+\begin{longtable}{p{0.34\textwidth}p{0.56\textwidth}}
+\textbf{Entity} & \textbf{Purpose} \\
+\hline
+\code{EMAIL\_ADDRESS} & Detects email addresses. \\
+\code{IBAN\_CODE} & Detects valid IBAN values. \\
+\code{IT\_FISCAL\_CODE} & Detects Italian codice fiscale values. \\
+\code{PHONE\_NUMBER} & Detects phone-number-like values. \\
+\code{PERSON} & Detects person names through NLP. \\
+\code{LOCATION} & Detects locations through NLP. \\
+\end{longtable}
+
+Presidio is installed locally and can run offline after installation.
+
+\subsection{spaCy Italian Model}
+
+The installed model is:
+
+\begin{quote}
+\code{it\_core\_news\_sm}
+\end{quote}
+
+This model is used by Presidio for natural-language entity recognition, especially \code{PERSON} and \code{LOCATION}.
+
+\subsection{Custom COBOL Recognizers}
+
+COBOL source code differs significantly from normal prose. Names and PII may appear in field names, comments, string literals, \code{DISPLAY} messages, and file assignment values. For this reason, custom COBOL recognizers were added in:
+
+\begin{quote}
+\code{scripts/utils/scan\_pii\_presidio.py}
+\end{quote}
+
+\begin{longtable}{p{0.32\textwidth}p{0.58\textwidth}}
+\textbf{Custom Entity} & \textbf{Purpose} \\
+\hline
+\code{COBOL\_NAME\_LITERAL} & Finds COBOL literals assigned to name-like fields. \\
+\code{COBOL\_KEY\_VALUE\_NAME} & Finds patterns such as \code{NOME=...} and \code{COGNOME=...}. \\
+\code{COBOL\_COMMENT\_NAME} & Finds likely names in comments, display messages, and string literals. This is an aggressive optional mode. \\
+\code{COBOL\_PII\_FIELD} & Flags fields that may carry PII, such as \code{NOME}, \code{COGNOME}, \code{MATRICOLA}, \code{CODDIP}, and \code{IBAN}. \\
+\code{IBAN\_LIKE} & Finds IBAN-shaped values, including synthetic or checksum-invalid test data. \\
+\code{WATCHLIST\_PERSON} & Finds known names or surnames from a watchlist file. \\
+\end{longtable}
+
+\section{Scripts Created}
+
+\subsection{PII Scanner}
+
+\textbf{File:}
+
+\begin{quote}
+\code{scripts/utils/scan\_pii\_presidio.py}
+\end{quote}
+
+\textbf{Purpose:}
+
+\begin{itemize}
+  \item Scans files or folders for PII
+  \item Uses Microsoft Presidio
+  \item Adds COBOL-specific detection rules
+  \item Outputs JSON findings and an HTML visual report
+\end{itemize}
+
+\textbf{Example command:}
+
+\begin{verbatim}
+python unused/anonymization/scripts/scan_pii_presidio.py unused/anonymization/artifacts/demo_pii/FAKE_FILE.CBL ^
+  --out-dir unused/anonymization/artifacts/demo_pii/fake_file_report ^
+  --entities PERSON IBAN_CODE IBAN_LIKE EMAIL_ADDRESS IT_FISCAL_CODE ^
+  COBOL_NAME_LITERAL COBOL_KEY_VALUE_NAME COBOL_COMMENT_NAME
+\end{verbatim}
+
+\subsection{Pseudonymization Script}
+
+\textbf{File:}
+
+\begin{quote}
+\code{scripts/utils/pseudonymize\_pii.py}
+\end{quote}
+
+\textbf{Purpose:}
+
+\begin{itemize}
+  \item Replaces detected structured PII with deterministic fake values
+  \item Keeps referential consistency through a secret salt
+  \item Supports IBAN-like pseudonyms and codice fiscale-like pseudonyms
+  \item Supports labeled name fields and COBOL literals moved into name fields
+\end{itemize}
+
+\textbf{Example command:}
+
+\begin{verbatim}
+python unused/anonymization/scripts/pseudonymize_pii.py unused/anonymization/artifacts/demo_pii/PDCBVC_fake_pii.CBL ^
+  --out-dir unused/anonymization/artifacts/demo_pii/pseudonymized ^
+  --salt demo-salt
+\end{verbatim}
+
+\section{Test Files}
+
+\begin{longtable}{p{0.38\textwidth}p{0.52\textwidth}}
+\textbf{File} & \textbf{Purpose} \\
+\hline
+\code{artifacts/demo\_pii/PDCBVC\_fake\_pii.CBL} & Synthetic COBOL file derived from \code{PDCBVC.CBL}; includes fake names, IBANs, codice fiscale values, and email examples. \\
+\code{artifacts/demo\_pii/FAKE\_FILE.CBL} & Synthetic stress test containing many uppercase Italian names in comments, display messages, file names, and literals. \\
+\code{temp/PDHASI06.CBL} & Realistic COBOL test file. It contains PII-related fields but no clear embedded IBAN, email, or codice fiscale values. \\
+\end{longtable}
+
+\section{Current Findings}
+
+\subsection{Structured PII Detection}
+
+Structured identifiers are detected well. The most reliable categories are:
+
+\begin{itemize}
+  \item Email
+  \item Valid IBAN
+  \item IBAN-shaped values through \code{IBAN\_LIKE}
+  \item Italian codice fiscale
+\end{itemize}
+
+This is the strongest part of the current solution.
+
+\subsection{Person Name Detection}
+
+Person-name detection is more difficult. Microsoft Presidio with spaCy can detect normal person names, but COBOL introduces several challenges:
+
+\begin{itemize}
+  \item Names may appear fully uppercase
+  \item Names may appear as single surnames
+  \item Names may appear inside comments
+  \item Names may appear inside \code{DISPLAY}, \code{VALUE}, \code{STRING}, or file assignment literals
+  \item COBOL program names and technical identifiers may look like names
+\end{itemize}
+
+For this reason, custom COBOL-aware detection was added.
+
+\subsection{COBOL Comment and Message Detection}
+
+The custom entity \code{COBOL\_COMMENT\_NAME} was added to detect likely names in:
+
+\begin{itemize}
+  \item COBOL comments
+  \item \code{DISPLAY} messages
+  \item \code{VALUE} string literals
+  \item \code{STRING} statements
+  \item \code{ASSIGN TO} file names
+\end{itemize}
+
+This mode is intentionally optional because it is more aggressive and may produce false positives in real COBOL files.
+
+\subsection{Watchlist Handling}
+
+The custom entity \code{WATCHLIST\_PERSON} was added for known names or surnames that must always be detected.
+
+\textbf{Watchlist file:}
+
+\begin{quote}
+\code{artifacts/pii\_watchlist/names.txt}
+\end{quote}
+
+Example entry:
+
+\begin{verbatim}
+Mattarella
+\end{verbatim}
+
+This is useful for known high-risk terms, but it is not a scalable replacement for general name detection.
+
+\section{Important Limitations}
+
+\subsection{Presidio Is Not Perfect for Names}
+
+Presidio is strong for structured data but weaker for names in legacy code. It may miss isolated surnames, uppercase names in comments, or names embedded in COBOL messages. It may also incorrectly classify technical identifiers as \code{PERSON} or \code{LOCATION}.
+
+\subsection{Watchlists Do Not Scale Alone}
+
+A watchlist is useful for known names, but it is not realistic to maintain every possible name or surname. The better approach is to combine Presidio, COBOL-aware rules, context-based comment/message detection, optional watchlists, and manual review of HTML reports.
+
+\subsection{Automatic Rewriting Requires Care}
+
+Detection and pseudonymization should be separated. The recommended process is:
+
+\begin{enumerate}
+  \item Detect PII.
+  \item Review the HTML report.
+  \item Decide which entity types should be anonymized.
+  \item Pseudonymize copied or exported artifacts.
+  \item Re-scan the pseudonymized output.
+\end{enumerate}
+
+Original source files should not be modified directly without review.
+
+\section{Recommended Detection Modes}
+
+\subsection{Strict Values-Only Scan}
+
+Use this mode when looking for clear values with fewer false positives:
+
+\begin{verbatim}
+python unused/anonymization/scripts/scan_pii_presidio.py <input-file-or-folder> ^
+  --out-dir <report-folder> ^
+  --entities PERSON IBAN_CODE IBAN_LIKE EMAIL_ADDRESS IT_FISCAL_CODE ^
+  COBOL_NAME_LITERAL COBOL_KEY_VALUE_NAME
+\end{verbatim}
+
+\subsection{Aggressive Comment and Message Scan}
+
+Use this mode when names may appear in comments, display messages, or string literals:
+
+\begin{verbatim}
+python unused/anonymization/scripts/scan_pii_presidio.py <input-file-or-folder> ^
+  --out-dir <report-folder> ^
+  --entities PERSON IBAN_CODE IBAN_LIKE EMAIL_ADDRESS IT_FISCAL_CODE ^
+  COBOL_NAME_LITERAL COBOL_KEY_VALUE_NAME COBOL_COMMENT_NAME
+\end{verbatim}
+
+\subsection{PII Field Risk Scan}
+
+Use this mode when identifying programs that process personal data fields:
+
+\begin{verbatim}
+python unused/anonymization/scripts/scan_pii_presidio.py <input-file-or-folder> ^
+  --out-dir <report-folder> ^
+  --entities COBOL_PII_FIELD
+\end{verbatim}
+
+\section{Next Steps}
+
+The next phase is to test different anonymization approaches and compare their accuracy and safety.
+
+\begin{longtable}{p{0.24\textwidth}p{0.30\textwidth}p{0.34\textwidth}}
+\textbf{Approach} & \textbf{Target} & \textbf{Expected Result} \\
+\hline
+Structured PII pseudonymization & IBAN, email, codice fiscale & High accuracy and low risk of breaking COBOL syntax. \\
+COBOL field-based name pseudonymization & Name-like COBOL fields such as \code{NOME}, \code{COGNOME}, \code{NOMINATIVO}, \code{NOME-REF} & Good precision because replacement occurs only in clear field contexts. \\
+Comment and message name anonymization & Names in comments, display messages, and string literals & Better coverage of hidden names, with higher false-positive risk. Requires report review. \\
+Watchlist-based replacement & Known sensitive names or surnames & Very high precision for known terms, but not sufficient as a standalone solution. \\
+\end{longtable}
+
+\section{Overall Assessment}
+
+The current solution is a practical first version for COBOL PII discovery.
+
+\textbf{Strengths}
+
+\begin{itemize}
+  \item Good detection for IBAN, email, and codice fiscale
+  \item COBOL-aware scanning is available
+  \item HTML reports make review easier
+  \item Different scan modes allow strict or aggressive detection
+  \item Runs locally after installation
+\end{itemize}
+
+\textbf{Weaknesses}
+
+\begin{itemize}
+  \item Name detection remains the hardest part
+  \item Aggressive comment scanning can produce false positives
+  \item Automatic anonymization of comments and free text requires review
+\end{itemize}
+
+\textbf{Recommended position}
+
+Use this as a detection and review pipeline first, then apply pseudonymization in controlled modes. The safest production workflow is to pseudonymize copied artifacts, not original source files, and always re-scan the output.
+
+\end{document}
+
+

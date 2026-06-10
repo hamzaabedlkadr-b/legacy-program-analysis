@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Run the fixed final_scripts/input layout into the RAG JSONL output.
+"""Run the root input layout into the RAG JSONL output.
 
 Expected input layout:
 
-  artifacts/final/final_scripts/input/
+  input/
     PROGRAM1/
       PROGRAM1.CBL
       PROGRAM1_result.csv
@@ -20,6 +20,11 @@ The script writes stable generated output under:
     rag_index/rag_documents.jsonl
     validation/
     factory_report/
+    combined/
+
+Generated working packages are written under:
+
+  artifacts/final/final_scripts/work/
 
 It can also create a combined output when a cobol-rekt knowledge-base_rag bundle
 is present for the selected program.
@@ -40,7 +45,7 @@ from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PIPELINE_DIR = PROJECT_ROOT / "scripts" / "pipeline"
-DEFAULT_INPUT_ROOT = Path("artifacts/final/final_scripts/input")
+DEFAULT_INPUT_ROOT = Path("input")
 DEFAULT_OUTPUT_ROOT = Path("artifacts/final/final_scripts/output")
 
 
@@ -51,7 +56,7 @@ class ConfigError(SystemExit):
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--program", "-p", help="Program to run. If omitted, runs every program folder in input root.")
-    parser.add_argument("--input-root", type=Path, default=DEFAULT_INPUT_ROOT, help="Fixed input root.")
+    parser.add_argument("--input-root", type=Path, default=DEFAULT_INPUT_ROOT, help="Root folder with one input folder per program.")
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT, help="Generated output root.")
     parser.add_argument("--mode", choices=("my", "combined", "both"), default="my")
     parser.add_argument("--cobol-rekt-rag-bundle", type=Path, help="Bundle for combined mode. Use only with one --program.")
@@ -130,7 +135,7 @@ def parse_dot_controlflow(text: str) -> dict[str, Any] | None:
     }
 
 
-def ensure_controlflow_json(info: dict[str, Any], input_root: Path, dry_run: bool) -> Path:
+def ensure_controlflow_json(info: dict[str, Any], normalized_root: Path, dry_run: bool) -> Path:
     path = Path(info["controlflow"])
     try:
         with path.open("r", encoding="utf-8") as handle:
@@ -145,7 +150,7 @@ def ensure_controlflow_json(info: dict[str, Any], input_root: Path, dry_run: boo
     if converted is None:
         raise ConfigError(f"Controlflow file is neither valid JSON nor supported DOT: {path}")
 
-    out_dir = input_root / "_normalized_controlflow" / info["program"]
+    out_dir = normalized_root / info["program"]
     out_path = out_dir / path.name
     info["controlflow_format"] = "dot-normalized-to-json"
     info["normalized_controlflow"] = str(out_path.resolve())
@@ -253,7 +258,9 @@ def main() -> int:
     args = parse_args()
     input_root = resolve(args.input_root)
     output_root = resolve(args.output_root)
-    package_root = input_root / "_generated_program_packages"
+    generated_root = output_root.parent / "work"
+    package_root = generated_root / "program_packages"
+    normalized_root = generated_root / "normalized_controlflow"
     program_artifacts_root = output_root / "program_artifacts"
     rag_index_dir = output_root / "rag_index"
     validation_dir = output_root / "validation"
@@ -272,12 +279,12 @@ def main() -> int:
 
     if args.mode in {"my", "both"}:
         if not args.no_clean and not args.dry_run:
-            safe_rmtree(package_root, input_root)
-            safe_rmtree(input_root / "_normalized_controlflow", input_root)
+            safe_rmtree(package_root, PROJECT_ROOT / "artifacts" / "final" / "final_scripts")
+            safe_rmtree(normalized_root, PROJECT_ROOT / "artifacts" / "final" / "final_scripts")
             safe_rmtree(output_root, PROJECT_ROOT / "artifacts" / "final" / "final_scripts")
 
         for info in programs:
-            controlflow_dir = ensure_controlflow_json(info, input_root, args.dry_run)
+            controlflow_dir = ensure_controlflow_json(info, normalized_root, args.dry_run)
             cmd = [
                 sys.executable,
                 str(PIPELINE_DIR / "package_program_inputs.py"),

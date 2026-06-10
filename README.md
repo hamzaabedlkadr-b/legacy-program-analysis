@@ -2,99 +2,77 @@
 
 This repository contains the inputs, scripts, intermediate JSON artifacts, and final generated outputs used to analyze the `PDCBVC` COBOL program.
 
-## Layout
+## Start Here
+
+- Repo map and cleanup rules: [REPO_ORGANIZATION.md](REPO_ORGANIZATION.md)
+- Full project handoff for a new AI/chat: [PROJECT_HANDOFF_ROADMAP.md](PROJECT_HANDOFF_ROADMAP.md)
+- Current roadmap stage tracker: [PROJECT_STAGE_TRACKER.md](PROJECT_STAGE_TRACKER.md)
+- Put new COBOL inputs here: [input](input/README.md)
+- Non-active material lives here: [unused](unused/README.md)
+
+## Current Layout
 
 ```text
-inputs/
-  cobol/        Source COBOL programs
-  bms/          BMS maps
-  copybooks/    Copybook files
-  mapa/         MAPA sample inputs
+input/                                  main place for COBOL inputs
+artifacts/final/final_scripts/output/   generated analysis and RAG outputs
+artifacts/final/final_scripts/work/     generated working packages
+unused/                                 archived non-pipeline material
+scripts/pipeline/                       main pipeline and RAG builders
+scripts/utils/                          helper scripts
+docs/                                   active reports and notes
+tests/                                  checks and sample tests
+```
 
-scripts/
-  pipeline/     Main transformation and generation scripts
-  validation/   QA and inspection scripts
-  utils/        Utility helpers
+The old `inputs/` folder and the old deep `artifacts/final/final_scripts/input/` location are historical. For current work, use root `input/`.
 
-artifacts/
-  intermediate/ Working JSON artifacts
-  final/        Generated final outputs and builders
-  reports/      Reports and report assets
+## Add A Program
 
-docs/           Notes and reference material
-archive/        Older snapshots and experimental leftovers
+Copy the template:
+
+```text
+input/_PROGRAM_TEMPLATE/
+```
+
+Rename the copy to the program name and add:
+
+```text
+<PROGRAM>.CBL
+<PROGRAM>_result.txt or <PROGRAM>_result.csv
+<PROGRAM>_controlflow.json
+copybooks/
+jcl/                  optional
+knowledge-base_rag/   optional, only for combined mode
 ```
 
 ## Common Commands
 
-Build semantic rules from the current enriched graph:
+Run Hamza-only analysis for one program:
 
 ```powershell
-python scripts\pipeline\extract_pdc_rules.py
+python scripts\pipeline\run_fixed_input.py --program PDCBVC --mode my
 ```
 
-Generate business-rule RAG documents:
+Run combined Hamza + cobol-rekt analysis for one program:
 
 ```powershell
-python scripts\pipeline\generate_rag_documents.py
+python scripts\pipeline\run_fixed_input.py --program PDCBVC --mode combined
 ```
 
-Run the full batch pipeline with the repo's current sample inputs:
+Run both outputs:
 
 ```powershell
-python scripts\pipeline\run_batch_pipeline.py `
-  --cobol-dir inputs\cobol `
-  --copy-dir inputs\copybooks `
-  --pdc-json-dir artifacts\intermediate\pdc.json `
-  --mapa-result inputs\mapa\result.txt `
-  --script3 scripts\pipeline\script3.py `
-  --out-root artifacts\final\batch_output
+python scripts\pipeline\run_fixed_input.py --program PDCBVC --mode both
 ```
 
-Run the batch pipeline when all MAPA result files live in one folder:
+Prepare fixed-input program folders from separate source folders:
 
 ```powershell
-python scripts\pipeline\run_batch_pipeline.py `
-  --cobol-dir C:\path\to\cobol `
-  --copy-dir C:\path\to\copybooks `
-  --pdc-json-dir C:\path\to\pdc_json_folder `
-  --mapa-batch-dir C:\path\to\mapa_all_folder `
-  --out-root artifacts\final\batch_output
+python scripts\pipeline\prepare_fixed_input_layout.py `
+  --cbl-dir C:\path\to\cbl_folder `
+  --controlflow-dir C:\path\to\controlflow_json_folder `
+  --result-path C:\path\to\result_files_folder `
+  --copybooks-dir C:\path\to\copybooks_folder `
+  --output-root input
 ```
 
-Generate one `pdc.json`-style file per COBOL program without the control-flow extension:
-
-```powershell
-python scripts\pipeline\cbl_folder_to_pdc_no_extension.py `
-  --cobol-dir C:\path\to\cobol `
-  --out-dir C:\path\to\pdc_no_extension_folder
-```
-
-Compare two folders of PDC JSONs and write a structural report:
-
-```powershell
-python scripts\utils\compare_pdc_folders.py `
-  --left C:\path\to\extension_pdc_folder `
-  --right C:\path\to\pdc_no_extension_folder `
-  --left-label extension `
-  --right-label no_extension `
-  --report artifacts\reports\compare_pdc_folders.txt
-```
-
-Compare two folders and write a log of exact matches vs differences:
-
-```powershell
-python scripts\utils\compare_folders.py `
-  --left path\to\folder_a `
-  --right path\to\folder_b `
-  --log artifacts\reports\folder_compare.log
-```
-
-Compare two folders by line count and the text before the first comma on each line:
-
-```powershell
-python scripts\utils\compare_folders_line_prefix.py `
-  --left path\to\folder_a `
-  --right path\to\folder_b `
-  --log artifacts\reports\folder_compare_line_prefix.log
-```
+Use this PC for deterministic pipeline/code checks. Run Ollama, embeddings, Chroma sync, and model-answer tests on the friend PC.

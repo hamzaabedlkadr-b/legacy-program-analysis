@@ -1,4 +1,4 @@
-# Combined MAPA/Hamza and cobol-rekt Merge Report
+﻿# Combined MAPA/Hamza and cobol-rekt Merge Report
 
 Date: 2026-05-06
 Program: PDCBVC
@@ -40,7 +40,7 @@ It provides the stable baseline artifacts used by the current RAG flow. Importan
 
 cobol-rekt input is read from:
 
-`artifacts/final/final_scripts/input/knowledge-base_rag/`
+`input/PDCBVC/knowledge-base_rag/`
 
 This bundle is treated as external evidence. The importer does not rewrite the friend report and does not replace final_scripts facts.
 
@@ -357,3 +357,4 @@ Use the combined JSONL only when testing combined mode:
 `artifacts/final/final_scripts/output/combined/rag_index/PDCBVC_combined.jsonl`
 
 Do not replace the stable baseline until combined answers are evaluated and shown to be better.
+

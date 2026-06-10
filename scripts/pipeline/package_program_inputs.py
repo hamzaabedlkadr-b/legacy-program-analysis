@@ -60,7 +60,7 @@ class PackageManifest:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Create one final_scripts/input package per COBOL program."
+        description="Create one generated package per COBOL program."
     )
     parser.add_argument("--cbl-dir", required=True, type=Path, help="Folder with .CBL/.cbl files")
     parser.add_argument("--cpy-dir", required=True, type=Path, help="Folder with copybooks")
@@ -80,7 +80,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--out-dir",
         type=Path,
-        default=Path("artifacts/final/final_scripts/input/program_packages"),
+        default=Path("artifacts/final/final_scripts/work/program_packages"),
         help="Destination package folder",
     )
     parser.add_argument(

@@ -80,6 +80,17 @@ def unique(items: list[str]) -> list[str]:
     return out
 
 
+def normalize_call_type(value: Any) -> str:
+    raw = str(value or "").upper()
+    if "XCTL" in raw:
+        return "XCTL"
+    if "LINK" in raw:
+        return "LINK"
+    if "CALL" in raw:
+        return "CALL"
+    return raw
+
+
 def resolve_programs_dir(out_root: Path) -> Path:
     if (out_root / "programs").is_dir():
         return out_root / "programs"
@@ -112,7 +123,9 @@ def read_program_artifacts(program_dir: Path) -> dict[str, Any]:
         "copybooks": None,
         "calls": [],
         "db2_tables": [],
+        "sql_includes": [],
         "variables": [],
+        "paragraphs": [],
     }
 
     copybooks_path = artifacts / "architecture.copybooks.json"
@@ -159,6 +172,14 @@ def read_program_artifacts(program_dir: Path) -> dict[str, Any]:
             except Exception:
                 continue
 
+    sql_dir = artifacts / "architecture.sqlinclude"
+    if sql_dir.is_dir():
+        for path in sorted(sql_dir.glob("*.json")):
+            try:
+                data["sql_includes"].append(load_json(path))
+            except Exception:
+                continue
+
     used_vars = artifacts / "dataflow.used_variables.json"
     if used_vars.is_file():
         try:
@@ -166,6 +187,22 @@ def read_program_artifacts(program_dir: Path) -> dict[str, Any]:
             variables = payload.get("variables") if isinstance(payload, dict) else None
             if isinstance(variables, list):
                 data["variables"] = [v for v in variables if isinstance(v, dict)]
+        except Exception:
+            pass
+
+    cfg_path = artifacts / "controlflow.cfg.json"
+    if cfg_path.is_file():
+        try:
+            payload = load_json(cfg_path)
+            paragraphs: set[str] = set()
+            for edge in payload.get("edges") or []:
+                if not isinstance(edge, dict):
+                    continue
+                for key in ("from", "to"):
+                    value = str(edge.get(key) or "").strip().upper()
+                    if value and value != data["program"]:
+                        paragraphs.add(value)
+            data["paragraphs"] = sorted(paragraphs)
         except Exception:
             pass
 
@@ -678,6 +715,233 @@ def build_variable_docs(program_data: list[dict[str, Any]], min_shared_programs:
     return docs, summary
 
 
+def copybook_names_from_payload(payload: dict[str, Any] | None) -> list[str]:
+    if not isinstance(payload, dict):
+        return []
+    content = payload.get("content") or {}
+    return unique(list(content.get("all") or []))
+
+
+def sql_include_name(payload: dict[str, Any]) -> str:
+    content = payload.get("content") or {}
+    return str(content.get("include") or content.get("name") or "").strip().upper()
+
+
+def db2_table_name(payload: dict[str, Any]) -> str:
+    content = payload.get("content") or {}
+    return str(content.get("table") or content.get("name") or "").strip().upper()
+
+
+def call_edge_from_doc(program: str, call: dict[str, Any], program_names: set[str]) -> dict[str, Any] | None:
+    content = call.get("content") or {}
+    target = str(content.get("target") or "").strip().upper()
+    if not target:
+        return None
+    call_type = normalize_call_type(content.get("call_type") or "UNKNOWN")
+    caller = str(content.get("caller") or program).strip().upper()
+    return {
+        "caller": caller,
+        "target": target,
+        "call_type": call_type,
+        "target_is_indexed_program": target in program_names,
+        "heuristic_intent": content.get("heuristic_intent"),
+        "intent_confidence": content.get("intent_confidence"),
+    }
+
+
+def add_entity_occurrence(
+    by_name: dict[str, list[dict[str, Any]]],
+    *,
+    name: str,
+    entity_type: str,
+    program: str,
+    entity_key: str,
+    source: str,
+) -> None:
+    normalized = name.strip().upper()
+    if not normalized:
+        return
+    occurrence = {
+        "name": normalized,
+        "entity_type": entity_type,
+        "program": program,
+        "entity_key": entity_key,
+        "source": source,
+    }
+    existing = by_name[normalized]
+    if occurrence not in existing:
+        existing.append(occurrence)
+
+
+def build_program_entity_relationship_indexes(
+    program_data: list[dict[str, Any]],
+    *,
+    copybook_summary: dict[str, Any],
+    jcl_summary: dict[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    program_names = {item["program"] for item in program_data}
+    program_index: dict[str, Any] = {
+        "schema_version": 1,
+        "program_count": len(program_data),
+        "programs": {},
+    }
+    by_entity_name: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    call_edges: list[dict[str, Any]] = []
+    db2_usage: list[dict[str, Any]] = []
+    sql_include_usage: list[dict[str, Any]] = []
+
+    for item in program_data:
+        program = item["program"]
+        variables = unique([str(var.get("variable") or "") for var in item.get("variables") or []])
+        paragraphs = unique(list(item.get("paragraphs") or []))
+        copybooks = copybook_names_from_payload(item.get("copybooks"))
+        db2_tables = unique([db2_table_name(table_doc) for table_doc in item.get("db2_tables") or []])
+        sql_includes = unique([sql_include_name(sql_doc) for sql_doc in item.get("sql_includes") or []])
+
+        calls = []
+        for call in item.get("calls") or []:
+            edge = call_edge_from_doc(program, call, program_names)
+            if not edge:
+                continue
+            call_edges.append(edge)
+            calls.append(edge)
+
+        call_targets = unique([edge["target"] for edge in calls])
+        jcl_jobs = sorted((jcl_summary.get("program_to_jobs") or {}).get(program, []))
+
+        program_index["programs"][program] = {
+            "variables": variables,
+            "paragraphs": paragraphs,
+            "copybooks": copybooks,
+            "call_targets": call_targets,
+            "calls": calls,
+            "db2_tables": db2_tables,
+            "sql_includes": sql_includes,
+            "jcl_jobs": jcl_jobs,
+            "counts": {
+                "variables": len(variables),
+                "paragraphs": len(paragraphs),
+                "copybooks": len(copybooks),
+                "call_targets": len(call_targets),
+                "db2_tables": len(db2_tables),
+                "sql_includes": len(sql_includes),
+                "jcl_jobs": len(jcl_jobs),
+            },
+        }
+
+        for variable in variables:
+            add_entity_occurrence(
+                by_entity_name,
+                name=variable,
+                entity_type="variable",
+                program=program,
+                entity_key=f"{program}|VARIABLE|{variable}",
+                source="dataflow.used_variables",
+            )
+        for paragraph in paragraphs:
+            add_entity_occurrence(
+                by_entity_name,
+                name=paragraph,
+                entity_type="paragraph",
+                program=program,
+                entity_key=f"{program}|PARAGRAPH|{paragraph}",
+                source="controlflow.cfg",
+            )
+        for copybook in copybooks:
+            add_entity_occurrence(
+                by_entity_name,
+                name=copybook,
+                entity_type="copybook",
+                program=program,
+                entity_key=f"{program}|COPYBOOK|{copybook}",
+                source="architecture.copybooks",
+            )
+        for edge in calls:
+            add_entity_occurrence(
+                by_entity_name,
+                name=edge["target"],
+                entity_type="call_target",
+                program=program,
+                entity_key=f"{program}|{edge['target']}|{edge['call_type']}",
+                source="architecture.call",
+            )
+        for table in db2_tables:
+            add_entity_occurrence(
+                by_entity_name,
+                name=table,
+                entity_type="db2_table",
+                program=program,
+                entity_key=f"{program}|DB2_TABLE|{table}",
+                source="architecture.db2_table",
+            )
+            db2_usage.append({"program": program, "table": table})
+        for include in sql_includes:
+            add_entity_occurrence(
+                by_entity_name,
+                name=include,
+                entity_type="sql_include",
+                program=program,
+                entity_key=f"{program}|SQL_INCLUDE|{include}",
+                source="architecture.sqlinclude",
+            )
+            sql_include_usage.append({"program": program, "sql_include": include})
+
+    entity_to_programs = {
+        name: sorted({occurrence["program"] for occurrence in occurrences})
+        for name, occurrences in sorted(by_entity_name.items())
+    }
+    ambiguous_entities = {
+        name: {
+            "programs": entity_to_programs[name],
+            "entity_types": sorted({occurrence["entity_type"] for occurrence in occurrences}),
+            "occurrences": sorted(occurrences, key=lambda row: (row["program"], row["entity_type"], row["entity_key"])),
+        }
+        for name, occurrences in sorted(by_entity_name.items())
+        if len(entity_to_programs[name]) > 1 or len({occurrence["entity_type"] for occurrence in occurrences}) > 1
+    }
+    entity_index = {
+        "schema_version": 1,
+        "entity_name_count": len(by_entity_name),
+        "entity_to_programs": entity_to_programs,
+        "entities": {
+            name: sorted(occurrences, key=lambda row: (row["program"], row["entity_type"], row["entity_key"]))
+            for name, occurrences in sorted(by_entity_name.items())
+        },
+        "ambiguous_entities": ambiguous_entities,
+    }
+
+    copybook_usage = []
+    for row in copybook_summary.get("top_copybooks") or []:
+        copybook_usage.append(
+            {
+                "copybook": row.get("copybook"),
+                "programs": row.get("programs") or [],
+                "categories": row.get("categories") or [],
+                "missing_in_packages": row.get("missing_in_packages") or [],
+            }
+        )
+    for row in copybook_summary.get("missing_copybooks") or []:
+        if not any(item.get("copybook") == row.get("copybook") for item in copybook_usage):
+            copybook_usage.append(
+                {
+                    "copybook": row.get("copybook"),
+                    "programs": row.get("programs") or [],
+                    "categories": row.get("categories") or [],
+                    "missing_in_packages": row.get("missing_in_packages") or [],
+                }
+            )
+
+    relationship_index = {
+        "schema_version": 1,
+        "call_edges": sorted(call_edges, key=lambda row: (row["caller"], row["target"], row["call_type"])),
+        "copybook_usage": sorted(copybook_usage, key=lambda row: str(row.get("copybook") or "")),
+        "db2_table_usage": sorted(db2_usage, key=lambda row: (row["table"], row["program"])),
+        "sql_include_usage": sorted(sql_include_usage, key=lambda row: (row["sql_include"], row["program"])),
+        "jcl_program_map": jcl_summary.get("program_to_jobs") or {},
+    }
+    return program_index, entity_index, relationship_index
+
+
 def write_docs(out_dir: Path, docs_by_section: dict[str, list[dict[str, Any]]], manifest: dict[str, Any]) -> None:
     for section, docs in docs_by_section.items():
         section_dir = out_dir / section
@@ -765,7 +1029,15 @@ def build_global_maps(args: argparse.Namespace) -> dict[str, Any]:
             },
         },
     }
+    program_index, entity_index, relationship_index = build_program_entity_relationship_indexes(
+        program_data,
+        copybook_summary=copybook_summary,
+        jcl_summary=jcl_summary,
+    )
     write_docs(out_dir, docs_by_section, manifest)
+    save_json(out_dir / "program_index.json", program_index)
+    save_json(out_dir / "entity_index.json", entity_index)
+    save_json(out_dir / "relationship_index.json", relationship_index)
     return manifest
 
 

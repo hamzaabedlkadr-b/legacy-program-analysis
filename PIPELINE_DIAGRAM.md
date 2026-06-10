@@ -1,11 +1,11 @@
-# Combined COBOL RAG Pipeline Diagram
+﻿# Combined COBOL RAG Pipeline Diagram
 
 ```mermaid
 flowchart LR
   input["Input files<br/>COBOL, copybooks, MAPA result, control-flow JSON"]
 
   subgraph first["First approach: Hamza / MAPA analysis"]
-    my1["Fixed input package<br/>artifacts/final/final_scripts/input/PDCBVC"]
+    my1["Fixed input package<br/>input/PDCBVC"]
     my2["MAPA + final_scripts pipeline"]
     my3["Generated analysis artifacts<br/>program_artifacts/.../PDCBVC/artifacts"]
     my4["Hamza RAG documents<br/>output/rag_index/rag_documents.jsonl"]
@@ -62,3 +62,4 @@ flowchart LR
 - Second approach, Ermin/cobol-rekt, creates the exported `knowledge-base_rag` bundle.
 - Combined mode does not overwrite either source. It imports both, labels their provenance, creates integration artifacts, then indexes `PDCBVC_combined.jsonl`.
 - Hamza-only and combined tests use separate inbox files, Chroma directories, and collections.
+

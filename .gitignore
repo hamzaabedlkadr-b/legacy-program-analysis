@@ -3,3 +3,44 @@ __pycache__/
 *.pyo
 Thumbs.db
 .DS_Store
+
+# Local editor/runtime state
+.vscode/
+.pytest_cache/
+
+# Generated fixed-input pipeline folders
+artifacts/final/final_scripts/work/
+artifacts/final/final_scripts/output*/
+
+# Generated intermediate/report byproducts
+artifacts/intermediate/
+artifacts/experiments/
+artifacts/share/
+artifacts/reports/*.aux
+artifacts/reports/*.log
+artifacts/reports/*.out
+artifacts/reports/*.toc
+
+# Generated document byproducts
+docs/*.aux
+docs/*.log
+docs/*.out
+docs/*.toc
+
+# Unused/archive area: keep the index readable, but allow README/docs.
+unused/generated_artifacts/experiments/
+unused/generated_artifacts/final_scripts_outputs/
+unused/generated_artifacts/pycache/
+unused/generated_artifacts/share/
+unused/generated_artifacts/tmp_compare_left/
+unused/generated_artifacts/tmp_compare_right/
+unused/input_samples/_scratch/
+unused/external_repos/*
+!unused/external_repos/README.md
+unused/anonymization/artifacts/
+unused/anonymization/cobol-code-anonymizer/
+unused/anonymization/docs/*.aux
+unused/anonymization/docs/*.log
+unused/anonymization/docs/*.out
+unused/anonymization/docs/*.toc
+unused/anonymization/scripts/__pycache__/

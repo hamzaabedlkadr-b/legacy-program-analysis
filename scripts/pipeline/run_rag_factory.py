@@ -14,7 +14,7 @@ from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PIPELINE_DIR = PROJECT_ROOT / "scripts" / "pipeline"
-DEFAULT_PACKAGE_ROOT = Path("artifacts/final/final_scripts/input/program_packages")
+DEFAULT_PACKAGE_ROOT = Path("artifacts/final/final_scripts/work/program_packages")
 DEFAULT_OUTPUT_ROOT = Path("artifacts/final/final_scripts/output/program_artifacts")
 DEFAULT_RAG_INDEX_DIR = Path("artifacts/final/final_scripts/output/rag_index")
 DEFAULT_VALIDATION_DIR = Path("artifacts/final/final_scripts/output/validation")
