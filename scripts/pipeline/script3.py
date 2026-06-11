@@ -163,7 +163,7 @@ def parse_mapa_result(lines: List[str], example_cap: int = 3) -> Tuple[Dict[str,
     global_unhandled = Counter()
 
     for raw in lines:
-        line = raw.strip()
+        line = raw.lstrip("\ufeff").strip()
         if not line:
             continue
 
@@ -689,7 +689,7 @@ def build_rag_docs(pf: ProgramFacts) -> List[Dict[str, Any]]:
 
 def read_lines(path: Path) -> List[str]:
     try:
-        return path.read_text(encoding="utf-8").splitlines()
+        return path.read_text(encoding="utf-8-sig").splitlines()
     except FileNotFoundError:
         die(f"input file not found: {path}")
     except UnicodeDecodeError:
