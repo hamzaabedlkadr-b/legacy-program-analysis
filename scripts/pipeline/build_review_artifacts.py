@@ -25,6 +25,7 @@ DERIVED_TYPES = (
     "architecture.unused_copybooks",
     "jcl.file_io",
     "screen_field_lineage",
+    "program.capability_manifest",
 )
 
 
@@ -84,12 +85,17 @@ def detect_layout(root: Path) -> str:
 
 
 def build_all(root: Path, program: str, jcl_root: Path) -> dict[str, dict[str, Any]]:
-    return {
+    artifacts = {
         "quality.dead_code": build_quality_dead_code(root, program),
         "architecture.unused_copybooks": build_unused_copybooks(root, program),
         "jcl.file_io": build_jcl_file_io(root, program, jcl_root),
         "screen_field_lineage": build_screen_field_lineage(root, program),
     }
+    # Built last: it indexes the artifacts above, so they must exist first.
+    artifacts["program.capability_manifest"] = build_capability_manifest(
+        root, program, artifacts,
+    )
+    return artifacts
 
 
 def write_artifacts(
@@ -104,6 +110,7 @@ def write_artifacts(
             "architecture.unused_copybooks": root / "architecture.unused_copybooks.json",
             "jcl.file_io": root / "jcl.file_io.json",
             "screen_field_lineage": root / "screen_field_lineage.json",
+            "program.capability_manifest": root / "program.capability_manifest.json",
         }
     else:
         targets = {
@@ -111,6 +118,7 @@ def write_artifacts(
             "architecture.unused_copybooks": root / "architecture.unused_copybooks" / "architecture.unused_copybooks.json",
             "jcl.file_io": root / "jcl.file_io" / f"jcl.file_io.{program}.json",
             "screen_field_lineage": root / "screen_field_lineage" / "screen_field_lineage.json",
+            "program.capability_manifest": root / "program.capability_manifest.json",
         }
 
     written: list[Path] = []
@@ -150,6 +158,15 @@ def print_summary(root: Path, layout: str, artifacts: dict[str, dict[str, Any]])
         "[INFO] screen_field_lineage "
         f"fields={screen['fields_count']} "
         f"copybooks={', '.join(screen['copybook_origins']) or 'none'}"
+    )
+    manifest = artifacts["program.capability_manifest"]["content"]
+    paragraphs = manifest["program_facts"]["paragraphs"]
+    print(
+        "[INFO] program.capability_manifest "
+        f"available={sum(1 for e in manifest['capabilities'].values() if e['available'])}"
+        f"/{len(manifest['capabilities'])} "
+        f"paragraphs={paragraphs['value']} (source={paragraphs['source']}, "
+        f"agree={paragraphs['analyzers_agree']})"
     )
 
 
@@ -690,6 +707,252 @@ def dd_items(step: dict[str, Any], wanted_access: set[str]) -> list[dict[str, An
             }
         )
     return items
+
+
+# One capability per question a program can be asked, mapped to the artifact that
+# answers it. The names match the RAG's evidence capabilities so a question can be
+# resolved to a file without searching, and so "this program has no JCL" is a
+# lookup rather than something inferred from an empty retrieval.
+def build_capability_manifest(
+    root: Path,
+    program: str,
+    derived: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    capabilities: dict[str, Any] = {}
+
+    def record(
+        name: str,
+        kind: str,
+        count: int | None,
+        *,
+        available: bool | None = None,
+        reason: str = "",
+    ) -> None:
+        entry: dict[str, Any] = {
+            "artifact": artifact_source(root, kind),
+            "count": count,
+            "available": (count not in (None, 0)) if available is None else available,
+        }
+        if reason:
+            entry["reason"] = reason
+        capabilities[name] = entry
+
+    used = read_artifact(root, "dataflow.used_variables")
+    variables = used.get("variables", []) if isinstance(used, dict) else []
+    record("variable_inventory", "dataflow.used_variables", len(variables))
+    record(
+        "variable_access",
+        "dataflow.variable",
+        len(iter_artifact_files(root, "dataflow.variable")),
+    )
+
+    literals = read_artifact(root, "dataflow.literal_assignments")
+    record(
+        "literal_assignment",
+        "dataflow.literal_assignments",
+        len(literals.get("assignments", [])) if isinstance(literals, dict) else 0,
+    )
+
+    calls = read_artifact(root, "architecture.call_parameters")
+    record(
+        "call_evidence",
+        "architecture.call_parameters",
+        len(calls.get("calls", [])) if isinstance(calls, dict) else 0,
+    )
+
+    cics = read_artifact(root, "architecture.cics_operations")
+    cics_content = cics.get("content", {}) if isinstance(cics, dict) else {}
+    record(
+        "cics_evidence",
+        "architecture.cics_operations",
+        len(cics_content.get("operations", [])) if isinstance(cics_content, dict) else 0,
+    )
+
+    copybooks = read_artifact(root, "architecture.copybooks")
+    copybook_content = copybooks.get("content", {}) if isinstance(copybooks, dict) else {}
+    record(
+        "copybook_evidence",
+        "architecture.copybooks",
+        len(copybook_content.get("all", [])) if isinstance(copybook_content, dict) else 0,
+    )
+
+    record(
+        "db2_evidence",
+        "architecture.db2_table",
+        len(iter_artifact_files(root, "architecture.db2_table")),
+    )
+    record(
+        "condition_outcome",
+        "business_rule",
+        len(iter_artifact_files(root, "business_rule")),
+    )
+
+    cfg = read_artifact(root, "controlflow.cfg")
+    record(
+        "control_flow",
+        "controlflow.cfg",
+        len(cfg.get("edges", [])) if isinstance(cfg, dict) else 0,
+    )
+
+    file_io = derived["jcl.file_io"]["content"]
+    has_jcl = bool(file_io.get("has_jcl_linkage"))
+    record(
+        "jcl_evidence",
+        "jcl.file_io",
+        file_io.get("matching_steps_count", 0),
+        available=has_jcl,
+        reason="" if has_jcl else "no program-to-JCL linkage in the parsed job steps",
+    )
+
+    dead = derived["quality.dead_code"]["content"]
+    record(
+        "quality_evidence",
+        "quality.dead_code",
+        int(dead.get("commented_out_code_count", 0))
+        + int(dead.get("cfg_reachability", {}).get("unreachable_nodes_count", 0)),
+    )
+
+    screen = derived["screen_field_lineage"]["content"]
+    record(
+        "screen_lineage",
+        "screen_field_lineage",
+        int(screen.get("fields_count", 0)),
+    )
+
+    # Capabilities that read the same artifacts as one above but answer a
+    # different question. They are listed explicitly because a capability absent
+    # from this index is invisible to whatever consults it, and a question with
+    # no listed home is answered by the nearest thing that does have one.
+    record(
+        "variable_lineage",
+        "dataflow.variable",
+        len(iter_artifact_files(root, "dataflow.variable")),
+    )
+    record(
+        "paragraph_evidence",
+        "controlflow.cfg",
+        len(observed_paragraph_names(root, program)),
+    )
+    calls_with_context = 0
+    if isinstance(calls, dict):
+        calls_with_context = sum(
+            1 for call in calls.get("calls", [])
+            if isinstance(call, dict) and call.get("parameter_details")
+        )
+    record("call_context", "architecture.call_parameters", calls_with_context)
+    record(
+        "pagination_evidence",
+        "controlflow.cfg",
+        len(cfg.get("edges", [])) if isinstance(cfg, dict) else 0,
+    )
+
+    summary = read_artifact(root, "program.summary")
+    record("program_summary", "program.summary", 1 if summary else 0)
+    record("source_metrics", "program.summary", 1 if summary else 0)
+    record(
+        "artifact_inventory",
+        "program.capability_manifest",
+        len([path for path in root.glob("*.json")]) + len([d for d in root.iterdir() if d.is_dir()]),
+    )
+
+    return {
+        "type": "program.capability_manifest",
+        "schema_version": 1,
+        "program": program,
+        "title": f"{program} capability manifest",
+        "embedding_text": (
+            f"{program} analyzed capability index. "
+            + ", ".join(
+                f"{name} {entry['count']}"
+                for name, entry in capabilities.items()
+                if entry["available"]
+            )
+        ),
+        "content": {
+            "capabilities": capabilities,
+            "program_facts": build_program_facts(root, program, summary),
+        },
+        "meta": {
+            "purpose": (
+                "Resolve a question to the artifact that answers it, and state "
+                "which capabilities this program has evidence for, without "
+                "searching the corpus."
+            ),
+            "available_count": sum(1 for e in capabilities.values() if e["available"]),
+            "capability_count": len(capabilities),
+        },
+    }
+
+
+def build_program_facts(root: Path, program: str, summary: Any) -> dict[str, Any]:
+    """Record program size, resolving analyzer disagreement against the evidence.
+
+    Analyzers disagree about paragraph counts, and a reader asking how big a
+    program is wants a number rather than a dispute. Paragraph names actually
+    referenced across the artifacts are counted here and used as the resolved
+    value, with every candidate kept so the disagreement stays inspectable.
+    """
+    meta = summary.get("meta", {}) if isinstance(summary, dict) else {}
+    observed = observed_paragraph_names(root, program)
+
+    candidates: dict[str, Any] = {}
+    if isinstance(meta.get("paragraphs"), int):
+        candidates["mapa_result"] = meta["paragraphs"]
+    dead = read_artifact(root, "quality.dead_code")
+    nodes = (
+        dead.get("content", {}).get("cfg_reachability", {}).get("nodes_count")
+        if isinstance(dead, dict)
+        else None
+    )
+    if isinstance(nodes, int):
+        candidates["controlflow_cfg_nodes"] = nodes
+    if observed:
+        candidates["observed_in_artifacts"] = len(observed)
+
+    resolved = candidates.get("observed_in_artifacts") or candidates.get(
+        "controlflow_cfg_nodes"
+    ) or candidates.get("mapa_result")
+    return {
+        "loc": meta.get("loc"),
+        "statements": meta.get("statements"),
+        "paragraphs": {
+            "value": resolved,
+            "source": (
+                "observed_in_artifacts"
+                if "observed_in_artifacts" in candidates
+                else next(iter(candidates), "unknown")
+            ),
+            "candidates": candidates,
+            "analyzers_agree": len(set(candidates.values())) <= 1,
+        },
+    }
+
+
+def observed_paragraph_names(root: Path, program: str) -> set[str]:
+    """Collect paragraph names that other artifacts actually reference."""
+    names: set[str] = set()
+
+    cfg = read_artifact(root, "controlflow.cfg")
+    if isinstance(cfg, dict):
+        for edge in cfg.get("edges", []):
+            if isinstance(edge, dict):
+                for key in ("from", "to"):
+                    value = str(edge.get(key) or "").strip()
+                    if value and value != program:
+                        names.add(value)
+
+    used = read_artifact(root, "dataflow.used_variables")
+    if isinstance(used, dict):
+        for variable in used.get("variables", []):
+            if not isinstance(variable, dict):
+                continue
+            evidence = variable.get("evidence", {})
+            for role in ("write_sites", "read_sites", "control_sites"):
+                for site in evidence.get(role, []) if isinstance(evidence, dict) else []:
+                    value = str(site.get("paragraph") or "").strip().strip('"')
+                    if value:
+                        names.add(value)
+    return names
 
 
 def read_artifact(root: Path, kind: str) -> Any | None:
