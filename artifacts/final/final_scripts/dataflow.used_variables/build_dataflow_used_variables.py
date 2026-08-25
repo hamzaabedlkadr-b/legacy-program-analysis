@@ -7,13 +7,14 @@ from pathlib import Path
 def main():
     ap = argparse.ArgumentParser(description="Build dataflow.used_variables.json from pdc_var_index_used.json")
     ap.add_argument("--input", required=True, help="Path to pdc_var_index_used.json")
+    ap.add_argument("--program", required=True, help="Program name")
     ap.add_argument("--output", required=True, help="Output dataflow.used_variables.json path")
     args = ap.parse_args()
 
     vars_used = json.loads(Path(args.input).read_text(encoding="utf-8"))
     out = {
         "type": "dataflow.used_variables",
-        "program": "PDCBVC",
+        "program": args.program,
         "variables": vars_used,
         "source": "pdc_var_index_used.json",
     }

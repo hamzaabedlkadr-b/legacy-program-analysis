@@ -56,7 +56,11 @@ def load_cobol_statements(path: Path) -> list[dict[str, Any]]:
 
     for line_no, raw_line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), start=1):
         line = strip_sequence(raw_line)
-        if re.match(r"^\s*(\*|/)", line):
+        # Fixed-format COBOL uses column 7 as the comment indicator.  Some
+        # sources carry a change tag in columns 1-6 (for example ``mar23 *``),
+        # so testing only the first non-space character merges the comment and
+        # all setup statements into the following CALL record.
+        if re.match(r"^\s*(\*|/)", line) or (len(line) > 6 and line[6] in {"*", "/"}):
             continue
 
         paragraph_match = PARAGRAPH_RE.match(line)
@@ -68,6 +72,21 @@ def load_cobol_statements(path: Path) -> list[dict[str, Any]]:
         if not text:
             continue
         if re.fullmatch(r"SKIP\d*|EJECT", text, re.IGNORECASE):
+            continue
+
+        # A regular CALL is itself the record we need.  Do not inherit earlier
+        # unterminated MOVE/INITIALIZE lines merely because COBOL permits a
+        # paragraph-level period; their line evidence belongs in
+        # writes_before_call, not in the call statement or its line number.
+        if re.search(r"\bCALL\s+('[^']+'|\"[^\"]+\"|[A-Z0-9-]+)\s+USING\b", text, re.IGNORECASE):
+            statements.append({
+                "paragraph": current_paragraph,
+                "line_start": line_no,
+                "line_end": line_no,
+                "statement": re.sub(r"\s+", " ", text).strip(),
+            })
+            buffer = []
+            start_line = 0
             continue
 
         if not buffer:

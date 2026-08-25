@@ -18,6 +18,7 @@ REQUIRED_ARTIFACT_FILES = {
     "dataflow_used_variables": "dataflow.used_variables.json",
     "dataflow_literal_assignments": "dataflow.literal_assignments.json",
     "architecture_call_parameters": "architecture.call_parameters.json",
+    "architecture_cics_operations": "architecture.cics_operations.json",
     "program_comments": "program.comments.json",
     "ui_cics_navigation": "ui.cics.navigation.json",
 }

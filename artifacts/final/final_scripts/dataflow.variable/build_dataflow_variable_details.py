@@ -25,6 +25,21 @@ def list_or_none(items):
     return ", ".join(items)
 
 
+def remove_stale_outputs(out_dir: Path, expected_names: set[str]) -> int:
+    """Remove variable artifacts that are no longer present in canonical input.
+
+    Pipeline runs commonly reuse their output directory.  Without this scoped
+    cleanup, variables removed by a corrected analysis remain searchable even
+    though the aggregate used-variable artifact no longer contains them.
+    """
+    removed = 0
+    for path in out_dir.glob("dataflow.variable.*.json"):
+        if path.name not in expected_names:
+            path.unlink()
+            removed += 1
+    return removed
+
+
 def main():
     ap = argparse.ArgumentParser(description="Build dataflow.variable.*.json from pdc_var_index_used.json")
     ap.add_argument("--input", required=True, help="Path to pdc_var_index_used.json")
@@ -37,6 +52,7 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     wrote = 0
+    expected_names: set[str] = set()
     for v in data:
         var = v.get("variable") or "UNKNOWN"
         origin = v.get("origin") or "UNKNOWN"
@@ -49,7 +65,13 @@ def main():
         evidence = v.get("evidence") or {}
         write_sites = evidence.get("write_sites") or []
         read_sites = evidence.get("read_sites") or []
+        read_write_sites = evidence.get("read_write_sites") or []
+        subscript_sites = evidence.get("subscript_sites") or []
         control_sites = evidence.get("control_sites") or []
+        relationships = v.get("relationships") or {}
+        parents = relationships.get("parents") or []
+        children = relationships.get("children") or []
+        redefines = relationships.get("redefines") or []
 
         embedding_text = (
             f"{args.program} variable {var}. "
@@ -58,7 +80,10 @@ def main():
             f"Modified in: {list_or_none(modified_in)}. "
             f"Used in: {list_or_none(used_in)}. "
             f"Controls flow: {'yes' if controls_flow else 'no'}. "
-            f"Fanout nodes: {list_or_none(fanout_nodes)}."
+            f"Fanout nodes: {list_or_none(fanout_nodes)}. "
+            f"Parent groups: {list_or_none(parents)}. "
+            f"Child fields: {list_or_none(children)}. "
+            f"Redefines: {list_or_none(redefines)}."
         )
 
         doc = {
@@ -78,16 +103,26 @@ def main():
                     "fanout_nodes": len(fanout_nodes),
                     "write_sites": len(write_sites),
                     "read_sites": len(read_sites),
+                    "read_write_sites": len(read_write_sites),
+                    "subscript_sites": len(subscript_sites),
                     "control_sites": len(control_sites),
+                    "parents": len(parents),
+                    "children": len(children),
+                    "redefines": len(redefines),
                 },
             },
         }
 
         out_path = out_dir / f"dataflow.variable.{safe_name(var)}.json"
+        expected_names.add(out_path.name)
         out_path.write_text(json.dumps(doc, indent=2, ensure_ascii=False), encoding="utf-8")
         wrote += 1
 
-    print(f"[OK] Wrote {wrote} dataflow.variable.*.json files to {out_dir}")
+    removed = remove_stale_outputs(out_dir, expected_names)
+    print(
+        f"[OK] Wrote {wrote} dataflow.variable.*.json files to {out_dir}"
+        f"; removed {removed} stale file(s)"
+    )
 
 
 if __name__ == "__main__":

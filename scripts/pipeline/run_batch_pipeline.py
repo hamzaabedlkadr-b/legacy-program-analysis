@@ -506,6 +506,7 @@ def main():
                 "--input", str(mapa_rag),
                 "--program", program,
                 "--output", str(artifacts_dir / f"architecture.copybooks{suffix}.json"),
+                "--source", str(cobol),
             ])
             run_cmd([
                 python, str(FINAL_SCRIPTS_DIR / "architecture.calls" / "build_architecture_calls.py"),
@@ -536,6 +537,7 @@ def main():
         run_cmd([
             python, str(FINAL_SCRIPTS_DIR / "dataflow.used_variables" / "build_dataflow_used_variables.py"),
             "--input", str(pdc_var_used),
+            "--program", program,
             "--output", str(artifacts_dir / "dataflow.used_variables.json"),
         ])
         run_cmd([
@@ -560,6 +562,7 @@ def main():
         run_cmd([
             python, str(FINAL_SCRIPTS_DIR / "business_rule" / "build_business_rule_details.py"),
             "--input", str(pdc_rules),
+            "--cobol", str(cobol),
             "--program", program,
             "--out-dir", str(artifacts_dir / "business_rule"),
         ])
@@ -569,6 +572,13 @@ def main():
             "--enriched", str(pdc_enriched),
             "--program", program,
             "--out", str(artifacts_dir / "ui.cics.navigation.json"),
+        ])
+        run_cmd([
+            python, str(FINAL_SCRIPTS_DIR / "architecture.cics_operations" / "build_architecture_cics_operations.py"),
+            "--cobol", str(cobol),
+            "--copy-dir", str(copy_dir),
+            "--program", program,
+            "--output", str(artifacts_dir / "architecture.cics_operations.json"),
         ])
         run_cmd([
             python, str(FINAL_SCRIPTS_DIR / "program.comments" / "build_program_comments.py"),
@@ -588,6 +598,14 @@ def main():
         if jcl_dir:
             review_cmd.extend(["--jcl-root", str(global_dir / "jcl")])
         run_cmd(review_cmd)
+        run_cmd([
+            python, str(PIPELINE_SCRIPTS_DIR / "build_normalized_evidence.py"),
+            "--artifacts-root", str(artifacts_dir),
+            "--program", program,
+            "--output", str(
+                artifacts_dir / "evidence.normalized" / "evidence.normalized.json"
+            ),
+        ])
 
         processed_programs.append(program)
         print(f"[OK] Finished program: {program} -> {prog_root}")

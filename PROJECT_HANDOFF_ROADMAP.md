@@ -1,6 +1,7 @@
 ﻿# COBOL RAG Project Handoff And Roadmap
 
 Created: 2026-06-08
+Last updated: 2026-07-08
 
 Use this file as the first context document for any new AI chat. The goal is that the new chat can understand the project without the user re-explaining the repositories, branches, current pipeline, and remaining plan.
 
@@ -17,10 +18,23 @@ Full embedding sync, Chroma runtime validation, RAG LLM answers, and UI/model te
 
 This project builds a RAG system for COBOL program understanding.
 
-The current main program used for testing is:
+The primary program used for detailed RAG/UI testing is:
 
 ```text
 PDCBVC
+```
+
+The latest analysis-side build also includes:
+
+```text
+PDB305
+```
+
+Current local note:
+
+```text
+PDB305 currently lives in input\PD305, while the files and generated program name are PDB305.
+Document it this way unless the folder is deliberately renamed later.
 ```
 
 The project combines two evidence sources:
@@ -88,6 +102,8 @@ C:\Users\Lenovo\Desktop\Camera\control_flow\scripts\pipeline\build_global_rag_ma
 C:\Users\Lenovo\Desktop\Camera\control_flow\REPO_ORGANIZATION.md
 C:\Users\Lenovo\Desktop\Camera\control_flow\input\README.md
 C:\Users\Lenovo\Desktop\Camera\control_flow\PIPELINE_DIAGRAM.md
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\current_rag_architecture.md
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\current_rag_detailed_report.pdf
 C:\Users\Lenovo\Desktop\Camera\control_flow\docs\combined_cobol_rekt_mapa_merge_report.md
 ```
 
@@ -106,14 +122,16 @@ Current state:
 
 ```text
 Local branch tracks origin/feature/combine-cobol-rekt-analysis.
-Last checked local HEAD matched the remote-tracking branch.
-The worktree has many generated/untracked files and some modified/deleted input files.
+Latest local commit checked: 2c39e13 Add PDB305 input and harden MAPA parsing.
+The worktree has untracked current report/diagram docs and an untracked cobol-code-anonymizer folder.
 Do not clean, reset, or delete anything unless the user explicitly asks.
 ```
 
-Latest important pushed analysis commits on this branch:
+Latest important local analysis commits on this branch:
 
 ```text
+2c39e13 Add PDB305 input and harden MAPA parsing
+5255f27 Organize COBOL RAG pipeline layout
 da7f412 Add constant optimization and compact RAG indexing
 5c15835 Accept DOT controlflow inputs
 940da68 Improve combined cobol-rekt MAPA evidence merge
@@ -181,12 +199,19 @@ Current RAG branch status:
 
 ```text
 feature/combine-cobol-rekt-rag tracks origin/feature/combine-cobol-rekt-rag.
-The worktree was clean when last checked.
+Latest local commit checked: 40f8c7f Preserve combined RAG evidence metadata.
+The worktree has local changes:
+- modified data/inbox/control_flow_rag_documents.jsonl
+- untracked data/chroma-fixed-pdcbvc/
+- untracked eval/scope_router_smoke.py
+- untracked src/cobol_rag/scope_router.py
+Do not reset or clean these without explicit user approval.
 ```
 
-Latest important pushed RAG commits on this branch:
+Latest important local RAG commits on this branch:
 
 ```text
+40f8c7f Preserve combined RAG evidence metadata
 d16e3d8 Route general and code questions explicitly
 35500e0 Improve intent routing and answer guards
 b5f3f3d Add RAG pipeline handoff docs
@@ -240,6 +265,86 @@ knowledge-base_rag\knowledge-base_rag\chunks\
 
 ## 3. Input And Output Layout
 
+### 3.0 Current Local Snapshot
+
+Checked on 2026-07-08:
+
+```text
+Analysis repo:
+- Branch: feature/combine-cobol-rekt-analysis
+- Latest local commit: 2c39e13 Add PDB305 input and harden MAPA parsing
+- Active input folders: input\PDCBVC and input\PD305
+- Generated programs: PDCBVC and PDB305
+- PDCBVC knowledge-base_rag manifest is not present on this PC.
+
+RAG/UI repo:
+- Branch: feature/combine-cobol-rekt-rag
+- Latest local commit: 40f8c7f Preserve combined RAG evidence metadata
+- Worktree has local generated/index files and scope-router files.
+```
+
+Latest Hamza-only RAG manifest:
+
+```text
+records: 621
+program_count: 2
+by_program:
+  PDB305: 206
+  PDCBVC: 271
+  __GLOBAL__: 144
+metadata:
+  program: 621/621
+  intent_domain: 621/621
+  hierarchy_level: 621/621
+  parent_id: 621/621
+  parent_type: 621/621
+  evidence_path: 621/621
+  chunk_type: 621/621
+  entity_key: 394/621
+```
+
+Latest combined two-program JSONL checked:
+
+```text
+file: artifacts\final\final_scripts\output\combined\rag_index\PDB305_PDCBVC_combined.jsonl
+records: 2016
+by_program:
+  PDB305: 772
+  PDCBVC: 1100
+  __GLOBAL__: 144
+metadata:
+  program: 2016/2016
+  source_system: 2016/2016
+  intent_domain: 2016/2016
+  hierarchy_level: 2016/2016
+  parent_id: 2016/2016
+  parent_type: 2016/2016
+  evidence_path: 2016/2016
+  chunk_type: 2016/2016
+  entity_key: 943/2016
+```
+
+Current generated sidecar indexes:
+
+```text
+C:\Users\Lenovo\Desktop\Camera\control_flow\artifacts\final\final_scripts\output\program_artifacts\_global\rag_maps\program_index.json
+C:\Users\Lenovo\Desktop\Camera\control_flow\artifacts\final\final_scripts\output\program_artifacts\_global\rag_maps\entity_index.json
+C:\Users\Lenovo\Desktop\Camera\control_flow\artifacts\final\final_scripts\output\program_artifacts\_global\rag_maps\relationship_index.json
+```
+
+Current active docs/report artifacts:
+
+```text
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\current_rag_architecture.md
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\current_rag_detailed_report.pdf
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\current_rag_detailed_report.tex
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\rag_system_overview_diagram.svg
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\rag_workflow_diagram.svg
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\rag_retrieval_model_stack_diagram.svg
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\rag_retrieval_basis_modes_flow_diagram.svg
+C:\Users\Lenovo\Desktop\Camera\control_flow\docs\rag_proper_answering_diagram.svg
+```
+
 ### 3.1 Fixed Input Layout
 
 Program inputs live under:
@@ -252,6 +357,12 @@ For PDCBVC:
 
 ```text
 C:\Users\Lenovo\Desktop\Camera\control_flow\input\PDCBVC\
+```
+
+For the current PDB305 input:
+
+```text
+C:\Users\Lenovo\Desktop\Camera\control_flow\input\PD305\
 ```
 
 Expected shape:
@@ -274,6 +385,12 @@ Generated by:
 scripts\pipeline\run_fixed_input.py --program PDCBVC --mode my
 ```
 
+For all current program folders:
+
+```text
+scripts\pipeline\run_fixed_input.py --mode my
+```
+
 Main outputs:
 
 ```text
@@ -288,6 +405,7 @@ C:\Users\Lenovo\Desktop\Camera\control_flow\artifacts\final\final_scripts\output
 Generated by:
 
 ```text
+scripts\pipeline\run_fixed_input.py --program PDCBVC --mode combined
 scripts\pipeline\run_fixed_input.py --program PDCBVC --mode both
 ```
 
@@ -296,6 +414,8 @@ Main outputs:
 ```text
 C:\Users\Lenovo\Desktop\Camera\control_flow\artifacts\final\final_scripts\output\combined\final_scripts\PDCBVC\
 C:\Users\Lenovo\Desktop\Camera\control_flow\artifacts\final\final_scripts\output\combined\rag_index\PDCBVC_combined.jsonl
+C:\Users\Lenovo\Desktop\Camera\control_flow\artifacts\final\final_scripts\output\combined\rag_index\PDB305_combined.jsonl
+C:\Users\Lenovo\Desktop\Camera\control_flow\artifacts\final\final_scripts\output\combined\rag_index\PDB305_PDCBVC_combined.jsonl
 ```
 
 Combined mode preserves provenance. It does not overwrite Hamza facts with cobol-rekt facts. It adds source labels and integration records.
@@ -976,7 +1096,9 @@ Do not search the entire corpus and guess.
 Status:
 
 ```text
-Mostly done.
+Done locally for the PDCBVC baseline.
+The latest analysis-side manifest also indexes PDB305.
+Friend-PC runtime checks are still needed for Ollama, Chroma sync, and UI/model answers.
 ```
 
 Tasks:
@@ -1002,7 +1124,9 @@ Unknown variables/programs get guarded "not indexed/evidenced" answers.
 Status:
 
 ```text
-Next.
+Local Hamza-only metadata checks are complete.
+Combined/friend-PC checks are still pending.
+Current active stage is Stage 6: Metadata-Filtered Hybrid Retrieval.
 ```
 
 Main repo:
@@ -1459,6 +1583,7 @@ Current limitations:
 
 ```text
 PDCBVC is the strongest tested program.
+PDB305 is now included in analysis-side outputs, but PDCBVC remains the main detailed RAG/UI target.
 Multi-program enterprise routing is not finished yet.
 Combined mode is promising but should not replace Hamza-only mode until evaluated.
 Some JCL/dataset questions require JCL artifacts to be present and indexed.
@@ -1520,6 +1645,8 @@ If a new chat starts, tell it:
 
 ```text
 Read C:\Users\Lenovo\Desktop\Camera\control_flow\PROJECT_HANDOFF_ROADMAP.md first.
+Then read C:\Users\Lenovo\Desktop\Camera\control_flow\PROJECT_STAGE_TRACKER.md.
+For the latest diagrams/report, inspect C:\Users\Lenovo\Desktop\Camera\control_flow\docs\current_rag_architecture.md and C:\Users\Lenovo\Desktop\Camera\control_flow\docs\current_rag_detailed_report.pdf.
 Then inspect the files listed in sections 2, 5, and 8.
 Do not reset the git worktree.
 Do not delete generated files.

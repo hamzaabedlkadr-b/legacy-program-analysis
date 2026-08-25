@@ -412,7 +412,24 @@ def copy_baseline(final_scripts_root: Path, out_root: Path) -> None:
     if final_scripts_root.resolve() == out_root.resolve():
         raise ValueError("out-root must not be the same as final-scripts-root")
     out_root.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(final_scripts_root, out_root, dirs_exist_ok=True, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo"))
+    ignore = shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo")
+    # Mirror every baseline-owned top-level entry.  A merge-only copy leaves
+    # obsolete analyzer files in reused combined outputs (for example, an old
+    # per-variable JSON after that false variable was removed).  Target-only
+    # integration entries are preserved and rebuilt by the importer below.
+    for source in final_scripts_root.iterdir():
+        if source.name == "__pycache__" or source.suffix in {".pyc", ".pyo"}:
+            continue
+        target = out_root / source.name
+        if target.exists():
+            if target.is_dir():
+                shutil.rmtree(target)
+            else:
+                target.unlink()
+        if source.is_dir():
+            shutil.copytree(source, target, ignore=ignore)
+        else:
+            shutil.copy2(source, target)
 
 
 def extract_call_contracts(chunks: list[dict[str, Any]]) -> dict[str, Any]:

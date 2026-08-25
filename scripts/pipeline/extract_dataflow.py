@@ -52,13 +52,14 @@ COBOL_KEYWORDS = {
     "DFHENTER", "DFHPF1", "DFHPF2", "DFHPF3", "DFHPF4",
     "DFHPF5", "DFHPF6", "DFHPF7", "DFHPF8", "DFHPF9",
     "DFHCLEAR", "DFHPA1", "DFHPA2", "DFHPA3",
-    "SQL", "INCLUDE", "WHENEVER", "SELECT", "INTO", "WHERE",
+    "SQL", "INCLUDE", "WHENEVER", "SQLERROR", "SQLWARNING", "NOT-FOUND",
+    "SELECT", "INTO", "WHERE",
     "BEGIN", "DECLARE", "ASKTIME", "FORMATTIME",
     "SEND", "RECEIVE", "ADDRESS", "MAP", "MAPSET",
     "DATAONLY", "ERASE", "SYNCPOINT",
     "RESP", "RESP2", "LENGTH",
     "SQLCA", "SQLCODE", "SQLSTATE", "SQLERRM", "REPLACING", "SUPPRESS",
-    "TITLE", "SUBTITLE", "PAGE", "COLUMNS",
+    "TITLE", "SUBTITLE", "PAGE", "COLUMNS", "FILLER",
     # Data picture tokens that should never become “variables”
     "PIC", "PICTURE", "VALUE", "COMP", "COMP-3", "COMP-5", "BINARY", "DISPLAY",
     "SIGN", "SYNC", "REDEFINES", "OCCURS", "TIMES", "INDEXED", "INSPECT", "STRING", "UNSTRING",
@@ -159,7 +160,10 @@ SECTION_RE = re.compile(r"^\s*([A-Z0-9-]+)\s+SECTION\.\s*$", re.I)
 COPY_RE = re.compile(r"^\s*COPY\s+([A-Z0-9-]+)\b", re.I)
 LEVEL_DECL_RE = re.compile(r"^\s*(\d{2})\s+([A-Z][A-Z0-9-]+)\b")
 
-TARGET_RE = re.compile(r"\b(PERFORM|GO-TO|GOTO|CALL|LINK|XCTL)\s+([A-Z][A-Z0-9-]+)\b", re.I)
+TARGET_RE = re.compile(
+    r"\b(PERFORM|GO\s+TO|GO-TO|GOTO|CALL|LINK|XCTL)\s+([A-Z][A-Z0-9-]+)\b",
+    re.I,
+)
 
 
 # -----------------------------
@@ -183,6 +187,8 @@ class VarInfo:
     fanout_nodes: List[str]
     write_sites: List[Site]
     read_sites: List[Site]
+    read_write_sites: List[Site]
+    subscript_sites: List[Site]
     control_sites: List[Site]
 
 @dataclass
@@ -402,6 +408,79 @@ def parse_declarations(stmts_all: List[Tuple[int, str]], copy_dir: Optional[Path
     return decls
 
 
+def parse_declaration_relations(
+    stmts_all: List[Tuple[int, str]],
+    copy_dir: Optional[Path],
+    main_source_name: str = "main_source",
+) -> Dict[str, Dict]:
+    """Build auditable group-membership and REDEFINES relationships."""
+    relations: Dict[str, Dict] = {}
+
+    def entry(name: str) -> Dict:
+        return relations.setdefault(name, {
+            "parents": [],
+            "children": [],
+            "redefines": [],
+            "redefined_by": [],
+            "declarations": [],
+        })
+
+    def add_unique_value(values: List[str], value: Optional[str]) -> None:
+        if value and value not in values:
+            values.append(value)
+
+    def process(statements: List[Tuple[int, str]], source_file: str, require_data: bool) -> None:
+        stack: List[Tuple[int, str]] = []
+        in_data = not require_data
+        for line, statement in statements:
+            upper = statement.upper()
+            division = DIV_RE.match(upper)
+            if division:
+                in_data = division.group(1).upper() == "DATA"
+                stack = []
+                continue
+            if not in_data:
+                continue
+            match = LEVEL_DECL_RE.match(upper)
+            if not match:
+                continue
+            level = int(match.group(1))
+            name = match.group(2).upper()
+            if is_filtered_keyword(name):
+                continue
+            while stack and stack[-1][0] >= level:
+                stack.pop()
+            parent = stack[-1][1] if stack and level not in {66, 77} else None
+            item = entry(name)
+            add_unique_value(item["parents"], parent)
+            if parent:
+                add_unique_value(entry(parent)["children"], name)
+            redefines = re.search(r"\bREDEFINES\s+([A-Z][A-Z0-9-]*)\b", upper)
+            if redefines:
+                target = redefines.group(1).upper()
+                add_unique_value(item["redefines"], target)
+                add_unique_value(entry(target)["redefined_by"], name)
+            declaration = {
+                "line_start": line,
+                "statement": statement,
+                "source_file": source_file,
+                "level": level,
+            }
+            if declaration not in item["declarations"]:
+                item["declarations"].append(declaration)
+            if level not in {66, 77, 88}:
+                stack.append((level, name))
+
+    process(stmts_all, main_source_name, True)
+    if copy_dir and copy_dir.exists():
+        for copybook in sorted(path for path in copy_dir.iterdir() if path.is_file()):
+            try:
+                process(read_cobol_statements(copybook), copybook.name, False)
+            except Exception:
+                continue
+    return relations
+
+
 # -----------------------------
 # CFG helper
 # -----------------------------
@@ -497,7 +576,49 @@ def extract_explicit_targets(text: str) -> Set[str]:
 # Statement analysis: reads/writes
 # -----------------------------
 
-def detect_write_read_from_statement(stmt: str) -> Tuple[Set[str], Set[str]]:
+def _identifiers_inside_parentheses(text: str) -> Set[str]:
+    identifiers: Set[str] = set()
+    for content in re.findall(r"\(([^()]*)\)", text.upper()):
+        identifiers.update(extract_identifiers(content))
+    return identifiers
+
+
+def _receiving_identifiers(text: str) -> Tuple[Set[str], Set[str]]:
+    """Return receiving fields and subscript fields from a COBOL target clause."""
+    subscripts = _identifiers_inside_parentheses(text)
+    depth = 0
+    outside: List[str] = []
+    for char in text:
+        if char == "(":
+            depth += 1
+            outside.append(" ")
+        elif char == ")":
+            depth = max(0, depth - 1)
+            outside.append(" ")
+        else:
+            outside.append(char if depth == 0 else " ")
+    tokens = re.findall(r"[A-Z][A-Z0-9-]*", "".join(outside).upper())
+    receivers: Set[str] = set()
+    previous = ""
+    for token in tokens:
+        if previous not in {"OF", "IN"} and not is_filtered_keyword(token):
+            receivers.add(token)
+        previous = token
+    return receivers, subscripts
+
+
+def _target_clause(text: str) -> str:
+    return re.split(
+        r"\b(?:ON\s+SIZE\s+ERROR|NOT\s+ON\s+SIZE\s+ERROR|END-(?:ADD|SUBTRACT|MULTIPLY|DIVIDE|COMPUTE))\b",
+        text,
+        maxsplit=1,
+    )[0]
+
+
+def detect_statement_accesses(
+    stmt: str,
+) -> Tuple[Set[str], Set[str], Set[str], Set[str]]:
+    """Return writes, reads, read-writes and subscript reads for one statement."""
     """
     Returns (writes, reads) sets for a single PROCEDURE statement (best-effort).
     Key fixes:
@@ -508,75 +629,137 @@ def detect_write_read_from_statement(stmt: str) -> Tuple[Set[str], Set[str]]:
     su = stmt.upper().strip()
     words = su.split()
     if not words:
-        return set(), set()
+        return set(), set(), set(), set()
 
     verb = words[0]
 
     writes: Set[str] = set()
     reads: Set[str] = set()
+    read_writes: Set[str] = set()
+    subscripts: Set[str] = set()
+
+    # Fixed-format COBOL commonly places a short action after THEN on the same
+    # physical statement. Parse the condition as reads and the embedded action
+    # with its own operand roles instead of classifying the whole line as reads.
+    if verb in {"IF", "WHEN"} and " THEN " in su:
+        condition, action = su.split(" THEN ", 1)
+        reads |= set(extract_identifiers(condition))
+        action_match = re.search(
+            r"\b(MOVE|COMPUTE|ADD|SUBTRACT|MULTIPLY|DIVIDE|SET|INITIALIZE)\b.*",
+            action,
+        )
+        if action_match:
+            nested_writes, nested_reads, nested_read_writes, nested_subscripts = (
+                detect_statement_accesses(action_match.group(0))
+            )
+            writes |= nested_writes
+            reads |= nested_reads
+            read_writes |= nested_read_writes
+            subscripts |= nested_subscripts
+        return writes, reads, read_writes, subscripts
 
     # Flow-only statements: do not treat targets as variable reads
     if verb in FLOW_NO_READ_VERBS:
         # However, PERFORM ... VARYING ... can include data identifiers.
         if verb == "PERFORM" and " VARYING " in su:
             reads |= set(extract_identifiers(su))
-        return writes, reads
+        return writes, reads, read_writes, subscripts
 
     # MOVE a TO b
     if verb == "MOVE":
         if " TO " in su:
             left, right = su.split(" TO ", 1)
             reads |= set(extract_identifiers(left.replace("MOVE", "", 1)))
-            writes |= set(extract_identifiers(right))
-        return writes, reads
+            receivers, target_subscripts = _receiving_identifiers(_target_clause(right))
+            writes |= receivers
+            subscripts |= target_subscripts
+            reads |= target_subscripts
+        return writes, reads, read_writes, subscripts
 
     # COMPUTE X = expr
     if verb == "COMPUTE":
-        ids = extract_identifiers(su.replace("COMPUTE", "", 1))
-        if ids:
-            writes.add(ids[0])
-            if "=" in su:
-                rhs = su.split("=", 1)[1]
-                reads |= set(extract_identifiers(rhs))
-            else:
-                reads |= set(ids[1:])
-        return writes, reads
+        body = su.replace("COMPUTE", "", 1)
+        if "=" in body:
+            left, rhs = body.split("=", 1)
+            receivers, target_subscripts = _receiving_identifiers(left)
+            writes |= receivers
+            subscripts |= target_subscripts
+            reads |= target_subscripts | set(extract_identifiers(rhs))
+        return writes, reads, read_writes, subscripts
 
     # ADD/SUBTRACT/MULTIPLY/DIVIDE
     if verb in {"ADD", "SUBTRACT", "MULTIPLY", "DIVIDE"}:
-        if " TO " in su:
-            left, right = su.split(" TO ", 1)
-            reads |= set(extract_identifiers(left.replace(verb, "", 1)))
-            writes |= set(extract_identifiers(right))
-            reads |= set(extract_identifiers(right))
+        body = su.replace(verb, "", 1)
+        if " GIVING " in body:
+            source, giving = body.split(" GIVING ", 1)
+            reads |= set(extract_identifiers(source))
+            giving, *remainder_parts = re.split(r"\bREMAINDER\b", giving, maxsplit=1)
+            receivers, target_subscripts = _receiving_identifiers(_target_clause(giving))
+            writes |= receivers
+            subscripts |= target_subscripts
+            if remainder_parts:
+                remainder_receivers, remainder_subscripts = _receiving_identifiers(
+                    _target_clause(remainder_parts[0])
+                )
+                writes |= remainder_receivers
+                subscripts |= remainder_subscripts
+            reads |= subscripts
         else:
-            reads |= set(extract_identifiers(su.replace(verb, "", 1)))
-            if " GIVING " in su:
-                giving = su.split(" GIVING ", 1)[1]
-                writes |= set(extract_identifiers(giving))
-        return writes, reads
+            separator = " TO " if verb == "ADD" else " FROM " if verb == "SUBTRACT" else " BY " if verb == "MULTIPLY" else " INTO "
+            if separator in body:
+                source, target = body.split(separator, 1)
+                reads |= set(extract_identifiers(source))
+                receivers, target_subscripts = _receiving_identifiers(_target_clause(target))
+                writes |= receivers
+                reads |= receivers | target_subscripts
+                read_writes |= receivers
+                subscripts |= target_subscripts
+            else:
+                reads |= set(extract_identifiers(body))
+        return writes, reads, read_writes, subscripts
 
     # SET
     if verb == "SET":
         if " TO " in su:
             left, right = su.split(" TO ", 1)
-            writes |= set(extract_identifiers(left.replace("SET", "", 1)))
+            receivers, target_subscripts = _receiving_identifiers(left.replace("SET", "", 1))
+            writes |= receivers
+            subscripts |= target_subscripts
             reads |= set(extract_identifiers(right))
         elif " UP BY " in su:
             left, right = su.split(" UP BY ", 1)
-            writes |= set(extract_identifiers(left.replace("SET", "", 1)))
-            reads |= set(extract_identifiers(left.replace("SET", "", 1)))
+            receivers, target_subscripts = _receiving_identifiers(left.replace("SET", "", 1))
+            writes |= receivers
+            reads |= receivers | target_subscripts
+            read_writes |= receivers
+            subscripts |= target_subscripts
             reads |= set(extract_identifiers(right))
-        return writes, reads
+        return writes, reads, read_writes, subscripts
 
     # INITIALIZE
     if verb == "INITIALIZE":
-        writes |= set(extract_identifiers(su.replace("INITIALIZE", "", 1)))
-        return writes, reads
+        receivers, target_subscripts = _receiving_identifiers(su.replace("INITIALIZE", "", 1))
+        writes |= receivers
+        reads |= target_subscripts
+        subscripts |= target_subscripts
+        return writes, reads, read_writes, subscripts
 
-    # EXEC CICS
+    # EXEC SQL / CICS
     if verb == "EXEC":
         ids = extract_identifiers(su)
+        targets = extract_explicit_targets(su)
+
+        # Host variables in SELECT ... INTO are produced by DB2. Treating them
+        # as reads reverses lineage and makes correct evidence look absent.
+        if re.search(r"\bEXEC\s+SQL\b", su):
+            into_match = re.search(r"\bSELECT\b.*?\bINTO\b(.*?)(?:\bFROM\b|\bWHERE\b|\bEND-EXEC\b)", su)
+            if into_match:
+                receivers, target_subscripts = _receiving_identifiers(into_match.group(1))
+                writes |= receivers
+                subscripts |= target_subscripts
+                reads |= target_subscripts
+            reads |= set(ids) - writes - targets
+            return writes, reads, read_writes, subscripts
 
         # RECEIVE ... INTO var => write
         if " RECEIVE " in su and " INTO " in su:
@@ -588,8 +771,8 @@ def detect_write_read_from_statement(stmt: str) -> Tuple[Set[str], Set[str]]:
             after_from = su.split(" FROM ", 1)[1]
             reads |= set(extract_identifiers(after_from))
 
-        reads |= set(ids) - writes
-        return writes, reads
+        reads |= set(ids) - writes - targets
+        return writes, reads, read_writes, subscripts
 
     # CALL/LINK/XCTL: ignore the target name; keep USING args as reads
     if verb in FLOW_WITH_ARGS_VERBS:
@@ -597,10 +780,16 @@ def detect_write_read_from_statement(stmt: str) -> Tuple[Set[str], Set[str]]:
         if " USING " in su:
             after = su.split(" USING ", 1)[1]
             reads |= set(extract_identifiers(after))
-        return writes, reads
+        return writes, reads, read_writes, subscripts
 
     # default: conservative read extraction (procedure-only)
     reads |= set(extract_identifiers(su))
+    return writes, reads, read_writes, subscripts
+
+
+def detect_write_read_from_statement(stmt: str) -> Tuple[Set[str], Set[str]]:
+    """Backward-compatible two-set view used by older callers."""
+    writes, reads, _read_writes, _subscripts = detect_statement_accesses(stmt)
     return writes, reads
 
 
@@ -631,6 +820,11 @@ def improve_index(
 ) -> List[Dict]:
     stmts_all = read_cobol_statements(cobol_path)
     decls = parse_declarations(stmts_all, copy_dir=copy_dir)
+    declaration_relations = parse_declaration_relations(
+        stmts_all,
+        copy_dir=copy_dir,
+        main_source_name=cobol_path.name,
+    )
 
     stmts_proc = filter_procedure_division(stmts_all)
     paragraphs = split_into_paragraphs(stmts_proc)
@@ -656,9 +850,10 @@ def improve_index(
     # Discover from PROCEDURE only
     for pname, lines in paragraphs.items():
         for ln, s in lines:
+            explicit_targets = extract_explicit_targets(s)
             for ident in extract_identifiers(s):
                 # don't seed paragraph names as variables
-                if ident in paragraph_names:
+                if ident in paragraph_names or ident in explicit_targets:
                     continue
                 seed_vars.add(ident)
 
@@ -693,6 +888,8 @@ def improve_index(
             fanout_nodes=[],
             write_sites=[],
             read_sites=[],
+            read_write_sites=[],
+            subscript_sites=[],
             control_sites=[],
         )
 
@@ -716,7 +913,7 @@ def improve_index(
             continue
 
         for ln, stmt in lines:
-            writes, reads = detect_write_read_from_statement(stmt)
+            writes, reads, read_writes, subscripts = detect_statement_accesses(stmt)
 
             # record writes
             for w in writes:
@@ -728,9 +925,17 @@ def improve_index(
 
             # record reads
             for r in reads:
-                if r in info and r not in writes:
+                if r in info:
                     add_site(info[r].read_sites, Site(pname, ln, stmt))
                     add_unique(info[r].used_in, pname)
+
+            for rw in read_writes:
+                if rw in info:
+                    add_site(info[rw].read_write_sites, Site(pname, ln, stmt))
+
+            for subscript in subscripts:
+                if subscript in info:
+                    add_site(info[subscript].subscript_sites, Site(pname, ln, stmt))
 
             # inline control sites (still helpful even without CFG)
             cond = detect_condition(stmt)
@@ -784,9 +989,18 @@ def improve_index(
             "controls_flow": vi.controls_flow,
             "fanout_nodes": vi.fanout_nodes,
             "origin": vi.origin,
+            "relationships": declaration_relations.get(vi.variable, {
+                "parents": [],
+                "children": [],
+                "redefines": [],
+                "redefined_by": [],
+                "declarations": [],
+            }),
             "evidence": {
                 "write_sites": [asdict(s) for s in vi.write_sites],
                 "read_sites": [asdict(s) for s in vi.read_sites],
+                "read_write_sites": [asdict(s) for s in vi.read_write_sites],
+                "subscript_sites": [asdict(s) for s in vi.subscript_sites],
                 "control_sites": [asdict(s) for s in vi.control_sites],
             }
         })

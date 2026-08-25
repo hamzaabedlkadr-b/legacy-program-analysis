@@ -1,6 +1,7 @@
 ﻿# COBOL RAG Project Stage Tracker
 
 Created: 2026-06-08
+Last updated: 2026-07-08
 
 This file tracks the execution plan for finishing the COBOL RAG project. Use it together with:
 
@@ -47,6 +48,48 @@ Current stage:
 
 ```text
 Stage 6: Metadata-Filtered Hybrid Retrieval
+```
+
+Latest local snapshot, checked on 2026-07-08:
+
+```text
+Analysis repo:
+- Branch: feature/combine-cobol-rekt-analysis
+- Latest local commit: 2c39e13 Add PDB305 input and harden MAPA parsing
+- Worktree has untracked docs/current_rag_detailed_report.* files, rag_*.svg diagrams, and cobol-code-anonymizer/.
+- Active input folders: input\PDCBVC and input\PD305
+- Generated programs: PDCBVC and PDB305
+
+RAG/UI repo:
+- Branch: feature/combine-cobol-rekt-rag
+- Latest local commit: 40f8c7f Preserve combined RAG evidence metadata
+- Worktree has modified data/inbox/control_flow_rag_documents.jsonl and untracked data/chroma-fixed-pdcbvc/, eval/scope_router_smoke.py, src/cobol_rag/scope_router.py.
+
+Latest Hamza-only RAG JSONL:
+- records: 621
+- by_program: PDB305=206, PDCBVC=271, __GLOBAL__=144
+- required routing metadata present on 621/621 records
+- entity_key present on 394/621 records
+
+Latest combined two-program JSONL:
+- file: artifacts\final\final_scripts\output\combined\rag_index\PDB305_PDCBVC_combined.jsonl
+- records: 2016
+- by_program: PDB305=772, PDCBVC=1100, __GLOBAL__=144
+- required routing metadata present on 2016/2016 records
+- entity_key present on 943/2016 records
+
+Current global sidecar indexes:
+- program_count: 2
+- programs: PDB305, PDCBVC
+- entity_name_count: 358
+- ambiguous_entities: 74
+- call_edges: 11
+- copybook_usage: 18
+- db2_table_usage: 2
+- sql_include_usage: 6
+
+PDCBVC knowledge-base_rag manifest is not present on this PC at latest check.
+Do not reset or clean either repo without explicit user approval.
 ```
 
 ## Stage 0: Baseline Audit And Readiness Check
@@ -106,20 +149,21 @@ PASS WITH DOCUMENTED DIRTY WORKTREE
 
 Analysis repo:
 - Branch: feature/combine-cobol-rekt-analysis
-- Latest checked commit: da7f412 Add constant optimization and compact RAG indexing
+- Latest checked commit: 2c39e13 Add PDB305 input and harden MAPA parsing
 - Critical files exist:
   - scripts/pipeline/run_fixed_input.py
   - scripts/pipeline/import_cobol_rekt_rag_bundle.py
-- Worktree is dirty with generated/untracked artifacts and deleted old sample inputs.
+- Worktree has untracked current report/diagram docs and an untracked cobol-code-anonymizer folder.
 - Do not reset or clean without explicit user approval.
 
 RAG/UI repo:
 - Branch: feature/combine-cobol-rekt-rag
-- Latest checked commit: d16e3d8 Route general and code questions explicitly
+- Latest checked commit: 40f8c7f Preserve combined RAG evidence metadata
 - Critical files exist:
   - scripts/run_fixed_input_rag.sh
   - src/cobol_rag/retrieve.py
-- Worktree was clean when checked.
+- Worktree has local generated/index changes and untracked scope-router files.
+- Do not reset or clean without explicit user approval.
 ```
 
 ## Stage 1: Stabilize PDCBVC Baseline
@@ -176,9 +220,17 @@ Current local result:
 ```text
 LOCAL PASS, FRIEND-PC RUNTIME PENDING
 
+Latest 2026-07-08 refresh:
+- Hamza-only analysis output now includes PDB305 and PDCBVC.
+- Latest RAG manifest: 621 records total.
+- by_program: PDB305=206, PDCBVC=271, __GLOBAL__=144.
+- PDCBVC knowledge-base_rag bundle is still not present on this PC.
+- Full Chroma/Ollama/UI runtime validation remains friend-PC work.
+
 Hamza-only analysis build:
 - PASS
-- Generated 364 RAG documents/chunks.
+- Earlier PDCBVC-only run generated 364 RAG documents/chunks.
+- Latest two-program run generated 621 RAG records.
 - RAG index valid.
 - Factory readiness: READY_WITH_WARNINGS.
 - Warning: missing copybooks PDIABEND, PDSAVTW2, PXCSEMAF.
@@ -274,17 +326,25 @@ RAG/UI repo changes:
 - src/cobol_rag/loaders/rag_documents.py now preserves the new fields during JSONL loading.
 
 Validation:
-- Rebuilt Hamza-only PDCBVC RAG index: 364 records.
+- Rebuilt Hamza-only RAG index for current active inputs: 621 records.
+- Program coverage: PDB305=206, PDCBVC=271, __GLOBAL__=144.
 - Pipeline validator: 1 WARN, 0 FAIL.
 - The warning is unchanged: missing copybooks PDIABEND, PDSAVTW2, PXCSEMAF.
 - Metadata audit:
-  - intent_domain: 364/364
-  - hierarchy_level: 364/364
-  - parent_id: 364/364
-  - parent_type: 364/364
-  - evidence_path: 364/364
-  - entity_key: 228/364
-- RAG loader audit:
+  - program: 621/621
+  - intent_domain: 621/621
+  - hierarchy_level: 621/621
+  - parent_id: 621/621
+  - parent_type: 621/621
+  - evidence_path: 621/621
+  - chunk_type: 621/621
+  - entity_key: 394/621
+- Combined two-program metadata audit:
+  - file: artifacts/final/final_scripts/output/combined/rag_index/PDB305_PDCBVC_combined.jsonl
+  - records: 2016
+  - program/source_system/intent_domain/hierarchy_level/parent/evidence_path/chunk_type: 2016/2016
+  - entity_key: 943/2016
+- Earlier RAG/UI loader audit against PDCBVC Hamza-only JSONL:
   - loaded split documents: 1341
   - intent_domain/hierarchy/parent/evidence_path preserved: 1341/1341
   - entity_key preserved on 570 split documents.
@@ -360,7 +420,17 @@ Generated sidecar indexes:
 - artifacts/final/final_scripts/output/program_artifacts/_global/rag_maps/entity_index.json
 - artifacts/final/final_scripts/output/program_artifacts/_global/rag_maps/relationship_index.json
 
-PDCBVC index audit:
+Latest two-program global index audit:
+- programs: 2
+- program names: PDB305, PDCBVC
+- entity names: 358
+- ambiguous entities: 74
+- call edges: 11
+- copybook usage records: 18
+- DB2 table usage records: 2
+- SQL include usage records: 6
+
+Earlier PDCBVC-only index audit:
 - programs: 1
 - variables: 170
 - paragraphs: 64
@@ -381,7 +451,8 @@ Important examples:
 Validation:
 - build_global_rag_maps.py compile check passed.
 - build_rag_index.py compile check passed.
-- RAG index remained 364 vector records after sidecar indexes were excluded.
+- Earlier PDCBVC-only RAG index remained 364 vector records after sidecar indexes were excluded.
+- Latest two-program RAG index has 621 vector records after sidecar indexes are excluded from vector indexing.
 - Pipeline validator: 1 WARN, 0 FAIL.
 - Warning unchanged: missing copybooks PDIABEND, PDSAVTW2, PXCSEMAF.
 ```
@@ -445,7 +516,15 @@ RAG/UI repo changes:
   - db2_table
   - sql_include
 
-Loader audit against regenerated Hamza-only JSONL:
+Current raw JSONL metadata audit:
+- Hamza-only records: 621
+- required branch/filter metadata present: 621/621
+- entity_key present: 394/621
+- combined two-program records: 2016
+- combined required branch/filter metadata present: 2016/2016
+- combined entity_key present: 943/2016
+
+Earlier loader audit against regenerated PDCBVC Hamza-only JSONL:
 - loaded split documents: 1341
 - intent_domain: 1341/1341
 - hierarchy_level: 1341/1341

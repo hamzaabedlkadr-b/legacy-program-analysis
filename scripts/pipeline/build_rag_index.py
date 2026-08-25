@@ -210,6 +210,10 @@ def coverage_dimension(doc_type: str) -> str:
 
 
 def intent_domain(doc_type: str) -> str:
+    if doc_type == "evidence.normalized":
+        return "normalized_evidence"
+    if doc_type == "architecture.cics_operations":
+        return "cics_operations"
     if doc_type.startswith("global.call") or doc_type.startswith("architecture.call"):
         return "external_programs"
     if (
@@ -253,6 +257,7 @@ def hierarchy_level(doc_type: str) -> str:
     if doc_type in {
         "architecture.calls",
         "architecture.call_parameters",
+        "architecture.cics_operations",
         "architecture.copybooks",
         "architecture.unused_copybooks",
         "dataflow.used_variables",
@@ -290,11 +295,20 @@ def parent_id_for_level(program: str, doc_type: str, level: str) -> str:
 
 def hierarchy_metadata(doc_type: str, program: str) -> dict[str, str]:
     level = hierarchy_level(doc_type)
+    domain = intent_domain(doc_type)
+    node_id = {
+        "enterprise": "enterprise:cobol",
+        "program": f"program:{program}",
+        "domain": f"domain:{program}:{domain}",
+    }.get(level, "")
     return {
-        "intent_domain": intent_domain(doc_type),
+        "intent_domain": domain,
         "hierarchy_level": level,
+        "node_id": node_id,
         "parent_type": parent_type_for_level(level),
         "parent_id": parent_id_for_level(program, doc_type, level),
+        "program_parent_id": f"program:{program}",
+        "domain_parent_id": f"domain:{program}:{domain}",
     }
 
 
@@ -429,6 +443,21 @@ def paragraph_metadata(doc: dict[str, Any], doc_type: str, program: str, path: P
 
 def entity_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path) -> dict[str, str]:
     metadata: dict[str, str] = {}
+    if doc_type == "evidence.normalized":
+        content = doc.get("content") if isinstance(doc.get("content"), dict) else {}
+        entity_type = scalar_to_text(content.get("entity_type"))
+        entity_key = scalar_to_text(content.get("entity_key"))
+        entity = scalar_to_text(content.get("entity"))
+        capability = scalar_to_text(content.get("capability"))
+        if entity_type:
+            metadata["entity_type"] = entity_type
+        if entity_key:
+            metadata["entity_key"] = entity_key
+        if entity:
+            metadata[entity_type or "entity"] = entity.upper()
+        if capability:
+            metadata["evidence_capability"] = capability
+        return metadata
     for builder in (
         call_metadata,
         variable_metadata,
@@ -439,6 +468,40 @@ def entity_metadata(doc: dict[str, Any], doc_type: str, program: str, path: Path
     ):
         metadata.update(builder(doc, doc_type, program, path))
     return metadata
+
+
+def normalized_hierarchy_metadata(doc: dict[str, Any], program: str) -> dict[str, str]:
+    """Map a normalized capability back to the domain filters used by retrieval."""
+    content = doc.get("content") if isinstance(doc.get("content"), dict) else {}
+    capability = scalar_to_text(content.get("capability"))
+    domains = {
+        "program_summary": "program_summary",
+        "source_metrics": "program_summary",
+        "variable_inventory": "variable_dataflow",
+        "variable_access": "variable_dataflow",
+        "variable_lineage": "variable_dataflow",
+        "literal_assignment": "variable_dataflow",
+        "condition_outcome": "business_rules",
+        "control_flow": "control_flow",
+        "paragraph_evidence": "control_flow",
+        "call_evidence": "external_programs",
+        "call_context": "external_programs",
+        "cics_evidence": "cics_operations",
+        "copybook_evidence": "copybooks",
+        "db2_evidence": "datasets_tables",
+        "jcl_evidence": "datasets_tables",
+        "quality_evidence": "dead_code",
+        "screen_lineage": "ui_navigation",
+    }
+    domain = domains.get(capability, "normalized_evidence")
+    return {
+        "intent_domain": domain,
+        "hierarchy_level": "entity",
+        "program_parent_id": f"program:{program}",
+        "domain_parent_id": f"domain:{program}:{domain}",
+        "parent_type": "domain",
+        "parent_id": f"domain:{program}:{domain}",
+    }
 
 
 def flatten_value(value: Any, prefix: str = "", depth: int = 0, list_limit: int = 120) -> list[str]:
@@ -643,6 +706,11 @@ def add_json_source_file(
         invalid_files.append({"path": str(path), "error": str(exc)})
         return 1, 0
 
+    try:
+        source_sha256 = hashlib.sha256(path.read_bytes()).hexdigest()
+    except OSError:
+        source_sha256 = ""
+
     source_docs = 0
     rel_path = source_relative_path(path, base_root)
     docs = expand_json_documents(data)
@@ -686,10 +754,30 @@ def add_json_source_file(
                     "chunk_index": chunk_index,
                     "chunk_count": chunk_count,
                     "content_hash": stable_hash(chunk, length=24),
+                    "artifact_hash": stable_hash(
+                        json.dumps(index_item, ensure_ascii=False, sort_keys=True),
+                        length=32,
+                    ),
+                    "source_sha256": source_sha256,
+                    "extractor_version": "rag-index-v2",
+                    "index_schema_version": "2",
+                    "access_scope": "project",
+                    "security_classification": "internal",
                     **hierarchy_metadata(doc_type, program),
                 },
             }
             record["metadata"].update(entity_metadata(item, doc_type, program, path))
+            if doc_type == "evidence.normalized":
+                record["metadata"].update(normalized_hierarchy_metadata(item, program))
+                record["metadata"]["source_system"] = "normalized_view"
+            entity_key = record["metadata"].get("entity_key")
+            if entity_key:
+                record["metadata"]["entity_parent_id"] = f"entity:{entity_key}"
+                if record["metadata"].get("hierarchy_level") == "entity":
+                    # The entity is the node; its parent remains the domain.  The
+                    # previous self-parent assignment made upward traversal
+                    # impossible and only appeared to provide a hierarchy.
+                    record["metadata"]["node_id"] = f"entity:{entity_key}"
             records.append(record)
             by_program[program] += 1
             by_type[doc_type] += 1
@@ -779,6 +867,8 @@ def build_index(
 
     real_program_count = len([program for program in by_program if program != "__GLOBAL__"])
     manifest = {
+        "index_schema_version": "2",
+        "extractor_version": "rag-index-v2",
         "out_root": str(out_root),
         "programs_dir": str(programs_dir),
         "global_docs_dir": str(global_docs_dir) if global_docs_dir else None,
@@ -795,6 +885,10 @@ def build_index(
         "by_program": dict(sorted(by_program.items())),
         "by_type": dict(sorted(by_type.items())),
         "invalid_files": invalid_files,
+        "collection_content_hash": stable_hash(
+            *(record["metadata"].get("content_hash", "") for record in records),
+            length=32,
+        ),
         "files": {
             "jsonl": str(jsonl_path),
             "json": str(out_dir / "rag_documents.json"),
