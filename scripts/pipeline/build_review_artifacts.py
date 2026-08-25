@@ -737,6 +737,21 @@ def build_capability_manifest(
             entry["reason"] = reason
         capabilities[name] = entry
 
+    # The physical source map is a JSONL sidecar rather than a derived JSON
+    # artifact, so its count is read from the file itself. Advertising it lets a
+    # caller know an exact address can be resolved before any retrieval is tried.
+    source_lines = root / "program.source_lines.jsonl"
+    line_count = 0
+    if source_lines.is_file():
+        with source_lines.open(encoding="utf-8") as handle:
+            line_count = sum(1 for row in handle if row.strip())
+    record(
+        "source_line_lookup",
+        "program.source_lines",
+        line_count,
+        reason="" if line_count else "no program.source_lines.jsonl was published for this program",
+    )
+
     used = read_artifact(root, "dataflow.used_variables")
     variables = used.get("variables", []) if isinstance(used, dict) else []
     record("variable_inventory", "dataflow.used_variables", len(variables))
