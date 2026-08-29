@@ -175,29 +175,51 @@ def simplify_condition(expr: str) -> str:
 
 def extract_procedure_division(cobol_text: str) -> str:
     """Return text starting at PROCEDURE DIVISION."""
+    return extract_procedure_division_with_offset(cobol_text)[0]
+
+
+def extract_procedure_division_with_offset(cobol_text: str) -> Tuple[str, int]:
+    """Return the division text and the file line number its first line has.
+
+    Callers that record evidence need the absolute line, and the division text
+    alone cannot supply it: control-flow edges carried the statement that proved
+    them but never said where it was, so a jump could be reported and not cited.
+    """
     m = re.search(r"^\s*PROCEDURE\s+DIVISION\.\s*$", cobol_text, re.I | re.M)
     if not m:
-        return cobol_text
-    return cobol_text[m.end():]
+        return cobol_text, 1
+    # Lines fully consumed before the division text begins.
+    consumed = cobol_text[: m.end()].count("\n")
+    return cobol_text[m.end():], consumed + 1
 
 
-def parse_procedure_paragraphs(cobol_text: str) -> Tuple[Dict[str, List[str]], List[str]]:
+def parse_procedure_paragraphs(
+    cobol_text: str,
+) -> Tuple[Dict[str, List[str]], List[str], Dict[str, List[int]]]:
     """
     Parse paragraphs from PROCEDURE DIVISION.
     Also creates a synthetic paragraph named PROGRAM-ID containing lines
     before the first paragraph label.
+
+    The third return value is the file line number of each retained line,
+    index-aligned with the paragraph's own list. Comment lines and paragraph
+    labels are skipped, so positions in the list do not correspond to offsets in
+    the file and the numbers have to be carried rather than recomputed.
     """
     program_id = get_program_id(cobol_text)
-    proc = extract_procedure_division(cobol_text)
+    proc, first_line_no = extract_procedure_division_with_offset(cobol_text)
 
     paragraphs: Dict[str, List[str]] = {}
+    para_line_nos: Dict[str, List[int]] = {}
     order: List[str] = []
 
     current = program_id
     paragraphs[current] = []
+    para_line_nos[current] = []
     order.append(current)
 
-    for line in proc.splitlines():
+    for offset, line in enumerate(proc.splitlines()):
+        line_no = first_line_no + offset
         raw = line.rstrip()
 
         # Skip comment lines (classic COBOL comments often start with '*')
@@ -210,12 +232,14 @@ def parse_procedure_paragraphs(cobol_text: str) -> Tuple[Dict[str, List[str]], L
             current = m.group(1).upper()
             if current not in paragraphs:
                 paragraphs[current] = []
+                para_line_nos[current] = []
                 order.append(current)
             continue
 
         paragraphs[current].append(raw)
+        para_line_nos[current].append(line_no)
 
-    return paragraphs, order
+    return paragraphs, order, para_line_nos
 
 
 # ---------- EXTRACT CONDITIONS FOR GO TO TARGETS ----------
@@ -910,15 +934,25 @@ def extract_goto_conditions(par_lines: List[str]) -> Dict[str, str]:
 
 # ---------- DETECT PERFORM/CALL TYPES + RANGE INFO ----------
 
-def detect_edge_type_and_meta(par_lines: List[str], target: str) -> Tuple[Optional[str], Dict[str, Any]]:
+def detect_edge_type_and_meta(
+    par_lines: List[str],
+    target: str,
+    par_line_nos: Optional[List[int]] = None,
+) -> Tuple[Optional[str], Dict[str, Any]]:
     """
     Returns (etype, meta) where meta can include:
       - range_start, range_end for CALL_RANGE
       - evidence_line (the line that matched)
+      - evidence_line_no (that line's number in the source file)
     """
     target = norm_name(target)
 
-    for line in par_lines:
+    for index, line in enumerate(par_lines):
+        line_no = (
+            par_line_nos[index]
+            if par_line_nos is not None and index < len(par_line_nos)
+            else None
+        )
         u = line.upper()
 
         # PERFORM A THRU B
@@ -930,7 +964,8 @@ def detect_edge_type_and_meta(par_lines: List[str], target: str) -> Tuple[Option
                 return "CALL_RANGE", {
                     "range_start": start,
                     "range_end": end,
-                    "evidence_line": line.strip()
+                    "evidence_line": line.strip(),
+                    "evidence_line_no": line_no,
                 }
 
         # PERFORM A (but not THRU)
@@ -938,14 +973,14 @@ def detect_edge_type_and_meta(par_lines: List[str], target: str) -> Tuple[Option
         if m and "THRU" not in u:
             callee = norm_name(m.group(1))
             if callee == target:
-                return "CALL", {"evidence_line": line.strip()}
+                return "CALL", {"evidence_line": line.strip(), "evidence_line_no": line_no}
 
         # GO TO A
         m = re.search(r"\bGO\s+TO\b\s+([A-Z0-9\-]+)", u, re.I)
         if m:
             goto = norm_name(m.group(1))
             if goto == target:
-                return "JUMP", {"evidence_line": line.strip()}
+                return "JUMP", {"evidence_line": line.strip(), "evidence_line_no": line_no}
 
     return None, {}
 
@@ -1023,7 +1058,7 @@ def detect_cics_ops(par_lines: List[str]) -> List[str]:
 
 def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
     program_id = get_program_id(cobol_text)
-    paragraphs, order = parse_procedure_paragraphs(cobol_text)
+    paragraphs, order, para_line_nos = parse_procedure_paragraphs(cobol_text)
 
     # Precompute:
     # - goto conditions per paragraph
@@ -1055,7 +1090,9 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
         meta: Dict[str, Any] = {}
 
         if src in paragraphs:
-            etype, meta = detect_edge_type_and_meta(paragraphs[src], tgt)
+            etype, meta = detect_edge_type_and_meta(
+                paragraphs[src], tgt, para_line_nos.get(src)
+            )
 
         if not etype:
             etype = "FALLTHROUGH"
@@ -1115,6 +1152,10 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
         # Optional: keep evidence line (useful for debugging)
         if "evidence_line" in meta:
             edge["evidence"] = meta["evidence_line"]
+        if meta.get("evidence_line_no") is not None:
+            # The file line the statement proving this edge sits on, so a
+            # control-flow answer can cite it the way every other artifact does.
+            edge["line"] = meta["evidence_line_no"]
         else:
             edge.pop("evidence", None)
 
