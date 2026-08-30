@@ -296,7 +296,18 @@ def extract_comments(cobol_path: Path) -> tuple[List[Dict], int, Dict]:
             current_section = m_sec.group(1).upper()
             current_para = None
 
-        m = PARA_RE.match(up) if in_procedure_division else None
+        # A paragraph label is live code sitting in Area A. Testing the text
+        # alone counts two things that are not paragraphs: a commented-out label
+        # (the '*' is in the indicator column, so the code area still reads as a
+        # label) and a statement terminator such as EXIT. or END-EXEC. that sits
+        # in Area B. Both inflate the count against the source.
+        m = (
+            PARA_RE.match(up)
+            if in_procedure_division
+            and indicator not in ("*", "/")
+            and code[:1].strip() != ""
+            else None
+        )
         if m:
             current_para = m.group(1).upper()
             procedure_paragraphs.add(current_para)

@@ -154,6 +154,22 @@ FLOW_WITH_ARGS_VERBS = {"CALL", "LINK", "XCTL"}
 
 WRITE_VERBS = {"MOVE", "COMPUTE", "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "SET", "INITIALIZE"}
 
+# Connectives that introduce a clause but take no operands of their own. In
+# fixed-format COBOL a continuation line often begins with one of these, with
+# the controlling IF/EVALUATE left on an earlier physical line.
+CLAUSE_CONNECTIVES = {"THEN", "ELSE"}
+
+# Verbs that can begin an imperative statement embedded in a conditional.
+STATEMENT_VERBS = WRITE_VERBS | FLOW_NO_READ_VERBS | FLOW_WITH_ARGS_VERBS | {"EXEC"}
+
+# COBOL identifiers may contain hyphens, so \b is not a safe boundary here:
+# r"\bMOVE\b" matches inside WS-MOVE-FLAG. Require a non-identifier char.
+EMBEDDED_STATEMENT_RE = re.compile(
+    r"(?<![A-Z0-9-])(?:"
+    + "|".join(re.escape(v) for v in sorted(STATEMENT_VERBS, key=len, reverse=True))
+    + r")(?![A-Z0-9-]).*"
+)
+
 PARA_RE = re.compile(r"^\s*([A-Z][A-Z0-9-]{1,30})\.\s*$")
 DIV_RE = re.compile(r"^\s*(IDENTIFICATION|ENVIRONMENT|DATA|PROCEDURE)\s+DIVISION\b", re.I)
 SECTION_RE = re.compile(r"^\s*([A-Z0-9-]+)\s+SECTION\.\s*$", re.I)
@@ -298,14 +314,33 @@ def filter_procedure_division(stmts: List[Tuple[int, str]]) -> List[Tuple[int, s
     return out
 
 
-def split_into_paragraphs(proc_stmts: List[Tuple[int, str]]) -> Dict[str, List[Tuple[int, str]]]:
+PROGRAM_ID_RE = re.compile(r"\bPROGRAM-ID\s*\.\s*([A-Z0-9][A-Z0-9-]*)", re.IGNORECASE)
+
+
+def get_program_id(stmts: List[Tuple[int, str]]) -> str:
+    """The PROGRAM-ID value, which names the implicit leading paragraph."""
+    for _line, statement in stmts:
+        match = PROGRAM_ID_RE.search(statement)
+        if match:
+            return match.group(1).upper()
+    return ""
+
+
+def split_into_paragraphs(
+    proc_stmts: List[Tuple[int, str]], top_name: str = "TOP"
+) -> Dict[str, List[Tuple[int, str]]]:
     """
     paragraph_name -> list of (line, statement)
     Filters out fake paragraph names like END-IF.
     Works on PROCEDURE DIVISION statements only.
+
+    Statements before the first paragraph label belong to an implicit paragraph.
+    The control-flow graph and the source map both name it after the program, so
+    `top_name` must be the program id; a private sentinel here would produce
+    citations that cannot be joined to either.
     """
     paras: Dict[str, List[Tuple[int, str]]] = {}
-    current = "TOP"
+    current = top_name
     paras[current] = []
 
     for ln, s in proc_stmts:
@@ -631,24 +666,30 @@ def detect_statement_accesses(
     if not words:
         return set(), set(), set(), set()
 
-    verb = words[0]
-
     writes: Set[str] = set()
     reads: Set[str] = set()
     read_writes: Set[str] = set()
     subscripts: Set[str] = set()
 
-    # Fixed-format COBOL commonly places a short action after THEN on the same
-    # physical statement. Parse the condition as reads and the embedded action
-    # with its own operand roles instead of classifying the whole line as reads.
-    if verb in {"IF", "WHEN"} and " THEN " in su:
-        condition, action = su.split(" THEN ", 1)
-        reads |= set(extract_identifiers(condition))
-        action_match = re.search(
-            r"\b(MOVE|COMPUTE|ADD|SUBTRACT|MULTIPLY|DIVIDE|SET|INITIALIZE)\b.*",
-            action,
-        )
+    # Drop a leading bare connective so the statement is classified by its real
+    # verb. Without this, "THEN MOVE 'LE10' TO WABEND-CODE" reaches the default
+    # branch and files the receiving field as a read instead of a write.
+    while words and words[0] in CLAUSE_CONNECTIVES:
+        words = words[1:]
+    if not words:
+        return writes, reads, read_writes, subscripts
+    su = " ".join(words)
+
+    verb = words[0]
+
+    # Fixed-format COBOL commonly places a short action on the same physical
+    # statement as its condition, with or without an explicit THEN. Parse the
+    # condition as reads and the embedded action with its own operand roles
+    # instead of classifying the whole line as reads.
+    if verb in {"IF", "WHEN"}:
+        action_match = EMBEDDED_STATEMENT_RE.search(su)
         if action_match:
+            reads |= set(extract_identifiers(su[: action_match.start()]))
             nested_writes, nested_reads, nested_read_writes, nested_subscripts = (
                 detect_statement_accesses(action_match.group(0))
             )
@@ -656,6 +697,9 @@ def detect_statement_accesses(
             reads |= nested_reads
             read_writes |= nested_read_writes
             subscripts |= nested_subscripts
+        else:
+            # Same conservative extraction as the default branch below.
+            reads |= set(extract_identifiers(su))
         return writes, reads, read_writes, subscripts
 
     # Flow-only statements: do not treat targets as variable reads
@@ -827,13 +871,14 @@ def improve_index(
     )
 
     stmts_proc = filter_procedure_division(stmts_all)
-    paragraphs = split_into_paragraphs(stmts_proc)
+    program_id = get_program_id(stmts_all) or cobol_path.stem.upper()
+    paragraphs = split_into_paragraphs(stmts_proc, top_name=program_id)
 
     cfg_adj = load_cfg(cfg_path)
 
     # Known paragraph names set (to prevent treating paragraph labels as vars)
     paragraph_names: Set[str] = set(paragraphs.keys())
-    paragraph_names.discard("TOP")
+    paragraph_names.discard(program_id)
 
     # ---- seed variables
     seed_vars: Set[str] = set()
@@ -963,7 +1008,7 @@ def improve_index(
                         info[cv].controls_flow = True
                         # line numbers unknown from CFG -> use -1, keep statement as condition string
                         add_site(info[cv].control_sites, Site(src, -1, e.condition))
-                        if e.tgt and e.tgt not in COBOL_KEYWORDS and e.tgt != "TOP":
+                        if e.tgt and e.tgt not in COBOL_KEYWORDS and e.tgt != program_id:
                             add_unique(info[cv].fanout_nodes, e.tgt)
 
     # ---- post clean
@@ -971,7 +1016,7 @@ def improve_index(
         vi.defined_in = sorted(set(vi.defined_in))
         vi.modified_in = sorted(set(vi.modified_in))
         vi.used_in = sorted(set(vi.used_in))
-        vi.fanout_nodes = sorted({x for x in vi.fanout_nodes if x and x not in COBOL_KEYWORDS and x != "TOP"})
+        vi.fanout_nodes = sorted({x for x in vi.fanout_nodes if x and x not in COBOL_KEYWORDS and x != program_id})
 
         # If controls_flow true but we couldn't capture any control_sites, downgrade
         if vi.controls_flow and not vi.control_sites:

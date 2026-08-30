@@ -617,6 +617,19 @@ def main():
                 artifacts_dir / "evidence.normalized" / "evidence.normalized.json"
             ),
         ])
+        # Cross-check the derived artifacts against the physical source map.
+        # The extractors can only be trusted as far as something independent
+        # re-derives them; without this a silent extraction gap reaches the RAG
+        # as a confident answer. Reports rather than fails: a discrepancy is a
+        # finding to look at, not a reason to throw away a completed run.
+        run_cmd([
+            python, str(PIPELINE_SCRIPTS_DIR / "build_reconciliation_report.py"),
+            "--artifacts-root", str(artifacts_dir),
+            "--program", program,
+            "--output", str(
+                artifacts_dir / "quality.reconciliation_report.json"
+            ),
+        ])
 
         processed_programs.append(program)
         print(f"[OK] Finished program: {program} -> {prog_root}")

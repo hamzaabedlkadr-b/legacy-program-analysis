@@ -193,6 +193,16 @@ def extract_procedure_division_with_offset(cobol_text: str) -> Tuple[str, int]:
     return cobol_text[m.end():], consumed + 1
 
 
+AREA_A_START = 8
+CODE_END = 72
+
+
+def in_area_a(line: str) -> bool:
+    """True when the code starts in Area A (columns 8-11), where labels live."""
+    area = line[AREA_A_START - 1:CODE_END] if len(line) >= AREA_A_START else ""
+    return bool(area) and area[:4].strip() != "" and not area.startswith(" ")
+
+
 def parse_procedure_paragraphs(
     cobol_text: str,
 ) -> Tuple[Dict[str, List[str]], List[str], Dict[str, List[int]]]:
@@ -226,8 +236,13 @@ def parse_procedure_paragraphs(
         if raw.strip().startswith("*"):
             continue
 
-        # Paragraph label: NAME.
-        m = re.match(r"^\s*([A-Z0-9\-]+)\s*\.\s*$", raw, re.I)
+        # Paragraph label: NAME. in Area A. The position is what distinguishes a
+        # label from a statement that happens to be a bare word and a period:
+        # "EXIT." and "END-IF." sit in Area B and are statements, not paragraphs.
+        # Without the column test they become phantom paragraphs, and every
+        # statement after one is attributed to the phantom instead of the real
+        # paragraph it belongs to.
+        m = re.match(r"^\s*([A-Z0-9\-]+)\s*\.\s*$", raw, re.I) if in_area_a(raw) else None
         if m:
             current = m.group(1).upper()
             if current not in paragraphs:
@@ -1305,8 +1320,19 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
             if edge.get("from") == "INIZ-PARAM" and edge.get("to") == "INIZ-PARAM-010":
                 edge["condition"] = "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')"
                 break
+    # The graph arrives as a DOT edge list, so its node set is only the set of
+    # edge endpoints. A paragraph with no edges - an EXIT-only paragraph, or one
+    # nothing performs - is structurally unrepresentable and vanishes silently:
+    # the graph simply reports fewer paragraphs than the program has. Union in
+    # every paragraph the source declares so the node set is the program's
+    # paragraph set rather than its connected subset.
+    declared = {p for p in order if p}
+    connected = {n for n in (graph.get("nodes") or []) if n}
+    graph["nodes"] = sorted(connected | declared)
+
     # Add some summary metadata
     graph.setdefault("meta", {})
+    graph["meta"]["isolated_nodes"] = sorted(declared - connected)
     graph["meta"]["program_id"] = program_id
     graph["meta"]["ranges_detected"] = [{"start": s, "end": e} for s, e in all_ranges]
 
