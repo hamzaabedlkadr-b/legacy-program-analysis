@@ -2,10 +2,13 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Any, Dict, List, NamedTuple, Optional, Tuple
 
 
 # ---------- CONFIG (WINDOWS PATH SAFE) ----------
+
+# Importable whether this file is run as a script or loaded by path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 GRAPH_JSON = str(PROJECT_ROOT / "artifacts" / "intermediate" / "pdc.json")
@@ -67,6 +70,15 @@ def parse_dot_controlflow(text: str) -> Optional[Dict[str, Any]]:
         "nodes": sorted(nodes),
         "edges": edges,
     }
+
+from cobol_conditions import (  # noqa: E402
+    conjoin,
+    disjoin,
+    negate,
+    parse_condition,
+    render,
+)
+
 
 def norm_name(s: str) -> str:
     """Normalize COBOL paragraph/token name for matching."""
@@ -258,693 +270,237 @@ def parse_procedure_paragraphs(
 
 
 # ---------- EXTRACT CONDITIONS FOR GO TO TARGETS ----------
-def extract_goto_conditions(par_lines: List[str]) -> Dict[str, str]:
+class Guard(NamedTuple):
+    """One guarded branch: the condition, and where the branch is written."""
+
+    condition: str
+    line: Optional[int]
+
+
+def extract_paragraph_guards(
+    par_lines: List[str], par_line_nos: Optional[List[int]] = None
+) -> Dict[str, List[Guard]]:
+    """Map each branch target to the guard conditions that reach it.
+
+    A target can be reached under several different guards from the same
+    paragraph -- three separate GO TO sites in PDCBVC lead to XCTL-LIV4 under
+    unrelated conditions. Each is returned separately rather than merged into
+    one expression, so the graph keeps one edge per site with the condition
+    that actually guards it.
+
+    Conditions are built as expression trees and rendered once. Nothing here
+    edits condition text.
     """
-    Map: target_paragraph -> condition string
+    # Comments are skipped, so the line numbers have to be filtered alongside
+    # the text or the two stop lining up and every branch reports a wrong line.
+    numbers = list(par_line_nos or [])
+    kept = [
+        (text, numbers[i] if i < len(numbers) else None)
+        for i, text in enumerate(par_lines)
+        if not text.strip().startswith("*")
+    ]
+    lines: List[str] = [text for text, _ in kept]
+    line_numbers: List[Optional[int]] = [number for _, number in kept]
 
-    Fixes:
-    - Dispatch ladders => fallback gets NOT(OR(guards))
-    - Multi-statement IF ... (no END-IF) where a GO TO appears later in the block
-      => condition is attached to that GO TO, not to the later fallback
-    - COBOL shorthand:  X = 'I' OR 'A' OR 'C'  =>  X='I' OR X='A' OR X='C'
-    - Parentheses balancing (prevents truncated conditions)
-    - Basic boolean simplifications:  A OR (A AND B) => A, NOT(NOT GREATER) => GREATER, etc.
-    """
+    guards: Dict[str, List[Guard]] = {}
+    cond_stack: List[Dict[str, Any]] = []
+    top_level_guards: List[Any] = []
 
-    # -------------------- local helpers --------------------
+    def stack_condition():
+        return conjoin(*[frame["cond"] for frame in cond_stack])
 
-    def clean(s: str) -> str:
-        s = (s or "").strip()
-        s = re.sub(r"\s+", " ", s)
-        s = s.rstrip(".").rstrip(",")
-        s = re.sub(r"\b(AND|OR)\s*$", "", s, flags=re.I).strip()
-        return s
-
-    def parse_goto_target(line: str) -> Optional[str]:
-        m = re.search(r"\bGO\s+TO\b\s+([A-Z0-9\-]+)", line, re.I)
-        return norm_name(m.group(1)) if m else None
-
-    def balance_parens(s: str) -> str:
-        if not s:
-            return ""
-        # Count opening and closing parentheses
-        op = s.count("(")
-        cp = s.count(")")
-        # If unbalanced, fix it
-        if op > cp:
-            s = s + (")" * (op - cp))
-        elif cp > op:
-            # Too many closing parens - this shouldn't happen but if it does, remove extras from start
-            # Actually, better to add opening at start
-            s = ("(" * (cp - op)) + s
-        return s
-
-    def expand_cobol_or_shorthand(cond: str) -> str:
-        """
-        Expand: VAR = 'I' OR 'A' OR 'C'
-        into:   VAR = 'I' OR VAR = 'A' OR VAR = 'C'
-        """
-        cond = cond or ""
-        # Repeat until no more shorthand is found (handles multiple occurrences in a condition)
-        while True:
-            m = re.search(
-                r"(\b[A-Z0-9\-]+\b)\s*=\s*'([^']+)'((?:\s+OR\s+'[^']+')+)",
-                cond,
-                flags=re.I,
-            )
-            if not m:
-                break
-            var = m.group(1)
-            first = m.group(2)
-            tail = m.group(3)
-            more_vals = re.findall(r"'([^']+)'", tail)
-            expanded = " OR ".join([f"{var} = '{first}'"] + [f"{var} = '{v}'" for v in more_vals])
-            cond = cond[: m.start()] + "(" + expanded + ")" + cond[m.end() :]
-        return cond
-    def strip_outer_parens(s: str) -> str:
-        s = s.strip()
-        while s.startswith("(") and s.endswith(")"):
-            inner = s[1:-1].strip()
-            # only strip if outer parentheses actually wrap the whole expression
-            if inner.count("(") == inner.count(")"):
-                s = inner
-            else:
-                break
-        return s
-    
-    def aggressively_reduce_parens(s: str) -> str:
-        """Aggressively remove excessive nested parentheses while maintaining balance."""
-        if not s:
-            return s
-        # First, ensure it's balanced
-        s = balance_parens(s)
-        
-        # This is a critical fix for structural errors
-        
-        # Now balance again
-        s = balance_parens(s)
-        
-        prev = None
-        iterations = 0
-        max_iterations = 10  # Prevent infinite loops
-        while prev != s and iterations < max_iterations:
-            prev = s
-            iterations += 1
-            # Remove multiple layers of parentheses: (((X))) -> (X) for simple expressions
-            s = re.sub(r"\(\(\(([^()]+)\)\)\)", r"(\1)", s)
-            s = re.sub(r"\(\(([^()]+)\)\)", r"(\1)", s)
-            # For complex expressions, be more careful
-            # Only reduce if inner is balanced
-            def reduce_balanced(m):
-                inner = m.group(1)
-                inner_op = inner.count("(")
-                inner_cp = inner.count(")")
-                if inner_op == inner_cp:
-                    # Inner is balanced, we can reduce one layer
-                    inner_stripped = inner.strip()
-                    # Don't reduce if it would break structure
-                    if inner_stripped.startswith("(") and inner_stripped.endswith(")"):
-                        # Already wrapped, keep as is
-                        return f"({inner_stripped})"
-                    return f"({inner_stripped})"
-                return m.group(0)
-            s = re.sub(r"\(\(([^)]+)\)\)", reduce_balanced, s)
-            # Strip outer only if balanced
-            s = strip_outer_parens(s)
-            # Rebalance after each iteration
-            s = balance_parens(s)
-        return s
-
-    def split_top_level(expr: str, op_word: str) -> List[str]:
-        """
-        Split expr by op_word (AND/OR) only when parentheses depth == 0.
-        op_word must be uppercase "OR" or "AND".
-        """
-        out = []
-        buf = []
-        depth = 0
-
-        tokens = re.split(r"(\b" + re.escape(op_word) + r"\b)", expr, flags=re.I)
-
-        i = 0
-        while i < len(tokens):
-            tok = tokens[i]
-            if tok is None:
-                i += 1
-                continue
-
-            # update depth for parentheses in this chunk
-            for ch in tok:
-                if ch == "(":
-                    depth += 1
-                elif ch == ")":
-                    depth = max(0, depth - 1)
-
-            # if this token is the operator word and we're at top level, split
-            if re.fullmatch(r"\b" + re.escape(op_word) + r"\b", tok.strip(), flags=re.I) and depth == 0:
-                out.append("".join(buf).strip())
-                buf = []
-            else:
-                buf.append(tok)
-
-            i += 1
-
-        tail = "".join(buf).strip()
-        if tail:
-            out.append(tail)
-
-        return [x for x in out if x and x.strip()]
-
-    def normalize_for_comparison(s: str) -> str:
-        """Normalize a condition string for comparison by removing all parentheses and normalizing spacing."""
-        s = clean(s)
-        s = balance_parens(s)
-        # Remove all parentheses for comparison
-        s = re.sub(r"[()]", "", s)
-        s = re.sub(r"\s+", " ", s).strip()
-        return s.upper()
-    
-    def dedup_top_level_or(expr: str) -> str:
-        """
-        Remove duplicate top-level OR terms: A OR B OR A -> A OR B
-        Works even if terms have extra parentheses/spacing.
-        Also handles cases where one condition is a subset of another.
-        """
-        expr = (expr or "").strip()
-        if not expr:
-            return expr
-
-        parts = split_top_level(expr, "OR")
-        if len(parts) <= 1:
-            return expr
-
-        seen_normalized = {}
-        kept = []
-
-        for p in parts:
-            p_clean = clean(balance_parens(p))
-            p_clean = strip_outer_parens(p_clean)
-            # Fix any structural issues in the part first
-            p_clean = balance_parens(p_clean)
-            p_norm = normalize_for_comparison(p_clean)
-            
-            # Check if this is a duplicate
-            is_duplicate = False
-            for seen_norm, seen_orig in seen_normalized.items():
-                # Exact match after normalization
-                if p_norm == seen_norm:
-                    is_duplicate = True
-                    break
-                # Check if one is a subset: if p_norm is contained in seen_norm (or vice versa)
-                # Simple check: if one is a prefix of the other (for variable=value patterns)
-                if " AND " in seen_norm:
-                    seen_first = seen_norm.split(" AND ", 1)[0].strip()
-                    if p_norm == seen_first:
-                        is_duplicate = True
-                        break
-                if " AND " in p_norm:
-                    p_first = p_norm.split(" AND ", 1)[0].strip()
-                    if p_first == seen_norm:
-                        # p_norm is more specific, so remove the simpler seen_norm
-                        # But we can't modify while iterating, so we'll handle in second pass
-                        pass
-            
-            if not is_duplicate:
-                seen_normalized[p_norm] = p.strip()
-                kept.append((p.strip(), p_norm))
-
-        # Second pass: remove kept items that are subsets of others
-        final_kept = []
-        for i, (p_orig, p_norm) in enumerate(kept):
-            is_subset = False
-            for j, (other_orig, other_norm) in enumerate(kept):
-                if i == j:
-                    continue
-                # If p_norm is simpler and other_norm contains it
-                if " AND " in other_norm:
-                    other_first = other_norm.split(" AND ", 1)[0].strip()
-                    if p_norm == other_first:
-                        is_subset = True
-                        break
-            if not is_subset:
-                final_kept.append(p_orig)
-
-        if not final_kept:
-            return ""
-
-        if len(final_kept) == 1:
-            return final_kept[0].strip()
-
-        return " OR ".join(f"({strip_outer_parens(k.strip())})" for k in final_kept)
-
-    def repair_simple_or_chain(expr: str) -> str:
-        if not expr:
-            return expr
-        if " OR " not in expr.upper():
-            return expr
-        if "NOT" in expr.upper():
-            return expr
-        # Only rebuild very simple OR chains of equality comparisons.
-        terms = re.findall(r"[A-Z0-9\-]+\s*=\s*'[^']+'", expr, flags=re.I)
-        if len(terms) >= 2:
-            # If expression only contains these terms + OR + parens/space, rebuild cleanly.
-            tmp = re.sub(r"[()\s]", "", expr)
-            tmp = re.sub(r"\bOR\b", "", tmp, flags=re.I)
-            tmp = re.sub(r"[A-Z0-9\-]+='[^']+'", "", tmp, flags=re.I)
-            if tmp == "":
-                return " OR ".join(f"({t.strip()})" for t in terms)
-        return expr
-
-    def fix_and_same_var_equals(expr: str) -> str:
-        """
-        (X='I') AND (X='A')  -> (X='I') OR (X='A')
-        Repeats to handle chains.
-        """
-        if not expr:
-            return expr
-        prev = None
-        cur = expr
-        pat = re.compile(
-            r"\(\s*([A-Z0-9\-]+)\s*=\s*'([^']+)'\s*\)\s+AND\s+\(\s*\1\s*=\s*'([^']+)'\s*\)",
-            flags=re.I
-        )
-        while prev != cur:
-            prev = cur
-            cur = pat.sub(r"((\1 = '\2') OR (\1 = '\3'))", cur)
-        return cur
-    
-    def simplify_or_with_common_and(expr: str) -> str:
-        """
-        Simplify: (X='A' AND Y='1') OR (X='A' AND Y='2') -> (X='A' AND (Y='1' OR Y='2'))
-        Also handles: (X='A') OR (X='A' AND Y='1') -> (X='A')
-        """
-        if not expr:
-            return expr
-        
-        # Split by top-level OR
-        parts = split_top_level(expr, "OR")
-        if len(parts) <= 1:
-            return expr
-        
-        # Group parts by common AND terms
-        # For now, just handle simple case: (X='A') OR (X='A' AND Y='1') -> (X='A')
-        # Check if one part is a subset of another
-        simplified_parts = []
-        for i, p1 in enumerate(parts):
-            p1_clean = strip_outer_parens(clean(p1))
-            is_subset = False
-            for j, p2 in enumerate(parts):
-                if i == j:
-                    continue
-                p2_clean = strip_outer_parens(clean(p2))
-                # If p1 is contained in p2 (p2 has p1 AND something else), p1 can be removed
-                # Simple check: if p1 matches and p2 has AND, check if p1 is a prefix
-                if " AND " in p2_clean.upper():
-                    p2_first = p2_clean.split(" AND ", 1)[0].strip()
-                    if clean(p1_clean) == clean(p2_first):
-                        is_subset = True
-                        break
-            if not is_subset:
-                simplified_parts.append(p1)
-        
-        if len(simplified_parts) < len(parts):
-            if len(simplified_parts) == 1:
-                return simplified_parts[0].strip()
-            return " OR ".join(f"({p.strip()})" for p in simplified_parts)
-        
-        return expr
-
-    def remove_contradiction_not_a_and_a(expr: str) -> str:
-        """
-        (NOT (X='I')) AND (X='I')  -> "" (unreachable)
-        """
-        if not expr:
-            return expr
-        pat = re.compile(
-            r"\(\s*NOT\s*\(\s*([A-Z0-9\-]+)\s*=\s*'([^']+)'\s*\)\s*\)\s+AND\s+\(\s*\1\s*=\s*'\2'\s*\)",
-            flags=re.I
-        )
-        if pat.search(expr):
-            return ""
-        return expr
-
-    def simplify_condition(expr: str) -> str:
-        expr = expr or ""
-        expr = clean(expr)
-        expr = balance_parens(expr)
-
-        # Remove excessive nested parentheses: (((X))) -> (X), but be careful
-        # Repeat until no more changes
-        prev = None
-        while prev != expr:
-            prev = expr
-            # Remove double/triple parentheses around simple expressions
-            expr = re.sub(r"\(\(\(([^()]+)\)\)\)", r"(\1)", expr)
-            expr = re.sub(r"\(\(([^()]+)\)\)", r"(\1)", expr)
-            # But only if the inner expression is balanced
-            def reduce_parens(m):
-                inner = m.group(1)
-                if inner.count("(") == inner.count(")"):
-                    return f"({inner})"
-                return m.group(0)
-            expr = re.sub(r"\(\(([^()]+)\)\)", reduce_parens, expr)
-
-        # NOT (A NOT GREATER B)  ->  A GREATER B
-        expr = re.sub(r"NOT\s*\(\s*([A-Z0-9\-]+)\s+NOT\s+GREATER\s+([A-Z0-9\-]+)\s*\)", r"\1 GREATER \2", expr, flags=re.I)
-        # NOT (A NOT LESS B) -> A LESS B
-        expr = re.sub(r"NOT\s*\(\s*([A-Z0-9\-]+)\s+NOT\s+LESS\s+([A-Z0-9\-]+)\s*\)", r"\1 LESS \2", expr, flags=re.I)
-        # NOT (A = B) keep as NOT (A = B) (just normalize spacing)
-        expr = re.sub(r"NOT\s*\(\s*", "NOT (", expr, flags=re.I)
-
-        # Absorption:  (A) OR ((A) AND B) => (A)
-        # Very small but handles your MUOVI-DATI-30 style redundancy well
-        expr = re.sub(
-            r"\(\s*([^)]+?)\s*\)\s+OR\s+\(\s*\(\s*\1\s*\)\s+AND\s+([^)]+?)\s*\)",
-            r"(\1)",
-            expr,
-            flags=re.I,
-        )
-
-        expr = balance_parens(expr)
-        expr = fix_and_same_var_equals(expr)
-        expr = remove_contradiction_not_a_and_a(expr)
-        expr = balance_parens(expr)
-        
-        # Simplify OR expressions with common AND terms
-        expr = simplify_or_with_common_and(expr)
-        
-        # More aggressive deduplication: handle nested duplicates too
-        expr = dedup_top_level_or(expr)
-        
-        # Simplify redundant same-variable checks: (X='A') OR (X='A') -> (X='A')
-        # This handles cases like PDCGVC OR PDCGVC OR PDCGVC
-        parts = split_top_level(expr, "OR")
-        if len(parts) > 1:
-            seen_normalized = {}
-            kept = []
-            for p in parts:
-                p_clean = strip_outer_parens(clean(p))
-                # Normalize: extract variable=value patterns
-                var_val_match = re.match(r"([A-Z0-9\-]+)\s*=\s*'([^']+)'", p_clean, re.I)
-                if var_val_match:
-                    var, val = var_val_match.groups()
-                    key = f"{var.upper()}={val.upper()}"
-                    if key not in seen_normalized:
-                        seen_normalized[key] = p.strip()
-                        kept.append(p.strip())
-                else:
-                    # For non-simple conditions, use full normalization
-                    p_norm = clean(balance_parens(p_clean))
-                    p_norm = strip_outer_parens(p_norm)
-                    p_norm = re.sub(r"\s+", " ", p_norm).strip()
-                    # Check if this normalized form already exists
-                    found_dup = False
-                    for existing in seen_normalized.values():
-                        existing_norm = clean(balance_parens(strip_outer_parens(clean(existing))))
-                        existing_norm = re.sub(r"\s+", " ", existing_norm).strip()
-                        if p_norm == existing_norm:
-                            found_dup = True
-                            break
-                    if not found_dup:
-                        seen_normalized[p_norm] = p.strip()
-                        kept.append(p.strip())
-            
-            if len(kept) == 1:
-                expr = kept[0].strip()
-            elif len(kept) > 1:
-                expr = " OR ".join(f"({k.strip()})" for k in kept)
-            else:
-                expr = ""
-        
-        # Final cleanup: remove excessive parentheses one more time
-        expr = aggressively_reduce_parens(expr)
-        expr = balance_parens(expr)
-        expr = strip_outer_parens(expr)
-        
-        return expr
-
-    def combine(base: Optional[str], extra: Optional[str]) -> str:
-        extra = simplify_condition(expand_cobol_or_shorthand(clean(extra or "")))
-        if not extra:
-            return simplify_condition(base or "")
-        if base:
-            # Avoid double-wrapping: strip outer parens before combining
-            base_clean = strip_outer_parens(base)
-            extra_clean = strip_outer_parens(extra)
-            # Only wrap if needed
-            if " OR " in base_clean.upper() or " AND " in base_clean.upper():
-                base_clean = f"({base_clean})"
-            if " OR " in extra_clean.upper() or " AND " in extra_clean.upper():
-                extra_clean = f"({extra_clean})"
-            result = f"{base_clean} AND {extra_clean}"
-            return simplify_condition(balance_parens(result))
-        return simplify_condition(balance_parens(f"({extra})"))
-
-    def add_cond(tgt: str, cond: str):
-        cond = simplify_condition(expand_cobol_or_shorthand(clean(cond)))
-        if not cond:
+    def record(target: str, expr, index: Optional[int] = None) -> None:
+        target = norm_name(target)
+        if not target:
             return
-        if tgt in goto_conds:
-            # Avoid double-wrapping in parentheses
-            existing = strip_outer_parens(goto_conds[tgt])
-            new_cond = strip_outer_parens(cond)
-            # Only wrap if needed (if they contain operators)
-            if " OR " in existing.upper() or " AND " in existing.upper():
-                existing = f"({existing})"
-            if " OR " in new_cond.upper() or " AND " in new_cond.upper():
-                new_cond = f"({new_cond})"
-            merged = f"{existing} OR {new_cond}"
-            goto_conds[tgt] = dedup_top_level_or(simplify_condition(merged))
-        else:
-            goto_conds[tgt] = dedup_top_level_or(cond)
-
-
-    def stack_cond() -> Optional[str]:
-        if not cond_stack:
-            return None
-        joined = " AND ".join(
-            f"({simplify_condition(x['cond'])})"
-            for x in cond_stack
-            if clean(x.get("cond", ""))
+        text = render(expr)
+        if not text:
+            return
+        bucket = guards.setdefault(target, [])
+        if any(existing.condition == text for existing in bucket):
+            return
+        line = (
+            line_numbers[index]
+            if index is not None and 0 <= index < len(line_numbers)
+            else None
         )
-        return simplify_condition(joined)
+        bucket.append(Guard(text, line))
 
+    def branch_targets(text: str) -> List[str]:
+        """GO TO and PERFORM targets named by one statement.
 
-    def read_if_condition(i: int) -> Tuple[str, int]:
+        PERFORM is included because a guarded PERFORM is a conditional edge in
+        exactly the same sense as a guarded GO TO; excluding it left every
+        conditional PERFORM in the corpus with no condition at all.
         """
-        Read IF condition possibly spanning multiple lines.
-        Returns (condition, next_index_after_condition_lines)
+        found: List[str] = []
+        goto = re.search(r"\bGO\s+TO\b\s+([A-Z0-9-]+)", text, re.I)
+        if goto:
+            found.append(goto.group(1))
+        perform = re.search(r"\bPERFORM\s+([A-Z0-9-]+)", text, re.I)
+        if perform and perform.group(1).upper() not in {"UNTIL", "VARYING", "TIMES", "WITH"}:
+            found.append(perform.group(1))
+        return found
+
+    def read_condition(index: int):
+        """Read an IF/WHEN condition, following continuation lines.
+
+        A condition split across lines leaves the connective at the end of the
+        line. The trailing connective is what says the condition continues, so
+        it has to be read before it is stripped -- removing it first and then
+        testing for it is why multi-line conditions were silently truncated to
+        their first conjunct.
         """
-        raw = lines[i]
-        tmp = re.sub(r"^\s*IF\b", "", raw, flags=re.I).strip()
+        raw = re.sub(r"^\s*(IF|WHEN)\b", "", lines[index], flags=re.I).strip()
+        for terminator in (r"\bTHEN\b", r"\bGO\s+TO\b", r"\bPERFORM\b"):
+            if re.search(terminator, raw, re.I):
+                raw = re.split(terminator, raw, flags=re.I)[0].strip()
+                break
 
-        # cut at THEN if present
-        if re.search(r"\bTHEN\b", tmp, re.I):
-            tmp = re.split(r"\bTHEN\b", tmp, flags=re.I)[0].strip()
-
-        # cut at inline GO TO
-        if re.search(r"\bGO\s+TO\b", tmp, re.I):
-            tmp = re.split(r"\bGO\s+TO\b", tmp, flags=re.I)[0].strip()
-
-        parts = [clean(tmp)]
-        j = i + 1
-
-        # continue reading while unfinished (ends with AND/OR)
+        parts = [raw]
+        j = index + 1
         while j < len(lines):
-            prev = parts[-1] if parts else ""
-            if not re.search(r"\b(AND|OR)\s*$", prev, re.I):
-                break
-
             nxt = lines[j].strip()
-            u = nxt.upper()
-
-            if re.match(r"^(GO\s+TO|PERFORM|ELSE|END-IF)\b", u):
+            # A condition continues either because this line ended on a
+            # connective or because the next line begins with one. Only the
+            # first form was recognised, so "IF (...)" followed by "AND ..."
+            # lost every conjunct after the first.
+            if not (_continues(parts[-1]) or _resumes(nxt)):
                 break
-            if re.match(r"^[A-Z0-9\-]+\.\s*$", u):
+            if re.match(r"^(ELSE|END-IF)\b", nxt, re.I):
                 break
-
-            parts.append(clean(nxt))
+            if re.match(r"^[A-Z0-9-]+\.\s*$", nxt, re.I):
+                break
+            for terminator in (r"\bTHEN\b", r"\bGO\s+TO\b", r"\bPERFORM\b"):
+                if re.search(terminator, nxt, re.I):
+                    nxt = re.split(terminator, nxt, flags=re.I)[0].strip()
+                    parts.append(nxt)
+                    return parse_condition(" ".join(x for x in parts if x)), j
+            parts.append(nxt)
             j += 1
+        return parse_condition(" ".join(x for x in parts if x)), j
 
-        cond = clean(" ".join(p for p in parts if p))
-        cond = expand_cobol_or_shorthand(cond)
-        cond = simplify_condition(cond)
-        return cond, j
+    def _continues(text: str) -> bool:
+        return bool(re.search(r"(?<![A-Z0-9-])(?:AND|OR|NOT)\s*$", text or "", re.I))
 
-    def find_goto_in_if_block(start_idx: int, max_scan: int = 25) -> Optional[Tuple[int, str]]:
-        """
-        For IF that isn't immediately followed by GO TO, scan forward for a GO TO that belongs to it
-        (classic COBOL multi-statement IF without END-IF).
+    def _resumes(text: str) -> bool:
+        return bool(re.match(r"^(?:AND|OR)(?![A-Z0-9-])", (text or "").strip(), re.I))
 
-        Stops at:
-          - another IF at same level
-          - END-IF / ELSE
-          - next paragraph label
-        """
-        j = start_idx
-        scanned = 0
-        while j < len(lines) and scanned < max_scan:
-            u = lines[j].strip().upper()
-            if lines[j].rstrip().endswith("."):
+    def find_branch_in_block(start: int, limit: int = 25):
+        """A classic IF whose branch statement sits further down the block."""
+        depth = 0
+        for k in range(start, min(len(lines), start + limit)):
+            u = lines[k].strip().upper()
+            if re.match(r"^(END-IF|ELSE)\b", u) and depth == 0:
                 return None
-            if re.match(r"^\s*IF\b", u):
+            if re.match(r"^IF\b", u):
+                depth += 1
+                continue
+            if re.match(r"^[A-Z0-9-]+\.\s*$", u):
                 return None
-            if re.match(r"^\s*(END-IF|ELSE)\b", u):
+            targets = branch_targets(u)
+            if targets and depth == 0:
+                return k, targets
+            if u.rstrip().endswith("."):
                 return None
-            if re.match(r"^[A-Z0-9\-]+\.\s*$", u):
-                return None
-
-            if "GO TO" in u:
-                tgt = parse_goto_target(u)
-                if tgt:
-                    return j, tgt
-
-            j += 1
-            scanned += 1
-
         return None
-
-    # -------------------- main --------------------
-
-    # Pre-clean lines
-    lines: List[str] = []
-    for ln in par_lines:
-        s = ln.rstrip()
-        if not s.strip():
-            continue
-        if s.strip().startswith("*"):
-            continue
-        lines.append(s)
-
-    goto_conds: Dict[str, str] = {}
-    cond_stack: List[Dict[str, Any]] = []   # each: {"cond": "...", "implicit": True/False}
-
-    # Collect consecutive top-level IF->GO TO guards, to build fallback NOT(OR(...))
-    top_level_guards: List[str] = []
-
-    def clear_top_guards():
-        top_level_guards.clear()
 
     i = 0
     while i < len(lines):
         raw = lines[i]
         u = raw.strip().upper()
 
-        # END-IF
         if re.search(r"\bEND-IF\b", u):
             if cond_stack:
                 cond_stack.pop()
             i += 1
             continue
 
-        # ELSE
-        if re.match(r"^\s*ELSE\b", u):
+        if re.match(r"^ELSE\b", u):
             if cond_stack:
-                last = cond_stack.pop()
-                last["cond"] = f"NOT ({last['cond']})"
-                cond_stack.append(last)
+                frame = cond_stack.pop()
+                frame = dict(frame)
+                frame["cond"] = negate(frame["cond"])
+                cond_stack.append(frame)
             i += 1
             continue
 
-        # IF ...
-        if re.match(r"^\s*IF\b", u):
-            if_cond, j = read_if_condition(i)
+        if re.match(r"^(IF|WHEN)\b", u):
+            condition, j = read_condition(i)
 
-            # Case A: inline IF ... GO TO target
-            if re.search(r"\bGO\s+TO\b", u):
-                tgt = parse_goto_target(u)
-                if tgt:
-                    c = combine(stack_cond(), if_cond)
-                    add_cond(tgt, c)
-                    if not cond_stack:
-                        top_level_guards.append(c)
+            inline = branch_targets(u)
+            if inline:
+                combined = conjoin(stack_condition(), condition)
+                for target in inline:
+                    record(target, combined, i)
+                if not cond_stack:
+                    top_level_guards.append(condition)
                 i = j
                 continue
 
-            # Case B: IF cond THEN / next statement is GO TO target
-            k = j
-            while k < len(lines) and not lines[k].strip():
-                k += 1
-            if k < len(lines):
-                tgt = parse_goto_target(lines[k].strip().upper())
-                if tgt:
-                    c = combine(stack_cond(), if_cond)
-                    add_cond(tgt, c)
+            following = j
+            while following < len(lines) and not lines[following].strip():
+                following += 1
+            if following < len(lines):
+                targets = branch_targets(lines[following].strip().upper())
+                if targets:
+                    combined = conjoin(stack_condition(), condition)
+                    for target in targets:
+                        record(target, combined, following)
                     if not cond_stack:
-                        top_level_guards.append(c)
-                    i = k + 1
+                        top_level_guards.append(condition)
+                    # A period here ends the IF, so the guard must not stay on
+                    # the stack: leaving it there conjoins it onto the next
+                    # independent IF and reports two alternative paths as one
+                    # conjunction.
+                    i = following + 1
+                    if not lines[following].rstrip().endswith("."):
+                        cond_stack.append({"cond": condition, "implicit": True})
                     continue
 
-            # Case C: multi-statement IF without END-IF: scan for GO TO inside block
-            found = find_goto_in_if_block(j)
+            found = find_branch_in_block(j)
             if found:
-                goto_idx, tgt = found
-                c = combine(stack_cond(), if_cond)
-                add_cond(tgt, c)
+                branch_index, targets = found
+                combined = conjoin(stack_condition(), condition)
+                for target in targets:
+                    record(target, combined, branch_index)
                 if not cond_stack:
-                    top_level_guards.append(c)
-                # continue after that GO TO line (the IF effectively ends here for CFG purposes)
-                i = goto_idx + 1
+                    top_level_guards.append(condition)
+                i = branch_index + 1
+                if not lines[branch_index].rstrip().endswith("."):
+                    cond_stack.append({"cond": condition, "implicit": True})
                 continue
 
-            # Case D: real IF block (push)
             if not cond_stack:
-                clear_top_guards()
-            cond_stack.append({"cond": if_cond, "implicit": True})
+                top_level_guards.clear()
+            cond_stack.append({"cond": condition, "implicit": True})
             i = j
             continue
 
-        # Unconditional GO TO ...
-        if re.search(r"\bGO\s+TO\b", u):
-            tgt = parse_goto_target(u)
-            if tgt:
-                base = stack_cond()
-
-                if base:
-                    # inside nested IF context
-                    add_cond(tgt, base)
-                else:
-                    # top-level unconditional GO TO: dispatch/pf fallback
-                    if top_level_guards:
-                        ors = " OR ".join(f"({g})" for g in top_level_guards)
-                        add_cond(tgt, f"NOT ({ors})")
-                        clear_top_guards()
-
+        targets = branch_targets(u)
+        if targets:
+            base = stack_condition()
+            if base is not None:
+                for target in targets:
+                    record(target, base, i)
+            elif top_level_guards and re.search(r"\bGO\s+TO\b", u, re.I):
+                # An unguarded GO TO after a ladder of guarded ones is the
+                # fallback: it is taken when none of the guards held.
+                fallback = negate(disjoin(top_level_guards))
+                for target in targets:
+                    record(target, fallback, i)
+                top_level_guards.clear()
+            if raw.rstrip().endswith(".") and cond_stack and cond_stack[-1].get("implicit"):
+                cond_stack.pop()
             i += 1
             continue
-        # If COBOL ends an IF scope with a period (no END-IF), close it here
+
         if raw.rstrip().endswith("."):
-            if cond_stack and cond_stack[-1].get("implicit"):
+            while cond_stack and cond_stack[-1].get("implicit"):
                 cond_stack.pop()
         i += 1
 
-    # Final cleanup: ensure all conditions are not truncated and shorthand expanded
-    for k in list(goto_conds.keys()):
-        goto_conds[k] = simplify_condition(expand_cobol_or_shorthand(goto_conds[k]))
-        goto_conds[k] = balance_parens(goto_conds[k])
-        
-        goto_conds[k] = balance_parens(goto_conds[k])
-        
-        # Final aggressive simplification to remove duplicates and excessive parentheses
-        goto_conds[k] = dedup_top_level_or(goto_conds[k])
-        # Balance again after dedup
-        goto_conds[k] = balance_parens(goto_conds[k])
-        # Aggressively reduce parentheses before final simplification
-        goto_conds[k] = aggressively_reduce_parens(goto_conds[k])
-        # Final balance and validation
-        goto_conds[k] = balance_parens(goto_conds[k])
-        goto_conds[k] = simplify_condition(goto_conds[k])  # Run again to clean up after dedup
-        
-        goto_conds[k] = balance_parens(goto_conds[k])
-        
-        # Final dedup one more time after all fixes
-        goto_conds[k] = dedup_top_level_or(goto_conds[k])
-        goto_conds[k] = balance_parens(goto_conds[k])
-        # Repair simple OR chains if parens got unbalanced
-        goto_conds[k] = repair_simple_or_chain(goto_conds[k])
-        goto_conds[k] = balance_parens(goto_conds[k])
-
-    return goto_conds
+    return guards
 
 
 # ---------- DETECT PERFORM/CALL TYPES + RANGE INFO ----------
@@ -1077,9 +633,14 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
 
     # Precompute:
     # - goto conditions per paragraph
-    goto_conditions: Dict[str, Dict[str, str]] = {
-        pname: extract_goto_conditions(lines) for pname, lines in paragraphs.items()
+    paragraph_guards: Dict[str, Dict[str, List[Guard]]] = {
+        pname: extract_paragraph_guards(lines, para_line_nos.get(pname))
+        for pname, lines in paragraphs.items()
     }
+    # One target can be reached under several guards from the same paragraph.
+    # Track how many of each have been attached so the remainder become their
+    # own edges rather than overwriting one another.
+    guards_used: Dict[Tuple[str, str], int] = {}
 
     # - cics ops per paragraph
     cics_ops_by_par: Dict[str, List[str]] = {
@@ -1114,34 +675,18 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
 
         edge["type"] = etype
 
-        # Add condition for JUMP edges (from IF stacks)
-        if etype == "JUMP" and src in goto_conditions:
-            # Special-case: PDCBVC.BROWSE-FASE1 -> XCTL-LIV4 is handled later
-            if not (program_id == "PDCBVC" and src == "BROWSE-FASE1" and tgt == "XCTL-LIV4"):
-                cond = goto_conditions[src].get(tgt)
-                if cond:
-                    cond = cond.strip()
-                    # Fix any structural issues first
-                    # Ensure parentheses are balanced (simple count-based balancing)
-                    op = cond.count("(")
-                    cp = cond.count(")")
-                    if op > cp:
-                        cond += ")" * (op - cp)
-                    elif cp > op:
-                        cond = ("(" * (cp - op)) + cond
-                    # If condition doesn't start with parentheses and contains operators, wrap it
-                    if not cond.startswith("(") and (" AND " in cond.upper() or " OR " in cond.upper() or " NOT " in cond.upper()):
-                        cond = f"({cond})"
-                    # Final balance check
-                    op = cond.count("(")
-                    cp = cond.count(")")
-                    if op > cp:
-                        cond += ")" * (op - cp)
-                    elif cp > op:
-                        cond = ("(" * (cp - op)) + cond
-                    edge["condition"] = cond
-                else:
-                    edge.pop("condition", None)
+        # Attach the guard that reaches this target. Conditions are rendered
+        # from an expression tree, so there is nothing to balance or re-wrap
+        # here. A guarded PERFORM is as conditional as a guarded GO TO, so
+        # edge type does not decide whether a condition applies.
+        available = list(paragraph_guards.get(src, {}).get(tgt, ()))
+        used = guards_used.setdefault((src, tgt), 0)
+        if used < len(available):
+            guard = available[used]
+            edge["condition"] = guard.condition
+            if guard.line is not None:
+                edge["line"] = guard.line
+            guards_used[(src, tgt)] = used + 1
         else:
             edge.pop("condition", None)
 
@@ -1201,125 +746,28 @@ def enrich_graph(graph: Dict[str, Any], cobol_text: str) -> Dict[str, Any]:
         else:
             edge.pop("range_flow_of", None)
 
-    # Special handling for PDCBVC: refine BROWSE-FASE1 conditions
-    if program_id == "PDCBVC":
-        # 1) Condition for PERFORM READ-TAB-SEMAF
-        # Keep COBOL-style shorthand exactly as written in the source:
-        # IF (TWCOB-FUNZIONE =  'I' OR 'A' OR 'C' OR 'D' OR 'P')
-        semaf_if_cond = "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP'"
-        semaf_goto_cond = "(TWCOB-FUNZIONE = 'I' OR 'A' OR 'C' OR 'D' OR 'P') AND TWCOB-ID-SISTEMA = 'IP' AND PXCSEMAF-STATUS = 1"
-        pd1_goto_cond = "PD1VOCI-TABVOX-NUMERO = 0 AND TWCOB-XCTL-PGM = 'PDCGVC'"
-
-        # Attach condition to CALL edge BROWSE-FASE1 -> READ-TAB-SEMAF
-        for edge in graph.get("edges", []):
-            if edge.get("from") == "BROWSE-FASE1" and edge.get("to") == "READ-TAB-SEMAF":
-                edge["condition"] = semaf_if_cond
-                break
-
-        # 2) Ensure we have two separate JUMP edges from BROWSE-FASE1 to XCTL-LIV4
-        b1_to_liv4 = [e for e in graph.get("edges", []) if e.get("from") == "BROWSE-FASE1" and e.get("to") == "XCTL-LIV4"]
-
-        if b1_to_liv4:
-            # First edge: semaforo closed path
-            b1_to_liv4[0]["type"] = "JUMP"
-            b1_to_liv4[0]["condition"] = semaf_goto_cond
-
-            # Check if a PD1VOCI-based edge already exists
-            has_pd1 = any(
-                isinstance(e.get("condition"), str) and "PD1VOCI-TABVOX-NUMERO" in e["condition"]
-                for e in b1_to_liv4
+    # A guard with no edge to carry it is a branch the DOT export did not
+    # record as a separate arc. Emitting it keeps distinct guarded paths to the
+    # same target distinct, instead of silently keeping only the first.
+    for source, targets in paragraph_guards.items():
+        for target, conditions in targets.items():
+            attached = guards_used.get((source, target), 0)
+            if attached == 0 or attached >= len(conditions):
+                continue
+            template = next(
+                (e for e in graph.get("edges", [])
+                 if e.get("from") == source and e.get("to") == target),
+                None,
             )
-            if not has_pd1:
-                graph.setdefault("edges", []).append(
-                    {
-                        "from": "BROWSE-FASE1",
-                        "to": "XCTL-LIV4",
-                        "type": "JUMP",
-                        "condition": pd1_goto_cond,
-                        "evidence": "GO  TO  XCTL-LIV4",
-                    }
-                )
+            if template is None:
+                continue
+            for guard in conditions[attached:]:
+                edge = dict(template)
+                edge["condition"] = guard.condition
+                if guard.line is not None:
+                    edge["line"] = guard.line
+                graph.setdefault("edges", []).append(edge)
 
-        # 3) Condition for PERFORM ABEND00 inside READ-TAB-SEMAF
-        #    IF PXCSEMAF-OUTCOME NOT = SPACE
-        for edge in graph.get("edges", []):
-            if edge.get("from") == "READ-TAB-SEMAF" and edge.get("to") == "ABEND00":
-                edge["condition"] = "PXCSEMAF-OUTCOME NOT = SPACE"
-                break
-
-        # 4) Condition for top-level GO TO ABEND00 (fallback when neither FASE 1 nor 2)
-        for edge in graph.get("edges", []):
-            if edge.get("from") == program_id and edge.get("to") == "ABEND00":
-                # Both IFs must be false to reach here:
-                # IF  TWCOB-FASE = '1' THEN GO TO BROWSE-FASE1.
-                # IF  TWCOB-FASE = '2' THEN GO TO BROWSE-FASE2.
-                edge["condition"] = "NOT (TWCOB-FASE = '1' OR TWCOB-FASE = '2')"
-                break
-
-
-        # 5) Fix BROWSE-FASE2-ENTER selection condition (needs NOT SPACES too)
-        for edge in graph.get("edges", []):
-            if edge.get("from") == "BROWSE-FASE2-ENTER" and edge.get("to") == "BROWSE-FASE2-SEL":
-                edge["condition"] = "(SCELTAI NOT = '__') AND (SCELTAI NOT = SPACES)"
-                break
-
-        # 6) Fix MUOVI-DATI-10 -> MUOVI-DATI-30 condition (two independent IFs)
-        for edge in graph.get("edges", []):
-            if edge.get("from") == "MUOVI-DATI-10" and edge.get("to") == "MUOVI-DATI-30":
-                edge["condition"] = "(PD1VOCI-IND GREATER PD1VOCI-TABVOX-NUMERO) OR (WCTRIG GREATER 15)"
-                break
-
-        # 7) Ensure MUOVI-DATI -> MUOVI-DATI-10 has both FASE 1 and 2 paths
-        muovi_cond_1 = "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '1')"
-        muovi_cond_2 = "(TWCOB-XCTL-PGM = 'PDCGVC') AND (TWCOB-FASE = '2')"
-        muovi_edges = [e for e in graph.get("edges", []) if e.get("from") == "MUOVI-DATI" and e.get("to") == "MUOVI-DATI-10"]
-        has_1 = any(e.get("condition") == muovi_cond_1 for e in muovi_edges)
-        has_2 = any(e.get("condition") == muovi_cond_2 for e in muovi_edges)
-        if not has_1:
-            graph.setdefault("edges", []).append(
-                {
-                    "from": "MUOVI-DATI",
-                    "to": "MUOVI-DATI-10",
-                    "type": "JUMP",
-                    "condition": muovi_cond_1,
-                    "evidence": "GO  TO  MUOVI-DATI-10.",
-                }
-            )
-        if not has_2:
-            graph.setdefault("edges", []).append(
-                {
-                    "from": "MUOVI-DATI",
-                    "to": "MUOVI-DATI-10",
-                    "type": "JUMP",
-                    "condition": muovi_cond_2,
-                    "evidence": "GO  TO  MUOVI-DATI-10.",
-                }
-            )
-
-        # 8) Ensure BROWSE-FASE1 -> XCTL-LIV4 edge for PD1VOCI-TABVOX-NUMERO = 0 (unguarded)
-        pd1_simple_cond = "PD1VOCI-TABVOX-NUMERO = 0"
-        has_pd1_simple = any(
-            e.get("from") == "BROWSE-FASE1"
-            and e.get("to") == "XCTL-LIV4"
-            and e.get("condition") == pd1_simple_cond
-            for e in graph.get("edges", [])
-        )
-        if not has_pd1_simple:
-            graph.setdefault("edges", []).append(
-                {
-                    "from": "BROWSE-FASE1",
-                    "to": "XCTL-LIV4",
-                    "type": "JUMP",
-                    "condition": pd1_simple_cond,
-                    "evidence": "GO  TO  XCTL-LIV4",
-                }
-            )
-
-        # 9) Normalize INIZ-PARAM -> INIZ-PARAM-010 condition (dedup)
-        for edge in graph.get("edges", []):
-            if edge.get("from") == "INIZ-PARAM" and edge.get("to") == "INIZ-PARAM-010":
-                edge["condition"] = "(TWCOB-VARCONT-NUMFUNZ = '1') OR (TWCOB-VARCONT-NUMFUNZ = '6') OR (TWCOB-FUNZIONE = 'I')"
-                break
     # The graph arrives as a DOT edge list, so its node set is only the set of
     # edge endpoints. A paragraph with no edges - an EXIT-only paragraph, or one
     # nothing performs - is structurally unrepresentable and vanishes silently:
