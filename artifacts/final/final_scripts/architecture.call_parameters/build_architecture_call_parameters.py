@@ -4,7 +4,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 
 PARAGRAPH_RE = re.compile(r"^\s*([A-Z0-9][A-Z0-9-]*)\.\s*$")
@@ -14,13 +14,6 @@ PROGRAM_RE = re.compile(r"\bPROGRAM\s*\(\s*(?P<target>'[^']+'|\"[^\"]+\"|[A-Z0-9
 COMMAREA_RE = re.compile(r"\bCOMMAREA\s*\(\s*(?P<commarea>[A-Z0-9-]+)\s*\)", re.IGNORECASE)
 LENGTH_RE = re.compile(r"\bLENGTH\s*\(\s*(?P<length>[A-Z0-9-]+|\d+)\s*\)", re.IGNORECASE)
 
-
-KNOWN_COMMAREA_PREFIXES = {
-    "WPD1VOCI": "PD1VOCI",
-    "WPD1FS00": "PD1FS00",
-    "WPDRUTI01": "PDRUTI01",
-    "PXCSEMAF-AREA": "PXCSEMAF",
-}
 
 NON_PARAGRAPH_WORDS = {
     "END-IF",
@@ -170,10 +163,36 @@ def extract_calls(statements: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return calls
 
 
-def parameter_prefix(parameter: str) -> str:
+def field_group_prefixes(variables: dict[str, dict[str, Any]]) -> list[str]:
+    """Prefixes shared by a group of fields, longest first.
+
+    A group is anything that several variables are named after: PDRGCODA- for
+    PDRGCODA-FUNZIONE and PDRGCODA-KOST. These are the candidates a call
+    argument can name.
+    """
+    groups: dict[str, int] = {}
+    for name in variables:
+        head, _, rest = name.partition("-")
+        if head and rest:
+            groups[head] = groups.get(head, 0) + 1
+    return sorted((g for g, count in groups.items() if count > 1), key=len, reverse=True)
+
+
+def parameter_prefix(parameter: str, groups: Sequence[str] = ()) -> str:
+    """The field group a call argument refers to.
+
+    The argument rarely equals the group: an area is conventionally named for
+    the interface it carries with a local prefix or suffix attached, so
+    WPDRGCODA passes the PDRGCODA- fields and PXCSEMAF-AREA the PXCSEMAF-
+    ones. Reading the group out of the argument keeps this working for any
+    program; a fixed table of argument-to-group pairs resolved the arguments of
+    whichever program it was written for and returned the others unchanged,
+    leaving their call interfaces summarised by a single variable.
+    """
     parameter = parameter.upper()
-    if parameter in KNOWN_COMMAREA_PREFIXES:
-        return KNOWN_COMMAREA_PREFIXES[parameter]
+    for group in groups:
+        if group != parameter and group in parameter:
+            return group
     return parameter
 
 
@@ -218,12 +237,13 @@ def main() -> None:
     statements = load_cobol_statements(Path(args.cobol))
     variables = load_variables(Path(args.variables)) if args.variables else {}
     calls = extract_calls(statements)
+    groups = field_group_prefixes(variables)
 
     enriched: list[dict[str, Any]] = []
     for call in calls:
         parameter_details = []
         for parameter in call["parameters"]:
-            prefix = parameter_prefix(parameter)
+            prefix = parameter_prefix(parameter, groups)
             parameter_details.append(
                 {
                     "parameter": parameter,

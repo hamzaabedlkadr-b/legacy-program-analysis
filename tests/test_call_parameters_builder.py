@@ -189,14 +189,45 @@ class CallExtractionTest(BuilderTestCase):
         self.assertEqual(calls[0]["line_start"], 2)
 
 
+class FieldGroupTest(unittest.TestCase):
+    def test_a_group_needs_more_than_one_field(self) -> None:
+        groups = builder.field_group_prefixes(
+            {"IFACE-CODE": {}, "IFACE-NAME": {}, "LONE-FIELD": {}}
+        )
+        self.assertIn("IFACE", groups)
+        self.assertNotIn("LONE", groups)
+
+    def test_groups_are_longest_first(self) -> None:
+        groups = builder.field_group_prefixes(
+            {"AB-ONE": {}, "AB-TWO": {}, "ABCDEF-ONE": {}, "ABCDEF-TWO": {}}
+        )
+        self.assertEqual(groups, ["ABCDEF", "AB"])
+
+    def test_undivided_names_form_no_group(self) -> None:
+        self.assertEqual(builder.field_group_prefixes({"FLAG": {}, "COUNT": {}}), [])
+
+
 class ParameterPrefixTest(unittest.TestCase):
-    def test_unknown_parameter_is_its_own_prefix(self) -> None:
-        self.assertEqual(builder.parameter_prefix("some-area"), "SOME-AREA")
+    """A call argument names a field group but rarely equals it: the area is
+    conventionally named for the interface with a local prefix or suffix."""
+
+    def test_prefixed_area_resolves_to_its_group(self) -> None:
+        self.assertEqual(builder.parameter_prefix("WIFACE", ["IFACE"]), "IFACE")
+
+    def test_suffixed_area_resolves_to_its_group(self) -> None:
+        self.assertEqual(builder.parameter_prefix("IFACE-AREA", ["IFACE"]), "IFACE")
+
+    def test_longest_matching_group_wins(self) -> None:
+        self.assertEqual(builder.parameter_prefix("WABCDEF", ["ABCDEF", "AB"]), "ABCDEF")
+
+    def test_argument_matching_no_group_is_its_own_prefix(self) -> None:
+        self.assertEqual(builder.parameter_prefix("some-area", ["IFACE"]), "SOME-AREA")
+
+    def test_argument_equal_to_a_group_is_left_alone(self) -> None:
+        self.assertEqual(builder.parameter_prefix("IFACE", ["IFACE"]), "IFACE")
 
     def test_lookup_is_case_insensitive(self) -> None:
-        for name, mapped in builder.KNOWN_COMMAREA_PREFIXES.items():
-            with self.subTest(name=name):
-                self.assertEqual(builder.parameter_prefix(name.lower()), mapped)
+        self.assertEqual(builder.parameter_prefix("wiface", ["IFACE"]), "IFACE")
 
 
 class VariableSummaryTest(unittest.TestCase):
