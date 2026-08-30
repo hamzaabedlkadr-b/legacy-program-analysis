@@ -33,14 +33,82 @@ def load_variables(path: Path) -> list[dict[str, Any]]:
     raise SystemExit(f"{path} must contain a variable list or dataflow.used_variables object")
 
 
-def classify_target(variable: dict[str, Any]) -> dict[str, bool]:
+# BMS builds a symbolic map by emitting a family of fields per screen field:
+# a length, a flag, an attribute, and an input/output value. A copybook that
+# declares such families is a map copybook whatever it is named, so the map
+# does not have to be identified by name for each program.
+_BMS_SUFFIXES = "LFAIO"
+
+
+def bms_origins(variables: list[dict[str, Any]]) -> set[str]:
+    grouped: dict[str, set[str]] = {}
+    for variable in variables:
+        origin = str(variable.get("origin") or "").upper()
+        name = str(variable.get("variable") or "").upper()
+        if origin.startswith("COPY:") and name:
+            grouped.setdefault(origin, set()).add(name)
+
+    detected: set[str] = set()
+    for origin, names in grouped.items():
+        stems: dict[str, set[str]] = {}
+        for name in names:
+            if len(name) > 1 and name[-1] in _BMS_SUFFIXES:
+                stems.setdefault(name[:-1], set()).add(name[-1])
+        if any(len(suffixes) >= 2 for suffixes in stems.values()):
+            detected.add(origin)
+    return detected
+
+
+_CALL_ARGUMENT_RE = re.compile(
+    r"(?:\bUSING\b|\bCOMMAREA\s*\()\s*(?P<args>[^)]+)", re.IGNORECASE
+)
+
+
+def commarea_prefixes(variables: list[dict[str, Any]]) -> set[str]:
+    """Prefixes of fields belonging to a call interface.
+
+    Two structural signals, because either alone misses real cases. A commarea
+    copybook is named after the interface it carries, so its fields share the
+    member name as a prefix; and an area named in a CALL ... USING or an
+    EXEC CICS COMMAREA is a call interface whether or not its copybook was
+    supplied with the program. The second signal is what covers an interface
+    whose copybook is absent, where every field is left with no origin at all.
+    """
+    prefixes: set[str] = set()
+
+    for variable in variables:
+        origin = str(variable.get("origin") or "").upper()
+        name = str(variable.get("variable") or "").upper()
+        if origin.startswith("COPY:") and "-" in name:
+            member = origin.split(":", 1)[1]
+            if member and name.startswith(member + "-"):
+                prefixes.add(member + "-")
+
+    for variable in variables:
+        evidence = variable.get("evidence") or {}
+        for kind in ("write_sites", "read_sites", "read_write_sites"):
+            for site in evidence.get(kind) or []:
+                statement = str(site.get("statement") or "").upper()
+                for match in _CALL_ARGUMENT_RE.finditer(statement):
+                    for argument in re.findall(r"[A-Z][A-Z0-9-]*", match.group("args")):
+                        if "-" in argument:
+                            prefixes.add(argument.split("-", 1)[0] + "-")
+    return prefixes
+
+
+def classify_target(
+    variable: dict[str, Any],
+    map_origins: set[str],
+    call_prefixes: set[str],
+) -> dict[str, bool]:
     target = str(variable.get("variable") or "").upper()
     origin = str(variable.get("origin") or "").upper()
     controls_flow = bool(variable.get("controls_flow"))
     return {
         "controls_flow": controls_flow,
-        "screen_or_map_field": origin.startswith("COPY:PDCBVCM") or re.match(r"^M\d[A-Z0-9-]+[A-Z]$", target) is not None,
-        "call_commarea_field": target.startswith(("PD1FS00-", "PD1VOCI-", "PDRUTI01-", "PXCSEMAF-")),
+        "screen_or_map_field": origin in map_origins
+        or re.match(r"^M\d[A-Z0-9-]+[A-Z]$", target) is not None,
+        "call_commarea_field": any(target.startswith(prefix) for prefix in call_prefixes),
     }
 
 
@@ -54,7 +122,11 @@ def main() -> None:
     assignments: list[dict[str, Any]] = []
     seen: set[tuple[str, str, str, int]] = set()
 
-    for variable in load_variables(Path(args.input)):
+    all_variables = load_variables(Path(args.input))
+    map_origins = bms_origins(all_variables)
+    call_prefixes = commarea_prefixes(all_variables)
+
+    for variable in all_variables:
         target = str(variable.get("variable") or "").upper()
         evidence = variable.get("evidence") or {}
         for site in evidence.get("write_sites") or []:
@@ -75,7 +147,7 @@ def main() -> None:
                 continue
             seen.add(key)
 
-            flags = classify_target(variable)
+            flags = classify_target(variable, map_origins, call_prefixes)
             assignments.append(
                 {
                     "id": make_id(f"{args.program}|{statement_target}|{literal_raw}|{paragraph}|{line}"),

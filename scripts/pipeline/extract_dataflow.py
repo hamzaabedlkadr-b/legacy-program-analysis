@@ -421,9 +421,15 @@ def parse_declarations(stmts_all: List[Tuple[int, str]], copy_dir: Optional[Path
             else:
                 register(name, section or "UNKNOWN")
 
-    # Optional: scan copybooks in folder
+    # Optional: scan copybooks in folder.
+    # Every file counts, whatever it is called. A COPY member is named by the
+    # COPY statement, not by a file extension, and mainframe exports routinely
+    # arrive without one. Globbing for *.cpy skipped every copybook in a
+    # program whose members were extensionless, which left the variables they
+    # declare with no origin at all rather than with a wrong one. The sibling
+    # scan in parse_declaration_relations already reads the directory this way.
     if copy_dir and copy_dir.exists():
-        for cpy in list(copy_dir.glob("*.cpy")) + list(copy_dir.glob("*.CPY")):
+        for cpy in sorted(path for path in copy_dir.iterdir() if path.is_file()):
             try:
                 c_stmts = read_cobol_statements(cpy)
             except Exception:
@@ -913,12 +919,13 @@ def improve_index(
 
         origin = decls.get(v, DeclInfo(origin="UNKNOWN")).origin
 
-        # extra heuristics (your project-specific)
-        # Only apply heuristics when we couldn't detect a concrete origin.
+        # Fall back on naming only for the IBM-defined CICS prefixes, which are
+        # part of the CICS interface rather than of any one program. A prefix
+        # belonging to a particular application named its copybook's variables
+        # COMMAREA here, which hid the fact that the copybook itself had failed
+        # to resolve; both programs now attribute those fields to COPY:PDRTWA2.
         if origin == "UNKNOWN":
-            if v.startswith("TWCOB-"):
-                origin = "COMMAREA"
-            elif v.startswith(CICS_CONST_PREFIX):
+            if v.startswith(CICS_CONST_PREFIX):
                 origin = "CICS_CONST"
             elif v.startswith(CICS_EIB_PREFIX):
                 origin = "CICS_EIB"
