@@ -417,7 +417,14 @@ def cfg_reachability(cfg: Any, program: str) -> dict[str, Any]:
         }
 
     edges = [edge for edge in cfg.get("edges", []) if isinstance(edge, dict)]
-    nodes = {program}
+    # Seed from the graph's own node list, not from the edges. A paragraph with
+    # no edges is exactly what this function exists to find, and building the
+    # node set from edge endpoints makes it unfindable: it is absent from
+    # `nodes`, so `nodes - seen` can never contain it and the count comes back
+    # zero however many unreachable paragraphs the program has.
+    nodes = {program} | {
+        str(node).upper() for node in cfg.get("nodes", []) if node
+    }
     adjacency: dict[str, set[str]] = {}
     for edge in edges:
         source = str(edge.get("from", "")).upper()

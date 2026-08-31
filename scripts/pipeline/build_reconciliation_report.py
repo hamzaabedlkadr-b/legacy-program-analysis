@@ -277,6 +277,28 @@ def check_reported_paragraph_count(
     }
 
 
+def check_reachability_covers_the_graph(
+    cfg: Any, dead_code: Any
+) -> Dict[str, Any]:
+    """Reachability must be computed over every node the graph holds.
+
+    Built from edge endpoints instead, it cannot see a paragraph that has no
+    edges -- which is the only kind it is looking for -- and reports zero
+    unreachable paragraphs for a program that has several.
+    """
+    nodes = {str(n).upper() for n in (cfg.get("nodes") or []) if n}
+    content = (dead_code or {}).get("content") or {}
+    reachability = content.get("cfg_reachability") or {}
+    counted = reachability.get("nodes_count")
+    return {
+        "check": "reachability_covers_every_node",
+        "description": "dead-code reachability is computed over the whole control-flow graph",
+        "cfg_node_count": len(nodes),
+        "reachability_node_count": counted,
+        "ok": not isinstance(counted, int) or not nodes or counted >= len(nodes),
+    }
+
+
 def check_paragraphs_not_variables(
     cfg: Any, evidence: Dict[str, Dict[str, Set[int]]]
 ) -> Dict[str, Any]:
@@ -330,6 +352,7 @@ def build_report(artifacts_dir: Path, program: str) -> Dict[str, Any]:
     used_variables_path = artifacts_dir / "dataflow.used_variables.json"
     literals_path = artifacts_dir / "dataflow.literal_assignments.json"
     comments_path = artifacts_dir / "program.comments.json"
+    dead_code_path = artifacts_dir / "quality.dead_code.json"
     cfg_path = artifacts_dir / "controlflow.cfg.json"
 
     missing_inputs = [
@@ -352,12 +375,14 @@ def build_report(artifacts_dir: Path, program: str) -> Dict[str, Any]:
     literal_artifact = load_json(literals_path)
     cfg = load_json(cfg_path)
     comments = load_json(comments_path) if comments_path.exists() else None
+    dead_code = load_json(dead_code_path) if dead_code_path.exists() else None
     evidence = variable_evidence(used_variables)
 
     checks = [
         check_literal_completeness(statements, literal_artifact),
         check_cfg_covers_source_paragraphs(cfg, rows),
         check_reported_paragraph_count(comments, rows),
+        check_reachability_covers_the_graph(cfg, dead_code),
         check_write_site_coverage(statements, evidence),
         check_paragraphs_not_variables(cfg, evidence),
         check_site_paragraphs_known(cfg, used_variables),
