@@ -12,6 +12,11 @@ from typing import Any
 PARAGRAPH_RE = re.compile(r"^([A-Z0-9][A-Z0-9-]*)\.\s*$", re.IGNORECASE)
 COPY_RE = re.compile(r"\bCOPY\s+([A-Z0-9-]+)\s*\.", re.IGNORECASE)
 CICS_RE = re.compile(r"\bEXEC\s+CICS\s+([A-Z0-9-]+)\b", re.IGNORECASE)
+OPTION_RE = re.compile(
+    r"\b([A-Z][A-Z0-9-]*)\s*\(\s*([^()]*(?:\([^()]*\)[^()]*)*)\s*\)",
+    re.IGNORECASE,
+)
+RESOURCE_OPTIONS = {"MAP", "MAPSET", "QUEUE", "FILE", "TRANSID", "PROGRAM"}
 NON_PARAGRAPHS = {"END-EXEC", "END-IF", "EJECT", "EXIT", "SKIP1", "SKIP2", "SKIP3"}
 
 
@@ -26,6 +31,34 @@ def fixed_code(raw: str) -> str:
     if indicator in {"*", "/", "D", "d"}:
         return ""
     return padded[7:72].rstrip()
+
+
+def structured_options(statement: str) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    """Parse CICS option operands once during analysis.
+
+    RAG consumers can filter resources and option roles without reparsing the
+    raw statement or relying on embedding similarity.
+    """
+    options: list[dict[str, str]] = []
+    resources: list[dict[str, str]] = []
+    for match in OPTION_RE.finditer(statement):
+        name = match.group(1).upper()
+        raw_value = " ".join(match.group(2).split())
+        value = raw_value.strip().strip("'\"")
+        option = {
+            "name": name,
+            "value": value,
+            "raw_value": raw_value,
+            "value_kind": (
+                "literal"
+                if raw_value[:1] in {"'", '"'} and raw_value[-1:] == raw_value[:1]
+                else "identifier"
+            ),
+        }
+        options.append(option)
+        if name in RESOURCE_OPTIONS:
+            resources.append({"resource_type": name, "resource": value})
+    return options, resources
 
 
 def scan_source(
@@ -69,6 +102,7 @@ def scan_source(
         command_match = CICS_RE.search(statement)
         if command_match:
             command = command_match.group(1).upper()
+            options, resources = structured_options(statement)
             operation = {
                 "id": make_id(f"{path}|{start_line}|{statement}"),
                 "command": command,
@@ -78,6 +112,8 @@ def scan_source(
                 "line_start": start_line,
                 "line_end": line_number,
                 "statement": statement,
+                "options": options,
+                "resources": resources,
             }
             if included_at_line is not None:
                 operation["included_at_line"] = included_at_line

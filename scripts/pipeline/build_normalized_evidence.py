@@ -235,7 +235,11 @@ def _cics_records(root: Path, program: str) -> list[dict[str, Any]]:
             summary=f"CICS {command} is executed in {paragraph or 'an unresolved paragraph'}.",
             facts=(_fact(operation, "cics_operation"),),
             source_artifacts=(path.name,),
-            attributes={"command": command},
+            attributes={
+                "command": command,
+                "options": operation.get("options") or [],
+                "resources": operation.get("resources") or [],
+            },
         ))
     return records
 

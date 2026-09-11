@@ -234,6 +234,8 @@ def intent_domain(doc_type: str) -> str:
         return "ui_navigation"
     if doc_type.startswith("business_rule"):
         return "business_rules"
+    if doc_type.startswith("condition_outcome"):
+        return "business_rules"
     if "copybook" in doc_type:
         return "copybooks"
     if doc_type.startswith("quality.") or "dead_code" in doc_type:

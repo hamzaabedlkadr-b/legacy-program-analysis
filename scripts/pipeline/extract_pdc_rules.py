@@ -165,7 +165,9 @@ def detect_flags(condition: str) -> List[str]:
 
 def extract_rules(enriched: Dict, program_name: str) -> Dict:
     rules = []
+    decisions = []
     counter = 1
+    decision_counter = 1
 
     edges = enriched.get("edges", [])
     if not isinstance(edges, list):
@@ -184,15 +186,10 @@ def extract_rules(enriched: Dict, program_name: str) -> Dict:
 
         kind = classify_kind(category, condition_clean)
 
-        # Drop purely technical rules from the rules file (as requested earlier)
-        # This prevents WCTPAG/NPAGT/XCTL cases from polluting RAG.
-        if kind == "technical":
-            continue
-
         flags = detect_flags(condition_clean)
 
-        rule = {
-            "id": f"BR-{counter:03d}",
+        decision = {
+            "id": f"DO-{decision_counter:03d}",
             "program": program_name,
             "scope": edge.get("from"),
             "category": category,
@@ -208,11 +205,19 @@ def extract_rules(enriched: Dict, program_name: str) -> Dict:
                 "raw_evidence": edge.get("evidence"),
             },
         }
+        decisions.append(decision)
+        decision_counter += 1
 
-        rules.append(rule)
-        counter += 1
+        # Business-rule views remain free of pagination/counter mechanics, but
+        # those decisions are no longer discarded. They are published through
+        # the separate condition_outcome capability below.
+        if kind != "technical":
+            rule = dict(decision)
+            rule["id"] = f"BR-{counter:03d}"
+            rules.append(rule)
+            counter += 1
 
-    return {"program": program_name, "rules": rules}
+    return {"program": program_name, "rules": rules, "decisions": decisions}
 
 
 # ===============================

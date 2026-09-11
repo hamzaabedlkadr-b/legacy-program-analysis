@@ -117,6 +117,7 @@ def main():
 
     data = json.loads(Path(args.input).read_text(encoding="utf-8"))
     rules = data.get("rules") or []
+    decisions = data.get("decisions") or []
 
     program = args.program.upper()
     out_dir = Path(args.out_dir)
@@ -184,6 +185,47 @@ def main():
         wrote += 1
 
     print(f"[OK] Wrote {wrote} business_rule.*.json files to {out_dir}")
+
+    # Technical branch decisions are evidence too; they simply are not
+    # business rules. Publish them through their own capability instead of
+    # deleting pagination/counter outcomes during analysis.
+    decision_out_dir = out_dir.parent / "condition_outcome"
+    decision_out_dir.mkdir(parents=True, exist_ok=True)
+    decision_wrote = 0
+    for decision in decisions:
+        if str(decision.get("kind") or "").lower() != "technical":
+            continue
+        decision_id = decision.get("id") or f"DO-{decision_wrote + 1:03d}"
+        content = dict(decision)
+        content["program"] = program
+        if isinstance(content.get("action"), str):
+            content["action"] = normalize_action(content["action"])
+        location = locate_rule(decision, source_index, args.cobol.name) if args.cobol else None
+        if location:
+            content.setdefault("evidence", {}).update(location)
+        condition = str(content.get("condition") or "")
+        action = str(content.get("action") or "")
+        document = {
+            "id": make_id(f"{program}|condition_outcome|{decision_id}|{content.get('scope') or program}"),
+            "type": "condition_outcome",
+            "program": program,
+            "title": f"{program} technical decision {decision_id}",
+            "embedding_text": (
+                f"{program} condition outcome {decision_id} in {content.get('scope') or program}. "
+                f"If {condition} then {action}. Kind=technical."
+            ),
+            "content": content,
+            "meta": {
+                "source": "pdc_rules.json decisions",
+                "scope": content.get("scope") or program,
+                "kind": "technical",
+                "source_file": args.cobol.name if args.cobol else None,
+            },
+        }
+        path = decision_out_dir / f"condition_outcome.{safe_name(str(decision_id))}.json"
+        path.write_text(json.dumps(document, indent=2, ensure_ascii=False), encoding="utf-8")
+        decision_wrote += 1
+    print(f"[OK] Wrote {decision_wrote} condition_outcome.*.json files to {decision_out_dir}")
 
 
 if __name__ == "__main__":

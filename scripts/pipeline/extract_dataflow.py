@@ -104,6 +104,35 @@ COBOL_KEYWORDS = {
     "EXIT"
 }
 
+
+# Operand roles are properties of CICS command syntax, not of any application
+# variable.  Keeping them in a command schema lets every program benefit and
+# prevents output operands such as FORMATTIME DDMMYY(...) from being indexed as
+# reads merely because they occur inside EXEC CICS.
+CICS_OPTION_ROLES: Dict[str, Dict[str, str]] = {
+    "ASKTIME": {"ABSTIME": "write"},
+    "FORMATTIME": {
+        "ABSTIME": "read",
+        "DDMMYY": "write",
+        "MMDDYY": "write",
+        "YYMMDD": "write",
+        "DDMMYYYY": "write",
+        "YYYYMMDD": "write",
+        "DATE": "write",
+        "TIME": "write",
+    },
+    "RECEIVE": {"INTO": "write"},
+    "SEND": {"FROM": "read"},
+    "LINK": {"COMMAREA": "read_write", "LENGTH": "read"},
+    "XCTL": {"COMMAREA": "read", "LENGTH": "read"},
+    "RETURN": {"COMMAREA": "read", "TRANSID": "read"},
+    "ADDRESS": {"TWA": "write"},
+    "WRITEQ": {"FROM": "read", "QUEUE": "read", "LENGTH": "read"},
+    "READQ": {"INTO": "write", "QUEUE": "read", "LENGTH": "read"},
+    "DELETEQ": {"QUEUE": "read"},
+    "ABEND": {"ABCODE": "read"},
+}
+
 # -----------------------------
 # Error handling
 # -----------------------------
@@ -811,6 +840,21 @@ def detect_statement_accesses(
             reads |= set(ids) - writes - targets
             return writes, reads, read_writes, subscripts
 
+        cics_command = re.search(r"\bEXEC\s+CICS\s+([A-Z][A-Z0-9-]*)\b", su)
+        if cics_command:
+            roles = CICS_OPTION_ROLES.get(cics_command.group(1), {})
+            for option, argument in re.findall(
+                r"\b([A-Z][A-Z0-9-]*)\s*\(([^()]*)\)", su
+            ):
+                role = roles.get(option)
+                operands = set(extract_identifiers(argument))
+                if role == "write":
+                    writes |= operands
+                elif role == "read":
+                    reads |= operands
+                elif role == "read_write":
+                    read_writes |= operands
+
         # RECEIVE ... INTO var => write
         if " RECEIVE " in su and " INTO " in su:
             after_into = su.split(" INTO ", 1)[1]
@@ -821,7 +865,7 @@ def detect_statement_accesses(
             after_from = su.split(" FROM ", 1)[1]
             reads |= set(extract_identifiers(after_from))
 
-        reads |= set(ids) - writes - targets
+        reads |= set(ids) - writes - read_writes - targets
         return writes, reads, read_writes, subscripts
 
     # CALL/LINK/XCTL: ignore the target name; keep USING args as reads
@@ -984,6 +1028,10 @@ def improve_index(
             for rw in read_writes:
                 if rw in info:
                     add_site(info[rw].read_write_sites, Site(pname, ln, stmt))
+                    add_unique(info[rw].modified_in, pname)
+                    add_unique(info[rw].used_in, pname)
+                    if not info[rw].defined_in:
+                        add_unique(info[rw].defined_in, pname)
 
             for subscript in subscripts:
                 if subscript in info:
