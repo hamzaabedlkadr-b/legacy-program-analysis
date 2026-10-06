@@ -62,7 +62,7 @@ def safe_name(text: str) -> str:
 def normalize_name(text: Optional[str]) -> Optional[str]:
     if text is None:
         return None
-    value = text.strip().upper()
+    value = text.strip().strip("'").upper()
     return value or None
 
 
@@ -226,6 +226,20 @@ def split_top_level(text: str) -> List[str]:
 
 
 def parse_operands(text: str) -> Tuple[List[str], Dict[str, str]]:
+    # A blank outside quotes/parentheses terminates operands (trailing comment),
+    # except after a comma joining continued parameters.
+    depth, quoted = 0, False
+    previous = ""
+    for index, character in enumerate(text):
+        if character == "'":
+            quoted = not quoted
+        if not quoted:
+            depth += (character == "(") - (character == ")")
+            if character.isspace() and depth == 0 and previous != ",":
+                text = text[:index]
+                break
+        if not character.isspace():
+            previous = character
     positional: List[str] = []
     keyword: Dict[str, str] = {}
 
@@ -266,120 +280,67 @@ def parse_jcl_comments(path: Path) -> List[Dict[str, Any]]:
 
 
 def parse_jcl_statements(path: Path) -> List[Dict[str, Any]]:
-    statements: List[Dict[str, Any]] = []
-    current: Optional[Dict[str, Any]] = None
+    """Read statement fields without assuming the operation starts in column 12."""
+    statements = []
+    current = None
+    instream = None
 
-    for lineno, raw in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), start=1):
-        line = raw.rstrip()
-        if not line or not line.startswith("//"):
-            continue
-        if line.startswith("//*"):
-            continue
-
-        body = line[2:]
-        if current is not None and body[:1].isspace():
-            text = body.strip()
-            text, inline_notes = split_inline_comment(text)
-            text, continuation_notes = split_continuation_note(text)
-            notes = inline_notes + continuation_notes
-            current_op = first_token(current.get("text", ""))
-            incoming_op = first_token(text)
-
-            if text and incoming_op == "DD" and current_op == "DD":
-                current["annotations"] = unique_in_order(current["annotations"])
-                statements.append(current)
-                current = {
-                    "label": current["label"],
-                    "text": text,
-                    "start_line": lineno,
-                    "end_line": lineno,
-                    "annotations": notes,
-                    "implicit_label": True,
-                }
-                continue
-
-            if text and incoming_op in CONTROL_OPERATIONS:
-                current["annotations"] = unique_in_order(current["annotations"])
-                statements.append(current)
-                current = {
-                    "label": "",
-                    "text": text,
-                    "start_line": lineno,
-                    "end_line": lineno,
-                    "annotations": notes,
-                    "implicit_label": False,
-                }
-                continue
-
-            if text:
-                current["text"] = f"{current['text']} {text}".strip()
-            if notes:
-                current["annotations"].extend(notes)
-            current["end_line"] = lineno
-            continue
-
-        name_field = body[:8]
-        remainder = body[8:] if len(body) > 8 else ""
-        label = name_field.strip().upper()
-        text = remainder.strip()
-        text, inline_notes = split_inline_comment(text)
-        text, continuation_notes = split_continuation_note(text)
-        notes = inline_notes + continuation_notes
-
-        if not label and current is not None:
-            current_op = first_token(current.get("text", ""))
-            incoming_op = first_token(text)
-
-            if text and incoming_op == "DD" and current_op == "DD":
-                current["annotations"] = unique_in_order(current["annotations"])
-                statements.append(current)
-                current = {
-                    "label": current["label"],
-                    "text": text,
-                    "start_line": lineno,
-                    "end_line": lineno,
-                    "annotations": notes,
-                    "implicit_label": True,
-                }
-                continue
-
-            if text and incoming_op in CONTROL_OPERATIONS:
-                current["annotations"] = unique_in_order(current["annotations"])
-                statements.append(current)
-                current = {
-                    "label": "",
-                    "text": text,
-                    "start_line": lineno,
-                    "end_line": lineno,
-                    "annotations": notes,
-                    "implicit_label": False,
-                }
-                continue
-
-            if text:
-                current["text"] = f"{current['text']} {text}".strip()
-            if notes:
-                current["annotations"].extend(notes)
-            current["end_line"] = lineno
-            continue
-
+    def flush():
+        nonlocal current
         if current is not None:
             current["annotations"] = unique_in_order(current["annotations"])
             statements.append(current)
+            current = None
 
-        current = {
-            "label": label,
-            "text": text,
-            "start_line": lineno,
-            "end_line": lineno,
-            "annotations": notes,
-            "implicit_label": False,
-        }
-
-    if current is not None:
-        current["annotations"] = unique_in_order(current["annotations"])
-        statements.append(current)
-
+    for lineno, raw in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+        line = raw[:72].rstrip()  # 73-80 are sequence numbers, not operands.
+        if instream:
+            if line.strip() == instream["delimiter"]:
+                instream = None
+                continue
+            if instream["data"] or not line.startswith("//"):
+                continue
+            instream = None
+        if not line.startswith("//") or line.startswith("//*"):
+            continue
+        body = line[2:]
+        if not body.strip():
+            flush()
+            continue
+        unnamed = body[0].isspace()
+        if unnamed:
+            label, text = "", body.strip()
+        else:
+            parts = body.split(None, 1)
+            label, text = parts[0].upper(), parts[1] if len(parts) > 1 else ""
+        text, notes = split_inline_comment(text)
+        text, more_notes = split_continuation_note(text)
+        notes += more_notes
+        op = first_token(text)
+        if unnamed and op not in STATEMENT_OPERATIONS:
+            if current:
+                current["text"] += " " + text
+                current["end_line"] = lineno
+                current["annotations"].extend(notes)
+            else:
+                statements.append({"label": "", "text": text, "start_line": lineno,
+                                   "end_line": lineno, "annotations": ["Orphan continuation"],
+                                   "implicit_label": False})
+            continue
+        concatenated = unnamed and op == "DD" and current and first_token(current["text"]) == "DD"
+        if concatenated:
+            label = current["label"]
+        flush()
+        current = {"label": label, "text": text, "start_line": lineno,
+                   "end_line": lineno, "annotations": notes,
+                   "implicit_label": bool(concatenated)}
+        if op == "DD":
+            operands = text.split(None, 1)[1] if len(text.split(None, 1)) > 1 else ""
+            positional, keyword = parse_operands(operands)
+            if positional and positional[0].upper() in {"*", "DATA"}:
+                instream = {"data": positional[0].upper() == "DATA",
+                            "delimiter": keyword.get("DLM", "/*").strip("'")}
+    flush()
     return statements
 
 
@@ -413,20 +374,21 @@ def infer_access_type(dd: Dict[str, Any], step: Dict[str, Any]) -> Tuple[str, st
     if step.get("program") == "IEFBR14" and "DELETE" in disp:
         return "delete", "IEFBR14 cleanup pattern"
 
-    if ddname in READ_DDNAMES:
+    utility = step.get("program") in {"SORT", "ICEMAN", "IEBGENER", "ICEGENER"}
+    if utility and ddname in READ_DDNAMES:
         return "read", "Input DD name"
 
-    if ddname in WRITE_DDNAMES:
+    if utility and ddname in WRITE_DDNAMES:
         return "write", "Output DD name"
 
     if status in {"OLD", "SHR"}:
-        return "read", "DISP references an existing dataset"
+        return "unknown", "DISP describes existing-dataset allocation/sharing, not program I/O direction"
 
     if status in {"NEW", "MOD"}:
-        return "write", "DISP creates or updates a dataset"
+        return "unknown", "DISP allocation status alone does not prove which I/O the program performs"
 
     if disp.startswith("(,") or "(,CATLG" in disp or "(,PASS" in disp:
-        return "write", "DISP implies dataset creation"
+        return "unknown", "Dataset allocation/disposition does not prove program output"
 
     if dsn:
         return "unknown", "Dataset present but access is ambiguous"
@@ -576,41 +538,108 @@ def annotate_steps(steps: List[Dict[str, Any]], comments: List[Dict[str, Any]]) 
         step.update(summarize_step_dds(step["dds"]))
 
 
-def build_execution_steps(
-    steps: List[Dict[str, Any]],
-    proc_defs: Dict[str, Dict[str, Any]],
-) -> List[Dict[str, Any]]:
-    execution_steps: List[Dict[str, Any]] = []
-    order = 1
+def resolve_symbols(value, symbols):
+    """Resolve supplied JCL symbols; retain unresolved names and temporary DSNs."""
+    if isinstance(value, list):
+        return [resolve_symbols(item, symbols) for item in value]
+    if isinstance(value, dict):
+        return {key: (item if key in {"raw", "source_lines"} else resolve_symbols(item, symbols))
+                for key, item in value.items()}
+    if not isinstance(value, str):
+        return value
+    pattern = re.compile(r"(?<!&)&([A-Z@#$][A-Z0-9@#$]*)(\.?)", re.I)
+    for _ in range(10):
+        updated = pattern.sub(lambda m: str(symbols[m[1].upper()]).strip("'")
+                              if m[1].upper() in symbols else m[0], value)
+        if updated == value:
+            break
+        value = updated
+    return value
+
+
+def build_execution_steps(steps, proc_defs, warnings=None):
+    warnings = warnings if warnings is not None else []
+    execution_steps = []
+
+    def expand(step, environment, prefix="", stack=(), inherited_conditions=None):
+        environment = {**environment, **step.get("symbols_at_statement", {})}
+        invocation = resolve_symbols(copy.deepcopy(step), environment)
+        qualified = prefix + step["step"]
+        conditions = list(inherited_conditions or []) + invocation.get("conditions", [])
+        proc_name = invocation.get("proc")
+        if invocation.get("exec_kind") == "procedure":
+            if proc_name in stack or len(stack) >= 16:
+                warnings.append(f"Procedure expansion stopped: recursive or excessive nesting at {qualified}")
+                return
+            definition = proc_defs.get(proc_name)
+            if not definition:
+                warnings.append(f"Unresolved procedure invocation: {proc_name} at {qualified}")
+            else:
+                local = {**environment, **definition["parameters"], **invocation["parameters"]}
+                local = resolve_symbols(local, local)
+                consumed = set()
+                for child in definition["steps"]:
+                    prepared = copy.deepcopy(child)
+                    # A qualified DD at the invocation overrides that procedure step's DD.
+                    for index, override in enumerate(invocation["dds"]):
+                        parts = override["ddname"].split(".", 1)
+                        if len(parts) != 2 or parts[0] != child["step"]:
+                            continue
+                        consumed.add(index)
+                        replacement = copy.deepcopy(override)
+                        replacement["ddname"] = parts[1]
+                        matches = [dd for dd in prepared["dds"] if dd["ddname"] == parts[1]]
+                        if matches and not override.get("concatenated"):
+                            old = matches[0]
+                            if override.get("positional"):
+                                old.clear()
+                                old.update(replacement)
+                                continue
+                            params = {**old.get("parameters", {}), **override.get("parameters", {})}
+                            if "DSNAME" in override.get("parameters", {}):
+                                params.pop("DSN", None)
+                            elif "DSN" in override.get("parameters", {}):
+                                params.pop("DSNAME", None)
+                            merged = parse_dd({"label": parts[1], "operands": ",".join(f"{k}={v}" for k, v in params.items()),
+                                               "text": override["raw"], "start_line": override["source_lines"]["start"],
+                                               "end_line": override["source_lines"]["end"]})
+                            old.update(merged)
+                        else:
+                            prepared["dds"].append(replacement)
+                    for key, value in invocation["parameters"].items():
+                        if "." in key:
+                            parameter, target = key.split(".", 1)
+                            if target == child["step"]:
+                                if parameter == "PGM":
+                                    prepared["program"] = prepared["target"] = value
+                                else:
+                                    prepared["parameters"][parameter] = value
+                    prepared["invoked_by_step"] = qualified
+                    prepared["invoked_proc"] = proc_name
+                    expand(prepared, local, qualified + ".", stack + (proc_name,), conditions)
+                for index, override in enumerate(invocation["dds"]):
+                    if index not in consumed:
+                        warnings.append(f"Unresolved DD override at {qualified}: {override['ddname']}")
+                return
+        invocation["step"] = qualified
+        invocation["conditions"] = conditions
+        invocation["execution_order"] = len(execution_steps) + 1
+        invocation["execution_scope"] = "expanded_local_procedure" if prefix else "job"
+        invocation.setdefault("invoked_by_step", None)
+        invocation.setdefault("invoked_proc", None)
+        invocation["invocation_parameters"] = environment
+        resolved_values = [invocation.get("program"), invocation.get("parameters"),
+                           [dd.get("parameters", {}) for dd in invocation["dds"]]]
+        unresolved = sorted(set(re.findall(r"(?<!&)&[A-Z@#$][A-Z0-9@#$]*",
+                                           json.dumps(resolved_values), re.I)))
+        if unresolved:
+            warnings.append(f"{qualified}: unresolved symbols/references: {', '.join(unresolved)}")
+        annotate_steps([invocation], [])
+        execution_steps.append(invocation)
 
     for step in steps:
-        if step["scope"] != "job":
-            continue
-
-        if step.get("exec_kind") == "procedure" and step.get("resolved_locally"):
-            proc_def = proc_defs.get(step.get("proc") or "")
-            if not proc_def:
-                continue
-            for proc_step in proc_def["steps"]:
-                expanded = copy.deepcopy(proc_step)
-                expanded["execution_order"] = order
-                expanded["execution_scope"] = "expanded_local_procedure"
-                expanded["invoked_by_step"] = step["step"]
-                expanded["invoked_proc"] = step.get("proc")
-                expanded["invocation_parameters"] = step.get("parameters", {})
-                execution_steps.append(expanded)
-                order += 1
-            continue
-
-        direct = copy.deepcopy(step)
-        direct["execution_order"] = order
-        direct["execution_scope"] = "job"
-        direct["invoked_by_step"] = None
-        direct["invoked_proc"] = None
-        direct["invocation_parameters"] = step.get("parameters", {})
-        execution_steps.append(direct)
-        order += 1
-
+        if step["scope"] == "job":
+            expand(step, {})
     return execution_steps
 
 
@@ -746,6 +775,7 @@ def build_flow(job: str, source: str, data: Dict[str, Any]) -> Dict[str, Any]:
 
     return {
         "type": "jcl.flow",
+        "evidence_scope": "Static declaration order and inferred dataset relationships; conditions are preserved, not evaluated as runtime reachability.",
         "job": job,
         "source": source,
         "purpose": data.get("purpose"),
@@ -769,6 +799,8 @@ def build_flow(job: str, source: str, data: Dict[str, Any]) -> Dict[str, Any]:
                 "unknowns": step.get("unknowns", []),
                 "notes": step.get("annotations", []),
                 "comment_context": step.get("comment_context", []),
+                "conditions": step.get("conditions", []),
+                "source_lines": step.get("source_lines"),
             }
             for step in data["execution_steps"]
         ],
@@ -842,6 +874,9 @@ def build_rag_documents(job: str, source: str, data: Dict[str, Any]) -> List[Dic
                     "writes": step.get("writes", []),
                     "deletes": step.get("deletes", []),
                     "controls": step.get("controls", []),
+                    "unknowns": step.get("unknowns", []),
+                    "conditions": step.get("conditions", []),
+                    "source_lines": step.get("source_lines"),
                     "notes": step.get("annotations", []),
                     "comment_context": step.get("comment_context", []),
                 },
@@ -890,11 +925,13 @@ def build_rag_documents(job: str, source: str, data: Dict[str, Any]) -> List[Dic
 
 
 def parse_dd(stmt: Dict[str, Any]) -> Dict[str, Any]:
-    _, keyword = parse_operands(stmt["operands"])
+    positional, keyword = parse_operands(stmt["operands"])
     return {
         "ddname": stmt["label"],
         "concatenated": bool(stmt.get("implicit_label")),
-        "dsn": keyword.get("DSN"),
+        "dsn": (keyword.get("DSN") or keyword.get("DSNAME") or "").strip("'") or None,
+        "parameters": keyword,
+        "positional": positional,
         "disp": keyword.get("DISP"),
         "sysout": keyword.get("SYSOUT"),
         "unit": keyword.get("UNIT"),
@@ -948,7 +985,7 @@ def parse_exec(stmt: Dict[str, Any], current_proc: Optional[str]) -> Dict[str, A
     }
 
 
-def parse_jcl(path: Path) -> Dict[str, Any]:
+def parse_jcl(path: Path, _load_library: bool = True) -> Dict[str, Any]:
     statements = parse_jcl_statements(path)
     comments = parse_jcl_comments(path)
     job_name = None
@@ -959,6 +996,9 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
     proc_defs: Dict[str, Dict[str, Any]] = {}
     current_proc: Optional[str] = None
     current_step: Optional[Dict[str, Any]] = None
+    diagnostics = []
+    conditions = []
+    proc_symbols = {}
 
     for raw_stmt in statements:
         text = raw_stmt["text"]
@@ -974,6 +1014,8 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
         stmt["operands"] = operands
 
         if operation == "JOB":
+            if job_name:
+                diagnostics.append("Multiple JOB statements in one file: split jobs before analysis")
             job_name = stmt["label"] or job_name
             current_step = None
             continue
@@ -990,7 +1032,8 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
 
         if operation == "SET":
             _, keyword = parse_operands(operands)
-            symbols.update(keyword)
+            destination = proc_symbols if current_proc else symbols
+            destination.update(resolve_symbols(keyword, {**symbols, **destination}))
             control_statements.append(
                 {
                     "label": stmt["label"],
@@ -1021,6 +1064,7 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
                 },
             }
             current_proc = proc_name
+            proc_symbols = {}
             current_step = None
             continue
 
@@ -1028,11 +1072,22 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
             if current_proc and current_proc in proc_defs:
                 proc_defs[current_proc]["source_lines"]["end"] = stmt["end_line"]
             current_proc = None
+            proc_symbols = {}
+            if conditions:
+                diagnostics.append("Unclosed IF at PEND")
+                conditions = []
             current_step = None
             continue
 
         if operation == "EXEC":
             current_step = parse_exec(stmt, current_proc=current_proc)
+            current_step["symbols_at_statement"] = dict(proc_symbols if current_proc else symbols)
+            current_step["conditions"] = copy.deepcopy(conditions)
+            current_step["source"] = str(path)
+            if "COND" in current_step["parameters"]:
+                current_step["conditions"].append({"kind": "EXEC_COND", "expression": current_step["parameters"]["COND"],
+                                                   "semantics": "JCL bypass condition (not an execute-if predicate)",
+                                                   "source_lines": current_step["source_lines"]})
             steps.append(current_step)
             if current_proc and current_proc in proc_defs:
                 proc_defs[current_proc]["steps"].append(current_step)
@@ -1046,6 +1101,21 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
             continue
 
         if operation in CONTROL_OPERATIONS:
+            if operation == "IF":
+                conditions.append({"kind": "IF", "expression": re.sub(r"\s+THEN\s*$", "", operands, flags=re.I),
+                                   "branch": "then", "source_lines": {"start": stmt["start_line"], "end": stmt["end_line"]}})
+            elif operation == "ELSE":
+                if conditions:
+                    conditions[-1] = {**conditions[-1], "branch": "else"}
+                else:
+                    diagnostics.append(f"Line {stmt['start_line']}: ELSE without IF")
+            elif operation == "ENDIF":
+                if conditions:
+                    conditions.pop()
+                else:
+                    diagnostics.append(f"Line {stmt['start_line']}: ENDIF without IF")
+            elif operation == "INCLUDE":
+                diagnostics.append(f"Line {stmt['start_line']}: INCLUDE requires external expansion: {operands}")
             control_statements.append(
                 {
                     "label": stmt["label"],
@@ -1063,7 +1133,22 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
             current_step = None
             continue
 
+        diagnostics.append(f"Line {stmt['start_line']}: unsupported or malformed statement: {text}")
         current_step = None
+
+    if conditions:
+        diagnostics.append("Unclosed IF block at end of file")
+    if current_proc:
+        diagnostics.append(f"Procedure {current_proc} has no PEND; execution linkage is incomplete")
+    if _load_library:
+        # Local supplied procedure members only; no remote library access.
+        for member in sorted(path.parent.iterdir()):
+            if member == path or not member.is_file() or member.suffix.lower() not in {".jcl", ".txt", ".proc", ".prc"}:
+                continue
+            library = parse_jcl(member, _load_library=False)
+            for name, definition in library["proc_defs"].items():
+                if name not in proc_defs:
+                    proc_defs[name] = definition
 
     for step in steps:
         proc_def = proc_defs.get(step.get("proc") or "")
@@ -1079,7 +1164,7 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
             step["resolved_proc_programs"] = []
 
     annotate_steps(steps, comments)
-    execution_steps = build_execution_steps(steps, proc_defs)
+    execution_steps = build_execution_steps(steps, proc_defs, diagnostics)
     datasets = build_dataset_catalog(execution_steps)
 
     local_procedures: List[Dict[str, Any]] = []
@@ -1096,7 +1181,7 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
             }
         )
 
-    programs = sorted({step["program"] for step in steps if step.get("program")})
+    programs = sorted({step["program"] for step in execution_steps if step.get("program") and "&" not in step["program"]})
     procedures = sorted(
         {step["proc"] for step in steps if step.get("proc")} | set(proc_defs.keys())
     )
@@ -1127,6 +1212,7 @@ def parse_jcl(path: Path) -> Dict[str, Any]:
             if looks_like_warning(note)
         ]
         + [f"Unresolved procedure invocation: {proc}" for proc in unresolved_procedures]
+        + diagnostics
     )
 
     data = {
@@ -1235,7 +1321,7 @@ def main():
             json.dumps(doc, indent=2, ensure_ascii=False), encoding="utf-8"
         )
 
-    for step in data["steps"]:
+    for step in data["execution_steps"]:
         fname = f"jcl.steps.{safe_name(step['step'])}.json"
         doc = {
             "type": "jcl.steps",
@@ -1248,6 +1334,9 @@ def main():
             "program": step.get("program"),
             "proc": step.get("proc"),
             "parameters": step.get("parameters", {}),
+            "conditions": step.get("conditions", []),
+            "invoked_by_step": step.get("invoked_by_step"),
+            "invoked_proc": step.get("invoked_proc"),
             "positional": step.get("positional", []),
             "notes": step.get("annotations", []),
             "comment_context": step.get("comment_context", []),
@@ -1261,7 +1350,7 @@ def main():
             "resolved_proc_steps": step.get("resolved_proc_steps", []),
             "resolved_proc_programs": step.get("resolved_proc_programs", []),
             "source_lines": step.get("source_lines"),
-            "source": source,
+            "source": step.get("source", source),
         }
         (out_dir / fname).write_text(
             json.dumps(doc, indent=2, ensure_ascii=False), encoding="utf-8"

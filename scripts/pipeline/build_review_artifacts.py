@@ -285,6 +285,8 @@ def build_jcl_file_io(root: Path, program: str, jcl_root: Path) -> dict[str, Any
     reads: list[dict[str, Any]] = []
     writes: list[dict[str, Any]] = []
     sysout: list[dict[str, Any]] = []
+    unknowns: list[dict[str, Any]] = []
+    deletes: list[dict[str, Any]] = []
 
     for summary in summaries:
         programs = {str(item).upper() for item in summary.get("programs", [])}
@@ -297,7 +299,9 @@ def build_jcl_file_io(root: Path, program: str, jcl_root: Path) -> dict[str, Any
             continue
         matching_steps.append(step_item(step))
         reads.extend(dd_items(step, {"read"}))
-        writes.extend(dd_items(step, {"write", "delete"}))
+        writes.extend(dd_items(step, {"write"}))
+        deletes.extend(dd_items(step, {"delete"}))
+        unknowns.extend(dd_items(step, {"unknown"}))
         sysout.extend(dd_items(step, {"sysout"}))
 
     matching_jobs = unique_dicts(matching_jobs, ("job",))
@@ -328,6 +332,9 @@ def build_jcl_file_io(root: Path, program: str, jcl_root: Path) -> dict[str, Any
             "reads": reads,
             "writes": writes,
             "sysout": sysout,
+            "unknowns": unknowns,
+            "deletes": deletes,
+            "analysis_warnings": list(dict.fromkeys(str(w) for summary in summaries for w in summary.get("warnings", []))),
             "has_jcl_linkage": bool(matching_jobs or matching_steps),
             "known_jobs": known_jobs,
             "known_programs_sample": known_programs[:30],
@@ -684,6 +691,9 @@ def step_item(step: dict[str, Any]) -> dict[str, Any]:
         "writes_count": len(step.get("writes", [])),
         "deletes_count": len(step.get("deletes", [])),
         "dds_count": len(step.get("dds", [])),
+        "conditions": step.get("conditions", []),
+        "source_lines": step.get("source_lines"),
+        "unknowns_count": len(step.get("unknowns", [])),
     }
 
 
@@ -709,6 +719,7 @@ def dd_items(step: dict[str, Any], wanted_access: set[str]) -> list[dict[str, An
                 "dataset_kind": dd.get("dataset_kind"),
                 "access_type": dd.get("access_type"),
                 "access_reason": dd.get("access_reason"),
+                "conditions": step.get("conditions", []),
                 "source_lines": dd.get("source_lines"),
                 "citation": citation(step.get("__artifact_path") or "jcl", line=line, detail=str(dd.get("ddname", ""))),
             }

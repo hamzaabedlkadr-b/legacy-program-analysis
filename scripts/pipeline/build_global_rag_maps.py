@@ -507,6 +507,10 @@ def scan_jcl_artifacts(out_root: Path, manifests: dict[str, dict[str, Any]]) -> 
     for package_program, manifest in manifests.items():
         jcl_files = (manifest.get("files") or {}).get("jcl") or []
         for jcl_file in jcl_files:
+            if Path(jcl_file).suffix.lower() in {".proc", ".prc"}:
+                continue
+            if any(Path(str(item.get("source") or "")).name == Path(jcl_file).name for item in jobs.values()):
+                continue
             job = Path(jcl_file).stem.upper()
             jobs.setdefault(
                 job,
@@ -522,9 +526,8 @@ def scan_jcl_artifacts(out_root: Path, manifests: dict[str, dict[str, Any]]) -> 
                     "artifact_dir": None,
                 },
             )
-            if package_program not in jobs[job]["programs"]:
-                jobs[job]["programs"].append(package_program)
-            program_to_jobs[package_program].add(job)
+            # A shared input library is not proof that this job executes the
+            # package's program. Only resolved EXEC records establish linkage.
 
     docs: list[dict[str, Any]] = []
     for job in sorted(jobs):

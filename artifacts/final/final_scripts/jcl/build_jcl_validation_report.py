@@ -11,7 +11,7 @@ from build_jcl_artifacts import parse_jcl
 def collect_jcl_files(root: Path) -> List[Path]:
     files: List[Path] = []
     seen = set()
-    for pattern in ("*.JCL", "*.jcl"):
+    for pattern in ("*.JCL", "*.jcl", "*.txt", "*.TXT"):
         for path in sorted(root.glob(pattern)):
             key = str(path.resolve()).upper()
             if key in seen:
@@ -41,7 +41,7 @@ def build_proc_catalog(parsed_files: List[Dict[str, Any]]) -> Dict[str, List[Dic
 
 def collect_unknown_dd_usage(data: Dict[str, Any]) -> List[Dict[str, Any]]:
     issues: List[Dict[str, Any]] = []
-    for step in data.get("steps", []):
+    for step in data.get("execution_steps", []):
         for dd in step.get("dds", []):
             if dd.get("access_type") != "unknown":
                 continue

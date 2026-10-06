@@ -234,15 +234,16 @@ def find_jcl(program: str, stem: str, jcl_dir: Path | None, recursive: bool) -> 
     exact: list[Path] = []
     contains: list[Path] = []
     for path in iter_files(jcl_dir, recursive):
-        if path.suffix.lower() not in {".jcl", ".txt"}:
+        if path.suffix.lower() not in {".jcl", ".txt", ".proc", ".prc"}:
             continue
         upper_stem = path.stem.upper()
         if upper_stem in {program, stem.upper()}:
             exact.append(path)
             continue
-        text = read_text(path).upper()
-        if program in text or stem.upper() in text:
-            contains.append(path)
+        # Keep the supplied library together: symbolic EXECs and procedures may
+        # link to the program only after expansion. Linkage is decided by parsed
+        # execution records rather than substring filtering at import time.
+        contains.append(path)
     return sorted(exact + [p for p in contains if p not in exact])
 
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -213,7 +214,7 @@ def run_package_root(args: argparse.Namespace) -> None:
             cmd.append("--use-program-id")
         if args.optimize_constants:
             cmd.append("--optimize-constants")
-        if jcl_dir.exists() and collect_files(jcl_dir, ["*.JCL", "*.jcl"]):
+        if jcl_dir.exists() and collect_files(jcl_dir, ["*.JCL", "*.jcl", "*.txt", "*.TXT"]):
             cmd.extend(["--jcl-dir", str(jcl_dir)])
 
         print(f"\n=== Package: {package_dir.name} ===", flush=True)
@@ -332,7 +333,7 @@ def main():
                 raise SystemExit(f"MAPA path is not a directory: {d}")
 
     if jcl_dir:
-        jcl_files = collect_files(jcl_dir, ["*.JCL", "*.jcl"])
+        jcl_files = collect_files(jcl_dir, ["*.JCL", "*.jcl", "*.txt", "*.TXT"])
         if not jcl_files:
             print(f"[WARN] No JCL files found in: {jcl_dir}")
         else:
@@ -606,8 +607,12 @@ def main():
             "--program", program,
             "--layout", "pipeline",
         ]
-        if jcl_dir:
-            review_cmd.extend(["--jcl-root", str(global_dir / "jcl")])
+        if jcl_dir and (global_dir / "jcl").is_dir():
+            # Keep the supporting job/step evidence with the program when the
+            # combined bundle is published; the global work folder is not shipped.
+            local_jcl = artifacts_dir / "jcl"
+            shutil.copytree(global_dir / "jcl", local_jcl, dirs_exist_ok=True)
+            review_cmd.extend(["--jcl-root", str(local_jcl)])
         run_cmd(review_cmd)
         run_cmd([
             python, str(PIPELINE_SCRIPTS_DIR / "build_normalized_evidence.py"),
