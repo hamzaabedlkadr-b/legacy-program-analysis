@@ -277,6 +277,10 @@ def package_program(
     manifest = PackageManifest(program=program, source_stem=cbl.stem)
 
     manifest.files["cobol"].append(copy_file(cbl, pkg_dir / "cobol", args.dry_run))
+    # A program with no COPY statements still has a valid, empty copybook
+    # library. Downstream package consumers require this directory to exist.
+    if not args.dry_run:
+        (pkg_dir / "copybooks").mkdir(parents=True, exist_ok=True)
 
     if args.copy_mode == "all":
         copybooks = sorted(iter_files(args.cpy_dir, args.recursive))
