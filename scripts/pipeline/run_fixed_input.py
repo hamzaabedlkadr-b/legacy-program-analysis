@@ -168,6 +168,11 @@ def program_name_from_cbl(path: Path) -> str:
     return (match.group(1) if match else path.stem).upper()
 
 
+def needs_program_id_output(programs: list[dict[str, Any]]) -> bool:
+    """Keep factory output names aligned with the PROGRAM-ID used by this runner."""
+    return any(Path(info["cbl"]).stem.upper() != info["program"] for info in programs)
+
+
 def first_file(root: Path, suffixes: tuple[str, ...]) -> Path | None:
     for path in sorted(root.iterdir()):
         if path.is_file() and path.suffix.lower() in suffixes:
@@ -324,7 +329,7 @@ def main() -> int:
             "--rag-profile",
             args.rag_profile,
         ]
-        if args.use_program_id:
+        if args.use_program_id or needs_program_id_output(programs):
             cmd.append("--use-program-id")
         if args.optimize_constants:
             cmd.append("--optimize-constants")
