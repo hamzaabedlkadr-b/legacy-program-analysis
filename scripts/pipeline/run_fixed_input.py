@@ -168,11 +168,6 @@ def program_name_from_cbl(path: Path) -> str:
     return (match.group(1) if match else path.stem).upper()
 
 
-def needs_program_id_output(programs: list[dict[str, Any]]) -> bool:
-    """Keep factory output names aligned with the PROGRAM-ID used by this runner."""
-    return any(Path(info["cbl"]).stem.upper() != info["program"] for info in programs)
-
-
 def first_file(root: Path, suffixes: tuple[str, ...]) -> Path | None:
     for path in sorted(root.iterdir()):
         if path.is_file() and path.suffix.lower() in suffixes:
@@ -200,11 +195,12 @@ def find_program_dirs(input_root: Path, selected_program: str | None) -> list[Pa
     )
 
 
-def validate_program_dir(program_dir: Path) -> dict[str, Any]:
+def validate_program_dir(program_dir: Path, *, use_program_id: bool = False) -> dict[str, Any]:
     cbl = first_file(program_dir, (".cbl", ".cob", ".cobol"))
     if cbl is None:
         raise ConfigError(f"No COBOL source found in {program_dir}")
-    program = program_name_from_cbl(cbl)
+    program_id = program_name_from_cbl(cbl)
+    program = program_id if use_program_id else cbl.stem.upper()
     copybooks = program_dir / "copybooks"
     if not copybooks.is_dir():
         raise ConfigError(f"Missing copybooks folder for {program}: {copybooks}")
@@ -213,12 +209,13 @@ def validate_program_dir(program_dir: Path) -> dict[str, Any]:
         raise ConfigError(f"Missing MAPA result .csv/.txt in {program_dir}")
     cfg_candidates = [
         p for p in sorted(program_dir.iterdir())
-        if p.is_file() and p.suffix.lower() == ".json" and ("control" in p.stem.lower() or "cfg" in p.stem.lower() or p.stem.upper() == program)
+        if p.is_file() and p.suffix.lower() == ".json" and ("control" in p.stem.lower() or "cfg" in p.stem.lower() or p.stem.upper() in {program, program_id})
     ]
     if not cfg_candidates:
         raise ConfigError(f"Missing controlflow JSON in {program_dir}")
     return {
         "program": program,
+        "program_id": program_id,
         "program_dir": str(program_dir),
         "cbl": str(cbl),
         "copybooks": str(copybooks),
@@ -275,7 +272,7 @@ def main() -> int:
     program_dirs = find_program_dirs(input_root, args.program)
     if not program_dirs:
         raise ConfigError(f"No program folders found under {input_root}")
-    programs = [validate_program_dir(program_dir) for program_dir in program_dirs]
+    programs = [validate_program_dir(program_dir, use_program_id=args.use_program_id) for program_dir in program_dirs]
 
     if args.cobol_rekt_rag_bundle and len(programs) != 1:
         raise ConfigError("--cobol-rekt-rag-bundle can only be used with one --program")
@@ -329,7 +326,7 @@ def main() -> int:
             "--rag-profile",
             args.rag_profile,
         ]
-        if args.use_program_id or needs_program_id_output(programs):
+        if args.use_program_id:
             cmd.append("--use-program-id")
         if args.optimize_constants:
             cmd.append("--optimize-constants")
