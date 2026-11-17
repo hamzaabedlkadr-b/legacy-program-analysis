@@ -424,7 +424,13 @@ def build_rag_docs(pf: ProgramFacts) -> List[Dict[str, Any]]:
     })
 
     # Program summary
-    summary_text = f"{p} is a COBOL CICS program discovered from MAPA."
+    # Positive CICS records establish CICS usage; their absence is not proof
+    # that this is a batch program (MAPA coverage may be incomplete).
+    cics_evidence = bool(pf.cics_ops) or any(
+        targets and kind.upper().startswith('CICS')
+        for kind, targets in list(pf.calls.items()) + list(pf.unresolved_calls.items()))
+    classification = 'COBOL with recorded CICS usage' if cics_evidence else 'COBOL'
+    summary_text = f"{p} is a {classification} program discovered from MAPA."
     if pf.loc is not None and pf.paragraphs is not None:
         summary_text += f" It contains approximately {pf.loc} LOC and {pf.paragraphs} paragraphs."
     if pf.file_path:
@@ -437,7 +443,7 @@ def build_rag_docs(pf: ProgramFacts) -> List[Dict[str, Any]]:
         summary_text += " MAPA emitted additional record types that this parser does not yet model (see unhandled docs)."
 
     summary_embedding = (
-        f"Program {p}. COBOL CICS. "
+        f"Program {p}. {classification}. "
         f"LOC={pf.loc}, paragraphs={pf.paragraphs}, statements={pf.statements}. "
         f"Source={pf.file_path or 'unknown'}. "
         f"Calls={sum(len(v) for v in pf.calls.values())}. "
@@ -452,6 +458,8 @@ def build_rag_docs(pf: ProgramFacts) -> List[Dict[str, Any]]:
         summary_text,
         {
             "source": "mapa_result",
+            "execution_environment": "cics_usage_recorded" if cics_evidence else "unknown",
+            "classification_basis": "positive MAPA CICS records" if cics_evidence else "MAPA does not establish execution environment",
             "file_timestamp": pf.file_timestamp,
             "loc": pf.loc,
             "paragraphs": pf.paragraphs,

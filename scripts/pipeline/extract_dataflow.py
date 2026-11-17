@@ -29,6 +29,10 @@ from typing import Dict, List, Optional, Set, Tuple
 # -----------------------------
 
 COBOL_KEYWORDS = {
+    # I/O exception clauses and their terminators are grammar, not operands.
+    "AT", "END", "INVALID", "KEY", "EXCEPTION", "OVERFLOW", "SIZE", "ERROR",
+    "END-WRITE", "END-REWRITE", "END-DELETE", "END-START", "END-CALL",
+    "END-STRING", "END-UNSTRING", "END-COMPUTE", "END-ADD", "END-SUBTRACT",
     "END-IF", "END-READ", "END-EVALUATE", "END-PERFORM", "END-EXEC",
     "IF", "ELSE", "EVALUATE", "WHEN", "PERFORM", "GO", "GOTO", "GO-TO",
     "MOVE", "COMPUTE", "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "SET",
